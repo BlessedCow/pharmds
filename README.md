@@ -91,6 +91,7 @@ pharmds/
 ├── docs/           # Scope, safety, and design documentation
 ├── tests/          # Unit and scenario tests
 ├── README.md
+├── ROADMAP.md
 ├── LICENSE
 └── DISCLAIMER.txt
 ```
