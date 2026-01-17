@@ -1,0 +1,38 @@
+{
+  "id": "PK_CYP2D6_INHIB_TRAMADOL",
+  "name": "CYP2D6 inhibition can alter tramadol effect and tolerability",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_change", "activation_change"],
+  "scenario": {
+    "classification": "reference",
+    "index_drug": "tramadol",
+    "confidence": "medium",
+    "notes": "Reference scenario: CYP2D6 inhibitor with tramadol (CYP2D6 involvement)."
+  },
+  "actions": [
+    "Monitor for reduced analgesic response and/or increased adverse effects depending on patient-specific factors (educational).",
+    "Consider alternatives if clinically appropriate."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP2D6",
+      "A_role": "substrate",
+      "B_role": "inhibitor"
+    },
+    "A_name_is": "tramadol",
+    "rationale": [
+      "{B_name} inhibits CYP2D6.",
+      "CYP2D6 contributes to tramadol metabolism and active metabolite formation.",
+      "Inhibition may change tramadol response and tolerability."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits CYP2D6 and tramadol has CYP2D6-dependent metabolism. This may alter tramadol response (including reduced activation) and change adverse effect risk.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "CYP2D6 inhibition can meaningfully affect drugs with CYP2D6-dependent clearance or activation; tramadol is commonly cited in teaching examples."
+    }
+  ]
+}

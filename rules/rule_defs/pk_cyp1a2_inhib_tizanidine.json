@@ -1,0 +1,37 @@
+{
+  "id": "PK_CYP1A2_INHIB_TIZANIDINE",
+  "name": "CYP1A2 inhibition can markedly increase tizanidine exposure",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_increase", "sedation_risk", "hypotension_risk"],
+  "scenario": {
+    "classification": "reference",
+    "index_drug": "tizanidine",
+    "confidence": "high",
+    "notes": "Reference scenario: CYP1A2 inhibitor with tizanidine (CYP1A2 substrate)."
+  },
+  "actions": [
+    "Avoid the combination when possible; consider alternatives.",
+    "If used, use reduced tizanidine dosing and close monitoring for hypotension and sedation (educational)."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP1A2",
+      "A_role": "substrate",
+      "B_role": "inhibitor"
+    },
+    "A_name_is": "tizanidine",
+    "rationale": [
+      "{B_name} inhibits CYP1A2, reducing metabolism of tizanidine.",
+      "Reduced clearance may increase tizanidine exposure and adverse effects."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits CYP1A2 and tizanidine is a CYP1A2 substrate. This may increase tizanidine exposure, raising risk of sedation and hypotension.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "CYP1A2 inhibition can substantially increase exposure of sensitive CYP1A2 substrates such as tizanidine."
+    }
+  ]
+}

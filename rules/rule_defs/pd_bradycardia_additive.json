@@ -1,0 +1,29 @@
+{
+  "id": "PD_BRADYCARDIA_ADDITIVE",
+  "name": "Additive bradycardia risk with multiple HR-lowering drugs",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Avoid combining multiple HR-lowering drugs when feasible (educational).",
+    "Monitor heart rate, blood pressure, dizziness, syncope symptoms.",
+    "Use extra caution with conduction disease or baseline bradycardia."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "bradycardia",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs lower heart rate.",
+      "Combined effects can increase symptomatic bradycardia risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both have HR-lowering (bradycardia) effects. Using them together can increase bradycardia-related risk.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive HR-lowering effects can increase symptomatic bradycardia risk."
+    }
+  ]
+}

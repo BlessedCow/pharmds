@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Set, Optional, Tuple
 ALLOWED_DOMAINS = {"PK", "PD"}
 ALLOWED_SEVERITIES = {"info", "caution", "major", "contraindicated"}
 ALLOWED_RULE_CLASSES = {"info", "caution", "adjust_monitor", "avoid"}
+ALLOWED_ROLES = {"substrate", "inhibitor", "inducer"}  # keep in sync with core.enums.Role
 
 REQUIRED_TOP_KEYS = {
     "id",
@@ -46,11 +47,26 @@ def _load_json(path: Path) -> Dict[str, Any]:
     except Exception as e:
         raise ValueError(f"Invalid JSON: {e}") from e
 
+def _load_transporter_ids(base_dir: Path) -> Set[str]:
+    """
+    Loads canonical transporter IDs from pharmds/data/transporters.json.
+    Returns a set of keys like {"P-gp", "OATP1B1", "BCRP"}.
+    """
+    path = base_dir / "data" / "transporters.json"
+    if not path.exists():
+        return set()
+
+    data = _load_json(path)
+    if not isinstance(data, dict):
+        raise ValueError("data/transporters.json must be a JSON object mapping transporter_id -> metadata")
+
+    return set(data.keys())
+
 def _find_placeholders(text: str) -> Set[str]:
     return {m.group(1) for m in PLACEHOLDER_RE.finditer(text or "")}
 
 
-def validate_rule(path: Path, raw: Dict[str, Any]) -> List[RuleError]:
+def validate_rule(path: Path, raw: Dict[str, Any], transporter_ids: Set[str]) -> List[RuleError]:
     errors: List[RuleError] = []
 
     # Required top-level keys
@@ -122,6 +138,30 @@ def validate_rule(path: Path, raw: Dict[str, Any]) -> List[RuleError]:
                 if k not in tr:
                     errors.append(RuleError(path.name, f"logic.transporter missing {k}"))
 
+            # Validate transporter id exists in canonical list
+            tid = tr.get("id")
+            if not isinstance(tid, str) or not tid.strip():
+                errors.append(RuleError(path.name, "logic.transporter.id must be a non-empty string"))
+            else:
+                if transporter_ids and tid not in transporter_ids:
+                    errors.append(
+                        RuleError(
+                            path.name,
+                            f"Unknown transporter id: {tid} (known: {sorted(transporter_ids)})"
+                        )
+                    )
+
+            # Validate roles are known
+            for role_key in ("A_role", "B_role"):
+                role_val = tr.get(role_key)
+                if role_val is not None and role_val not in ALLOWED_ROLES:
+                    errors.append(
+                        RuleError(
+                            path.name,
+                            f"logic.transporter.{role_key} must be one of {sorted(ALLOWED_ROLES)} (got: {role_val})"
+                        )
+                    )
+
     if "pd_overlap" in logic:
         pd = logic["pd_overlap"]
         if not isinstance(pd, dict):
@@ -135,6 +175,7 @@ def validate_rule(path: Path, raw: Dict[str, Any]) -> List[RuleError]:
 
 def main() -> int:
     base_dir = Path(__file__).resolve().parents[1]
+    transporter_ids = _load_transporter_ids(base_dir)
     rule_dir = base_dir / "rules" / "rule_defs"
 
     if not rule_dir.exists():
@@ -150,7 +191,7 @@ def main() -> int:
     for p in files:
         try:
             raw = _load_json(p)
-            all_errors.extend(validate_rule(p, raw))
+            all_errors.extend(validate_rule(p, raw, transporter_ids))
         except Exception as e:
             all_errors.append(RuleError(p.name, str(e)))
 

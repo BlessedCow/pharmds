@@ -1,0 +1,30 @@
+{
+  "id": "PK_CYP1A2_INHIB_SUBSTRATE",
+  "name": "CYP1A2 inhibition can increase exposure of CYP1A2 substrates",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_increase"],
+  "actions": [
+    "Avoid or use caution when combining CYP1A2 inhibitors with sensitive substrates.",
+    "Monitor for excessive sedation, hypotension, or other toxicity depending on the substrate."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP1A2",
+      "A_role": "substrate",
+      "B_role": "inhibitor"
+    },
+    "rationale": [
+      "{B_name} inhibits CYP1A2, reducing metabolism of {A_name}.",
+      "Reduced clearance may increase systemic exposure and adverse effects."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits CYP1A2 and {A_name} is a CYP1A2 substrate. This may increase {A_name} exposure and toxicity risk.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "CYP inhibition can increase exposure of CYP substrates; clinical impact varies by substrate sensitivity."
+    }
+  ]
+}

@@ -33,6 +33,7 @@ def seed(conn: sqlite3.Connection) -> None:
         ("CYP2C19", "CYP", "Relevant for clopidogrel activation and some SSRIs/benzos."),
         ("CYP2D6", "CYP", "Relevant for codeine/tramadol activation, many antidepressants."),
         ("CYP1A2", "CYP", "Affected by inhibitors and smoking induction (later)."),
+        ("CYP2B6", "CYP", "Primary pathway for bupropion metabolism (educational)."),
     ]
     for e in enzymes:
         upsert(conn, "INSERT OR REPLACE INTO enzyme(id,family,description) VALUES(?,?,?)", e)
@@ -52,11 +53,13 @@ def seed(conn: sqlite3.Connection) -> None:
         ("bleeding", "Bleeding risk domain."),
         ("anticholinergic", "Anticholinergic burden domain."),
         ("hypotension", "Orthostasis/hypotension domain."),
+        ("bradycardia", "Heart rate lowering / symptomatic bradycardia risk domain."),
+        ("serotonin_syndrome", "Serotonin toxicity syndrome risk domain (educational)."),
     ]
     for pe in pd_effects:
         upsert(conn, "INSERT OR REPLACE INTO pd_effect(id,description) VALUES(?,?)", pe)
 
-    # Drugs (16)
+    # Drugs (25)
     drugs = [
         ("midazolam", "midazolam", "benzodiazepine", "moderate", "Educational CYP3A4 substrate anchor."),
         ("clarithromycin", "clarithromycin", "macrolide antibiotic", "moderate", "Educational strong CYP3A4 inhibitor anchor."),
@@ -74,6 +77,14 @@ def seed(conn: sqlite3.Connection) -> None:
         ("ondansetron", "ondansetron", "antiemetic", "moderate", "QT domain co-prescription anchor."),
         ("celecoxib", "celecoxib", "NSAID", "moderate", "CYP2C9 substrate; teaching point for inhibition."),
         ("ciprofloxacin", "ciprofloxacin", "fluoroquinolone antibiotic", "moderate", "CYP1A2 inhibitor anchor (for later)."),
+        ("verapamil", "verapamil", "calcium channel blocker", "moderate", "CYP3A4 and P-gp inhibitor; later use."),
+        ("gabapentin", "gabapentin", "gabapentinoid", "moderate", "Renal clearance dominant; minimal CYP involvement (educational)."),
+        ("naltrexone", "naltrexone", "opioid antagonist", "moderate", "Used for AUD/OUD; limited CYP involvement (educational)."),
+        ("bupropion", "bupropion", "aminoketone antidepressant", "moderate", "CYP2B6 substrate; CYP2D6 inhibitor (educational anchor)."),
+        ("tizanidine", "tizanidine", "alpha-2 agonist muscle relaxant", "moderate", "CYP1A2 substrate; sedation + hypotension domains (educational anchor)."),
+        ("propranolol", "propranolol", "beta blocker", "moderate", "Nonselective beta blocker; useful hemodynamic PD anchor (educational)."),
+        ("clonidine", "clonidine", "alpha-2 agonist", "moderate", "Alpha-2 agonist; hypotension/bradycardia/sedation domains (educational)."),
+        ("desvenlafaxine", "desvenlafaxine", "SNRI antidepressant", "moderate", "SNRI; minimal CYP involvement relative to venlafaxine (educational)."),
     ]
     for d in drugs:
         upsert(conn, "INSERT OR REPLACE INTO drug(id,generic_name,drug_class,therapeutic_index,notes) VALUES(?,?,?,?,?)", d)
@@ -96,6 +107,14 @@ def seed(conn: sqlite3.Connection) -> None:
         ("ondansetron", "zofran"),
         ("celecoxib", "celebrex"),
         ("ciprofloxacin", "cipro"),
+        ("verapamil", "calan"),
+        ("gabapentin", "neurontin"),
+        ("naltrexone", "revia"),
+        ("bupropion", "wellbutrin"),
+        ("tizanidine", "zanaflex"),
+        ("propranolol", "inderal"),
+        ("clonidine", "catapres"),
+        ("desvenlafaxine", "pristiq"),
     ]
     for drug_id, alias in aliases:
         upsert(conn, "INSERT OR IGNORE INTO drug_alias(drug_id,alias) VALUES(?,?)", (drug_id, alias.lower()))
@@ -119,8 +138,22 @@ def seed(conn: sqlite3.Connection) -> None:
         ("diazepam", "CYP2C19", "substrate", None, 0.3, "CYP2C19 contributes to clearance (educational)."),
 
         # CYP2D6 (activation)
-        ("tramadol", "CYP2D6", "substrate", None, 0.4, "Represents activation pathway (educational)."),
+        ("tramadol", "CYP2D6", "substrate", None, 0.4, "CYP2D6 involved in metabolism/activation (educational)."),
         ("amitriptyline", "CYP2D6", "substrate", None, 0.3, "CYP2D6 contributes (educational)."),
+        
+        # CYP2B6 substrate 
+        ("bupropion", "CYP2B6", "substrate", None, 0.6, "Predominant CYP2B6 clearance (educational)."),
+        
+        # CYP2D6 inhibitor
+        ("bupropion", "CYP2D6", "inhibitor", "strong", None, "Strong CYP2D6 inhibition (educational anchor)."),
+
+        # CYP2D6 substrate
+        ("propranolol", "CYP2D6", "substrate", None, 0.3, "CYP2D6 contributes to propranolol clearance (educational)."),
+        
+        # CYP1A2 substrate
+        ("tizanidine", "CYP1A2", "substrate", None, 0.7, "CYP1A2 substrate; inhibition can raise exposure (educational)."),
+        ("ciprofloxacin", "CYP1A2", "inhibitor", "moderate", None, "CYP1A2 inhibition (educational anchor)."),
+
     ]
     for drug_id, enzyme_id, role, strength, fm, notes in roles:
         upsert(
@@ -136,6 +169,7 @@ def seed(conn: sqlite3.Connection) -> None:
     t_roles = [
         ("digoxin", "P-gp", "substrate", None, "P-gp substrate (educational)."),
         ("clarithromycin", "P-gp", "inhibitor", "moderate", "May inhibit P-gp (educational). Keep conservative."),
+        ("verapamil", "P-gp", "inhibitor", "moderate", "P-gp inhibitor (educational reference)."),
     ]
     for drug_id, transporter_id, role, strength, notes in t_roles:
         upsert(
@@ -149,25 +183,42 @@ def seed(conn: sqlite3.Connection) -> None:
 
     # PD profiles
     pd_profiles = [
+        ("amitriptyline", "anticholinergic", "increase", "high", "Anticholinergic burden domain."),
+        
         ("warfarin", "bleeding", "increase", "high", "Anticoagulant effect domain."),
         ("clopidogrel", "bleeding", "increase", "medium", "Antiplatelet effect domain."),
         ("celecoxib", "bleeding", "increase", "low", "NSAID-related bleeding risk domain (educational)."),
 
+        ("propranolol", "bradycardia", "increase", "high", "Beta blockade; HR-lowering domain (educational)."),
+        ("clonidine", "bradycardia", "increase", "high", "Alpha-2 agonism; HR-lowering domain (educational)."),
+
+
         ("diazepam", "CNS_depression", "increase", "high", "Sedation/resp depression domain."),
         ("midazolam", "CNS_depression", "increase", "high", "Sedation/resp depression domain."),
         ("quetiapine", "CNS_depression", "increase", "medium", "Sedation domain."),
+        ("gabapentin", "CNS_depression", "increase", "medium", "Sedation/dizziness domain (educational)."),
+        ("tizanidine", "CNS_depression", "increase", "medium", "Sedation domain (educational)."),
+        ("clonidine", "CNS_depression", "increase", "medium", "Sedation/fatigue domain (educational)."),
+        
+        ("tizanidine", "hypotension", "increase", "high", "Alpha-2 agonism; orthostasis/hypotension domain."),
         ("quetiapine", "hypotension", "increase", "medium", "Orthostasis domain."),
-
+        ("propranolol", "hypotension", "increase", "medium", "BP-lowering effects; additive hypotension risk (educational)."),
+        ("clonidine", "hypotension", "increase", "high", "Alpha-2 agonism; hypotension/orthostasis risk (educational)."),
+        
         ("sertraline", "serotonergic", "increase", "medium", "SSRI serotonin domain."),
         ("citalopram", "serotonergic", "increase", "medium", "SSRI serotonin domain."),
         ("tramadol", "serotonergic", "increase", "medium", "Serotonin-reuptake component domain."),
         ("amitriptyline", "serotonergic", "increase", "low", "Serotonergic component domain."),
 
+        ("desvenlafaxine", "serotonin_syndrome", "increase", "medium", "Serotonergic agent; syndrome risk increases with combinations (educational)."),
+        ("sertraline", "serotonin_syndrome", "increase", "medium", "SSRI; syndrome risk increases with combinations (educational)."),
+        ("citalopram", "serotonin_syndrome", "increase", "medium", "SSRI; syndrome risk increases with combinations (educational)."),
+        ("tramadol", "serotonin_syndrome", "increase", "medium", "Serotonergic component; syndrome risk increases with combinations (educational)."),
+
         ("citalopram", "QT_prolongation", "increase", "high", "QT domain."),
         ("ondansetron", "QT_prolongation", "increase", "medium", "QT domain."),
         ("amitriptyline", "QT_prolongation", "increase", "medium", "QT domain."),
 
-        ("amitriptyline", "anticholinergic", "increase", "high", "Anticholinergic burden domain."),
     ]
     for drug_id, eff, direction, mag, note in pd_profiles:
         upsert(

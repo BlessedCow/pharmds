@@ -1,0 +1,29 @@
+{
+  "id": "PD_SEROTONIN_SYNDROME_ADDITIVE",
+  "name": "Increased serotonin syndrome risk with multiple serotonergic drugs",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Avoid unnecessary combinations of serotonergic drugs (educational).",
+    "Monitor for symptoms of serotonin toxicity (agitation, tremor, hyperreflexia, diaphoresis, fever).",
+    "Use extra caution when adding or increasing serotonergic agents."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "serotonin_syndrome",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs increase serotonin-toxicity liability.",
+      "Combined serotonergic effects can increase syndrome risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both increase serotonin syndrome risk. Combined use can increase serotonin toxicity risk, especially with higher doses or additional serotonergic agents.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: multiple serotonergic agents increase serotonin toxicity risk."
+    }
+  ]
+}

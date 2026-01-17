@@ -1,0 +1,23 @@
+{
+  "P-gp": {
+    "name": "P-glycoprotein",
+    "gene": "ABCB1",
+    "type": "efflux",
+    "primary_sites": ["intestine", "liver", "kidney"],
+    "description": "Efflux transporter affecting absorption and elimination"
+  },
+  "OATP1B1": {
+    "name": "Organic Anion Transporting Polypeptide 1B1",
+    "gene": "SLCO1B1",
+    "type": "uptake",
+    "primary_sites": ["liver"],
+    "description": "Hepatic uptake transporter"
+  },
+  "BCRP": {
+    "name": "Breast Cancer Resistance Protein",
+    "gene": "ABCG2",
+    "type": "efflux",
+    "primary_sites": ["intestine", "liver"],
+    "description": "Efflux transporter involved in drug disposition"
+  }
+}

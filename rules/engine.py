@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from core.enums import Domain, Severity, RuleClass
 from core.models import Facts, RuleHit
+from data.loaders import load_transporters
 
 
 @dataclass(frozen=True)
@@ -24,6 +25,7 @@ class Rule:
     actions: List[str] = field(default_factory=list)
     tags: List[str] = field(default_factory=list)
 
+TRANSPORTERS = load_transporters()
 
 def load_rules(rule_dir: Path) -> List[Rule]:
     rules: List[Rule] = []
