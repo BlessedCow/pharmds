@@ -17,7 +17,7 @@
     },
     "A_ti": "narrow",
     "rationale": [
-      "B inhibits P-gp, reducing efflux of A.",
+      "{B_name} inhibits P-gp, reducing efflux of {A_name}.",
       "Even modest exposure increases may be clinically important for narrow-TI drugs."
     ]
   },

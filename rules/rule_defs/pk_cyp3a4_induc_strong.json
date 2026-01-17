@@ -17,8 +17,8 @@
       "B_strength": "strong"
     },
     "rationale": [
-      "B induces CYP3A4, increasing metabolic capacity for A.",
-      "Induction develops over days to weeks and may persist after stopping B."
+      "{B_name} induces CYP3A4, increasing metabolic capacity for {A_name}.",
+      "Induction develops over days to weeks and may persist after stopping {B_name}."
     ]
   },
   "explanation_template": "{B_name} strongly induces CYP3A4 and {A_name} is a CYP3A4 substrate. This can reduce {A_name} exposure over time, increasing the risk of reduced therapeutic effect.",

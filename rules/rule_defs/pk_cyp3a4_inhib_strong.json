@@ -17,8 +17,8 @@
       "B_strength": "strong"
     },
     "rationale": [
-      "B inhibits CYP3A4, a major metabolic pathway for A.",
-      "Reduced metabolism can increase A systemic exposure and peak concentrations."
+      "{B_name} inhibits {enzyme_id}, a major metabolic pathway for {A_name}.",
+      "Reduced metabolism can increase {A_name} systemic exposure and peak concentrations."
     ]
   },
   "explanation_template": "{B_name} is a strong CYP3A4 inhibitor and {A_name} is a CYP3A4 substrate. This can increase {A_name} exposure, raising the risk of dose-related adverse effects.",

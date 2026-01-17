@@ -9,6 +9,10 @@ def _drug_name(facts: Facts, drug_id: str) -> str:
     d = facts.drugs.get(drug_id)
     return d.generic_name if d else drug_id
 
+def _format_text(text: str, mapping: Dict[str, str]) -> str:
+    for k, v in mapping.items():
+        text = text.replace("{" + k + "}", v)
+    return text
 
 def render_explanation(template: str, facts: Facts, hit: RuleHit) -> str:
     mapping: Dict[str, str] = {
@@ -30,10 +34,14 @@ def render_explanation(template: str, facts: Facts, hit: RuleHit) -> str:
 def render_rationale(facts: Facts, hit: RuleHit) -> str:
     if not hit.rationale:
         return ""
-    A = _drug_name(facts, hit.inputs["A"])
-    B = _drug_name(facts, hit.inputs["B"])
-
+    mapping = {
+        "A_name": _drug_name(facts, hit.inputs["A"]),
+        "B_name": _drug_name(facts, hit.inputs["B"]),
+        "enzyme_id": str(hit.inputs.get("enzyme_id", "")),
+        "transporter_id": str(hit.inputs.get("transporter_id", "")),
+        "effect_id": str(hit.inputs.get("effect_id", "")),
+    }
     bullets = []
     for line in hit.rationale:
-        bullets.append(f"- {line.replace('A', A).replace('B', B)}")
+        bullets.append("- " + _format_text(line, mapping))
     return "\n".join(bullets)
