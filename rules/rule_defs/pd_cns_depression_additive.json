@@ -1,0 +1,29 @@
+{
+  "id": "PD_CNS_DEP_ADDITIVE",
+  "name": "Additive CNS depression with multiple sedating drugs",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Limit concurrent use of multiple sedating medications when possible.",
+    "Counsel regarding sedation, falls, and impaired cognition.",
+    "Use extra caution in older adults or those with respiratory risk."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "CNS_depression",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs contribute to CNS depression.",
+      "Combined sedation increases fall and respiratory depression risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both contribute to CNS depression. Together they can significantly increase sedation and impairment risk.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive CNS depressant effects increase harm risk."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "PK_PGP_INHIB_DIGOXIN",
+  "name": "P-gp inhibition can increase exposure of P-gp substrates",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when combining P-gp inhibitors with narrow-TI substrates.",
+    "Monitor for toxicity symptoms related to increased exposure.",
+    "Recognize that transporter effects can be context-dependent."
+  ],
+  "logic": {
+    "transporter": {
+      "id": "P-gp",
+      "A_role": "substrate",
+      "B_role": "inhibitor"
+    },
+    "A_ti": "narrow",
+    "rationale": [
+      "B inhibits P-gp, reducing efflux of A.",
+      "Even modest exposure increases may be clinically important for narrow-TI drugs."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits P-gp and {A_name} is a P-gp substrate with a narrow therapeutic index. This can increase systemic exposure and toxicity risk.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Transporter inhibition + narrow therapeutic index increases risk even with modest changes."
+    }
+  ]
+}

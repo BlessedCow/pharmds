@@ -1,0 +1,28 @@
+{
+  "id": "PD_SEROTONERGIC_ADDITIVE",
+  "name": "Additive serotonergic burden",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "caution",
+  "actions": [
+    "Avoid unnecessary combinations of serotonergic agents.",
+    "Monitor for early signs of serotonin toxicity (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "serotonergic",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs increase serotonergic tone.",
+      "Combined serotonergic effects increase toxicity risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both increase serotonergic activity. Combined use increases serotonergic toxicity risk, particularly with higher doses or additional serotonergic agents.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive serotonergic effects."
+    }
+  ]
+}

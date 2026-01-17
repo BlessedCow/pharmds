@@ -1,0 +1,29 @@
+{
+  "id": "PK_CYP2C19_INHIB_CLOPIDOGREL",
+  "name": "CYP2C19 inhibition can reduce activation of clopidogrel",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Consider alternative antiplatelet therapy not dependent on CYP2C19 activation (educational).",
+    "Be aware this interaction reduces efficacy rather than increasing toxicity."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP2C19",
+      "A_role": "substrate",
+      "B_role": "inhibitor"
+    },
+    "rationale": [
+      "Clopidogrel is a prodrug requiring CYP2C19-mediated activation.",
+      "Reduced activation can lower antiplatelet effect."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits CYP2C19 and {A_name} relies on CYP2C19 for activation. This can reduce formation of the active metabolite and decrease antiplatelet effect.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Prodrug pattern: pathway inhibition can reduce therapeutic activation."
+    }
+  ]
+}

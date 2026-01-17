@@ -1,0 +1,32 @@
+{
+  "id": "PK_CYP2C9_INHIB_WARFARIN",
+  "name": "CYP2C9 inhibition increases warfarin exposure and bleeding risk",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Consider a non-interacting alternative when possible (educational).",
+    "If coadministered, emphasize closer INR monitoring.",
+    "Counsel regarding signs of bleeding."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP2C9",
+      "A_role": "substrate",
+      "B_role": "inhibitor"
+    },
+    "A_ti": "narrow",
+    "rationale": [
+      "Warfarin has a narrow therapeutic index.",
+      "CYP2C9 is an important clearance pathway for warfarin.",
+      "Reduced clearance can increase anticoagulant effect and bleeding risk."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits CYP2C9 and {A_name} is a CYP2C9 substrate with a narrow therapeutic index. This can increase anticoagulant effect and bleeding risk.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "High-risk pattern: narrow therapeutic index substrate plus metabolic inhibition."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "PK_CYP3A4_STRONG_INDUC",
+  "name": "Strong CYP3A4 induction decreases exposure of CYP3A4 substrates",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Consider alternatives to the inducer when therapeutic effect is critical.",
+    "Monitor for reduced efficacy of the affected drug.",
+    "Remember that induction effects are delayed and persist after discontinuation."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP3A4",
+      "A_role": "substrate",
+      "B_role": "inducer",
+      "B_strength": "strong"
+    },
+    "rationale": [
+      "B induces CYP3A4, increasing metabolic capacity for A.",
+      "Induction develops over days to weeks and may persist after stopping B."
+    ]
+  },
+  "explanation_template": "{B_name} strongly induces CYP3A4 and {A_name} is a CYP3A4 substrate. This can reduce {A_name} exposure over time, increasing the risk of reduced therapeutic effect.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Mechanistic pattern: enzyme induction increases clearance and lowers exposure."
+    }
+  ]
+}

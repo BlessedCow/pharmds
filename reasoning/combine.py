@@ -1,0 +1,87 @@
+from __future__ import annotations
+
+from collections import defaultdict
+from typing import Dict, List, Tuple
+
+from core.enums import Domain, Severity, RuleClass
+from core.models import Facts, PairReport, RuleHit
+from reasoning.explain import render_explanation, render_rationale
+
+_SEV_RANK = {
+    Severity.info: 0,
+    Severity.caution: 1,
+    Severity.major: 2,
+    Severity.contraindicated: 3,
+}
+
+_CLASS_RANK = {
+    RuleClass.info: 0,
+    RuleClass.caution: 1,
+    RuleClass.adjust_monitor: 2,
+    RuleClass.avoid: 3,
+}
+
+def _max_sev(hits: List[RuleHit]) -> Severity:
+    return max((h.severity for h in hits), key=lambda s: _SEV_RANK[s])
+
+def _max_class(hits: List[RuleHit]) -> RuleClass:
+    return max((h.rule_class for h in hits), key=lambda c: _CLASS_RANK[c])
+
+def build_pair_reports(
+    facts: Facts,
+    hits: List[RuleHit],
+    rule_templates: Dict[str, str],
+) -> List[PairReport]:
+    """
+    Group by unordered pair (stable by drug_id ordering), then split into PK/PD sections.
+    PK hits remain directional (A affected, B interacting) and should be displayed as such.
+    """
+    grouped: Dict[Tuple[str, str], List[RuleHit]] = defaultdict(list)
+
+    for h in hits:
+        a = h.inputs["A"]
+        b = h.inputs["B"]
+        d1, d2 = (a, b) if a < b else (b, a)
+        grouped[(d1, d2)].append(h)
+
+    reports: List[PairReport] = []
+    for (d1, d2), pair_hits in grouped.items():
+        pk_hits = [h for h in pair_hits if h.domain == Domain.PK]
+        pd_hits = [h for h in pair_hits if h.domain == Domain.PD]
+
+        overall = pair_hits[:]  # all hits drive overall labels
+        rep = PairReport(
+            drug_1=d1,
+            drug_2=d2,
+            overall_severity=_max_sev(overall),
+            overall_rule_class=_max_class(overall),
+            pk_hits=_dedupe_hits(pk_hits, facts, rule_templates),
+            pd_hits=_dedupe_hits(pd_hits, facts, rule_templates),
+        )
+        reports.append(rep)
+
+    reports.sort(key=lambda r: (-_SEV_RANK[r.overall_severity], r.drug_1, r.drug_2))
+    return reports
+
+def _dedupe_hits(hits: List[RuleHit], facts: Facts, rule_templates: Dict[str, str]) -> List[RuleHit]:
+    """
+    Optional: dedupe identical hits caused by multiple rules or repeated matches.
+    For PK, keep directionality, so dedupe key includes A,B,rule_id.
+    For PD, duplicates should already be prevented, but we keep this anyway.
+    """
+    seen = set()
+    out = []
+    for h in hits:
+        key = (h.rule_id, h.inputs.get("A"), h.inputs.get("B"), h.domain.value)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        # Pre-render explanation for downstream display convenience (optional)
+        template = rule_templates.get(h.rule_id, "")
+        if template:
+            _ = render_explanation(template, facts, h)  # just validates placeholders
+        out.append(h)
+
+    out.sort(key=lambda x: (-_SEV_RANK[x.severity], x.rule_id))
+    return out

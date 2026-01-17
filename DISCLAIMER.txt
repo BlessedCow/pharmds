@@ -1,0 +1,18 @@
+DISCLAIMER
+
+This software is provided strictly for educational and informational purposes.
+
+It is NOT intended to be used for:
+- Medical diagnosis
+- Clinical decision-making
+- Prescribing or adjusting medications
+- Patient-specific treatment decisions
+
+This tool does not replace professional judgment, clinical guidelines, or
+consultation with qualified healthcare professionals.
+
+No guarantees are made regarding the accuracy, completeness, or applicability
+of the information produced by this software.
+
+By using this software, you acknowledge and agree that the author(s) assume
+no responsibility or liability for any outcomes resulting from its use.

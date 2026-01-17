@@ -1,0 +1,29 @@
+{
+  "id": "PD_BLEEDING_ADDITIVE",
+  "name": "Additive bleeding risk with multiple bleeding-risk drugs",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Avoid overlapping bleeding-risk drugs when feasible.",
+    "Counsel regarding bleeding signs and symptoms.",
+    "Assess individual bleeding risk factors."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "bleeding",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs increase bleeding risk.",
+      "Combined effects increase overall bleeding liability."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both increase bleeding risk. Combined use can significantly increase bleeding liability.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive bleeding risk across antithrombotic domains."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "PK_CYP3A4_STRONG_INHIB",
+  "name": "Strong CYP3A4 inhibition increases exposure of CYP3A4 substrates",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Consider alternative to the CYP3A4 inhibitor when feasible (educational).",
+    "If used together, monitor for dose-related adverse effects of the affected drug.",
+    "Be cautious with sedating or hypotensive substrates."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP3A4",
+      "A_role": "substrate",
+      "B_role": "inhibitor",
+      "B_strength": "strong"
+    },
+    "rationale": [
+      "B inhibits CYP3A4, a major metabolic pathway for A.",
+      "Reduced metabolism can increase A systemic exposure and peak concentrations."
+    ]
+  },
+  "explanation_template": "{B_name} is a strong CYP3A4 inhibitor and {A_name} is a CYP3A4 substrate. This can increase {A_name} exposure, raising the risk of dose-related adverse effects.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Mechanistic pattern: strong enzyme inhibition + substrate increases exposure."
+    }
+  ]
+}

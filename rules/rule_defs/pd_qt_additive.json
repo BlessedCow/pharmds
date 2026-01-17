@@ -1,0 +1,18 @@
+{
+  "id": "PD_QT_ADDITIVE",
+  "name": "Additive QT prolongation risk with multiple QT-prolonging drugs",
+  "domain": "PD",
+  "severity": "major",
+  "logic": {
+    "pd_overlap": { "effect_id": "QT_prolongation", "min_magnitude": "medium" },
+    "rationale": [
+      "Both drugs contribute to QT prolongation risk domain.",
+      "Combined effects can increase torsades risk, especially with additional risk factors."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both have QT-prolongation liability. Using them together can increase QT-related risk. Patient-specific factors (electrolytes, baseline QT, bradycardia, other QT drugs) strongly modify real-world risk.",
+  "references": [
+    { "source": "Educational note", "citation": "PD stacking: shared QT domain implies additive risk." }
+  ]
+}
+

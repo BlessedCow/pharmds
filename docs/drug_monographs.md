@@ -1,0 +1,1 @@
+# educational-only framing + per-drug notes
