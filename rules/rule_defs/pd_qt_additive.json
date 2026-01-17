@@ -3,6 +3,12 @@
   "name": "Additive QT prolongation risk with multiple QT-prolonging drugs",
   "domain": "PD",
   "severity": "major",
+  "rule_class": "avoid",
+  "actions": [
+    "Avoid concurrent use of multiple QT-prolonging drugs when possible.",
+    "Monitor ECG and electrolytes in high-risk patients.",
+    "Assess patient-specific risk factors for QT prolongation."
+  ],
   "logic": {
     "pd_overlap": { "effect_id": "QT_prolongation", "min_magnitude": "medium" },
     "rationale": [
