@@ -18,21 +18,40 @@ It is intended for education, internal discussion, and learning, not for prescri
 
 ============================================================
 
+
 ## EXAMPLE OUTPUT
 
 ```
-EDUCATIONAL ONLY - NOT DIAGNOSTIC
-
 clarithromycin + quetiapine
 Overall: severity=major | class=adjust_monitor
 
 PK section (directional):
 - [major | adjust_monitor] Strong CYP3A4 inhibition increases exposure of CYP3A4 substrates
   Affected: quetiapine | Interacting: clarithromycin
-  Explanation: clarithromycin is a strong CYP3A4 inhibitor and quetiapine is a CYP3A4 substrate.
+  Explanation: clarithromycin is a strong CYP3A4 inhibitor and quetiapine is a CYP3A4 substrate. This can increase quetiapine exposure, raising the risk of dose-related adverse effects.
+  Rationale:
+   - clarithromycin inhibits CYP3A4, a major metabolic pathway for quetiapine.
+   - Reduced metabolism can increase quetiapine systemic exposure and peak concentrations.
   Suggested actions:
-   - Consider alternative to the CYP3A4 inhibitor when feasible
-   - Monitor for dose-related adverse effects
+   - Consider alternative to the CYP3A4 inhibitor when feasible (educational).
+   - If used together, monitor for dose-related adverse effects of the affected drug.
+   - Be cautious with sedating or hypotensive substrates.
+
+PD section (shared domain):
+- [major | adjust_monitor] Increased exposure may amplify CNS depression effects
+  Rationale:
+   - quetiapine has CNS-depressant effects.
+   - Rules indicate increased exposure of quetiapine, which may amplify sedation-related adverse effects.
+  Suggested actions:
+   - Use caution with sedation and impairment risk.
+   - Consider reducing overlapping sedatives and monitoring for oversedation (educational).
+
+References (rule-level):
+- Educational note: Composite: PK exposure increase can amplify PD effects.
+- Educational note: Mechanistic pattern: strong enzyme inhibition + substrate increases exposure.
+
+================================================================================
+Footer: This output is an educational mechanistic explanation. Verify with primary sources.
 ```
 
 ============================================================
@@ -63,15 +82,17 @@ The order of drugs does not matter. The tool determines interaction directionali
 ## PROJECT STRUCTURE
 
 ```
-app/
- ├── cli.py            CLI entry point
- ├── engine/           Core interaction logic
- ├── data/             Drug and enzyme reference data
- ├── rules/            PK/PD interaction rules
- └── utils/            Helpers and formatting
-
-tests/
- └── test_interactions.py
+pharmds/
+├── app/            # CLI and API entry points
+├── core/           # Core domain models, enums, and evidence types
+├── reasoning/      # PK/PD reasoning and explanation logic
+├── rules/          # Interaction rules and decision engine
+├── data/           # Local drug data and loaders
+├── docs/           # Scope, safety, and design documentation
+├── tests/          # Unit and scenario tests
+├── README.md
+├── LICENSE
+└── DISCLAIMER.txt
 ```
 
 ============================================================
