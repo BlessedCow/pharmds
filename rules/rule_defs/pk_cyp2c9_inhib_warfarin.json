@@ -4,6 +4,7 @@
   "domain": "PK",
   "severity": "major",
   "rule_class": "adjust_monitor",
+  "tags": ["exposure_increase"],
   "actions": [
     "Consider a non-interacting alternative when possible (educational).",
     "If coadministered, emphasize closer INR monitoring.",

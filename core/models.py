@@ -60,6 +60,7 @@ class RuleHit:
     inputs: Dict[str, Any] = field(default_factory=dict)
     rationale: List[str] = field(default_factory=list)
     references: List[Dict[str, str]] = field(default_factory=list)
+    tags: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -72,19 +73,7 @@ class InteractionFinding:
     summary: str
     explanation: str
     rule_hits: List[RuleHit] = field(default_factory=list)
-
-@dataclass
-class RuleHit:
-    rule_id: str
-    name: str
-    domain: Domain
-    severity: Severity
-    rule_class: RuleClass
-    actions: List[str] = field(default_factory=list)     # short actionable bullets
-    inputs: Dict[str, Any] = field(default_factory=dict)
-    rationale: List[str] = field(default_factory=list)
-    references: List[Dict[str, str]] = field(default_factory=list)
-    
+  
 @dataclass
 class PairReport:
     drug_1: str                 # stable ordering by id

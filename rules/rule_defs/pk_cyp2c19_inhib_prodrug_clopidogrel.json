@@ -4,6 +4,7 @@
   "domain": "PK",
   "severity": "major",
   "rule_class": "adjust_monitor",
+  "tags": ["activation_decrease"],
   "actions": [
     "Consider alternative antiplatelet therapy not dependent on CYP2C19 activation (educational).",
     "Be aware this interaction reduces efficacy rather than increasing toxicity."

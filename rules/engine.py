@@ -1,9 +1,8 @@
 # rule evaluation + trace
-
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -18,10 +17,12 @@ class Rule:
     domain: Domain
     severity: Severity
     rule_class: RuleClass
-    actions: List[str]
     logic: Dict[str, Any]
     explanation_template: str
     references: List[Dict[str, str]]
+    # Defaults last
+    actions: List[str] = field(default_factory=list)
+    tags: List[str] = field(default_factory=list)
 
 
 def load_rules(rule_dir: Path) -> List[Rule]:
@@ -35,10 +36,11 @@ def load_rules(rule_dir: Path) -> List[Rule]:
                 domain=Domain(raw["domain"]),
                 severity=Severity(raw["severity"]),
                 rule_class=RuleClass(raw.get("rule_class", "caution")),
-                actions=raw.get("actions", []),
                 logic=raw["logic"],
                 explanation_template=raw["explanation_template"],
                 references=raw.get("references", []),
+                actions=raw.get("actions", []),
+                tags=raw.get("tags", []),
             )
         )
     return rules
@@ -166,6 +168,7 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
         severity=rule.severity,
         rule_class=rule.rule_class,
         actions=rule.actions,
+        tags=rule.tags,
         inputs=inputs,
         rationale=rationale,
         references=rule.references,

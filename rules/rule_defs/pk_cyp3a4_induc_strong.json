@@ -4,6 +4,7 @@
   "domain": "PK",
   "severity": "major",
   "rule_class": "adjust_monitor",
+  "tags": ["exposure_decrease"],
   "actions": [
     "Consider alternatives to the inducer when therapeutic effect is critical.",
     "Monitor for reduced efficacy of the affected drug.",

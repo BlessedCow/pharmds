@@ -4,6 +4,7 @@
   "domain": "PK",
   "severity": "major",
   "rule_class": "adjust_monitor",
+  "tags": ["exposure_increase"],
   "actions": [
     "Consider alternative to the CYP3A4 inhibitor when feasible (educational).",
     "If used together, monitor for dose-related adverse effects of the affected drug.",

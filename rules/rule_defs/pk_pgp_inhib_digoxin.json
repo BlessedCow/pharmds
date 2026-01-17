@@ -4,6 +4,7 @@
   "domain": "PK",
   "severity": "major",
   "rule_class": "adjust_monitor",
+  "tags": ["exposure_increase"],
   "actions": [
     "Use caution when combining P-gp inhibitors with narrow-TI substrates.",
     "Monitor for toxicity symptoms related to increased exposure.",
