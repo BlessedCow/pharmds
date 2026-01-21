@@ -21,7 +21,8 @@
     "transporter": {
       "id": "P-gp",
       "A_role": "substrate",
-      "B_role": "inhibitor"
+      "B_role": "inhibitor",
+      "B_strength_in": ["moderate", "strong"]
     },
     "A_ti": "narrow",
     "rationale": [

@@ -11,6 +11,7 @@ from core.models import Facts, RuleHit
 from data.loaders import load_transporters
 
 
+
 @dataclass(frozen=True)
 class Rule:
     id: str
@@ -26,6 +27,27 @@ class Rule:
     tags: List[str] = field(default_factory=list)
 
 TRANSPORTERS = load_transporters()
+
+def rule_mechanisms(rule: Rule) -> List[str]:
+    """
+    Infer mechanism tags from a rule's logic block.
+    Used for CLI filtering (CYP vs P-gp vs PD) without hardcoding rule IDs.
+    """
+    L = rule.logic or {}
+    out: List[str] = []
+
+    if "enzyme" in L:
+        out.append("cyp")
+
+    if "transporter" in L:
+        t_id = (L.get("transporter") or {}).get("id")
+        if t_id == "P-gp":
+            out.append("pgp")
+
+    if "pd_overlap" in L:
+        out.append("pd")
+
+    return out
 
 def load_rules(rule_dir: Path) -> List[Rule]:
     rules: List[Rule] = []
@@ -47,26 +69,52 @@ def load_rules(rule_dir: Path) -> List[Rule]:
         )
     return rules
 
+def _strength_ok(actual: Optional[str], required: Optional[str], allowed: Optional[List[str]] = None) -> bool:
+    if required is None and not allowed:
+        return True
 
-def _drug_has_enzyme_role(facts: Facts, drug_id: str, enzyme_id: str, role: str, strength: Optional[str] = None) -> bool:
+    if actual is None:
+        return False
+
+    if allowed:
+        return actual in allowed
+
+    return actual == required
+
+
+
+def _drug_has_enzyme_role(
+    facts: Facts,
+    drug_id: str,
+    enzyme_id: str,
+    role: str,
+    strength: Optional[str] = None,
+    strength_in: Optional[List[str]] = None,
+) -> bool:
     for r in facts.enzyme_roles.get(drug_id, []):
         if r.enzyme_id != enzyme_id:
             continue
         if r.role != role:
             continue
-        if strength is not None and r.strength != strength:
+        if not _strength_ok(r.strength, strength, strength_in):
             continue
         return True
     return False
 
-
-def _drug_has_transporter_role(facts: Facts, drug_id: str, transporter_id: str, role: str, strength: Optional[str] = None) -> bool:
+def _drug_has_transporter_role(
+    facts: Facts,
+    drug_id: str,
+    transporter_id: str,
+    role: str,
+    strength: Optional[str] = None,
+    strength_in: Optional[List[str]] = None,
+) -> bool:
     for r in facts.transporter_roles.get(drug_id, []):
         if r.transporter_id != transporter_id:
             continue
         if r.role != role:
             continue
-        if strength is not None and r.strength != strength:
+        if not _strength_ok(r.strength, strength, strength_in):
             continue
         return True
     return False
@@ -116,6 +164,7 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
             enzyme_id,
             b_role,
             strength=L["enzyme"].get("B_strength"),
+            strength_in=L["enzyme"].get("B_strength_in"),
         )
         if not (a_ok and b_ok):
             return None
@@ -135,6 +184,7 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
             t_id,
             b_role,
             strength=L["transporter"].get("B_strength"),
+            strength_in=L["transporter"].get("B_strength_in"),
         )
         if not (a_ok and b_ok):
             return None
@@ -161,7 +211,6 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
         if not _patient_flag(facts, L["requires_patient_flag"]):
             return None
 
-    # If we got here, rule fired.
     rationale = L.get("rationale", [])
     return RuleHit(
         rule_id=rule.id,
