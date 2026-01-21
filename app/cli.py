@@ -5,8 +5,9 @@ import sqlite3
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+from core.enums import Domain
 from core.models import Drug, EnzymeRole, TransporterRole, PDEffect, Facts
-from rules.engine import load_rules, evaluate_all
+from rules.engine import load_rules, evaluate_all, rule_mechanisms
 from reasoning.combine import build_pair_reports
 from reasoning.explain import render_explanation, render_rationale
 # from core.models import PairReport
@@ -111,11 +112,72 @@ def load_facts(conn: sqlite3.Connection, drug_ids: List[str], patient_flags: Dic
     return facts
 
 
+def _parse_domain_selection(domain_arg: str, cyp_only: bool, pgp_only: bool) -> List[str]:
+    raw = (domain_arg or "all").strip().lower()
+    parts = [p.strip() for p in raw.split(",") if p.strip()]
+    selected: List[str] = []
+
+    def add(x: str) -> None:
+        if x not in selected:
+            selected.append(x)
+
+    for p in parts:
+        if p == "all":
+            add("cyp")
+            add("pgp")
+            add("pd")
+        elif p == "pk":
+            add("cyp")
+            add("pgp")
+        elif p == "pd":
+            add("pd")
+        elif p == "cyp":
+            add("cyp")
+        elif p == "pgp":
+            add("pgp")
+        else:
+            raise SystemExit("Unknown --domain option. Use: all, pk, pd, cyp, pgp")
+
+    # Convenience aliases. If user left default all, allow these to narrow.
+    if cyp_only or pgp_only:
+        if raw == "all":
+            selected = []
+        if cyp_only:
+            add("cyp")
+        if pgp_only:
+            add("pgp")
+
+    if not selected:
+        selected = ["cyp", "pgp", "pd"]
+
+    return selected
+
+
+def _filter_rules(rules, selected: List[str]):
+    out = []
+    for r in rules:
+        if r.domain == Domain.PD:
+            if "pd" in selected:
+                out.append(r)
+            continue
+
+        if r.domain == Domain.PK:
+            mechs = rule_mechanisms(r)
+            if ("cyp" in selected and "cyp" in mechs) or ("pgp" in selected and "pgp" in mechs):
+                out.append(r)
+            continue
+
+    return out
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="Educational PK/PD interaction reasoner (rule-based).")
     p.add_argument("drugs", nargs="+", help="Drug names (generic or alias). Example: warfarin fluconazole")
     p.add_argument("--qt-risk", action="store_true", help="Patient has QT risk factors (educational flag).")
     p.add_argument("--bleeding-risk", action="store_true", help="Patient has bleeding risk factors (educational flag).")
+    p.add_argument("--domain", default="all", help="Limit evaluation: all, pk, pd, cyp, pgp (comma-separated).")
+    p.add_argument("-cyp", action="store_true", help="Alias: CYP-only PK evaluation.")
+    p.add_argument("-pgp", action="store_true", help="Alias: P-gp-only PK evaluation.")
     args = p.parse_args()
 
     conn = connect(DB_PATH)
@@ -127,10 +189,16 @@ def main() -> None:
     }
     facts = load_facts(conn, drug_ids, patient_flags)
 
-    rules = load_rules(RULE_DIR)
+    selected = _parse_domain_selection(args.domain, args.cyp, args.pgp)
+
+    rules_all = load_rules(RULE_DIR)
+    rules = _filter_rules(rules_all, selected)
+
     hits = evaluate_all(rules, facts, drug_ids)
-    from rules.composite_rules import apply_composites
-    hits = apply_composites(facts, hits)
+
+    if "pd" in selected:
+        from rules.composite_rules import apply_composites
+        hits = apply_composites(facts, hits)
 
     templates = {r.id: r.explanation_template for r in rules}
     reports = build_pair_reports(facts, hits, templates)
@@ -149,9 +217,11 @@ def main() -> None:
         print(f"{d1} + {d2}")
         print(f"Overall: severity={rep.overall_severity.value} | class={rep.overall_rule_class.value}")
         print()
-        
+
         if rep.pk_hits:
             print("PK section (directional):")
+            if rep.pk_summary:
+                print(f"PK summary: {rep.pk_summary}")
             for h in rep.pk_hits:
                 A = facts.drugs[h.inputs["A"]].generic_name
                 B = facts.drugs[h.inputs["B"]].generic_name
@@ -207,6 +277,6 @@ def main() -> None:
 
     print("=" * 80)
     print("Footer: This output is an educational mechanistic explanation. Verify with primary sources.\n")
-    
+
 if __name__ == "__main__":
     main()

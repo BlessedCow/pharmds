@@ -82,5 +82,4 @@ class PairReport:
     overall_rule_class: str     # keep as string or RuleClass
     pk_hits: List[RuleHit] = field(default_factory=list)
     pd_hits: List[RuleHit] = field(default_factory=list)
-    
-    
+    pk_summary: Optional[str] = None
