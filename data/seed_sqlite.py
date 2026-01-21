@@ -59,7 +59,7 @@ def seed(conn: sqlite3.Connection) -> None:
     for pe in pd_effects:
         upsert(conn, "INSERT OR REPLACE INTO pd_effect(id,description) VALUES(?,?)", pe)
 
-    # Drugs (25)
+    # Drugs (30)
     drugs = [
         ("midazolam", "midazolam", "benzodiazepine", "moderate", "Educational CYP3A4 substrate anchor."),
         ("clarithromycin", "clarithromycin", "macrolide antibiotic", "moderate", "Educational strong CYP3A4 inhibitor anchor."),
@@ -85,6 +85,11 @@ def seed(conn: sqlite3.Connection) -> None:
         ("propranolol", "propranolol", "beta blocker", "moderate", "Nonselective beta blocker; useful hemodynamic PD anchor (educational)."),
         ("clonidine", "clonidine", "alpha-2 agonist", "moderate", "Alpha-2 agonist; hypotension/bradycardia/sedation domains (educational)."),
         ("desvenlafaxine", "desvenlafaxine", "SNRI antidepressant", "moderate", "SNRI; minimal CYP involvement relative to venlafaxine (educational)."),
+        ("colchicine", "colchicine", "anti-inflammatory", "narrow", "Narrow TI-ish; P-gp substrate with clinically meaningful exposure changes."),
+        ("tacrolimus", "tacrolimus", "calcineurin inhibitor", "narrow", "Narrow TI; P-gp substrate (also CYP3A4 substrate later)."),
+        ("amiodarone", "amiodarone", "antiarrhythmic", "moderate", "P-gp inhibitor anchor; multi-mechanism (CYP) later."),
+        ("quinidine", "quinidine", "antiarrhythmic", "moderate", "P-gp inhibitor reference (strength varies by source; keep moderate for rule matching)."),
+        ("carbamazepine", "carbamazepine", "anticonvulsant", "moderate", "Strong inducer anchor (P-gp induction educational)."),
     ]
     for d in drugs:
         upsert(conn, "INSERT OR REPLACE INTO drug(id,generic_name,drug_class,therapeutic_index,notes) VALUES(?,?,?,?,?)", d)
@@ -115,6 +120,11 @@ def seed(conn: sqlite3.Connection) -> None:
         ("propranolol", "inderal"),
         ("clonidine", "catapres"),
         ("desvenlafaxine", "pristiq"),
+        ("colchicine", "colcrys"),
+        ("tacrolimus", "prograf"),
+        ("amiodarone", "cordarone"),
+        ("quinidine", "quinidex"),
+        ("carbamazepine", "tegretol"),
     ]
     for drug_id, alias in aliases:
         upsert(conn, "INSERT OR IGNORE INTO drug_alias(drug_id,alias) VALUES(?,?)", (drug_id, alias.lower()))
@@ -170,7 +180,12 @@ def seed(conn: sqlite3.Connection) -> None:
         ("digoxin", "P-gp", "substrate", None, "P-gp substrate (educational)."),
         ("clarithromycin", "P-gp", "inhibitor", "moderate", "May inhibit P-gp (educational). Keep conservative."),
         ("verapamil", "P-gp", "inhibitor", "moderate", "P-gp inhibitor (educational reference)."),
-    ]
+        ("rifampin", "P-gp", "inducer", "strong", "Strong induction can reduce exposure of P-gp substrates (educational)."),
+        ("colchicine", "P-gp", "substrate", None, "P-gp substrate (educational). Narrow TI-ish: exposure changes may matter."),
+        ("tacrolimus", "P-gp", "substrate", None, "P-gp substrate (educational). Narrow TI; monitor levels clinically."),
+        ("amiodarone", "P-gp", "inhibitor", "moderate", "P-gp inhibitor (educational anchor)."),
+        ("quinidine", "P-gp", "inhibitor", "moderate", "P-gp inhibitor (educational reference)."),
+        ("carbamazepine", "P-gp", "inducer", "strong", "P-gp induction can reduce exposure of substrates (educational)."),    ]
     for drug_id, transporter_id, role, strength, notes in t_roles:
         upsert(
             conn,
@@ -249,6 +264,7 @@ def seed(conn: sqlite3.Connection) -> None:
 
 
 def main() -> None:
+    
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = connect(DB_PATH)
     apply_schema(conn)

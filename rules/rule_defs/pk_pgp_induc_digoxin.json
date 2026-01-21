@@ -1,0 +1,40 @@
+{
+  "id": "PK_PGP_INDUC_DIGOXIN",
+  "name": "P-gp induction can decrease exposure of P-gp substrates",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_decrease"],
+  "scenario": {
+    "classification": "reference",
+    "index_drug": "digoxin",
+    "confidence": "medium",
+    "notes": "Reference P-gp induction interaction involving a narrow therapeutic index substrate."
+  },
+
+  "actions": [
+    "Use caution when combining strong P-gp inducers with narrow-TI substrates.",
+    "Monitor for reduced effect (and levels when applicable) and adjust therapy as clinically appropriate.",
+    "Recognize induction onset and offset are delayed (not immediate)."
+  ],
+  "logic": {
+    "transporter": {
+      "id": "P-gp",
+      "A_role": "substrate",
+      "B_role": "inducer",
+      "B_strength": "strong"
+    },
+    "A_ti": "narrow",
+    "rationale": [
+      "{B_name} induces P-gp, increasing efflux of {A_name}.",
+      "Reduced exposure may be clinically important for narrow-TI drugs."
+    ]
+  },
+  "explanation_template": "{B_name} is a strong P-gp inducer and {A_name} is a P-gp substrate with a narrow therapeutic index. This can decrease systemic exposure and reduce effect.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Transporter induction + narrow therapeutic index can be clinically meaningful even if magnitude varies."
+    }
+  ]
+}
