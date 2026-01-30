@@ -96,7 +96,6 @@ Supported domains currently include:
 
 ```
 pharmds/
-
 ├── app/ # CLI entry points
 ├── core/ # Core domain models, enums, evidence types
 ├── reasoning/ # PK/PD reasoning and explanation logic
