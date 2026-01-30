@@ -14,7 +14,6 @@ class Drug:
     therapeutic_index: str
     notes: Optional[str] = None
 
-
 @dataclass(frozen=True)
 class EnzymeRole:
     enzyme_id: str
@@ -73,7 +72,14 @@ class InteractionFinding:
     summary: str
     explanation: str
     rule_hits: List[RuleHit] = field(default_factory=list)
-  
+
+@dataclass
+class PKSummary:
+    direction: str            # "increase" | "decrease" | "mixed"
+    confidence: str           # "mechanistic" for now
+    mechanisms: List[str]     # e.g. ["cyp", "pgp"]
+    affected: List[str]       # drug_ids (the A-side affected drugs)
+
 @dataclass
 class PairReport:
     drug_1: str                 # stable ordering by id
@@ -82,4 +88,4 @@ class PairReport:
     overall_rule_class: str     # keep as string or RuleClass
     pk_hits: List[RuleHit] = field(default_factory=list)
     pd_hits: List[RuleHit] = field(default_factory=list)
-    pk_summary: Optional[str] = None
+    pk_summary: Optional[PKSummary] = None

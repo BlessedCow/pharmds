@@ -1,7 +1,7 @@
 {
   "P-gp": {
     "name": "P-glycoprotein",
-    "gene": "ABCB1",
+    "family": "ABCB1",
     "type": "efflux",
     "primary_sites": ["intestine", "liver", "kidney"],
     "description": "Efflux transporter affecting absorption and elimination"

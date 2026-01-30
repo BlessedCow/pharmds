@@ -196,9 +196,8 @@ def main() -> None:
 
     hits = evaluate_all(rules, facts, drug_ids)
 
-    if "pd" in selected:
-        from rules.composite_rules import apply_composites
-        hits = apply_composites(facts, hits)
+    from rules.composite_rules import apply_composites
+    hits = apply_composites(facts, hits)
 
     templates = {r.id: r.explanation_template for r in rules}
     reports = build_pair_reports(facts, hits, templates)

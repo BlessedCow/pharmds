@@ -40,14 +40,19 @@ def rule_mechanisms(rule: Rule) -> List[str]:
         out.append("cyp")
 
     if "transporter" in L:
-        t_id = (L.get("transporter") or {}).get("id")
-        if t_id == "P-gp":
+        t = (L.get("transporter") or {})
+        t_id = t.get("id")
+        t_family = t.get("family")
+
+        # Support both id-based and family-based transporter rules
+        if t_id == "P-gp" or t_family == "ABCB1":
             out.append("pgp")
 
     if "pd_overlap" in L:
         out.append("pd")
 
     return out
+
 
 def load_rules(rule_dir: Path) -> List[Rule]:
     rules: List[Rule] = []
@@ -140,6 +145,27 @@ def _ti_is(facts: Facts, drug_id: str, ti: str) -> bool:
 def _patient_flag(facts: Facts, flag: str) -> bool:
     return bool(facts.patient_flags.get(flag, False))
 
+def _transporter_ids_for_family(family: str) -> List[str]:
+    ids: List[str] = []
+
+    # Case 1: TRANSPORTERS is a dict
+    if isinstance(TRANSPORTERS, dict):
+        for t_id, t in TRANSPORTERS.items():
+            # t might be a dict (new) OR a string (old)
+            if isinstance(t, dict):
+                if (t.get("family") or "") == family:
+                    ids.append(t_id)
+
+        return ids
+
+    # Case 2: TRANSPORTERS is a list
+    for t in TRANSPORTERS:
+        if isinstance(t, dict) and (t.get("family") or "") == family:
+            t_id = t.get("id")
+            if t_id:
+                ids.append(t_id)
+
+    return ids
 
 def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]:
     """
@@ -171,20 +197,33 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
 
     # Transporter pattern
     if "transporter" in L:
-        t_id = L["transporter"]["id"]
-        inputs["transporter_id"] = t_id
+        t_block = L["transporter"]
+        t_id = t_block.get("id")
+        t_family = t_block.get("family")
 
-        a_role = L["transporter"]["A_role"]
-        b_role = L["transporter"]["B_role"]
+        if t_id:
+            t_ids = [t_id]
+            inputs["transporter_id"] = t_id
+        elif t_family:
+            t_ids = _transporter_ids_for_family(t_family)
+            inputs["transporter_family"] = t_family
+        else:
+            return None
 
-        a_ok = _drug_has_transporter_role(facts, a, t_id, a_role)
-        b_ok = _drug_has_transporter_role(
-            facts,
-            b,
-            t_id,
-            b_role,
-            strength=L["transporter"].get("B_strength"),
-            strength_in=L["transporter"].get("B_strength_in"),
+        a_role = t_block["A_role"]
+        b_role = t_block["B_role"]
+
+        a_ok = any(_drug_has_transporter_role(facts, a, tid, a_role) for tid in t_ids)
+        b_ok = any(
+            _drug_has_transporter_role(
+                facts,
+                b,
+                tid,
+                b_role,
+                strength=t_block.get("B_strength"),
+                strength_in=t_block.get("B_strength_in"),
+            )
+            for tid in t_ids
         )
         if not (a_ok and b_ok):
             return None
