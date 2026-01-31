@@ -11,7 +11,6 @@ from core.models import Facts, RuleHit
 from data.loaders import load_transporters
 
 
-
 @dataclass(frozen=True)
 class Rule:
     id: str
@@ -207,6 +206,10 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
         elif t_family:
             t_ids = _transporter_ids_for_family(t_family)
             inputs["transporter_family"] = t_family
+            # If the family resolves to exactly one transporter, also attach a canonical transporter_id.
+            # This keeps downstream composite logic robust (e.g., CYP + P-gp dual mechanism).
+            if len(t_ids) == 1:
+                inputs["transporter_id"] = t_ids[0]
         else:
             return None
 

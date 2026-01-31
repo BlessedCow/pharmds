@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import argparse
 import sqlite3
+import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
 from core.enums import Domain
 from core.models import Drug, EnzymeRole, TransporterRole, PDEffect, Facts
+from core.constants import normalize_transporter_id, normalize_pd_effect_id
+from core.exceptions import UnknownDrugError
 from rules.engine import load_rules, evaluate_all, rule_mechanisms
 from reasoning.combine import build_pair_reports
 from reasoning.explain import render_explanation, render_rationale
@@ -26,6 +29,7 @@ def connect(db_path: Path) -> sqlite3.Connection:
 
 def resolve_drug_ids(conn: sqlite3.Connection, names: List[str]) -> List[str]:
     out: List[str] = []
+    unknown: List[str] = []
     for raw in names:
         q = raw.strip().lower()
         row = conn.execute("SELECT id FROM drug WHERE lower(generic_name)=?", (q,)).fetchone()
@@ -36,7 +40,9 @@ def resolve_drug_ids(conn: sqlite3.Connection, names: List[str]) -> List[str]:
         if row:
             out.append(row["drug_id"])
             continue
-        raise SystemExit(f"Unknown drug: {raw}")
+        unknown.append(raw)
+    if unknown:
+        raise UnknownDrugError(unknown)
     return out
 
 
@@ -84,7 +90,7 @@ def load_facts(conn: sqlite3.Connection, drug_ids: List[str], patient_flags: Dic
     for r in rows:
         facts.transporter_roles.setdefault(r["drug_id"], []).append(
             TransporterRole(
-                transporter_id=r["transporter_id"],
+                transporter_id=normalize_transporter_id(r["transporter_id"]),
                 role=r["role"],
                 strength=r["strength"],
                 notes=r["notes"],
@@ -102,7 +108,7 @@ def load_facts(conn: sqlite3.Connection, drug_ids: List[str], patient_flags: Dic
     for r in rows:
         facts.pd_effects.setdefault(r["drug_id"], []).append(
             PDEffect(
-                effect_id=r["pd_effect_id"],
+                effect_id=normalize_pd_effect_id(r["pd_effect_id"]),
                 direction=r["direction"],
                 magnitude=r["magnitude"],
                 mechanism_note=r["mechanism_note"],
@@ -181,8 +187,14 @@ def main() -> None:
     args = p.parse_args()
 
     conn = connect(DB_PATH)
-    drug_ids = resolve_drug_ids(conn, args.drugs)
 
+    try:
+        drug_ids = resolve_drug_ids(conn, args.drugs)
+    except UnknownDrugError as e:
+        print(str(e), file=sys.stderr)
+        print("Tip: try generic names, or add aliases in data/drug_alias.", file=sys.stderr)
+        raise SystemExit(2)
+    
     patient_flags = {
         "qt_risk": bool(args.qt_risk),
         "bleeding_risk": bool(args.bleeding_risk),

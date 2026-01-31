@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import List, Tuple, Set, Dict
-
+from core.constants import TRANSPORTER_PGP, PD_EFFECT_CNS_DEP
 from core.enums import Domain, Severity, RuleClass
 from core.models import Facts, RuleHit
 
@@ -54,7 +54,7 @@ def apply_pk_dual_mechanism(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
             continue
 
         has_cyp = any(h.inputs.get("enzyme_id") for h in inc_hits)
-        has_pgp = any(h.inputs.get("transporter_id") == "P-gp" for h in inc_hits)
+        has_pgp = any(h.inputs.get("transporter_id") == TRANSPORTER_PGP for h in inc_hits)
 
         if not (has_cyp and has_pgp):
             continue
@@ -108,7 +108,7 @@ def apply_composites(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
         seen.add(key)
 
         has_cns = any(
-            e.effect_id == "CNS_depression" and e.magnitude in ("medium", "high")
+            e.effect_id == PD_EFFECT_CNS_DEP and e.magnitude in ("medium", "high")
             for e in facts.pd_effects.get(affected_a, [])
         )
         if not has_cns:
