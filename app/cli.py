@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import sqlite3
 import sys
+import difflib
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -30,19 +31,31 @@ def connect(db_path: Path) -> sqlite3.Connection:
 def resolve_drug_ids(conn: sqlite3.Connection, names: List[str]) -> List[str]:
     out: List[str] = []
     unknown: List[str] = []
+
     for raw in names:
         q = raw.strip().lower()
+
         row = conn.execute("SELECT id FROM drug WHERE lower(generic_name)=?", (q,)).fetchone()
         if row:
             out.append(row["id"])
             continue
+
         row = conn.execute("SELECT drug_id FROM drug_alias WHERE alias=?", (q,)).fetchone()
         if row:
             out.append(row["drug_id"])
             continue
+        
         unknown.append(raw)
+
     if unknown:
-        raise UnknownDrugError(unknown)
+        known_terms = _fetch_known_drug_terms(conn)
+        sug_map = {}
+        for tok in unknown:
+            sug = _suggest_drug_terms(tok, known_terms, limit=5)
+            if sug:
+                sug_map[tok] = sug
+        raise UnknownDrugError(unknown, suggestions=sug_map)
+
     return out
 
 
@@ -117,8 +130,51 @@ def load_facts(conn: sqlite3.Connection, drug_ids: List[str], patient_flags: Dic
 
     return facts
 
+def _fetch_known_drug_terms(conn: sqlite3.Connection) -> list[str]:
+    """
+    Return a list of known drug terms users might type:
+    - generic names (lowercased)
+    - aliases (already stored lowercased in DB by your resolver expectations)
+    """
+    terms: list[str] = []
 
-def _parse_domain_selection(domain_arg: str, cyp_only: bool, pgp_only: bool) -> List[str]:
+    rows = conn.execute("SELECT generic_name FROM drug").fetchall()
+    for r in rows:
+        s = (r["generic_name"] or "").strip().lower()
+        if s:
+            terms.append(s)
+
+    # If your schema uses a different table/column name, adjust here.
+    rows = conn.execute("SELECT alias FROM drug_alias").fetchall()
+    for r in rows:
+        s = (r["alias"] or "").strip().lower()
+        if s:
+            terms.append(s)
+
+    # de-duplicate while keeping stable ordering
+    seen = set()
+    out = []
+    for t in terms:
+        if t not in seen:
+            seen.add(t)
+            out.append(t)
+    return out
+
+
+def _suggest_drug_terms(token: str, known_terms: list[str], limit: int = 5) -> tuple[str, ...]:
+    """
+    Suggest close matches for a token from known terms.
+
+    Uses difflib to keep it local and dependency-free.
+    """
+    q = (token or "").strip().lower()
+    if not q:
+        return tuple()
+
+    matches = difflib.get_close_matches(q, known_terms, n=limit, cutoff=0.6)
+    return tuple(matches)
+
+def _parse_domain_selection(domain_arg: str) -> List[str]:
     raw = (domain_arg or "all").strip().lower()
     parts = [p.strip() for p in raw.split(",") if p.strip()]
     selected: List[str] = []
@@ -144,20 +200,29 @@ def _parse_domain_selection(domain_arg: str, cyp_only: bool, pgp_only: bool) -> 
         else:
             raise SystemExit("Unknown --domain option. Use: all, pk, pd, cyp, pgp")
 
-    # Convenience aliases. If user left default all, allow these to narrow.
-    if cyp_only or pgp_only:
-        if raw == "all":
-            selected = []
-        if cyp_only:
-            add("cyp")
-        if pgp_only:
-            add("pgp")
-
     if not selected:
         selected = ["cyp", "pgp", "pd"]
 
     return selected
 
+def filter_rules_for_selected_domains(rules_all, selected: list[str]):
+    """
+    Filter rules for the CLI-selected domains.
+
+    Here, 'domains' are user-facing slices based on rule mechanism tags:
+      - cyp: CYP-mediated PK rules
+      - pgp: P-gp transporter PK rules
+      - pd:  PD effect stacking rules
+    """
+    selected_set = set(selected)
+    out = []
+
+    for r in rules_all:
+        mechs = set(rule_mechanisms(r))
+        if mechs & selected_set:
+            out.append(r)
+
+    return out
 
 def _filter_rules(rules, selected: List[str]):
     out = []
@@ -181,9 +246,15 @@ def main() -> None:
     p.add_argument("drugs", nargs="+", help="Drug names (generic or alias). Example: warfarin fluconazole")
     p.add_argument("--qt-risk", action="store_true", help="Patient has QT risk factors (educational flag).")
     p.add_argument("--bleeding-risk", action="store_true", help="Patient has bleeding risk factors (educational flag).")
-    p.add_argument("--domain", default="all", help="Limit evaluation: all, pk, pd, cyp, pgp (comma-separated).")
-    p.add_argument("-cyp", action="store_true", help="Alias: CYP-only PK evaluation.")
-    p.add_argument("-pgp", action="store_true", help="Alias: P-gp-only PK evaluation.")
+    p.add_argument(
+        "--domain",
+        default="all",
+        help=(
+            "Comma-separated mechanism filters. "
+            "Allowed: cyp, pgp, pd, pk (alias for cyp,pgp), all. "
+            "Examples: --domain cyp  |  --domain pd  |  --domain cyp,pd"
+        ),
+    )    
     args = p.parse_args()
 
     conn = connect(DB_PATH)
@@ -191,8 +262,15 @@ def main() -> None:
     try:
         drug_ids = resolve_drug_ids(conn, args.drugs)
     except UnknownDrugError as e:
-        print(str(e), file=sys.stderr)
-        print("Tip: try generic names, or add aliases in data/drug_alias.", file=sys.stderr)
+        # Print one line per unknown token for clarity
+        for tok in e.unknown:
+            opts = e.suggestions.get(tok, ())
+            if opts:
+                print(f"Drug '{tok}' not found. Did you mean: {', '.join(opts)}?", file=sys.stderr)
+            else:
+                print(f"Drug '{tok}' not found.", file=sys.stderr)
+
+        print("Tip: use generic names or add aliases in the local database.", file=sys.stderr)
         raise SystemExit(2)
     
     patient_flags = {
@@ -201,11 +279,11 @@ def main() -> None:
     }
     facts = load_facts(conn, drug_ids, patient_flags)
 
-    selected = _parse_domain_selection(args.domain, args.cyp, args.pgp)
+    selected = _parse_domain_selection(args.domain)
 
     rules_all = load_rules(RULE_DIR)
-    rules = _filter_rules(rules_all, selected)
-
+    rules = filter_rules_for_selected_domains(rules_all, selected)
+    
     hits = evaluate_all(rules, facts, drug_ids)
 
     from rules.composite_rules import apply_composites
@@ -216,9 +294,13 @@ def main() -> None:
     # findings = [r for r in reports if r.overall_severity == Severity.EDUCATIONAL]
 
     if not reports:
-        print("No rule-based interactions detected for this set (educational scope).")
+        domains = ", ".join(selected)
+        if set(selected) == {"cyp", "pgp", "pd"}:
+            print("No rule-based interactions detected for this set (educational scope).")
+        else:
+            print(f"No rule-based interactions detected in selected domains: {domains} (educational scope).")
         return
-
+    
     print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
     for rep in reports:
         d1 = facts.drugs[rep.drug_1].generic_name
