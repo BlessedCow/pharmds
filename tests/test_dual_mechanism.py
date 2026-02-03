@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from core.enums import Domain, Severity, RuleClass
+from core.enums import Domain, RuleClass, Severity
 from core.models import Facts, RuleHit
 from rules.composite_rules import apply_pk_dual_mechanism
-
 
 
 def test_dual_mechanism_increase_adds_composite_hit_and_uses_max_severity():

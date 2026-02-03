@@ -2,33 +2,35 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
-from core.enums import Severity, Domain, RuleClass
+from typing import Any
+
+from core.enums import Domain, RuleClass, Severity
 
 
 @dataclass(frozen=True)
 class Drug:
     id: str
     generic_name: str
-    drug_class: Optional[str]
+    drug_class: str | None
     therapeutic_index: str
-    notes: Optional[str] = None
+    notes: str | None = None
+
 
 @dataclass(frozen=True)
 class EnzymeRole:
     enzyme_id: str
     role: str  # substrate/inhibitor/inducer
-    strength: Optional[str] = None  # weak/moderate/strong
-    fraction_metabolized: Optional[float] = None
-    notes: Optional[str] = None
+    strength: str | None = None  # weak/moderate/strong
+    fraction_metabolized: float | None = None
+    notes: str | None = None
 
 
 @dataclass(frozen=True)
 class TransporterRole:
     transporter_id: str
     role: str
-    strength: Optional[str] = None
-    notes: Optional[str] = None
+    strength: str | None = None
+    notes: str | None = None
 
 
 @dataclass(frozen=True)
@@ -36,16 +38,18 @@ class PDEffect:
     effect_id: str
     direction: str  # increase/decrease
     magnitude: str  # low/medium/high
-    mechanism_note: Optional[str] = None
+    mechanism_note: str | None = None
 
 
 @dataclass
 class Facts:
-    drugs: Dict[str, Drug] = field(default_factory=dict)
-    enzyme_roles: Dict[str, List[EnzymeRole]] = field(default_factory=dict)        # drug_id -> roles
-    transporter_roles: Dict[str, List[TransporterRole]] = field(default_factory=dict)
-    pd_effects: Dict[str, List[PDEffect]] = field(default_factory=dict)
-    patient_flags: Dict[str, bool] = field(default_factory=dict)
+    drugs: dict[str, Drug] = field(default_factory=dict)
+    enzyme_roles: dict[str, list[EnzymeRole]] = field(
+        default_factory=dict
+    )  # drug_id -> roles
+    transporter_roles: dict[str, list[TransporterRole]] = field(default_factory=dict)
+    pd_effects: dict[str, list[PDEffect]] = field(default_factory=dict)
+    patient_flags: dict[str, bool] = field(default_factory=dict)
 
 
 @dataclass
@@ -55,11 +59,11 @@ class RuleHit:
     domain: Domain
     severity: Severity
     rule_class: RuleClass
-    actions: List[str] = field(default_factory=list)
-    inputs: Dict[str, Any] = field(default_factory=dict)
-    rationale: List[str] = field(default_factory=list)
-    references: List[Dict[str, str]] = field(default_factory=list)
-    tags: List[str] = field(default_factory=list)
+    actions: list[str] = field(default_factory=list)
+    inputs: dict[str, Any] = field(default_factory=dict)
+    rationale: list[str] = field(default_factory=list)
+    references: list[dict[str, str]] = field(default_factory=list)
+    tags: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -71,21 +75,23 @@ class InteractionFinding:
     title: str
     summary: str
     explanation: str
-    rule_hits: List[RuleHit] = field(default_factory=list)
+    rule_hits: list[RuleHit] = field(default_factory=list)
+
 
 @dataclass
 class PKSummary:
-    direction: str            # "increase" | "decrease" | "mixed"
-    confidence: str           # "mechanistic" for now
-    mechanisms: List[str]     # e.g. ["cyp", "pgp"]
-    affected: List[str]       # drug_ids (the A-side affected drugs)
+    direction: str  # "increase" | "decrease" | "mixed"
+    confidence: str  # "mechanistic" for now
+    mechanisms: list[str]  # e.g. ["cyp", "pgp"]
+    affected: list[str]  # drug_ids (the A-side affected drugs)
+
 
 @dataclass
 class PairReport:
-    drug_1: str                 # stable ordering by id
+    drug_1: str  # stable ordering by id
     drug_2: str
     overall_severity: Severity
-    overall_rule_class: str     # keep as string or RuleClass
-    pk_hits: List[RuleHit] = field(default_factory=list)
-    pd_hits: List[RuleHit] = field(default_factory=list)
-    pk_summary: Optional[PKSummary] = None
+    overall_rule_class: str  # keep as string or RuleClass
+    pk_hits: list[RuleHit] = field(default_factory=list)
+    pd_hits: list[RuleHit] = field(default_factory=list)
+    pk_summary: PKSummary | None = None

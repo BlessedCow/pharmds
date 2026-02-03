@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from typing import List, Tuple, Set, Dict
-from core.constants import TRANSPORTER_PGP, PD_EFFECT_CNS_DEP
-from core.enums import Domain, Severity, RuleClass
+from core.constants import PD_EFFECT_CNS_DEP, TRANSPORTER_PGP
+from core.enums import Domain, RuleClass, Severity
 from core.models import Facts, RuleHit
 
 _SEV_RANK = {
@@ -19,13 +18,16 @@ _CLASS_RANK = {
     RuleClass.avoid: 3,
 }
 
-def _max_sev(hits: List[RuleHit]) -> Severity:
+
+def _max_sev(hits: list[RuleHit]) -> Severity:
     return max((h.severity for h in hits), key=lambda s: _SEV_RANK[s])
 
-def _max_class(hits: List[RuleHit]) -> RuleClass:
+
+def _max_class(hits: list[RuleHit]) -> RuleClass:
     return max((h.rule_class for h in hits), key=lambda c: _CLASS_RANK[c])
 
-def apply_pk_dual_mechanism(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
+
+def apply_pk_dual_mechanism(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     """
     Add a composite PK hit when both CYP and P-gp exposure-increasing mechanisms
     are present for the same directional pair (A affected, B interacting).
@@ -37,7 +39,7 @@ def apply_pk_dual_mechanism(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
     This does NOT remove or replace the original hits.
     """
     pk_hits = [h for h in hits if h.domain == Domain.PK]
-    by_pair: Dict[Tuple[str, str], List[RuleHit]] = {}
+    by_pair: dict[tuple[str, str], list[RuleHit]] = {}
 
     for h in pk_hits:
         a = h.inputs.get("A")
@@ -54,7 +56,9 @@ def apply_pk_dual_mechanism(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
             continue
 
         has_cyp = any(h.inputs.get("enzyme_id") for h in inc_hits)
-        has_pgp = any(h.inputs.get("transporter_id") == TRANSPORTER_PGP for h in inc_hits)
+        has_pgp = any(
+            h.inputs.get("transporter_id") == TRANSPORTER_PGP for h in inc_hits
+        )
 
         if not (has_cyp and has_pgp):
             continue
@@ -80,18 +84,22 @@ def apply_pk_dual_mechanism(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
                     "Consider alternatives, dose adjustment, and closer monitoring when clinically appropriate.",
                 ],
                 references=[
-                    {"source": "Educational note", "citation": "Multiple PK mechanisms can be additive or synergistic."}
+                    {
+                        "source": "Educational note",
+                        "citation": "Multiple PK mechanisms can be additive or synergistic.",
+                    }
                 ],
             )
         )
 
     return out
 
-def apply_composites(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
+
+def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     out = hits[:]
 
     # Collect causal PK exposure increases as (affected_A, interacting_B)
-    pk_up_pairs: List[Tuple[str, str]] = []
+    pk_up_pairs: list[tuple[str, str]] = []
     for h in out:
         if h.domain != Domain.PK:
             continue
@@ -99,7 +107,7 @@ def apply_composites(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
             pk_up_pairs.append((h.inputs["A"], h.inputs["B"]))
 
     # Emit at most one composite per causal pair
-    seen: Set[Tuple[str, str]] = set()
+    seen: set[tuple[str, str]] = set()
 
     for affected_a, interacting_b in pk_up_pairs:
         key = (affected_a, interacting_b)
@@ -131,7 +139,10 @@ def apply_composites(facts: Facts, hits: List[RuleHit]) -> List[RuleHit]:
                     "Rules indicate increased exposure of {A_name}, which may amplify sedation-related adverse effects.",
                 ],
                 references=[
-                    {"source": "Educational note", "citation": "Composite: PK exposure increase can amplify PD effects."}
+                    {
+                        "source": "Educational note",
+                        "citation": "Composite: PK exposure increase can amplify PD effects.",
+                    }
                 ],
                 tags=["composite", "cns_depression_amplified"],
             )

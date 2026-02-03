@@ -1,11 +1,11 @@
-from __future__ import annotations
-
 """Negative / non-trigger tests.
 
 These tests exist to reduce false positives ("alert fatigue"). They assert that
 rules do NOT fire when mechanisms/overlaps are absent or when the "wrong" rule
 could be tempting.
 """
+
+from __future__ import annotations
 
 from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
 from rules.engine import evaluate_all, load_rules

@@ -1,5 +1,4 @@
 from __future__ import annotations
-from typing import Dict
 
 # Canonical transporter IDs (internal representation)
 
@@ -7,7 +6,7 @@ TRANSPORTER_PGP = "P-gp"  # P-glycoprotein
 TRANSPORTER_BCRP = "BCRP"
 TRANSPORTER_OATP1B1 = "OATP1B1"
 
-_TRANSPORTER_ALIASES: Dict[str, str] = {
+_TRANSPORTER_ALIASES: dict[str, str] = {
     # P-gp (ABCB1 / MDR1)
     "p-gp": TRANSPORTER_PGP,
     "pgp": TRANSPORTER_PGP,
@@ -16,11 +15,9 @@ _TRANSPORTER_ALIASES: Dict[str, str] = {
     "p glycoprotein": TRANSPORTER_PGP,
     "abcb1": TRANSPORTER_PGP,
     "mdr1": TRANSPORTER_PGP,
-
     # BCRP (ABCG2)
     "bcrp": TRANSPORTER_BCRP,
     "abcg2": TRANSPORTER_BCRP,
-
     # OATP1B1 (SLCO1B1)
     "oatp1b1": TRANSPORTER_OATP1B1,
     "slco1b1": TRANSPORTER_OATP1B1,
@@ -45,7 +42,7 @@ PD_EFFECT_SEROTONERGIC = "serotonergic"
 PD_EFFECT_SEROTONIN_SYNDROME = "serotonin_syndrome"
 
 
-_PD_EFFECT_ALIASES: Dict[str, str] = {
+_PD_EFFECT_ALIASES: dict[str, str] = {
     "cns depression": PD_EFFECT_CNS_DEP,
     "cns_depression": PD_EFFECT_CNS_DEP,
     "qt": PD_EFFECT_QT,

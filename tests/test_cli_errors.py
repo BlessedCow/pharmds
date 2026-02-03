@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.cli import connect, resolve_drug_ids, DB_PATH
+from app.cli import DB_PATH, connect, resolve_drug_ids
 from core.exceptions import UnknownDrugError
 
 

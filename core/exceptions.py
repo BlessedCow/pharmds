@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Dict, Iterable, Tuple
 
 
 class PharmDSError(Exception):
@@ -17,16 +17,16 @@ class UnknownDrugError(PharmDSError):
     suggestions: mapping from unknown token -> tuple of suggested known names/aliases
     """
 
-    unknown: Tuple[str, ...]
-    suggestions: Dict[str, Tuple[str, ...]]
+    unknown: tuple[str, ...]
+    suggestions: dict[str, tuple[str, ...]]
 
     def __init__(
         self,
         unknown: Iterable[str],
-        suggestions: Dict[str, Iterable[str]] | None = None,
+        suggestions: dict[str, Iterable[str]] | None = None,
     ):
         object.__setattr__(self, "unknown", tuple(unknown))
-        sug: Dict[str, Tuple[str, ...]] = {}
+        sug: dict[str, tuple[str, ...]] = {}
         if suggestions:
             for k, vals in suggestions.items():
                 sug[str(k)] = tuple(vals)

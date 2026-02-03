@@ -1,19 +1,19 @@
 from __future__ import annotations
 
 import argparse
+import difflib
 import sqlite3
 import sys
-import difflib
 from pathlib import Path
-from typing import Dict, List, Tuple
 
+from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.enums import Domain
-from core.models import Drug, EnzymeRole, TransporterRole, PDEffect, Facts
-from core.constants import normalize_transporter_id, normalize_pd_effect_id
 from core.exceptions import UnknownDrugError
-from rules.engine import load_rules, evaluate_all, rule_mechanisms
+from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports
 from reasoning.explain import render_explanation, render_rationale
+from rules.engine import evaluate_all, load_rules, rule_mechanisms
+
 # from core.models import PairReport
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -28,23 +28,27 @@ def connect(db_path: Path) -> sqlite3.Connection:
     return conn
 
 
-def resolve_drug_ids(conn: sqlite3.Connection, names: List[str]) -> List[str]:
-    out: List[str] = []
-    unknown: List[str] = []
+def resolve_drug_ids(conn: sqlite3.Connection, names: list[str]) -> list[str]:
+    out: list[str] = []
+    unknown: list[str] = []
 
     for raw in names:
         q = raw.strip().lower()
 
-        row = conn.execute("SELECT id FROM drug WHERE lower(generic_name)=?", (q,)).fetchone()
+        row = conn.execute(
+            "SELECT id FROM drug WHERE lower(generic_name)=?", (q,)
+        ).fetchone()
         if row:
             out.append(row["id"])
             continue
 
-        row = conn.execute("SELECT drug_id FROM drug_alias WHERE alias=?", (q,)).fetchone()
+        row = conn.execute(
+            "SELECT drug_id FROM drug_alias WHERE alias=?", (q,)
+        ).fetchone()
         if row:
             out.append(row["drug_id"])
             continue
-        
+
         unknown.append(raw)
 
     if unknown:
@@ -59,7 +63,9 @@ def resolve_drug_ids(conn: sqlite3.Connection, names: List[str]) -> List[str]:
     return out
 
 
-def load_facts(conn: sqlite3.Connection, drug_ids: List[str], patient_flags: Dict[str, bool]) -> Facts:
+def load_facts(
+    conn: sqlite3.Connection, drug_ids: list[str], patient_flags: dict[str, bool]
+) -> Facts:
     facts = Facts(patient_flags=patient_flags)
 
     # Drugs
@@ -130,6 +136,7 @@ def load_facts(conn: sqlite3.Connection, drug_ids: List[str], patient_flags: Dic
 
     return facts
 
+
 def _fetch_known_drug_terms(conn: sqlite3.Connection) -> list[str]:
     """
     Return a list of known drug terms users might type:
@@ -161,7 +168,9 @@ def _fetch_known_drug_terms(conn: sqlite3.Connection) -> list[str]:
     return out
 
 
-def _suggest_drug_terms(token: str, known_terms: list[str], limit: int = 5) -> tuple[str, ...]:
+def _suggest_drug_terms(
+    token: str, known_terms: list[str], limit: int = 5
+) -> tuple[str, ...]:
     """
     Suggest close matches for a token from known terms.
 
@@ -174,10 +183,11 @@ def _suggest_drug_terms(token: str, known_terms: list[str], limit: int = 5) -> t
     matches = difflib.get_close_matches(q, known_terms, n=limit, cutoff=0.6)
     return tuple(matches)
 
-def _parse_domain_selection(domain_arg: str) -> List[str]:
+
+def _parse_domain_selection(domain_arg: str) -> list[str]:
     raw = (domain_arg or "all").strip().lower()
     parts = [p.strip() for p in raw.split(",") if p.strip()]
-    selected: List[str] = []
+    selected: list[str] = []
 
     def add(x: str) -> None:
         if x not in selected:
@@ -205,6 +215,7 @@ def _parse_domain_selection(domain_arg: str) -> List[str]:
 
     return selected
 
+
 def filter_rules_for_selected_domains(rules_all, selected: list[str]):
     """
     Filter rules for the CLI-selected domains.
@@ -224,7 +235,8 @@ def filter_rules_for_selected_domains(rules_all, selected: list[str]):
 
     return out
 
-def _filter_rules(rules, selected: List[str]):
+
+def _filter_rules(rules, selected: list[str]):
     out = []
     for r in rules:
         if r.domain == Domain.PD:
@@ -234,7 +246,9 @@ def _filter_rules(rules, selected: List[str]):
 
         if r.domain == Domain.PK:
             mechs = rule_mechanisms(r)
-            if ("cyp" in selected and "cyp" in mechs) or ("pgp" in selected and "pgp" in mechs):
+            if ("cyp" in selected and "cyp" in mechs) or (
+                "pgp" in selected and "pgp" in mechs
+            ):
                 out.append(r)
             continue
 
@@ -242,10 +256,24 @@ def _filter_rules(rules, selected: List[str]):
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Educational PK/PD interaction reasoner (rule-based).")
-    p.add_argument("drugs", nargs="+", help="Drug names (generic or alias). Example: warfarin fluconazole")
-    p.add_argument("--qt-risk", action="store_true", help="Patient has QT risk factors (educational flag).")
-    p.add_argument("--bleeding-risk", action="store_true", help="Patient has bleeding risk factors (educational flag).")
+    p = argparse.ArgumentParser(
+        description="Educational PK/PD interaction reasoner (rule-based)."
+    )
+    p.add_argument(
+        "drugs",
+        nargs="+",
+        help="Drug names (generic or alias). Example: warfarin fluconazole",
+    )
+    p.add_argument(
+        "--qt-risk",
+        action="store_true",
+        help="Patient has QT risk factors (educational flag).",
+    )
+    p.add_argument(
+        "--bleeding-risk",
+        action="store_true",
+        help="Patient has bleeding risk factors (educational flag).",
+    )
     p.add_argument(
         "--domain",
         default="all",
@@ -254,7 +282,7 @@ def main() -> None:
             "Allowed: cyp, pgp, pd, pk (alias for cyp,pgp), all. "
             "Examples: --domain cyp  |  --domain pd  |  --domain cyp,pd"
         ),
-    )    
+    )
     args = p.parse_args()
 
     conn = connect(DB_PATH)
@@ -266,13 +294,19 @@ def main() -> None:
         for tok in e.unknown:
             opts = e.suggestions.get(tok, ())
             if opts:
-                print(f"Drug '{tok}' not found. Did you mean: {', '.join(opts)}?", file=sys.stderr)
+                print(
+                    f"Drug '{tok}' not found. Did you mean: {', '.join(opts)}?",
+                    file=sys.stderr,
+                )
             else:
                 print(f"Drug '{tok}' not found.", file=sys.stderr)
 
-        print("Tip: use generic names or add aliases in the local database.", file=sys.stderr)
-        raise SystemExit(2)
-    
+        print(
+            "Tip: use generic names or add aliases in the local database.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2) from e
+
     patient_flags = {
         "qt_risk": bool(args.qt_risk),
         "bleeding_risk": bool(args.bleeding_risk),
@@ -283,10 +317,11 @@ def main() -> None:
 
     rules_all = load_rules(RULE_DIR)
     rules = filter_rules_for_selected_domains(rules_all, selected)
-    
+
     hits = evaluate_all(rules, facts, drug_ids)
 
     from rules.composite_rules import apply_composites
+
     hits = apply_composites(facts, hits)
 
     templates = {r.id: r.explanation_template for r in rules}
@@ -296,11 +331,17 @@ def main() -> None:
     if not reports:
         domains = ", ".join(selected)
         if set(selected) == {"cyp", "pgp", "pd"}:
-            print("No rule-based interactions detected for this set (educational scope).")
+            print(
+                "No rule-based interactions detected in selected domains: "
+                f"{domains} (educational scope)."
+            )
         else:
-            print(f"No rule-based interactions detected in selected domains: {domains} (educational scope).")
+            print(
+                f"No rule-based interactions detected in selected domains: "
+                f"{domains} (educational scope)."
+            )
         return
-    
+
     print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
     for rep in reports:
         d1 = facts.drugs[rep.drug_1].generic_name
@@ -308,7 +349,10 @@ def main() -> None:
 
         print("=" * 80)
         print(f"{d1} + {d2}")
-        print(f"Overall: severity={rep.overall_severity.value} | class={rep.overall_rule_class.value}")
+        print(
+            f"Overall: severity={rep.overall_severity.value} | "
+            f"class={rep.overall_rule_class.value}"
+        )
         print()
 
         if rep.pk_hits:
@@ -356,9 +400,11 @@ def main() -> None:
 
         # References (unique)
         refs = []
-        for h in (rep.pk_hits + rep.pd_hits):
+        for h in rep.pk_hits + rep.pd_hits:
             refs.extend(h.references)
-        uniq = {(r.get("source",""), r.get("citation",""), r.get("url","")) for r in refs}
+        uniq = {
+            (r.get("source", ""), r.get("citation", ""), r.get("url", "")) for r in refs
+        }
         if uniq:
             print("References (rule-level):")
             for source, citation, url in sorted(uniq):
@@ -369,7 +415,11 @@ def main() -> None:
         print()
 
     print("=" * 80)
-    print("Footer: This output is an educational mechanistic explanation. Verify with primary sources.\n")
+    print(
+        "Footer: This output is an educational mechanistic explanation. "
+        "Verify with primary sources.\n"
+    )
+
 
 if __name__ == "__main__":
     main()

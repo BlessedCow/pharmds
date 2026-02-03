@@ -4,9 +4,9 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-from core.enums import Domain, Severity, RuleClass
+from core.enums import Domain, RuleClass, Severity
 from core.models import Facts, RuleHit
 from data.loaders import load_transporters
 
@@ -18,28 +18,30 @@ class Rule:
     domain: Domain
     severity: Severity
     rule_class: RuleClass
-    logic: Dict[str, Any]
+    logic: dict[str, Any]
     explanation_template: str
-    references: List[Dict[str, str]]
+    references: list[dict[str, str]]
     # Defaults last
-    actions: List[str] = field(default_factory=list)
-    tags: List[str] = field(default_factory=list)
+    actions: list[str] = field(default_factory=list)
+    tags: list[str] = field(default_factory=list)
+
 
 TRANSPORTERS = load_transporters()
 
-def rule_mechanisms(rule: Rule) -> List[str]:
+
+def rule_mechanisms(rule: Rule) -> list[str]:
     """
     Infer mechanism tags from a rule's logic block.
     Used for CLI filtering (CYP vs P-gp vs PD) without hardcoding rule IDs.
     """
     L = rule.logic or {}
-    out: List[str] = []
+    out: list[str] = []
 
     if "enzyme" in L:
         out.append("cyp")
 
     if "transporter" in L:
-        t = (L.get("transporter") or {})
+        t = L.get("transporter") or {}
         t_id = t.get("id")
         t_family = t.get("family")
 
@@ -53,8 +55,8 @@ def rule_mechanisms(rule: Rule) -> List[str]:
     return out
 
 
-def load_rules(rule_dir: Path) -> List[Rule]:
-    rules: List[Rule] = []
+def load_rules(rule_dir: Path) -> list[Rule]:
+    rules: list[Rule] = []
     for p in sorted(rule_dir.glob("*.json")):
         raw = json.loads(p.read_text(encoding="utf-8"))
         rules.append(
@@ -73,7 +75,10 @@ def load_rules(rule_dir: Path) -> List[Rule]:
         )
     return rules
 
-def _strength_ok(actual: Optional[str], required: Optional[str], allowed: Optional[List[str]] = None) -> bool:
+
+def _strength_ok(
+    actual: str | None, required: str | None, allowed: list[str] | None = None
+) -> bool:
     if required is None and not allowed:
         return True
 
@@ -86,14 +91,13 @@ def _strength_ok(actual: Optional[str], required: Optional[str], allowed: Option
     return actual == required
 
 
-
 def _drug_has_enzyme_role(
     facts: Facts,
     drug_id: str,
     enzyme_id: str,
     role: str,
-    strength: Optional[str] = None,
-    strength_in: Optional[List[str]] = None,
+    strength: str | None = None,
+    strength_in: list[str] | None = None,
 ) -> bool:
     for r in facts.enzyme_roles.get(drug_id, []):
         if r.enzyme_id != enzyme_id:
@@ -105,13 +109,14 @@ def _drug_has_enzyme_role(
         return True
     return False
 
+
 def _drug_has_transporter_role(
     facts: Facts,
     drug_id: str,
     transporter_id: str,
     role: str,
-    strength: Optional[str] = None,
-    strength_in: Optional[List[str]] = None,
+    strength: str | None = None,
+    strength_in: list[str] | None = None,
 ) -> bool:
     for r in facts.transporter_roles.get(drug_id, []):
         if r.transporter_id != transporter_id:
@@ -124,7 +129,9 @@ def _drug_has_transporter_role(
     return False
 
 
-def _drug_has_pd_effect(facts: Facts, drug_id: str, effect_id: str, min_magnitude: Optional[str] = None) -> bool:
+def _drug_has_pd_effect(
+    facts: Facts, drug_id: str, effect_id: str, min_magnitude: str | None = None
+) -> bool:
     order = {"low": 1, "medium": 2, "high": 3}
     for e in facts.pd_effects.get(drug_id, []):
         if e.effect_id != effect_id:
@@ -144,8 +151,9 @@ def _ti_is(facts: Facts, drug_id: str, ti: str) -> bool:
 def _patient_flag(facts: Facts, flag: str) -> bool:
     return bool(facts.patient_flags.get(flag, False))
 
-def _transporter_ids_for_family(family: str) -> List[str]:
-    ids: List[str] = []
+
+def _transporter_ids_for_family(family: str) -> list[str]:
+    ids: list[str] = []
 
     # Case 1: TRANSPORTERS is a dict
     if isinstance(TRANSPORTERS, dict):
@@ -166,13 +174,14 @@ def _transporter_ids_for_family(family: str) -> List[str]:
 
     return ids
 
-def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]:
+
+def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> RuleHit | None:
     """
     Evaluate a single rule for ordered pair (A=a, B=b).
     Rules are written assuming A is the affected drug and B is the interacting drug.
     """
     L = rule.logic
-    inputs: Dict[str, Any] = {"A": a, "B": b}
+    inputs: dict[str, Any] = {"A": a, "B": b}
 
     # Enzyme pattern
     if "enzyme" in L:
@@ -236,7 +245,10 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
         eff = L["pd_overlap"]["effect_id"]
         inputs["effect_id"] = eff
         min_mag = L["pd_overlap"].get("min_magnitude")
-        if not (_drug_has_pd_effect(facts, a, eff, min_mag) and _drug_has_pd_effect(facts, b, eff, min_mag)):
+        if not (
+            _drug_has_pd_effect(facts, a, eff, min_mag)
+            and _drug_has_pd_effect(facts, b, eff, min_mag)
+        ):
             return None
 
         # Prevent symmetric duplicates for PD rules
@@ -268,8 +280,8 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> Optional[RuleHit]
     )
 
 
-def evaluate_all(rules: List[Rule], facts: Facts, drug_ids: List[str]) -> List[RuleHit]:
-    hits: List[RuleHit] = []
+def evaluate_all(rules: list[Rule], facts: Facts, drug_ids: list[str]) -> list[RuleHit]:
+    hits: list[RuleHit] = []
     ordered = list(dict.fromkeys(drug_ids))  # de-dupe preserving order
 
     for i in range(len(ordered)):

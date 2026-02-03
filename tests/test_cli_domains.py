@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import app.cli as cli_mod
-from app.cli import connect, resolve_drug_ids, load_facts, RULE_DIR, DB_PATH
+from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
 from rules.engine import evaluate_all, load_rules
 
 

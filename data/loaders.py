@@ -2,15 +2,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 DATA_DIR = Path(__file__).parent
 
-def load_transporters() -> Dict[str, Dict[str, Any]]:
+
+def load_transporters() -> dict[str, dict[str, Any]]:
     path = DATA_DIR / "transporters.json"
     raw = json.loads(path.read_text(encoding="utf-8"))
 
-    out: Dict[str, Dict[str, Any]] = {}
+    out: dict[str, dict[str, Any]] = {}
 
     # Case 1: list of objects: [{"id": "...", "name": "...", "family": "..."}]
     if isinstance(raw, list):

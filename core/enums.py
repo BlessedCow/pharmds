@@ -1,6 +1,7 @@
 # enzyme names, effect types, severity bins
 
 from __future__ import annotations
+
 from enum import Enum
 
 
@@ -32,6 +33,7 @@ class Severity(str, Enum):
 class Domain(str, Enum):
     PK = "PK"
     PD = "PD"
+
 
 class RuleClass(str, Enum):
     avoid = "avoid"

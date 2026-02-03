@@ -2,16 +2,19 @@ from __future__ import annotations
 
 import json
 import re
-import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Set, Optional, Tuple
+from typing import Any
 
-#Keep these in sync with core.enums
+# Keep these in sync with core.enums
 ALLOWED_DOMAINS = {"PK", "PD"}
 ALLOWED_SEVERITIES = {"info", "caution", "major", "contraindicated"}
 ALLOWED_RULE_CLASSES = {"info", "caution", "adjust_monitor", "avoid"}
-ALLOWED_ROLES = {"substrate", "inhibitor", "inducer"}  # keep in sync with core.enums.Role
+ALLOWED_ROLES = {
+    "substrate",
+    "inhibitor",
+    "inducer",
+}  # keep in sync with core.enums.Role
 
 REQUIRED_TOP_KEYS = {
     "id",
@@ -35,19 +38,21 @@ ALLOWED_PLACEHOLDERS = {
 
 PLACEHOLDER_RE = re.compile(r"\{([a-zA-Z0-9_]+)\}")
 
+
 @dataclass
 class RuleError:
     file: str
     message: str
 
 
-def _load_json(path: Path) -> Dict[str, Any]:
+def _load_json(path: Path) -> dict[str, Any]:
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         raise ValueError(f"Invalid JSON: {e}") from e
 
-def _load_transporter_ids(base_dir: Path) -> Set[str]:
+
+def _load_transporter_ids(base_dir: Path) -> set[str]:
     """
     Loads canonical transporter IDs from pharmds/data/transporters.json.
     Returns a set of keys like {"P-gp", "OATP1B1", "BCRP"}.
@@ -58,16 +63,21 @@ def _load_transporter_ids(base_dir: Path) -> Set[str]:
 
     data = _load_json(path)
     if not isinstance(data, dict):
-        raise ValueError("data/transporters.json must be a JSON object mapping transporter_id -> metadata")
+        raise ValueError(
+            "data/transporters.json must be a JSON object mapping transporter_id -> metadata"
+        )
 
     return set(data.keys())
 
-def _find_placeholders(text: str) -> Set[str]:
+
+def _find_placeholders(text: str) -> set[str]:
     return {m.group(1) for m in PLACEHOLDER_RE.finditer(text or "")}
 
 
-def validate_rule(path: Path, raw: Dict[str, Any], transporter_ids: Set[str]) -> List[RuleError]:
-    errors: List[RuleError] = []
+def validate_rule(
+    path: Path, raw: dict[str, Any], transporter_ids: set[str]
+) -> list[RuleError]:
+    errors: list[RuleError] = []
 
     # Required top-level keys
     missing = REQUIRED_TOP_KEYS - set(raw.keys())
@@ -77,13 +87,28 @@ def validate_rule(path: Path, raw: Dict[str, Any], transporter_ids: Set[str]) ->
 
     # Enums
     if raw["domain"] not in ALLOWED_DOMAINS:
-        errors.append(RuleError(path.name, f"Invalid domain: {raw['domain']} (allowed: {sorted(ALLOWED_DOMAINS)})"))
+        errors.append(
+            RuleError(
+                path.name,
+                f"Invalid domain: {raw['domain']} (allowed: {sorted(ALLOWED_DOMAINS)})",
+            )
+        )
 
     if raw["severity"] not in ALLOWED_SEVERITIES:
-        errors.append(RuleError(path.name, f"Invalid severity: {raw['severity']} (allowed: {sorted(ALLOWED_SEVERITIES)})"))
+        errors.append(
+            RuleError(
+                path.name,
+                f"Invalid severity: {raw['severity']} (allowed: {sorted(ALLOWED_SEVERITIES)})",
+            )
+        )
 
     if raw["rule_class"] not in ALLOWED_RULE_CLASSES:
-        errors.append(RuleError(path.name, f"Invalid rule_class: {raw['rule_class']} (allowed: {sorted(ALLOWED_RULE_CLASSES)})"))
+        errors.append(
+            RuleError(
+                path.name,
+                f"Invalid rule_class: {raw['rule_class']} (allowed: {sorted(ALLOWED_RULE_CLASSES)})",
+            )
+        )
 
     # actions must be list[str]
     actions = raw.get("actions")
@@ -107,17 +132,23 @@ def validate_rule(path: Path, raw: Dict[str, Any], transporter_ids: Set[str]) ->
 
     # placeholder checks in explanation_template + rationale lines
     unknown_ph = set()
-    unknown_ph |= _find_placeholders(raw.get("explanation_template", "")) - ALLOWED_PLACEHOLDERS
+    unknown_ph |= (
+        _find_placeholders(raw.get("explanation_template", "")) - ALLOWED_PLACEHOLDERS
+    )
 
     rationale = logic.get("rationale", [])
-    if not isinstance(rationale, list) or any(not isinstance(x, str) for x in rationale):
+    if not isinstance(rationale, list) or any(
+        not isinstance(x, str) for x in rationale
+    ):
         errors.append(RuleError(path.name, "logic.rationale must be a list of strings"))
     else:
         for line in rationale:
             unknown_ph |= _find_placeholders(line) - ALLOWED_PLACEHOLDERS
 
     if unknown_ph:
-        errors.append(RuleError(path.name, f"Unknown placeholders: {sorted(unknown_ph)}"))
+        errors.append(
+            RuleError(path.name, f"Unknown placeholders: {sorted(unknown_ph)}")
+        )
 
     # Basic logic shape checks
     if "enzyme" in logic:
@@ -136,18 +167,24 @@ def validate_rule(path: Path, raw: Dict[str, Any], transporter_ids: Set[str]) ->
         else:
             for k in ("id", "A_role", "B_role"):
                 if k not in tr:
-                    errors.append(RuleError(path.name, f"logic.transporter missing {k}"))
+                    errors.append(
+                        RuleError(path.name, f"logic.transporter missing {k}")
+                    )
 
             # Validate transporter id exists in canonical list
             tid = tr.get("id")
             if not isinstance(tid, str) or not tid.strip():
-                errors.append(RuleError(path.name, "logic.transporter.id must be a non-empty string"))
+                errors.append(
+                    RuleError(
+                        path.name, "logic.transporter.id must be a non-empty string"
+                    )
+                )
             else:
                 if transporter_ids and tid not in transporter_ids:
                     errors.append(
                         RuleError(
                             path.name,
-                            f"Unknown transporter id: {tid} (known: {sorted(transporter_ids)})"
+                            f"Unknown transporter id: {tid} (known: {sorted(transporter_ids)})",
                         )
                     )
 
@@ -158,7 +195,7 @@ def validate_rule(path: Path, raw: Dict[str, Any], transporter_ids: Set[str]) ->
                     errors.append(
                         RuleError(
                             path.name,
-                            f"logic.transporter.{role_key} must be one of {sorted(ALLOWED_ROLES)} (got: {role_val})"
+                            f"logic.transporter.{role_key} must be one of {sorted(ALLOWED_ROLES)} (got: {role_val})",
                         )
                     )
 
@@ -168,7 +205,9 @@ def validate_rule(path: Path, raw: Dict[str, Any], transporter_ids: Set[str]) ->
             errors.append(RuleError(path.name, "logic.pd_overlap must be an object"))
         else:
             if "effect_id" not in pd:
-                errors.append(RuleError(path.name, "logic.pd_overlap missing effect_id"))
+                errors.append(
+                    RuleError(path.name, "logic.pd_overlap missing effect_id")
+                )
 
     return errors
 
@@ -182,7 +221,7 @@ def main() -> int:
         print(f"Rule directory not found: {rule_dir}")
         return 2
 
-    all_errors: List[RuleError] = []
+    all_errors: list[RuleError] = []
     files = sorted(rule_dir.glob("*.json"))
     if not files:
         print(f"No rule JSON files found in: {rule_dir}")

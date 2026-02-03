@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
-
-from app.cli import connect, resolve_drug_ids, load_facts, RULE_DIR, DB_PATH
-from rules.engine import load_rules, evaluate_all
+from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
+from rules.engine import evaluate_all, load_rules
 
 
 def test_transporter_family_rule_matches_pgp_roles():

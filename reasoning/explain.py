@@ -1,7 +1,7 @@
- # explanation templating, trace -> prose
- 
+# explanation templating, trace -> prose
+
 from __future__ import annotations
-from typing import Dict
+
 from core.models import Facts, RuleHit
 
 
@@ -9,13 +9,15 @@ def _drug_name(facts: Facts, drug_id: str) -> str:
     d = facts.drugs.get(drug_id)
     return d.generic_name if d else drug_id
 
-def _format_text(text: str, mapping: Dict[str, str]) -> str:
+
+def _format_text(text: str, mapping: dict[str, str]) -> str:
     for k, v in mapping.items():
         text = text.replace("{" + k + "}", v)
     return text
 
+
 def render_explanation(template: str, facts: Facts, hit: RuleHit) -> str:
-    mapping: Dict[str, str] = {
+    mapping: dict[str, str] = {
         "A_name": _drug_name(facts, hit.inputs["A"]),
         "B_name": _drug_name(facts, hit.inputs["B"]),
     }

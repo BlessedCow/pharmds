@@ -2,11 +2,8 @@
 
 from __future__ import annotations
 
-import sqlite3
-from pathlib import Path
-
-from rules.engine import load_rules, evaluate_all
-from app.cli import load_facts, resolve_drug_ids, connect, RULE_DIR, DB_PATH
+from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
+from rules.engine import evaluate_all, load_rules
 
 
 def test_warfarin_fluconazole_flags_major_or_higher():

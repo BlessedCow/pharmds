@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Dict, List, Tuple, Optional
 
-from core.enums import Domain, Severity, RuleClass
+from core.enums import Domain, RuleClass, Severity
 from core.models import Facts, PairReport, RuleHit
-from reasoning.explain import render_explanation, render_rationale
+from reasoning.explain import render_explanation
 
 _SEV_RANK = {
     Severity.info: 0,
@@ -21,13 +20,16 @@ _CLASS_RANK = {
     RuleClass.avoid: 3,
 }
 
-def _max_sev(hits: List[RuleHit]) -> Severity:
+
+def _max_sev(hits: list[RuleHit]) -> Severity:
     return max((h.severity for h in hits), key=lambda s: _SEV_RANK[s])
 
-def _max_class(hits: List[RuleHit]) -> RuleClass:
+
+def _max_class(hits: list[RuleHit]) -> RuleClass:
     return max((h.rule_class for h in hits), key=lambda c: _CLASS_RANK[c])
 
-def _pk_summary(pk_hits: List[RuleHit]) -> Optional[str]:
+
+def _pk_summary(pk_hits: list[RuleHit]) -> str | None:
     inc = any("exposure_increase" in (h.tags or []) for h in pk_hits)
     dec = any("exposure_decrease" in (h.tags or []) for h in pk_hits)
 
@@ -39,16 +41,17 @@ def _pk_summary(pk_hits: List[RuleHit]) -> Optional[str]:
         return "exposure_decrease"
     return None
 
+
 def build_pair_reports(
     facts: Facts,
-    hits: List[RuleHit],
-    rule_templates: Dict[str, str],
-) -> List[PairReport]:
+    hits: list[RuleHit],
+    rule_templates: dict[str, str],
+) -> list[PairReport]:
     """
     Group by unordered pair (stable by drug_id ordering), then split into PK/PD sections.
     PK hits remain directional (A affected, B interacting) and should be displayed as such.
     """
-    grouped: Dict[Tuple[str, str], List[RuleHit]] = defaultdict(list)
+    grouped: dict[tuple[str, str], list[RuleHit]] = defaultdict(list)
 
     for h in hits:
         a = h.inputs["A"]
@@ -56,7 +59,7 @@ def build_pair_reports(
         d1, d2 = (a, b) if a < b else (b, a)
         grouped[(d1, d2)].append(h)
 
-    reports: List[PairReport] = []
+    reports: list[PairReport] = []
     for (d1, d2), pair_hits in grouped.items():
         pk_hits = [h for h in pair_hits if h.domain == Domain.PK]
         pd_hits = [h for h in pair_hits if h.domain == Domain.PD]
@@ -79,7 +82,10 @@ def build_pair_reports(
     reports.sort(key=lambda r: (-_SEV_RANK[r.overall_severity], r.drug_1, r.drug_2))
     return reports
 
-def _dedupe_hits(hits: List[RuleHit], facts: Facts, rule_templates: Dict[str, str]) -> List[RuleHit]:
+
+def _dedupe_hits(
+    hits: list[RuleHit], facts: Facts, rule_templates: dict[str, str]
+) -> list[RuleHit]:
     """
     Optional: dedupe identical hits caused by multiple rules or repeated matches.
     For PK, keep directionality, so dedupe key includes A,B,rule_id.
