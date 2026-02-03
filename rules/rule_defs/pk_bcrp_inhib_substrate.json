@@ -1,0 +1,32 @@
+{
+  "id": "PK_BCRP_INHIB_SUBSTRATE",
+  "name": "BCRP inhibition can increase exposure of BCRP substrates",
+  "domain": "PK",
+  "severity": "caution",
+  "rule_class": "caution",
+  "tags": ["exposure_increase"],
+  "actions": [
+    "Recognize that BCRP inhibition can increase exposure of some substrates (educational).",
+    "Use extra caution for substrates where modest exposure changes may matter.",
+    "Verify transporter relevance and interaction significance with primary sources."
+  ],
+  "logic": {
+    "transporter": {
+      "family": "ABCG2",
+      "A_role": "substrate",
+      "B_role": "inhibitor",
+      "B_strength_in": ["moderate", "strong"]
+    },
+    "rationale": [
+      "{B_name} can inhibit BCRP (ABCG2), an efflux transporter involved in limiting exposure of some drugs.",
+      "Reduced efflux may increase {A_name} exposure in some contexts."
+    ]
+  },
+  "explanation_template": "{B_name} may inhibit BCRP (ABCG2) and {A_name} is a BCRP substrate. This can increase {A_name} exposure and raise the risk of dose-related adverse effects (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Mechanistic pattern: efflux transporter inhibition + substrate can increase exposure."
+    }
+  ]
+}

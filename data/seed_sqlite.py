@@ -54,12 +54,16 @@ def seed(conn: sqlite3.Connection) -> None:
     transporters = [
         (
             "P-gp",
-            "P-glycoprotein (ABCB1); influences absorption/efflux of select drugs.",
+            "P-glycoprotein (ABCB1); efflux transporter affecting absorption and elimination.",
         ),
+        ("OATP1B1", "Hepatic uptake transporter (SLCO1B1)."),
+        ("BCRP", "Breast Cancer Resistance Protein (ABCG2); efflux transporter."),
     ]
     for t in transporters:
         upsert(
-            conn, "INSERT OR REPLACE INTO transporter(id,description) VALUES(?,?)", t
+            conn,
+            "INSERT OR REPLACE INTO transporter(id,description) VALUES(?,?)",
+            t,
         )
 
     # PD effects
@@ -278,6 +282,20 @@ def seed(conn: sqlite3.Connection) -> None:
             "moderate",
             "Strong inducer anchor (P-gp induction educational).",
         ),
+        (
+            "rosuvastatin",
+            "rosuvastatin",
+            "statin",
+            "moderate",
+            "Educational BCRP substrate anchor (transport-based exposure changes).",
+        ),
+        (
+            "cyclosporine",
+            "cyclosporine",
+            "calcineurin inhibitor",
+            "moderate",
+            "Educational transporter inhibitor anchor (multi-mechanism in reality; modeled conservatively).",
+        ),
     ]
     for d in drugs:
         upsert(
@@ -317,6 +335,9 @@ def seed(conn: sqlite3.Connection) -> None:
         ("amiodarone", "cordarone"),
         ("quinidine", "quinidex"),
         ("carbamazepine", "tegretol"),
+        ("rosuvastatin", "lipitor"),
+        ("cyclosporine", "neoral"),
+        
     ]
     for drug_id, alias in aliases:
         upsert(
@@ -484,7 +505,12 @@ def seed(conn: sqlite3.Connection) -> None:
 
     # Transporter roles
     t_roles = [
-        ("digoxin", "P-gp", "substrate", None, "P-gp substrate (educational)."),
+        (   "digoxin", 
+            "P-gp", 
+            "substrate",
+            None, 
+            "P-gp substrate (educational)."
+        ),
         (
             "clarithromycin",
             "P-gp",
@@ -541,6 +567,19 @@ def seed(conn: sqlite3.Connection) -> None:
             "strong",
             "P-gp induction can reduce exposure of substrates (educational).",
         ),
+        (   "rosuvastatin", 
+            "BCRP", 
+            "substrate", 
+            None, 
+            "BCRP substrate (educational anchor)."
+        ),
+        (   "cyclosporine", 
+            "BCRP", 
+            "inhibitor", 
+            "moderate", 
+            "BCRP inhibitor (educational; conservative strength)."
+        ),
+        
     ]
     for drug_id, transporter_id, role, strength, notes in t_roles:
         upsert(

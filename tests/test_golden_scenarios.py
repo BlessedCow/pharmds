@@ -48,3 +48,10 @@ def test_pd_qt_no_duplicates_citalopram_ondansetron():
     _, hits = _run(["citalopram", "ondansetron"])
     qt_hits = [h for h in hits if h.rule_id == "PD_QT_ADDITIVE"]
     assert len(qt_hits) == 1
+
+def test_pk_bcrp_inhib_rosuvastatin_cyclosporine():
+    _, hits = _run(["rosuvastatin", "cyclosporine"])
+    assert any(
+        h.rule_id == "PK_BCRP_INHIB_SUBSTRATE" and h.inputs["A"] == "rosuvastatin"
+        for h in hits
+    )

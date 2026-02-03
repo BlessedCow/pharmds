@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
-from core.enums import Domain
 from core.exceptions import UnknownDrugError
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports
@@ -197,6 +196,7 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
         if p == "all":
             add("cyp")
             add("pgp")
+            add("bcrp")
             add("pd")
         elif p == "pk":
             add("cyp")
@@ -207,11 +207,15 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
             add("cyp")
         elif p == "pgp":
             add("pgp")
+        elif p == "bcrp":
+            add("bcrp")
         else:
-            raise SystemExit("Unknown --domain option. Use: all, pk, pd, cyp, pgp")
+            raise SystemExit(
+                "Unknown --domain option. Use: all, pk, pd, cyp, pgp"
+            )
 
     if not selected:
-        selected = ["cyp", "pgp", "pd"]
+        selected = ["cyp", "pgp", "bcrp", "pd"]
 
     return selected
 
@@ -234,26 +238,6 @@ def filter_rules_for_selected_domains(rules_all, selected: list[str]):
             out.append(r)
 
     return out
-
-
-def _filter_rules(rules, selected: list[str]):
-    out = []
-    for r in rules:
-        if r.domain == Domain.PD:
-            if "pd" in selected:
-                out.append(r)
-            continue
-
-        if r.domain == Domain.PK:
-            mechs = rule_mechanisms(r)
-            if ("cyp" in selected and "cyp" in mechs) or (
-                "pgp" in selected and "pgp" in mechs
-            ):
-                out.append(r)
-            continue
-
-    return out
-
 
 def main() -> None:
     p = argparse.ArgumentParser(
@@ -279,7 +263,7 @@ def main() -> None:
         default="all",
         help=(
             "Comma-separated mechanism filters. "
-            "Allowed: cyp, pgp, pd, pk (alias for cyp,pgp), all. "
+            "Allowed: cyp, pgp, bcrp, pd, pk (alias for cyp,pgp), all. "
             "Examples: --domain cyp  |  --domain pd  |  --domain cyp,pd"
         ),
     )

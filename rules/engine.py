@@ -32,22 +32,45 @@ TRANSPORTERS = load_transporters()
 def rule_mechanisms(rule: Rule) -> list[str]:
     """
     Infer mechanism tags from a rule's logic block.
-    Used for CLI filtering (CYP vs P-gp vs PD) without hardcoding rule IDs.
+    Used for CLI filtering (CYP vs transporters vs PD) without hardcoding rule IDs.
     """
     L = rule.logic or {}
     out: list[str] = []
 
+    # Enzyme mechanism tagging
     if "enzyme" in L:
-        out.append("cyp")
+        enzyme_id = (L.get("enzyme") or {}).get("id", "")
+        # Keep current behavior but future-proof for UGTs
+        if enzyme_id.startswith("CYP"):
+            out.append("cyp")
+        elif enzyme_id.startswith("UGT"):
+            out.append("ugt")
+        else:
+            # fallback tag for non-CYP/UGT enzyme families if you add them later
+            out.append("enzyme")
 
+    # Transporter mechanism tagging
     if "transporter" in L:
         t = L.get("transporter") or {}
         t_id = t.get("id")
         t_family = t.get("family")
 
-        # Support both id-based and family-based transporter rules
-        if t_id == "P-gp" or t_family == "ABCB1":
+        # If rule uses id-based transporter logic, infer family from transporters.json
+        if not t_family and t_id and isinstance(TRANSPORTERS, dict):
+            meta = TRANSPORTERS.get(t_id)
+            if isinstance(meta, dict):
+                t_family = meta.get("family")
+
+        # Normalize known families into CLI-friendly tags
+        if t_family == "ABCB1" or t_id == "P-gp":
             out.append("pgp")
+        elif t_family == "ABCG2" or t_id == "BCRP":
+            out.append("bcrp")
+        elif t_family == "OATP" or (t_id or "").startswith("OATP"):
+            out.append("oatp")
+        else:
+            # generic transporter tag so users can still filter even if family is new/unknown
+            out.append("transporter")
 
     if "pd_overlap" in L:
         out.append("pd")

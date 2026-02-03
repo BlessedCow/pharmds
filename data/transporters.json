@@ -8,6 +8,7 @@
   },
   "OATP1B1": {
     "name": "Organic Anion Transporting Polypeptide 1B1",
+    "family": "OATP",
     "gene": "SLCO1B1",
     "type": "uptake",
     "primary_sites": ["liver"],
@@ -15,6 +16,7 @@
   },
   "BCRP": {
     "name": "Breast Cancer Resistance Protein",
+    "family": "ABCG2",
     "gene": "ABCG2",
     "type": "efflux",
     "primary_sites": ["intestine", "liver"],
