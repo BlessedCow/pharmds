@@ -7,6 +7,19 @@ It is not a commitment or timeline, and priorities may change as the project evo
 PharmDS is currently in **v0 (early development)**. Stability, APIs, and rule schemas may change.
 
 ----------
+## Current State
+
+PharmDS has a stable development baseline:
+- Automated CI with linting and tests
+- Reproducible local development setup
+- Clear contribution and testing standards
+
+Current work prioritizes correctness, explainability, and reduction of false positives.
+
+### Contributor experience
+- Maintain clear contribution and testing guidelines
+- Expand golden and negative test scenarios
+- Improve rule authoring clarity and reviewability
 
 ## Near-Term Focus (v0.x)
 

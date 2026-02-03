@@ -1,0 +1,128 @@
+MEDICATION ADDITION TEMPLATE (PharmDS)
+
+This template defines the minimum information required when adding a new medication
+to PharmDS. Not all fields are required for every drug. Leave fields blank if unknown
+or intentionally out of scope.
+
+--------------------------------------------------
+BASIC IDENTIFICATION
+--------------------------------------------------
+
+Generic name:
+Lowercase id (used internally, usually same as generic):
+
+Brand names / aliases:
+(list all common brand names or alternate spellings)
+
+Drug class:
+(e.g., SSRI, antipsychotic, benzodiazepine, antiarrhythmic)
+
+Therapeutic index:
+(narrow / moderate / wide / unknown)
+
+Brief educational note:
+(1–2 sentences explaining clinical relevance or why this drug is included)
+
+
+--------------------------------------------------
+PHARMACOKINETICS (PK)
+--------------------------------------------------
+
+CYP substrate roles:
+- Enzyme:
+- Strength (if known):
+- Fraction metabolized (if known):
+- Notes / uncertainty:
+
+CYP inhibition:
+- Enzyme(s):
+- Strength (weak / moderate / strong):
+- Notes / references:
+
+CYP induction:
+- Enzyme(s):
+- Strength:
+- Notes / references:
+
+Transporter substrate roles:
+- Transporter (e.g., P-gp, BCRP):
+- Notes:
+
+Transporter inhibition or induction:
+- Transporter:
+- Role (inhibitor / inducer):
+- Strength:
+- Notes / uncertainty:
+
+
+--------------------------------------------------
+PHARMACODYNAMICS (PD)
+--------------------------------------------------
+
+Relevant PD domains:
+(check all that apply)
+
+[ ] QT prolongation
+[ ] Sedation / CNS depression
+[ ] Serotonergic effects
+[ ] Bleeding risk
+[ ] Hypotension / bradycardia
+[ ] Anticholinergic burden
+[ ] Other (specify):
+
+PD notes:
+Brief explanation of why this drug belongs to the selected domains.
+
+
+--------------------------------------------------
+RULE INTERACTIONS
+--------------------------------------------------
+
+Existing rules this drug should trigger:
+(list rule IDs and rationale)
+
+Existing rules this drug should NOT trigger:
+(list tempting false positives to guard against)
+
+New rules required?
+[ ] No
+[ ] Yes (describe briefly)
+
+
+--------------------------------------------------
+TESTING REQUIREMENTS
+--------------------------------------------------
+
+Positive test(s) added:
+- Drug pair:
+- Expected rule_id(s):
+
+Negative test(s) added:
+- Drug pair:
+- Rule(s) that should NOT fire:
+
+Rationale for test selection:
+(why these scenarios matter)
+
+
+--------------------------------------------------
+REFERENCES (OPTIONAL BUT ENCOURAGED)
+--------------------------------------------------
+
+Sources used:
+- FDA label
+- Review articles
+- Trusted pharmacology references
+- Educational summaries
+
+Notes on variability or controversy:
+(If data is inconsistent, explain how it was modeled conservatively)
+
+
+--------------------------------------------------
+CONTRIBUTOR ATTESTATION
+--------------------------------------------------
+
+[ ] This addition is educational in scope
+[ ] I added or updated tests
+[ ] I considered false positives and rule overreach

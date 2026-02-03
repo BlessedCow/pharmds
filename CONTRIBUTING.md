@@ -31,6 +31,9 @@ Keep the drug id lowercase and stable (usually the generic name).
 Example pattern:
 ("sertraline", "sertraline", "SSRI", "moderate", "Short educational note.")
 
+For a structured checklist of required information, see
+docs/ADDING_A_DRUG.txt.
+
 2) Add aliases (recommended)
 Add brand names or common variants to the aliases list.
 Aliases should be lowercase.
@@ -78,6 +81,7 @@ Every rule must include:
 - at least one positive test
 - at least one negative test
 
+See docs/ADDING_A_RULE.txt for the required rule contribution template.
 
 HOW TO ADD A TEST
 

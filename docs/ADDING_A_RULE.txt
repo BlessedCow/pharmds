@@ -1,0 +1,153 @@
+RULE ADDITION TEMPLATE (PharmDS)
+
+This template defines the required information when proposing or adding a new
+interaction rule to PharmDS. Rules must be mechanistic, conservative, and
+educational in scope.
+
+--------------------------------------------------
+RULE IDENTIFICATION
+--------------------------------------------------
+
+Rule ID:
+(UPPERCASE_WITH_UNDERSCORES, stable and descriptive)
+
+Rule domain:
+[ ] PK (pharmacokinetic)
+[ ] PD (pharmacodynamic)
+
+Short rule name:
+(1-line human-readable description)
+
+Educational summary:
+(1–2 sentences describing the interaction in plain language)
+
+
+--------------------------------------------------
+MECHANISTIC BASIS
+--------------------------------------------------
+
+Primary mechanism:
+(select exactly ONE)
+
+[ ] CYP enzyme interaction
+[ ] Transporter interaction
+[ ] PD overlap / additive effect
+
+Detailed mechanism explanation:
+Explain *why* this interaction occurs biologically or pharmacologically.
+Avoid outcome-based or predictive language.
+
+
+--------------------------------------------------
+PK-SPECIFIC DETAILS (if applicable)
+--------------------------------------------------
+
+Affected drug role:
+[ ] Substrate
+[ ] Prodrug
+[ ] Active metabolite
+
+Interacting drug role:
+[ ] Inhibitor
+[ ] Inducer
+
+Enzyme(s) or transporter(s) involved:
+(e.g., CYP3A4, CYP2D6, P-gp)
+
+Strength modeling:
+(weak / moderate / strong / unknown)
+
+Notes on uncertainty or variability:
+(e.g., dose dependence, conflicting sources)
+
+
+--------------------------------------------------
+PD-SPECIFIC DETAILS (if applicable)
+--------------------------------------------------
+
+PD domain:
+(e.g., QT prolongation, sedation, bleeding, serotonergic effects)
+
+Additive or synergistic?
+[ ] Additive
+[ ] Potentially synergistic
+[ ] Uncertain (modeled conservatively)
+
+Clinical relevance note:
+Explain why overlapping effects matter, without giving clinical directives.
+
+
+--------------------------------------------------
+SEVERITY AND CLASSIFICATION
+--------------------------------------------------
+
+Severity:
+[ ] info
+[ ] caution
+[ ] major
+[ ] contraindicated
+
+Rule class:
+[ ] info
+[ ] caution
+[ ] adjust_monitor
+[ ] avoid
+
+Justification for severity and class:
+Explain why this level was chosen and why higher or lower levels were not.
+
+
+--------------------------------------------------
+LOGIC AND SCOPE CONTROL
+--------------------------------------------------
+
+Trigger conditions:
+(What must be true for this rule to fire?)
+
+Explicit non-triggers:
+(What *should not* cause this rule to fire?)
+
+False-positive risks considered:
+(List tempting scenarios this rule intentionally avoids)
+
+
+--------------------------------------------------
+TESTING REQUIREMENTS
+--------------------------------------------------
+
+Positive (golden) test(s):
+- Drug pair:
+- Expected rule_id:
+- Why this pair is representative:
+
+Negative test(s):
+- Drug pair:
+- Rule(s) that must NOT fire:
+- Why this is a common false-positive trap:
+
+Edge cases tested (if any):
+(e.g., induction vs inhibition, weak vs strong effects)
+
+
+--------------------------------------------------
+REFERENCES (OPTIONAL BUT ENCOURAGED)
+--------------------------------------------------
+
+Sources consulted:
+- FDA labeling
+- Pharmacology texts
+- Review articles
+- Educational summaries
+
+Notes on conflicting data:
+(How ambiguity was handled conservatively)
+
+
+--------------------------------------------------
+CONTRIBUTOR ATTESTATION
+--------------------------------------------------
+
+[ ] This rule is mechanistic and educational
+[ ] I avoided outcome-based or prescriptive language
+[ ] I added at least one negative test
+[ ] I considered alert fatigue and scope creep
