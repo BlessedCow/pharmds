@@ -40,13 +40,13 @@ def rule_mechanisms(rule: Rule) -> list[str]:
     # Enzyme mechanism tagging
     if "enzyme" in L:
         enzyme_id = (L.get("enzyme") or {}).get("id", "")
-        # Keep current behavior but future-proof for UGTs
+        # Keep current behavior but future proof for UGTs
         if enzyme_id.startswith("CYP"):
             out.append("cyp")
         elif enzyme_id.startswith("UGT"):
             out.append("ugt")
         else:
-            # fallback tag for non-CYP/UGT enzyme families if you add them later
+            # fallback tag for non-CYP/UGT enzyme families
             out.append("enzyme")
 
     # Transporter mechanism tagging

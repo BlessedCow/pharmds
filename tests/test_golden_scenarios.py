@@ -62,3 +62,10 @@ def test_pk_oatp_inhib_rosuvastatin_cyclosporine():
         h.rule_id == "PK_OATP_INHIB" and h.inputs["A"] == "rosuvastatin"
         for h in hits
     )
+
+def test_pk_ugt1a1_inhib_irinotecan_atazanavir():
+    _, hits = _run(["irinotecan", "atazanavir"])
+    assert any(
+        h.rule_id == "PK_UGT1A1_INHIB" and h.inputs["A"] == "irinotecan"
+        for h in hits
+    )

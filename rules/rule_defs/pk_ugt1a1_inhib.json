@@ -1,0 +1,31 @@
+{
+  "id": "PK_UGT1A1_INHIB",
+  "name": "UGT1A1 inhibition can increase exposure of UGT1A1 substrates",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_increase"],
+  "actions": [
+    "Consider alternatives to the inhibitor when feasible (educational).",
+    "If used together, monitor for dose-related adverse effects of the affected drug."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "UGT1A1",
+      "A_role": "substrate",
+      "B_role": "inhibitor",
+      "B_strength_in": ["moderate", "strong"]
+    },
+    "rationale": [
+      "{B_name} inhibits {enzyme_id}, reducing glucuronidation clearance of {A_name}.",
+      "Reduced Phase II metabolism can increase {A_name} exposure."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits UGT1A1 and {A_name} relies on UGT1A1 metabolism. This can increase {A_name} exposure and raise the risk of dose-related adverse effects.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Mechanistic pattern: enzyme inhibition of UGT pathway can increase exposure of substrates."
+    }
+  ]
+}

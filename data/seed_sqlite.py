@@ -42,6 +42,8 @@ def seed(conn: sqlite3.Connection) -> None:
         ),
         ("CYP1A2", "CYP", "Affected by inhibitors and smoking induction (later)."),
         ("CYP2B6", "CYP", "Primary pathway for bupropion metabolism (educational)."),
+        ("UGT1A1", "UGT", "Phase II glucuronidation enzyme; clinically important for select substrates."),
+        # ("UGT2B7", "UGT", "Phase II glucuronidation enzyme; relevant for some opioids (educational)."),
     ]
     for e in enzymes:
         upsert(
@@ -89,7 +91,7 @@ def seed(conn: sqlite3.Connection) -> None:
     for pe in pd_effects:
         upsert(conn, "INSERT OR REPLACE INTO pd_effect(id,description) VALUES(?,?)", pe)
 
-    # Drugs (30)
+    # Drugs
     drugs = [
         (
             "midazolam",
@@ -328,6 +330,21 @@ def seed(conn: sqlite3.Connection) -> None:
             "narrow",
             "Transporter inhibitor anchor (educational).",
         ),
+        (
+            "irinotecan",
+            "irinotecan",
+            "chemotherapy",
+            "narrow",
+            "UGT1A1-relevant via SN-38 glucuronidation (educational anchor).",
+        ),
+        (
+            "atazanavir",
+            "atazanavir",
+            "antiretroviral",
+            "moderate",
+            "UGT1A1 inhibition reference (educational anchor).",
+        ),
+        
     ]
     for d in drugs:
         upsert(
@@ -523,6 +540,20 @@ def seed(conn: sqlite3.Connection) -> None:
             "moderate",
             None,
             "CYP1A2 inhibition (educational anchor).",
+        ),
+        (   "irinotecan", 
+            "UGT1A1", 
+            "substrate", 
+            None, 
+            0.5, 
+            "UGT1A1 pathway relevance (educational)."
+        ),
+        (   "atazanavir", 
+            "UGT1A1", 
+            "inhibitor", 
+            "strong", 
+            None, 
+            "UGT1A1 inhibition (educational anchor)."
         ),
     ]
     for drug_id, enzyme_id, role, strength, fm, notes in roles:
