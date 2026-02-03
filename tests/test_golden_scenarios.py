@@ -55,3 +55,10 @@ def test_pk_bcrp_inhib_rosuvastatin_cyclosporine():
         h.rule_id == "PK_BCRP_INHIB_SUBSTRATE" and h.inputs["A"] == "rosuvastatin"
         for h in hits
     )
+
+def test_pk_oatp_inhib_rosuvastatin_cyclosporine():
+    _, hits = _run(["rosuvastatin", "cyclosporine"])
+    assert any(
+        h.rule_id == "PK_OATP_INHIB" and h.inputs["A"] == "rosuvastatin"
+        for h in hits
+    )

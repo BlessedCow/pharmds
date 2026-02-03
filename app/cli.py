@@ -197,10 +197,13 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
             add("cyp")
             add("pgp")
             add("bcrp")
+            add("oatp")
             add("pd")
         elif p == "pk":
             add("cyp")
             add("pgp")
+            add("bcrp")
+            add("oatp")
         elif p == "pd":
             add("pd")
         elif p == "cyp":
@@ -209,13 +212,15 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
             add("pgp")
         elif p == "bcrp":
             add("bcrp")
+        elif p == "oatp":
+            add("oatp")
         else:
             raise SystemExit(
                 "Unknown --domain option. Use: all, pk, pd, cyp, pgp"
             )
 
     if not selected:
-        selected = ["cyp", "pgp", "bcrp", "pd"]
+        selected = ["cyp", "pgp", "bcrp", "oatp", "pd"]
 
     return selected
 
@@ -263,7 +268,7 @@ def main() -> None:
         default="all",
         help=(
             "Comma-separated mechanism filters. "
-            "Allowed: cyp, pgp, bcrp, pd, pk (alias for cyp,pgp), all. "
+            "Allowed: cyp, pgp, bcrp, oatp, pd, pk (alias for cyp,pgp), all. "
             "Examples: --domain cyp  |  --domain pd  |  --domain cyp,pd"
         ),
     )

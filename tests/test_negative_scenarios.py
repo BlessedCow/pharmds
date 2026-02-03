@@ -94,3 +94,8 @@ def test_negative_no_bcrp_hit_rosuvastatin_fluconazole():
     """Fluconazole should not be treated as a BCRP inhibitor in seed data."""
     _, hits = _run(["rosuvastatin", "fluconazole"])
     assert "PK_BCRP_INHIB_SUBSTRATE" not in _rule_ids(hits)
+
+def test_negative_no_oatp_hit_rosuvastatin_fluconazole():
+    """Fluconazole is not modeled as an OATP inhibitor in seed data."""
+    _, hits = _run(["rosuvastatin", "fluconazole"])
+    assert "PK_OATP_INHIB" not in _rule_ids(hits)

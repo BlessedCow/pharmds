@@ -1,0 +1,32 @@
+{
+  "id": "PK_OATP_INHIB",
+  "name": "OATP inhibition can increase exposure of OATP substrates",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_increase"],
+  "actions": [
+    "Consider interaction risk when combining OATP inhibitors with OATP substrates (educational).",
+    "If used together, monitor for dose-related adverse effects of the affected drug.",
+    "Recognize that uptake transporter effects can be substrate- and dose-dependent."
+  ],
+  "logic": {
+    "transporter": {
+      "family": "OATP",
+      "A_role": "substrate",
+      "B_role": "inhibitor",
+      "B_strength_in": ["moderate", "strong"]
+    },
+    "rationale": [
+      "{B_name} inhibits hepatic uptake transport (OATP), which can reduce hepatic clearance of {A_name}.",
+      "Reduced uptake into the liver can increase systemic exposure of some OATP substrates."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits OATP transport and {A_name} is an OATP substrate. This may increase {A_name} exposure, raising the risk of dose-related adverse effects.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Mechanistic pattern: uptake transporter inhibition can increase exposure of certain substrates."
+    }
+  ]
+}

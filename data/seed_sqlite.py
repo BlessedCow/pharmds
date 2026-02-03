@@ -56,8 +56,14 @@ def seed(conn: sqlite3.Connection) -> None:
             "P-gp",
             "P-glycoprotein (ABCB1); efflux transporter affecting absorption and elimination.",
         ),
-        ("OATP1B1", "Hepatic uptake transporter (SLCO1B1)."),
-        ("BCRP", "Breast Cancer Resistance Protein (ABCG2); efflux transporter."),
+        (   
+            "OATP1B1", 
+            "Hepatic uptake transporter (SLCO1B1)."
+        ),
+        (   
+            "BCRP", 
+            "Breast Cancer Resistance Protein (ABCG2); efflux transporter."
+        ),
     ]
     for t in transporters:
         upsert(
@@ -75,10 +81,10 @@ def seed(conn: sqlite3.Connection) -> None:
         ("anticholinergic", "Anticholinergic burden domain."),
         ("hypotension", "Orthostasis/hypotension domain."),
         ("bradycardia", "Heart rate lowering / symptomatic bradycardia risk domain."),
-        (
-            "serotonin_syndrome",
-            "Serotonin toxicity syndrome risk domain (educational).",
-        ),
+        ("serotonin_syndrome", "Serotonin toxicity syndrome risk domain (educational)."),
+        ("hypoglycemia", "Hypoglycemia risk domain."),
+        ("anticholinergic", "Anticholinergic burden domain."),
+        ("cardiovascular", "Cardiovascular effects (educational)."),
     ]
     for pe in pd_effects:
         upsert(conn, "INSERT OR REPLACE INTO pd_effect(id,description) VALUES(?,?)", pe)
@@ -169,7 +175,12 @@ def seed(conn: sqlite3.Connection) -> None:
             "moderate",
             "CNS depression stacking; some CYP2C19 relevance.",
         ),
-        ("citalopram", "citalopram", "SSRI", "moderate", "QT domain anchor."),
+        (   "citalopram", 
+            "citalopram", 
+            "SSRI", 
+            "moderate", 
+            "QT domain anchor."
+        ),
         (
             "ondansetron",
             "ondansetron",
@@ -295,6 +306,27 @@ def seed(conn: sqlite3.Connection) -> None:
             "calcineurin inhibitor",
             "moderate",
             "Educational transporter inhibitor anchor (multi-mechanism in reality; modeled conservatively).",
+        ),
+        (
+            "rosuvastatin",
+            "rosuvastatin",
+            "statin",
+            "moderate",
+            "OATP substrate anchor (educational).",
+        ),
+        (
+            "cyclosporine",
+            "cyclosporine",
+            "calcineurin inhibitor",
+            "moderate",
+            "Transporter inhibitor anchor (educational).",
+        ),
+        (
+            "cyclosporine",
+            "cyclosporine",
+            "calcineurin inhibitor",
+            "narrow",
+            "Transporter inhibitor anchor (educational).",
         ),
     ]
     for d in drugs:
@@ -579,6 +611,20 @@ def seed(conn: sqlite3.Connection) -> None:
             "moderate", 
             "BCRP inhibitor (educational; conservative strength)."
         ),
+        (   "rosuvastatin", 
+            "OATP1B1", 
+            "substrate", 
+            None, 
+            "Hepatic uptake transporter substrate (educational)."
+        ),
+        (
+            "cyclosporine", 
+            "OATP1B1", 
+            "inhibitor", 
+            "strong", 
+            "OATP inhibition (educational anchor)."
+        ),
+
         
     ]
     for drug_id, transporter_id, role, strength, notes in t_roles:
