@@ -19,7 +19,7 @@
   ],
   "logic": {
     "transporter": {
-      "id": "P-gp",
+      "family": "ABCB1",
       "A_role": "substrate",
       "B_role": "inducer",
       "B_strength": "strong"

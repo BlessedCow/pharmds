@@ -15,6 +15,8 @@ dev = [
   "mypy",
 ]
 
+cli = ["rich>=13.0"]
+
 [tool.setuptools]
 include-package-data = true
 

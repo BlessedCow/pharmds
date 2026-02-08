@@ -4,6 +4,7 @@ import argparse
 import difflib
 import sqlite3
 import sys
+from itertools import combinations
 from pathlib import Path
 
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
@@ -19,6 +20,83 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
 RULE_DIR = BASE_DIR / "rules" / "rule_defs"
 
+def _parse_drug_tokens(text: str) -> list[str]:
+    """Parse drug tokens from free-form text.
+
+    Supports:
+    - one drug per line
+    - comma-separated lists
+    - whitespace-separated lists
+    - comments starting with '#'
+    """
+    out: list[str] = []
+    for raw_line in (text or "").splitlines():
+        line = raw_line.split("#", 1)[0].strip()
+        if not line:
+            continue
+
+        # Allow comma-separated values.
+        line = line.replace(",", " ")
+        out.extend([p for p in line.split() if p])
+
+    return out
+
+
+def _read_drug_tokens_from_file(path: str) -> list[str]:
+    p = Path(path)
+    try:
+        text = p.read_text(encoding="utf-8")
+    except FileNotFoundError as e:
+        raise SystemExit(f"--file not found: {p}") from e
+    return _parse_drug_tokens(text)
+
+
+def _read_drug_tokens_from_stdin() -> list[str]:
+    return _parse_drug_tokens(sys.stdin.read())
+
+
+def _collect_drug_inputs(
+    positional: list[str] | None,
+    file_paths: list[str] | None,
+) -> list[str]:
+    """Collect drug names from positional args, one/more files, and/or stdin.
+
+    Rules:
+    - If --file is provided, read each file ("-" means stdin).
+    - Positional args are appended after file inputs.
+    - If neither positional nor --file is given, and stdin is not a TTY,
+      read from stdin (pipe-friendly default).
+    """
+    drugs: list[str] = []
+
+    file_paths = file_paths or []
+    if file_paths:
+        for fp in file_paths:
+            if fp == "-":
+                drugs.extend(_read_drug_tokens_from_stdin())
+            else:
+                drugs.extend(_read_drug_tokens_from_file(fp))
+    else:
+        # No --file: if nothing positional and input is piped, read stdin.
+        if not (positional or []) and not sys.stdin.isatty():
+            drugs.extend(_read_drug_tokens_from_stdin())
+
+    drugs.extend(positional or [])
+
+    # De-duplicate while preserving order.
+    seen: set[str] = set()
+    out: list[str] = []
+    for d in drugs:
+        dd = d.strip()
+        if not dd:
+            continue
+        key = dd.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(dd)
+
+    return out
 
 def connect(db_path: Path) -> sqlite3.Connection:
     conn = sqlite3.connect(str(db_path))
@@ -182,7 +260,19 @@ def _suggest_drug_terms(
     matches = difflib.get_close_matches(q, known_terms, n=limit, cutoff=0.6)
     return tuple(matches)
 
+def _sev_rank(sev: str) -> int:
+    # Match Severity values: info/caution/major/contraindicated
+    order = {"info": 0, "caution": 1, "major": 2, "contraindicated": 3}
+    return order.get(sev, 0)
 
+def _build_reports_for_all_pairs(facts, hits, templates, drug_ids):
+    pairs = list(combinations(drug_ids, 2))
+    return build_pair_reports(
+        facts=facts,
+        hits=hits,
+        rule_templates=templates,
+        pairs=pairs,
+    )
 def _parse_domain_selection(domain_arg: str) -> list[str]:
     raw = (domain_arg or "all").strip().lower()
     parts = [p.strip() for p in raw.split(",") if p.strip()]
@@ -254,8 +344,47 @@ def main() -> None:
     )
     p.add_argument(
         "drugs",
-        nargs="+",
-        help="Drug names (generic or alias). Example: warfarin fluconazole",
+        nargs="*",
+        help=(
+            "Drug names (generic or alias). Example: warfarin fluconazole. "
+            "For polypharmacy, prefer --file or piping via stdin."
+        ),
+    )
+    p.add_argument(
+        "-f",
+        "--file",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help=(
+            "Read drug names from a file (repeatable). One drug per line, "
+            "or comma/whitespace-separated. Use '-' to read from stdin. "
+            "If no drugs are provided and stdin is piped, stdin is read automatically."
+        ),
+    )
+    p.add_argument(
+        "--format",
+        choices=("plain", "rich"),
+        default="plain",
+        help=(
+            "Output format. Use 'rich' for colored tables/panels (requires rich). "
+            "Default: plain."
+        ),  
+    )
+    p.add_argument(
+        "--details",
+        action="store_true",
+        help=(
+            "In rich mode, print full per-pair details after the summary."
+        ),
+    )
+    p.add_argument(
+        "--top",
+        type=int,
+        default=0,
+        help=(
+            "In rich mode, show only the top N pairs in the summary (0 = all)."
+        ),
     )
     p.add_argument(
         "--qt-risk",
@@ -276,14 +405,19 @@ def main() -> None:
             "Examples: --domain cyp  |  --domain ugt  |  --domain pd  |  "
             "--domain cyp,pd"
         ),
-
     )
     args = p.parse_args()
+
+    drug_names = _collect_drug_inputs(args.drugs, args.file)
+    if len(drug_names) < 2:
+        raise SystemExit(
+            "Provide at least two drugs, or use --file / stdin for a list."
+        )
 
     conn = connect(DB_PATH)
 
     try:
-        drug_ids = resolve_drug_ids(conn, args.drugs)
+        drug_ids = resolve_drug_ids(conn, drug_names)
     except UnknownDrugError as e:
         # Print one line per unknown token for clarity
         for tok in e.unknown:
@@ -320,23 +454,34 @@ def main() -> None:
     hits = apply_composites(facts, hits)
 
     templates = {r.id: r.explanation_template for r in rules}
-    reports = build_pair_reports(facts, hits, templates)
-    # findings = [r for r in reports if r.overall_severity == Severity.EDUCATIONAL]
+    reports = _build_reports_for_all_pairs(facts, hits, templates, drug_ids)
 
     if not reports:
         domains = ", ".join(selected)
-        if set(selected) == {"cyp", "pgp", "pd"}:
-            print(
-                "No rule-based interactions detected in selected domains: "
-                f"{domains} (educational scope)."
-            )
-        else:
-            print(
-                f"No rule-based interactions detected in selected domains: "
-                f"{domains} (educational scope)."
-            )
+        print(
+            "No rule-based interactions detected in selected domains: "
+            f"{domains} (educational scope)."
+        )
         return
 
+    # RICH MODE
+    if args.format == "rich":
+        from app.render import (
+            build_summary_rows,
+            render_rich_details,
+            render_rich_summary,
+        )
+
+        print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
+        rows = build_summary_rows(facts, reports)
+        render_rich_summary(rows, top=args.top)
+
+        if args.details:
+            render_rich_details(facts, reports, templates)
+
+        return
+
+    # PLAIN MODE
     print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
     for rep in reports:
         d1 = facts.drugs[rep.drug_1].generic_name
@@ -393,13 +538,11 @@ def main() -> None:
                         print(f"   - {a}")
                 print()
 
-        # References (unique)
-        refs = []
-        for h in rep.pk_hits + rep.pd_hits:
+        refs: list[dict[str, str]] = []
+        for h in (rep.pk_hits or []) + (rep.pd_hits or []):
             refs.extend(h.references)
-        uniq = {
-            (r.get("source", ""), r.get("citation", ""), r.get("url", "")) for r in refs
-        }
+
+        uniq = {(r.get("source", ""), r.get("citation", ""), r.get("url", "")) for r in refs}
         if uniq:
             print("References (rule-level):")
             for source, citation, url in sorted(uniq):
@@ -414,7 +557,6 @@ def main() -> None:
         "Footer: This output is an educational mechanistic explanation. "
         "Verify with primary sources.\n"
     )
-
 
 if __name__ == "__main__":
     main()

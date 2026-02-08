@@ -46,6 +46,7 @@ def build_pair_reports(
     facts: Facts,
     hits: list[RuleHit],
     rule_templates: dict[str, str],
+    pairs: list[tuple[str, str]] | None = None,
 ) -> list[PairReport]:
     """
     Group by unordered pair (stable by drug_id ordering), then split into PK/PD sections.
@@ -54,25 +55,43 @@ def build_pair_reports(
     grouped: dict[tuple[str, str], list[RuleHit]] = defaultdict(list)
 
     for h in hits:
-        a = h.inputs["A"]
-        b = h.inputs["B"]
+        a = h.inputs.get("A")
+        b = h.inputs.get("B")
+        if not a or not b:
+            continue
         d1, d2 = (a, b) if a < b else (b, a)
         grouped[(d1, d2)].append(h)
 
+    if pairs is None:
+        pair_list = list(grouped.keys())
+    else:
+        # Normalize requested pairs to the same (min,max) ordering
+        pair_list = []
+        seen: set[tuple[str, str]] = set()
+        for a_id, b_id in pairs:
+            d1, d2 = (a_id, b_id) if a_id < b_id else (b_id, a_id)
+            if (d1, d2) in seen:
+                continue
+            seen.add((d1, d2))
+            pair_list.append((d1, d2))
+
     reports: list[PairReport] = []
-    for (d1, d2), pair_hits in grouped.items():
+    for d1, d2 in pair_list:
+        pair_hits = grouped.get((d1, d2), [])
+        if not pair_hits:
+            continue  # keep current semantics: only report pairs with hits
+
         pk_hits = [h for h in pair_hits if h.domain == Domain.PK]
         pd_hits = [h for h in pair_hits if h.domain == Domain.PD]
 
         pk_out = _dedupe_hits(pk_hits, facts, rule_templates)
         pd_out = _dedupe_hits(pd_hits, facts, rule_templates)
 
-        overall = pair_hits[:]  # all hits drive overall labels
         rep = PairReport(
             drug_1=d1,
             drug_2=d2,
-            overall_severity=_max_sev(overall),
-            overall_rule_class=_max_class(overall),
+            overall_severity=_max_sev(pair_hits),
+            overall_rule_class=_max_class(pair_hits),
             pk_hits=pk_out,
             pd_hits=pd_out,
             pk_summary=_pk_summary(pk_out),
@@ -81,8 +100,6 @@ def build_pair_reports(
 
     reports.sort(key=lambda r: (-_SEV_RANK[r.overall_severity], r.drug_1, r.drug_2))
     return reports
-
-
 def _dedupe_hits(
     hits: list[RuleHit], facts: Facts, rule_templates: dict[str, str]
 ) -> list[RuleHit]:
