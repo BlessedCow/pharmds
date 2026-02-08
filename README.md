@@ -80,10 +80,10 @@ Run the CLI with two or more drug names (order does not matter):
 
 Domain filtering examples:
 
-   `python -m app.cli digoxin verapamil --domain pgp`
-   `python -m app.cli rosuvastatin cyclosporine --domain oatp`
-   `python -m app.cli irinotecan atazanavir --domain ugt`
-   `python -m app.cli citalopram ondansetron --domain pd`
+-  `python -m app.cli digoxin verapamil --domain pgp`
+-  `python -m app.cli rosuvastatin cyclosporine --domain oatp`
+-  `python -m app.cli irinotecan atazanavir --domain ugt`
+-  `python -m app.cli citalopram ondansetron --domain pd`
 
 Supported domains:
 - `cyp`   *CYP mediated PK*

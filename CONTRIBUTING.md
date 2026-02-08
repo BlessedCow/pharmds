@@ -10,10 +10,12 @@ PharmDS is an educational, rule-based PK/PD interaction reasoner. Contributions 
 
 QUICK START (DEV)
 
+```
 python -m pip install -U pip
 pip install -e .
 ruff check .
 pytest
+```
 
 If CI fails due to Python version, check pyproject.toml (requires-python).
 
@@ -23,7 +25,7 @@ HOW TO ADD A DRUG
 PharmDS uses a small SQLite database for seed data.
 
 1) Add the drug
-Edit: data/seed_sqlite.py
+Edit: `data/seed_sqlite.py`
 
 Add a new entry in the drugs list.
 Keep the drug id lowercase and stable (usually the generic name).
@@ -32,7 +34,7 @@ Example pattern:
 ("sertraline", "sertraline", "SSRI", "moderate", "Short educational note.")
 
 For a structured checklist of required information, see
-docs/ADDING_A_DRUG.txt.
+`docs/ADDING_A_DRUG.txt`
 
 2) Add aliases (recommended)
 Add brand names or common variants to the aliases list.
@@ -73,15 +75,17 @@ Rules must include:
 
 3) Validate
 Run:
+```
 ruff check .
 pytest
+```
 
-4) Add tests
+5) Add tests
 Every rule must include:
 - at least one positive test
 - at least one negative test
 
-See docs/ADDING_A_RULE.txt for the required rule contribution template.
+See `docs/ADDING_A_RULE.txt` for the required rule contribution template.
 
 HOW TO ADD A TEST
 
@@ -98,8 +102,10 @@ Good tests:
 - assert absence of tempting incorrect rules
 
 Run:
+```
 pytest -q
 ruff check .
+```
 
 
 CONTRIBUTION STANDARDS
