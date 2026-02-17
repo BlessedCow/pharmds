@@ -2,40 +2,40 @@
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 
 
-class TI(str, Enum):
+class TI(str, StrEnum):
     wide = "wide"
     moderate = "moderate"
     narrow = "narrow"
 
 
-class Strength(str, Enum):
+class Strength(StrEnum):
     weak = "weak"
     moderate = "moderate"
     strong = "strong"
 
 
-class Role(str, Enum):
+class Role(StrEnum):
     substrate = "substrate"
     inhibitor = "inhibitor"
     inducer = "inducer"
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     info = "info"
     caution = "caution"
     major = "major"
     contraindicated = "contraindicated"
 
 
-class Domain(str, Enum):
+class Domain(StrEnum):
     PK = "PK"
     PD = "PD"
 
 
-class RuleClass(str, Enum):
+class RuleClass(StrEnum):
     avoid = "avoid"
     adjust_monitor = "adjust_monitor"
     caution = "caution"
