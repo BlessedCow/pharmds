@@ -100,6 +100,8 @@ def build_pair_reports(
 
     reports.sort(key=lambda r: (-_SEV_RANK[r.overall_severity], r.drug_1, r.drug_2))
     return reports
+
+
 def _dedupe_hits(
     hits: list[RuleHit], facts: Facts, rule_templates: dict[str, str]
 ) -> list[RuleHit]:

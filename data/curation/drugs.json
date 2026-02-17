@@ -1,0 +1,649 @@
+{
+  "version": 1,
+  "drugs": [
+    {
+      "id": "midazolam",
+      "generic_name": "midazolam",
+      "drug_class": "benzodiazepine",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "versed"
+      ],
+      "notes": "Educational CYP3A4 substrate anchor.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.6
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation/respiratory depression"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "rifampin",
+      "generic_name": "rifampin",
+      "drug_class": "rifamycin antibiotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "rifampicin"
+      ],
+      "notes": "Educational strong inducer anchor; time-course is clinically important.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inducer",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inducer",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "clarithromycin",
+      "generic_name": "clarithromycin",
+      "drug_class": "macrolide antibiotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "biaxin"
+      ],
+      "notes": "Educational strong CYP3A4 inhibitor and P-gp inhibitor anchor.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "quetiapine",
+      "generic_name": "quetiapine",
+      "drug_class": "atypical antipsychotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "seroquel"
+      ],
+      "notes": "CYP3A4 substrate used in strong inhibitor rule tests.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.7
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "clopidogrel",
+      "generic_name": "clopidogrel",
+      "drug_class": "antiplatelet",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "plavix"
+      ],
+      "notes": "Prodrug requiring CYP2C19 activation; inhibition reduces efficacy.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "fraction_metabolized": 0.7,
+          "notes": "activation pathway (prodrug)"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": true,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "fluconazole",
+      "generic_name": "fluconazole",
+      "drug_class": "azole antifungal",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "diflucan"
+      ],
+      "notes": "CYP2C9/2C19 inhibitor anchor.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inhibitor",
+          "strength": "moderate"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor",
+          "strength": "moderate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "warfarin",
+      "generic_name": "warfarin",
+      "drug_class": "anticoagulant",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "coumadin",
+        "jantoven"
+      ],
+      "notes": "Narrow TI; classic CYP2C9 substrate.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "substrate",
+          "fraction_metabolized": 0.7
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "high"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "digoxin",
+      "generic_name": "digoxin",
+      "drug_class": "cardiac glycoside",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "lanoxin"
+      ],
+      "notes": "P-gp substrate; narrow TI.",
+      "enzymes": [],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "verapamil",
+      "generic_name": "verapamil",
+      "drug_class": "calcium channel blocker",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "calan",
+        "verelan"
+      ],
+      "notes": "P-gp inhibitor used in transporter rules and dual mechanism scenarios.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "moderate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor",
+          "strength": "moderate"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "tizanidine",
+      "generic_name": "tizanidine",
+      "drug_class": "alpha-2 agonist muscle relaxant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "zanaflex"
+      ],
+      "notes": "Sensitive CYP1A2 substrate used in dedicated rule test.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "substrate",
+          "fraction_metabolized": 0.8
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "citalopram",
+      "generic_name": "citalopram",
+      "drug_class": "SSRI",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "celexa"
+      ],
+      "notes": "QT additive PD rule anchor in tests.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "fraction_metabolized": 0.5
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium"
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "ondansetron",
+      "generic_name": "ondansetron",
+      "drug_class": "antiemetic (5-HT3 antagonist)",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "zofran"
+      ],
+      "notes": "QT additive PD rule anchor in tests.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.4
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "sertraline",
+      "generic_name": "sertraline",
+      "drug_class": "SSRI",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "zoloft"
+      ],
+      "notes": "Serotonergic PD stacking anchor.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium"
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "desvenlafaxine",
+      "generic_name": "desvenlafaxine",
+      "drug_class": "SNRI",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "pristiq"
+      ],
+      "notes": "Serotonergic and BP/HR effects used in PD scenarios.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "propranolol",
+      "generic_name": "propranolol",
+      "drug_class": "beta blocker",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "inderal"
+      ],
+      "notes": "Bradycardia additive PD anchor.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.5
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "cyclosporine",
+      "generic_name": "cyclosporine",
+      "drug_class": "calcineurin inhibitor",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "neoral",
+        "sandimmune"
+      ],
+      "notes": "Transporter inhibitor used in rosuvastatin BCRP/OATP tests.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "moderate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "BCRP",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "transporter_id": "OATP1B1",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "rosuvastatin",
+      "generic_name": "rosuvastatin",
+      "drug_class": "statin",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "crestor"
+      ],
+      "notes": "BCRP and OATP substrate used in cyclosporine transporter tests.",
+      "enzymes": [],
+      "transporters": [
+        {
+          "transporter_id": "BCRP",
+          "role": "substrate"
+        },
+        {
+          "transporter_id": "OATP1B1",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "tacrolimus",
+      "generic_name": "tacrolimus",
+      "drug_class": "calcineurin inhibitor",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "prograf"
+      ],
+      "notes": "Included for common transplant scenarios; CYP3A4 and P-gp substrate.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.8
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "atazanavir",
+      "generic_name": "atazanavir",
+      "drug_class": "protease inhibitor",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "reyataz"
+      ],
+      "notes": "UGT1A1 inhibitor used in irinotecan interaction scenario.",
+      "enzymes": [
+        {
+          "enzyme_id": "UGT1A1",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "irinotecan",
+      "generic_name": "irinotecan",
+      "drug_class": "topoisomerase inhibitor (chemo)",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "camptosar"
+      ],
+      "notes": "UGT1A1 substrate (SN-38 glucuronidation); used with atazanavir.",
+      "enzymes": [
+        {
+          "enzyme_id": "UGT1A1",
+          "role": "substrate",
+          "fraction_metabolized": 0.7
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": true,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    }
+  ]
+}

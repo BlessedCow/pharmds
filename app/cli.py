@@ -20,6 +20,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
 RULE_DIR = BASE_DIR / "rules" / "rule_defs"
 
+
 def _parse_drug_tokens(text: str) -> list[str]:
     """Parse drug tokens from free-form text.
 
@@ -97,6 +98,7 @@ def _collect_drug_inputs(
         out.append(dd)
 
     return out
+
 
 def connect(db_path: Path) -> sqlite3.Connection:
     conn = sqlite3.connect(str(db_path))
@@ -260,10 +262,12 @@ def _suggest_drug_terms(
     matches = difflib.get_close_matches(q, known_terms, n=limit, cutoff=0.6)
     return tuple(matches)
 
+
 def _sev_rank(sev: str) -> int:
     # Match Severity values: info/caution/major/contraindicated
     order = {"info": 0, "caution": 1, "major": 2, "contraindicated": 3}
     return order.get(sev, 0)
+
 
 def _build_reports_for_all_pairs(facts, hits, templates, drug_ids):
     pairs = list(combinations(drug_ids, 2))
@@ -273,6 +277,8 @@ def _build_reports_for_all_pairs(facts, hits, templates, drug_ids):
         rule_templates=templates,
         pairs=pairs,
     )
+
+
 def _parse_domain_selection(domain_arg: str) -> list[str]:
     raw = (domain_arg or "all").strip().lower()
     parts = [p.strip() for p in raw.split(",") if p.strip()]
@@ -311,10 +317,10 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
         else:
             raise SystemExit(
                 "Unknown --domain option. Use: all, pk, pd, cyp, ugt, pgp, bcrp, oatp"
-        )
+            )
 
     if not selected:
-        selected = ["cyp", "ugt","pgp", "bcrp", "oatp", "pd"]
+        selected = ["cyp", "ugt", "pgp", "bcrp", "oatp", "pd"]
 
     return selected
 
@@ -337,6 +343,7 @@ def filter_rules_for_selected_domains(rules_all, selected: list[str]):
             out.append(r)
 
     return out
+
 
 def main() -> None:
     p = argparse.ArgumentParser(
@@ -369,22 +376,18 @@ def main() -> None:
         help=(
             "Output format. Use 'rich' for colored tables/panels (requires rich). "
             "Default: plain."
-        ),  
+        ),
     )
     p.add_argument(
         "--details",
         action="store_true",
-        help=(
-            "In rich mode, print full per-pair details after the summary."
-        ),
+        help=("In rich mode, print full per-pair details after the summary."),
     )
     p.add_argument(
         "--top",
         type=int,
         default=0,
-        help=(
-            "In rich mode, show only the top N pairs in the summary (0 = all)."
-        ),
+        help=("In rich mode, show only the top N pairs in the summary (0 = all)."),
     )
     p.add_argument(
         "--qt-risk",
@@ -542,7 +545,9 @@ def main() -> None:
         for h in (rep.pk_hits or []) + (rep.pd_hits or []):
             refs.extend(h.references)
 
-        uniq = {(r.get("source", ""), r.get("citation", ""), r.get("url", "")) for r in refs}
+        uniq = {
+            (r.get("source", ""), r.get("citation", ""), r.get("url", "")) for r in refs
+        }
         if uniq:
             print("References (rule-level):")
             for source, citation, url in sorted(uniq):
@@ -557,6 +562,7 @@ def main() -> None:
         "Footer: This output is an educational mechanistic explanation. "
         "Verify with primary sources.\n"
     )
+
 
 if __name__ == "__main__":
     main()

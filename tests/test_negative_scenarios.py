@@ -90,10 +90,12 @@ def test_negative_cyp3a4_induction_not_inhibition_midazolam_rifampin():
     assert "PK_CYP3A4_STRONG_INDUC" in rids
     assert "PK_CYP3A4_STRONG_INHIB" not in rids
 
+
 def test_negative_no_bcrp_hit_rosuvastatin_fluconazole():
     """Fluconazole should not be treated as a BCRP inhibitor in seed data."""
     _, hits = _run(["rosuvastatin", "fluconazole"])
     assert "PK_BCRP_INHIB_SUBSTRATE" not in _rule_ids(hits)
+
 
 def test_negative_no_oatp_hit_rosuvastatin_fluconazole():
     """Fluconazole is not modeled as an OATP inhibitor in seed data."""

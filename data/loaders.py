@@ -41,3 +41,13 @@ def load_transporters() -> dict[str, dict[str, Any]]:
         return out
 
     return out
+
+
+def load_drugs_curation(path: Path | None = None) -> dict[str, Any]:
+    """Load data/curation/drugs.json (v1).
+
+    This is the source of truth for drug assertions used to seed the SQLite DB.
+    """
+    if path is None:
+        path = DATA_DIR / "curation" / "drugs.json"
+    return json.loads(path.read_text(encoding="utf-8"))

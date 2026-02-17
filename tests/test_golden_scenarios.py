@@ -49,6 +49,7 @@ def test_pd_qt_no_duplicates_citalopram_ondansetron():
     qt_hits = [h for h in hits if h.rule_id == "PD_QT_ADDITIVE"]
     assert len(qt_hits) == 1
 
+
 def test_pk_bcrp_inhib_rosuvastatin_cyclosporine():
     _, hits = _run(["rosuvastatin", "cyclosporine"])
     assert any(
@@ -56,16 +57,16 @@ def test_pk_bcrp_inhib_rosuvastatin_cyclosporine():
         for h in hits
     )
 
+
 def test_pk_oatp_inhib_rosuvastatin_cyclosporine():
     _, hits = _run(["rosuvastatin", "cyclosporine"])
     assert any(
-        h.rule_id == "PK_OATP_INHIB" and h.inputs["A"] == "rosuvastatin"
-        for h in hits
+        h.rule_id == "PK_OATP_INHIB" and h.inputs["A"] == "rosuvastatin" for h in hits
     )
+
 
 def test_pk_ugt1a1_inhib_irinotecan_atazanavir():
     _, hits = _run(["irinotecan", "atazanavir"])
     assert any(
-        h.rule_id == "PK_UGT1A1_INHIB" and h.inputs["A"] == "irinotecan"
-        for h in hits
+        h.rule_id == "PK_UGT1A1_INHIB" and h.inputs["A"] == "irinotecan" for h in hits
     )
