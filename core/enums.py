@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import StrEnum
 
 
-class TI(str, StrEnum):
+class TI(StrEnum):
     wide = "wide"
     moderate = "moderate"
     narrow = "narrow"
