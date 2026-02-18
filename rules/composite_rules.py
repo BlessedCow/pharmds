@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections import defaultdict
+
 from core.constants import PD_EFFECT_CNS_DEP, TRANSPORTER_PGP
 from core.enums import Domain, RuleClass, Severity
 from core.models import Facts, RuleHit
@@ -27,56 +29,118 @@ def _max_class(hits: list[RuleHit]) -> RuleClass:
     return max((h.rule_class for h in hits), key=lambda c: _CLASS_RANK[c])
 
 
-def apply_pk_dual_mechanism(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
+def _pair_key(h: RuleHit) -> tuple[str, str] | None:
+    inputs = h.inputs or {}
+    a = inputs.get("A")
+    b = inputs.get("B")
+    if not a or not b:
+        return None
+    return (a, b)
+
+
+def _mech_label(requires: set[str]) -> str:
+    parts: list[str] = []
+    if "has_cyp" in requires:
+        parts.append("CYP")
+    if "has_ugt" in requires:
+        parts.append("UGT")
+    if "has_pgp" in requires:
+        parts.append("P-gp")
+    return " + ".join(parts) if parts else "multiple PK"
+
+
+def _mech_rule_id(requires: set[str]) -> str:
+    # Keep the existing rule_id for backwards compatibility
+    if requires == {"has_cyp", "has_pgp"}:
+        return "PK_DUAL_MECH_INCREASE"
+    if requires == {"has_cyp", "has_ugt"}:
+        return "PK_DUAL_MECH_INCREASE_CYP_UGT"
+    if requires == {"has_ugt", "has_pgp"}:
+        return "PK_DUAL_MECH_INCREASE_UGT_PGP"
+    return "PK_MULTI_MECH_INCREASE"
+
+
+def apply_pk_composites(
+    facts: Facts,
+    hits: list[RuleHit],
+    *,
+    required_tags: set[str],
+    requires: set[str],
+) -> list[RuleHit]:
     """
-    Add a composite PK hit when both CYP and P-gp exposure-increasing mechanisms
-    are present for the same directional pair (A affected, B interacting).
+    Generalized PK composite framework that matches your current RuleHit structure.
 
-    Option B behavior:
-      - severity = max(severity of contributing hits)
-      - rule_class = max(rule_class of contributing hits)
-
-    This does NOT remove or replace the original hits.
+    - Groups candidate hits by (A, B) from hit.inputs
+    - Filters to Domain.PK + required tags (exposure_increase)
+    - Checks for presence of mechanisms listed in `requires`
+      (ex: {"has_cyp", "has_pgp"})
+    - Emits one composite hit per (A, B)
     """
-    pk_hits = [h for h in hits if h.domain == Domain.PK]
-    by_pair: dict[tuple[str, str], list[RuleHit]] = {}
-
-    for h in pk_hits:
-        a = h.inputs.get("A")
-        b = h.inputs.get("B")
-        if not a or not b:
+    by_pair: dict[tuple[str, str], list[RuleHit]] = defaultdict(list)
+    for h in hits:
+        if h.domain != Domain.PK:
             continue
-        by_pair.setdefault((a, b), []).append(h)
+        tags = set(h.tags or [])
+        if not required_tags.issubset(tags):
+            continue
+        key = _pair_key(h)
+        if key:
+            by_pair[key].append(h)
 
     out = hits[:]
 
-    for (a, b), pair_hits in by_pair.items():
-        inc_hits = [h for h in pair_hits if "exposure_increase" in (h.tags or [])]
-        if not inc_hits:
-            continue
+    rid = _mech_rule_id(requires)
+    label = _mech_label(requires)
 
-        has_cyp = any(h.inputs.get("enzyme_id") for h in inc_hits)
+    for (a, b), pair_hits in by_pair.items():
+        sev = _max_sev(pair_hits)
+        cls = _max_class(pair_hits)
+
+        has_cyp = any(
+            isinstance((h.inputs or {}).get("enzyme_id"), str)
+            and ((h.inputs or {}).get("enzyme_id") or "").startswith("CYP")
+            for h in pair_hits
+        )
+        has_ugt = any(
+            isinstance((h.inputs or {}).get("enzyme_id"), str)
+            and ((h.inputs or {}).get("enzyme_id") or "").startswith("UGT")
+            for h in pair_hits
+        )
         has_pgp = any(
-            h.inputs.get("transporter_id") == TRANSPORTER_PGP for h in inc_hits
+            (h.inputs or {}).get("transporter_id") == TRANSPORTER_PGP
+            for h in pair_hits
         )
 
-        if not (has_cyp and has_pgp):
+        pred_map = {
+            "has_cyp": has_cyp,
+            "has_ugt": has_ugt,
+            "has_pgp": has_pgp,
+        }
+        if not all(pred_map.get(req, False) for req in requires):
             continue
 
-        sev = _max_sev(inc_hits)
-        cls = _max_class(inc_hits)
+        # Avoid duplicates if apply_composites is called multiple times
+        already = any(
+            h.domain == Domain.PK
+            and h.rule_id == rid
+            and (h.inputs or {}).get("A") == a
+            and (h.inputs or {}).get("B") == b
+            for h in out
+        )
+        if already:
+            continue
 
         out.append(
             RuleHit(
-                rule_id="PK_DUAL_MECH_INCREASE",
-                name="Dual-mechanism exposure increase (CYP + P-gp)",
+                rule_id=rid,
+                name=f"Dual-mechanism exposure increase ({label})",
                 domain=Domain.PK,
                 severity=sev,
                 rule_class=cls,
                 inputs={"A": a, "B": b},
                 tags=["exposure_increase", "dual_mechanism"],
                 rationale=[
-                    "Both metabolic inhibition (CYP) and transporter inhibition (P-gp) mechanisms are present.",
+                    f"More than one exposure-increasing mechanism is present ({label}).",
                     "Multiple exposure-increasing mechanisms may increase risk more than either mechanism alone in some contexts.",
                 ],
                 actions=[
@@ -95,6 +159,38 @@ def apply_pk_dual_mechanism(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     return out
 
 
+def apply_pk_dual_mechanism(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
+    """
+    Backwards compatible wrapper that preserves existing behavior:
+    CYP + P-gp dual mechanism composite, based on exposure_increase hits.
+    """
+    return apply_pk_composites(
+        facts,
+        hits,
+        required_tags={"exposure_increase"},
+        requires={"has_cyp", "has_pgp"},
+    )
+
+
+# Ready-to-enable wrappers (do not call them yet)
+def apply_pk_cyp_ugt(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
+    return apply_pk_composites(
+        facts,
+        hits,
+        required_tags={"exposure_increase"},
+        requires={"has_cyp", "has_ugt"},
+    )
+
+
+def apply_pk_ugt_pgp(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
+    return apply_pk_composites(
+        facts,
+        hits,
+        required_tags={"exposure_increase"},
+        requires={"has_ugt", "has_pgp"},
+    )
+
+
 def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     out = hits[:]
 
@@ -103,8 +199,11 @@ def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     for h in out:
         if h.domain != Domain.PK:
             continue
-        if "exposure_increase" in (h.tags or []):
-            pk_up_pairs.append((h.inputs["A"], h.inputs["B"]))
+        if "exposure_increase" not in (h.tags or []):
+            continue
+        key = _pair_key(h)
+        if key:
+            pk_up_pairs.append(key)
 
     # Emit at most one composite per causal pair
     seen: set[tuple[str, str]] = set()
@@ -148,5 +247,11 @@ def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
             )
         )
 
+    # Only enable CYP + P-gp for now (conservative)
     out = apply_pk_dual_mechanism(facts, out)
+
+    # Later:
+    # out = apply_pk_cyp_ugt(facts, out)
+    # out = apply_pk_ugt_pgp(facts, out)
+
     return out

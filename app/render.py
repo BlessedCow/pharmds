@@ -4,6 +4,10 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from typing import Any
 
+from core.constants import TRANSPORTER_PGP
+from core.enums import Domain
+from core.models import RuleHit
+
 # Keep ranks local to rendering
 _SEV_RANK = {"info": 0, "caution": 1, "major": 2, "contraindicated": 3}
 
@@ -58,13 +62,52 @@ class SummaryRow:
     pd_hits: int
 
 
+def _mechanism_domains_for_hit(h: RuleHit) -> set[str]:
+    """
+    Convert internal PK/PD domains into mechanism labels for the summary table.
+    """
+    if h.domain == Domain.PD:
+        return {"pd"}
+
+    if h.domain != Domain.PK:
+        v = getattr(h.domain, "value", str(h.domain))
+        return {str(v).lower()}
+
+    out: set[str] = set()
+    inputs = h.inputs or {}
+
+    enzyme_id = inputs.get("enzyme_id")
+    if isinstance(enzyme_id, str):
+        if enzyme_id.startswith("CYP"):
+            out.add("cyp")
+        elif enzyme_id.startswith("UGT"):
+            out.add("ugt")
+
+    transporter_id = inputs.get("transporter_id")
+    if transporter_id == TRANSPORTER_PGP:
+        out.add("pgp")
+    elif isinstance(transporter_id, str) and transporter_id:
+        out.add(transporter_id.lower())
+
+    if not out:
+        out.add("pk")
+
+    return out
+
+
 def _domain_summary(rep: Any) -> str:
-    d: list[str] = []
-    if getattr(rep, "pk_hits", None):
-        d.append("PK")
-    if getattr(rep, "pd_hits", None):
-        d.append("PD")
-    return ",".join(d) if d else "-"
+    domains: set[str] = set()
+
+    for h in (getattr(rep, "pk_hits", None) or []):
+        domains.update(_mechanism_domains_for_hit(h))
+
+    for h in (getattr(rep, "pd_hits", None) or []):
+        domains.update(_mechanism_domains_for_hit(h))
+
+    if not domains:
+        return "-"
+
+    return ",".join(sorted(domains))
 
 
 def build_summary_rows(facts: Any, reports: Iterable[Any]) -> list[SummaryRow]:
@@ -78,7 +121,7 @@ def build_summary_rows(facts: Any, reports: Iterable[Any]) -> list[SummaryRow]:
 
         rows.append(
             SummaryRow(
-                pair=f"{d1} + {d2}",
+                pair=f"{d1}\n+\n{d2}",
                 severity=sev,
                 rule_class=cls,
                 domains=_domain_summary(rep),
@@ -98,12 +141,16 @@ def render_rich_summary(rows: list[SummaryRow], top: int = 0) -> None:
     console = _mk_console()
 
     table = Table(title="Interaction Summary (pairwise)", show_lines=False)
-    table.add_column("Pair", overflow="fold")
-    table.add_column("Severity", justify="center")
-    table.add_column("Class", justify="center")
-    table.add_column("Domains", justify="center")
-    table.add_column("PK hits", justify="right")
-    table.add_column("PD hits", justify="right")
+
+    # Let Pair wrap
+    table.add_column("Pair", overflow="fold", no_wrap=False)
+    # Severity: do NOT ellipsize
+    table.add_column("Severity", justify="center", no_wrap=True)
+    # Class: can keep no_wrap or allow wrap
+    table.add_column("Class", justify="center", no_wrap=True)
+    table.add_column("Domains", justify="center", no_wrap=True)
+    table.add_column("PK hits", justify="right", no_wrap=True)
+    table.add_column("PD hits", justify="right", no_wrap=True)
 
     view = rows[:top] if top and top > 0 else rows
     for r in view:
@@ -148,13 +195,12 @@ def render_rich_details(
         sev_text_style = _SEV_STYLE.get(sev, "bold")
         border_style = _border_style_for_severity(sev)
 
-        header = Text(f"{d1} + {d2}\n", style=sev_text_style)
-        header.append(
-            f"Overall: severity={sev} | class={cls}",
-            style=_SEV_STYLE.get(sev, ""),
-        )
+        # Keep panel title short to avoid truncation
+        title = Text(f"{d1} + {d2}", style=sev_text_style)
 
         body_lines: list[str] = []
+        body_lines.append(f"Overall: severity={sev} | class={cls}")
+        body_lines.append("")
 
         if rep.pk_hits:
             body_lines.append("PK section (directional):")
@@ -210,7 +256,7 @@ def render_rich_details(
         console.print(
             Panel(
                 body,
-                title=header,
+                title=title,
                 border_style=border_style,
                 expand=False,
             )

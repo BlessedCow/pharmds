@@ -8,13 +8,12 @@ from itertools import combinations
 from pathlib import Path
 
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
+from core.enums import Domain
 from core.exceptions import UnknownDrugError
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports
 from reasoning.explain import render_explanation, render_rationale
 from rules.engine import evaluate_all, load_rules, rule_mechanisms
-
-# from core.models import PairReport
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
@@ -451,6 +450,10 @@ def main() -> None:
     rules = filter_rules_for_selected_domains(rules_all, selected)
 
     hits = evaluate_all(rules, facts, drug_ids)
+    
+    for h in hits:
+        if h.domain == Domain.PK:
+            print("DEBUG PK HIT:", h.rule_id, h.inputs)
 
     from rules.composite_rules import apply_composites
 
@@ -478,7 +481,11 @@ def main() -> None:
         print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
         rows = build_summary_rows(facts, reports)
         render_rich_summary(rows, top=args.top)
-
+        
+        detail_reports = reports[: args.top] if args.top and args.top > 0 else reports
+        render_rich_details(facts, detail_reports, templates)
+        
+        
         if args.details:
             render_rich_details(facts, reports, templates)
 
