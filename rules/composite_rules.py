@@ -171,6 +171,147 @@ def apply_pk_dual_mechanism(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
         requires={"has_cyp", "has_pgp"},
     )
 
+def _pk_mechanisms_for_hit(h: RuleHit) -> set[str]:
+    """
+    Extract mechanism labels from a PK RuleHit.
+    Conservative: only uses existing fields (inputs enzyme_id/transporter_id).
+    """
+    if h.domain != Domain.PK:
+        return set()
+
+    inputs = h.inputs or {}
+    out: set[str] = set()
+
+    enzyme_id = inputs.get("enzyme_id")
+    if isinstance(enzyme_id, str):
+        eid = enzyme_id.upper()
+        if eid.startswith("CYP"):
+            out.add("cyp")
+        elif eid.startswith("UGT"):
+            out.add("ugt")
+
+    transporter_id = inputs.get("transporter_id")
+    if transporter_id == TRANSPORTER_PGP:
+        out.add("pgp")
+    elif isinstance(transporter_id, str) and transporter_id:
+        out.add(transporter_id.lower())
+
+    return out
+
+
+def _rule_id_for_mechs(mechs: set[str]) -> str:
+    """
+    Preserve existing IDs for common dual-mechanism cases.
+    """
+    if mechs == {"cyp", "pgp"}:
+        return "PK_DUAL_MECH_INCREASE"
+    if mechs == {"cyp", "ugt"}:
+        return "PK_DUAL_MECH_INCREASE_CYP_UGT"
+    if mechs == {"ugt", "pgp"}:
+        return "PK_DUAL_MECH_INCREASE_UGT_PGP"
+    return "PK_MULTI_MECH_INCREASE"
+
+
+def _label_for_mechs(mechs: set[str]) -> str:
+    # Pretty label for name/rationale
+    order = ["cyp", "ugt", "pgp"]
+    pretty = {
+        "cyp": "CYP",
+        "ugt": "UGT",
+        "pgp": "P-gp",
+    }
+    parts: list[str] = []
+    for k in order:
+        if k in mechs:
+            parts.append(pretty[k])
+
+    # include any other transporters we might add later
+    extras = sorted(m for m in mechs if m not in set(order))
+    parts.extend(extras)
+
+    return " + ".join(parts) if parts else "multiple PK"
+
+
+def apply_pk_multi_mechanism_exposure_increase(
+    facts: Facts,
+    hits: list[RuleHit],
+    *,
+    min_mechanisms: int = 2,
+) -> list[RuleHit]:
+    """
+    General composite: if >= min_mechanisms distinct PK exposure-increase mechanisms
+    are present for the same (A,B), emit a composite hit.
+
+    - Groups by (A,B)
+    - Considers only Domain.PK hits with tag "exposure_increase"
+    - Mechanisms derived from enzyme_id/transporter_id
+    - Emits at most one composite per (A,B)
+    """
+    by_pair: dict[tuple[str, str], list[RuleHit]] = defaultdict(list)
+    for h in hits:
+        if h.domain != Domain.PK:
+            continue
+        if "exposure_increase" not in (h.tags or []):
+            continue
+        key = _pair_key(h)
+        if key:
+            by_pair[key].append(h)
+
+    out = hits[:]
+
+    for (a, b), pair_hits in by_pair.items():
+        # build distinct mechanism set across all contributing hits
+        mechs: set[str] = set()
+        for h in pair_hits:
+            mechs.update(_pk_mechanisms_for_hit(h))
+
+        if len(mechs) < min_mechanisms:
+            continue
+
+        rid = _rule_id_for_mechs(mechs)
+        label = _label_for_mechs(mechs)
+
+        # De-dupe: any existing composite with same (A,B) and rule_id
+        already = any(
+            h.domain == Domain.PK
+            and h.rule_id == rid
+            and (h.inputs or {}).get("A") == a
+            and (h.inputs or {}).get("B") == b
+            for h in out
+        )
+        if already:
+            continue
+
+        sev = _max_sev(pair_hits)
+        cls = _max_class(pair_hits)
+
+        out.append(
+            RuleHit(
+                rule_id=rid,
+                name=f"Multiple PK mechanisms may increase exposure ({label})",
+                domain=Domain.PK,
+                severity=sev,
+                rule_class=cls,
+                inputs={"A": a, "B": b},
+                tags=["exposure_increase", "multi_mechanism"],
+                rationale=[
+                    f"More than one exposure-increasing PK mechanism is present ({label}).",
+                    "Multiple exposure-increasing mechanisms may increase risk more than either mechanism alone in some contexts.",
+                ],
+                actions=[
+                    "Use extra caution when multiple exposure-increasing mechanisms apply.",
+                    "Consider alternatives, dose adjustment, and closer monitoring when clinically appropriate.",
+                ],
+                references=[
+                    {
+                        "source": "Educational note",
+                        "citation": "Multiple PK mechanisms can be additive or synergistic.",
+                    }
+                ],
+            )
+        )
+
+    return out
 
 # Ready-to-enable wrappers (do not call them yet)
 def apply_pk_cyp_ugt(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
@@ -247,11 +388,5 @@ def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
             )
         )
 
-    # Only enable CYP + P-gp for now (conservative)
-    out = apply_pk_dual_mechanism(facts, out)
-
-    # Later:
-    # out = apply_pk_cyp_ugt(facts, out)
-    # out = apply_pk_ugt_pgp(facts, out)
-
+    out = apply_pk_multi_mechanism_exposure_increase(facts, out, min_mechanisms=2)
     return out
