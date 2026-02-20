@@ -1,0 +1,23 @@
+{
+  "id": "PD_HYPERTENSION_ADDITIVE",
+  "name": "Additive hypertension risk with multiple BP-raising drugs",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Monitor blood pressure and symptoms of hypertension.",
+    "Assess baseline cardiovascular risk and concomitant pressors.",
+    "Consider dose reduction or alternative therapy if BP increases."
+  ],
+  "logic": {
+    "pd_overlap": { "effect_id": "hypertension", "min_magnitude": "high" },
+    "rationale": [
+      "Both drugs can increase blood pressure.",
+      "Combined effects can increase risk of symptomatic hypertension."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can both increase blood pressure. Using them together may increase hypertension risk, especially in patients with baseline hypertension or cardiovascular disease.",
+  "references": [
+    { "source": "Educational note", "citation": "PD stacking: shared hypertension domain implies additive BP elevation." }
+  ]
+}

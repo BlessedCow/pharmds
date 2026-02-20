@@ -1,0 +1,23 @@
+{
+  "id": "PD_TACHYCARDIA_ADDITIVE",
+  "name": "Additive tachycardia risk with multiple HR-increasing drugs",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Monitor heart rate and symptoms (palpitations, chest pain, dizziness).",
+    "Assess for arrhythmia history and other sympathomimetics.",
+    "Consider dose reduction or alternative therapy if symptomatic."
+  ],
+  "logic": {
+    "pd_overlap": { "effect_id": "tachycardia", "min_magnitude": "high" },
+    "rationale": [
+      "Both drugs can increase heart rate.",
+      "Combined effects increase risk of symptomatic tachycardia."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can both increase heart rate. Using them together may increase tachycardia risk, especially in patients with arrhythmia history or other stimulants.",
+  "references": [
+    { "source": "Educational note", "citation": "PD stacking: shared tachycardia domain implies additive HR elevation." }
+  ]
+}

@@ -27,6 +27,7 @@ _KNOWN_ENZYMES = {
     "CYP1A2",
     "CYP2B6",
     "UGT1A1",
+    "UGT2B7",
 }
 
 _DRUG_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_+-]*$")

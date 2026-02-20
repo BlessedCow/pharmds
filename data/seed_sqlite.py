@@ -47,7 +47,11 @@ def seed(conn: sqlite3.Connection) -> None:
             "UGT",
             "Phase II glucuronidation enzyme; clinically important for select substrates.",
         ),
-        # ("UGT2B7", "UGT", "Phase II glucuronidation enzyme; relevant for some opioids (educational)."),
+        (
+            "UGT2B7", 
+            "UGT", 
+            "Phase II glucuronidation enzyme; relevant for some opioids (educational)."
+        ),
     ]
     for e in enzymes:
         upsert(
@@ -88,6 +92,10 @@ def seed(conn: sqlite3.Connection) -> None:
         ("hypoglycemia", "Hypoglycemia risk domain."),
         ("anticholinergic", "Anticholinergic burden domain."),
         ("cardiovascular", "Cardiovascular effects (educational)."),
+        ("CNS_stimulation", "CNS stimulation/agitation/insomnia risk domain."),
+        ("hypertension", "Blood pressure elevation / hypertension risk domain."),
+        ("tachycardia", "Heart rate elevation / tachycardia risk domain."),
+        ("sympathetic_stimulation", "Sympathomimetic stimulation (BP/HR/agitation) risk domain."),
     ]
     for pe in pd_effects:
         upsert(conn, "INSERT OR REPLACE INTO pd_effect(id,description) VALUES(?,?)", pe)

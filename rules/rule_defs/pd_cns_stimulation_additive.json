@@ -1,0 +1,30 @@
+{
+  "id": "PD_CNS_STIMULATION_ADDITIVE",
+  "name": "Additive CNS stimulation with multiple stimulants",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "avoid",
+  "actions": [
+    "Avoid combining multiple CNS stimulants unless clinically necessary.",
+    "Monitor for psychomotor agitation, tremors, hyperreflexia, and insomnia.",
+    "Assess for lowered seizure threshold and neuropsychiatric symptoms (e.g., mania or paranoia).",
+    "Inquire about intake of non-prescription stimulants like high-dose caffeine or nicotine."
+  ],
+  "logic": {
+    "pd_overlap": { 
+      "effect_id": "CNS_stimulation", 
+      "min_magnitude": "medium" 
+    },
+    "rationale": [
+      "Simultaneous use of multiple agents increases excitatory neurotransmission in the brain.",
+      "Combined CNS stimulation significantly raises the risk of behavioral toxicity and neurological adverse events."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both possess CNS stimulant properties. Their concurrent use may lead to additive excitatory effects, increasing the risk of severe anxiety, insomnia, tremors, and potentially lowering the seizure threshold.",
+  "references": [
+    { 
+      "source": "Educational note", 
+      "citation": "PD stacking: shared CNS stimulation domain implies additive excitatory neuropharmacological effects." 
+    }
+  ]
+}

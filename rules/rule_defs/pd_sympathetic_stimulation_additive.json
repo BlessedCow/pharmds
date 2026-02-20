@@ -1,0 +1,23 @@
+{
+  "id": "PD_SYMPATHETIC_STIMULATION_ADDITIVE",
+  "name": "Additive sympathetic stimulation with multiple sympathomimetics",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "avoid",
+  "actions": [
+    "Avoid combining multiple sympathomimetics when possible.",
+    "Monitor BP, HR, anxiety/agitation, and insomnia.",
+    "Assess for stimulant use (caffeine/illicit) and cardiovascular risk."
+  ],
+  "logic": {
+    "pd_overlap": { "effect_id": "sympathetic_stimulation", "min_magnitude": "medium" },
+    "rationale": [
+      "Both drugs increase sympathetic tone.",
+      "Combined stimulation can increase cardiovascular and neuropsychiatric adverse effects."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can both increase sympathetic stimulation. Using them together may raise risk of hypertension, tachycardia, agitation, and insomnia. Patient factors strongly modify risk.",
+  "references": [
+    { "source": "Educational note", "citation": "PD stacking: shared sympathetic stimulation domain implies additive sympathomimetic effects." }
+  ]
+}

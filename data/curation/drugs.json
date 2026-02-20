@@ -644,6 +644,317 @@
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
       }
+    },
+    {
+      "id": "hydroxyzine",
+      "generic_name": "hydroxyzine",
+      "drug_class": "antihistamine",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "atarax",
+        "vistaril",
+        "hydroxyzine hcl",
+        "hydroxyzine pamoate"
+      ],
+      "notes": "Sedating antihistamine; include CNS depression and QT effect for additive-risk PD logic. Enzyme data is educational placeholder.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.3
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.2
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation"
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive QT risk when combined with other QT-prolonging agents"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "paliperidone",
+      "generic_name": "paliperidone",
+      "drug_class": "antipsychotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "invega",
+        "invega sustenna",
+        "invega trinza",
+        "invega hafyera",
+        "paliperidone er"
+      ],
+      "notes": "Antipsychotic; prioritize QT prolongation composite PD logic. Limited CYP contribution modeled here; primary handling is PD and renal clearance flag.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "QT prolongation risk; additive with other QT-prolonging agents"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "sedation can be additive with other CNS depressants"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "lorazepam",
+      "generic_name": "lorazepam",
+      "drug_class": "benzodiazepine",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "ativan",
+        "lorazepam intensol"
+      ],
+      "notes": "Benzodiazepine; UGT substrate anchor for phase II logic. Primary interaction surface is additive CNS depression.",
+      "enzymes": [
+        {
+          "enzyme_id": "UGT2B7",
+          "role": "substrate",
+          "fraction_metabolized": 0.7
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "sedation/respiratory depression"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "olanzapine",
+      "generic_name": "olanzapine",
+      "drug_class": "antipsychotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "zyprexa",
+        "zyprexa zydis",
+        "lybalvi"
+      ],
+      "notes": "Educational CYP1A2 substrate anchor for induction and inhibition rules. Include QT effect for additive-risk PD logic.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "substrate",
+          "fraction_metabolized": 0.5
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation"
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "possible QT effect; additive with other QT-prolonging agents"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "cariprazine",
+      "generic_name": "cariprazine",
+      "drug_class": "antipsychotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "vraylar"
+      ],
+      "notes": "CYP3A4 substrate anchor for inhibitor and inducer rules. Long half-life bucket for persistence of effect.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.6
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.2
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "sedation can be additive with other CNS depressants"
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "conservative flag for additive QT logic"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "methocarbamol",
+      "generic_name": "methocarbamol",
+      "drug_class": "muscle_relaxant",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "robaxin"
+      ],
+      "notes": "Muscle relaxant; primary interaction surface is additive CNS depression. PK modeled minimally for now.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation/dizziness; additive with other CNS depressants"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "amphetamine_dextroamphetamine",
+      "generic_name": "amphetamine and dextroamphetamine",
+      "drug_class": "stimulant",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "adderall",
+        "adderall xr",
+        "mixed amphetamine salts",
+        "amphetamine/dextroamphetamine",
+        "amphetamine and dextroamphetamine",
+        "amphetamine_dextroamphetamine"
+      ],
+      "notes": "Stimulant combination product; add PD effects only if you have PD rules for them (e.g., cardiovascular, hypertension).",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Stimulant; increases alertness and can cause insomnia/anxiety."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sympathomimetic; may increase blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sympathomimetic; may increase heart rate."
+        },
+        {
+          "effect_id": "sympathetic_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Increased catecholaminergic tone; additive with other sympathomimetics."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "pseudoephedrine",
+      "generic_name": "pseudoephedrine",
+      "drug_class": "decongestant",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "sudafed"
+      ],
+      "notes": "Sympathomimetic decongestant; increases blood pressure and heart rate.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sympathetic_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Alpha and beta adrenergic agonism; increases catecholaminergic tone."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Vasoconstriction may increase blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Beta-adrenergic stimulation may increase heart rate."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
     }
   ]
 }
