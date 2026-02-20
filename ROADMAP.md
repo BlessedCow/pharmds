@@ -1,97 +1,115 @@
-
 # PharmDS Roadmap
 
-This document outlines planned and exploratory directions for the PharmDS project.  
-It is not a commitment or timeline, and priorities may change as the project evolves.
+This document outlines planned and exploratory directions for the
+PharmDS project.\
+It is not a commitment or timeline, and priorities may change as the
+project evolves.
 
-PharmDS is currently in **v0 (early development)**. Stability, APIs, and rule schemas may change.
+PharmDS is currently in **v0.x (active early development)**. Stability,
+APIs, and rule schemas may change.
 
-----------
+------------------------------------------------------------------------
+
 ## Current State
 
-PharmDS has a stable development baseline:
-- Automated CI with linting and tests
-- Reproducible local development setup
-- Clear contribution and testing standards
+PharmDS supports structured, deterministic PK and PD modeling with
+explainable rule evaluation.
 
-Current work prioritizes correctness, explainability, and reduction of false positives.
+### Implemented Capabilities
 
-### Contributor experience
-- Maintain clear contribution and testing guidelines
-- Expand golden and negative test scenarios
-- Improve rule authoring clarity and reviewability
+### Pharmacokinetics (PK)
+
+-   Phase I (CYP) interaction modeling\
+-   Phase II (UGT) interaction modeling\
+-   Transporter-aware PK (P-gp, BCRP, OATP)\
+-   Composite mechanism detection (e.g., CYP + transporter effects)\
+-   Directional modeling (affected vs interacting drug)
+
+### Pharmacodynamics (PD)
+
+-   Deterministic overlap logic using shared effect domains\
+-   Additive QT prolongation detection\
+-   Additive CNS depression detection\
+-   Additive serotonergic stacking\
+-   Additive stimulant and sympathomimetic stacking\
+-   Cardiovascular axis modeling (hypertension, tachycardia, sympathetic
+    stimulation)
+
+### Output and UX
+
+-   Rich formatted CLI output (`--format rich`)\
+-   Domain filtering (`--domain`)\
+-   Structured rule definitions with explicit severity and rule class\
+-   Validation-driven seeding and reproducible database builds
+
+Current development prioritizes correctness, explainability, and
+reduction of alert fatigue.
+
+------------------------------------------------------------------------
 
 ## Near-Term Focus (v0.x)
 
-These items focus on improving correctness, clarity, and usability of the existing system.
+These items improve stability and signal-to-noise quality.
 
--   Expand and refine PK and PD interaction rules
-    
--   Improve rule combination and severity escalation logic
-    
--   Strengthen rule validation and test coverage
-    
--   Improve explanation quality and consistency
-    
--   Add structured output formats (e.g., JSON) for downstream use
-    
--   Improve CLI ergonomics and error handling
-    
+-   Refine PD overlap tuning to reduce redundant alerts\
+-   Improve rule combination and severity escalation logic\
+-   Strengthen rule validation and test coverage\
+-   Expand structured output formats (e.g., JSON mode for downstream
+    tooling)\
+-   Improve CLI ergonomics and error handling\
+-   Improve explanation template consistency across domains
 
-----------
+------------------------------------------------------------------------
 
-## Mid-Term Exploration (Pre–v1.0)
+## Mid-Term Exploration (Pre--v1.0)
 
 These areas may be explored as the core stabilizes.
 
--   Optional patient-context modifiers (age, renal/hepatic function, risk factors)
-    
--   Dose-aware or conditional interaction logic
-    
--   Rule authoring and review tooling
-    
--   Initial Web UI for interactive exploration of interactions
-    
--   Improved internal data modeling and normalization
-    
+-   Optional patient-context modifiers:
+    -   Age
+    -   Renal function
+    -   Hepatic function
+    -   QT risk factors
+-   Dose-aware or conditional interaction logic\
+-   Rule grouping or domain clustering (e.g., suppress subdomains when
+    umbrella domain fires)\
+-   Rule authoring and review tooling\
+-   Initial Web UI for interactive exploration\
+-   Internal ontology refinement and normalization improvements
 
-----------
+------------------------------------------------------------------------
 
 ## Longer-Term Possibilities
 
-These items are speculative and dependent on scope, licensing, and resources.
+These items are speculative and dependent on scope and resources.
 
--   Broader drug coverage and pharmacologic attributes
-    
--   Integration with curated external data sources (where permitted)
-    
+-   Broader drug coverage\
+-   Formalized pharmacologic ontology layer\
+-   Interaction graph visualization\
+-   Educational export formats (teaching mode)\
+-   Integration with curated external data sources (where permitted)\
 -   Interoperability with other clinical or educational tools
-    
--   Export formats suitable for teaching, research, or safety review workflows
-    
 
-----------
+------------------------------------------------------------------------
 
 ## Non-Goals
 
 To keep scope clear, PharmDS explicitly does **not** aim to:
 
--   Replace clinical judgment or prescribing decisions
-    
--   Act as a diagnostic or treatment recommendation system
+-   Replace clinical judgment or prescribing decisions\
+-   Act as a diagnostic or treatment recommendation system\
+-   Provide patient-specific medical advice
 
+------------------------------------------------------------------------
 
-----------
-
-## Contribution Notes
+## Contribution Principles
 
 PharmDS prioritizes:
 
--   explicit, traceable logic
-    
--   explainability over prediction
-    
--   conservative safety defaults
-    
+-   Explicit, traceable logic\
+-   Deterministic behavior\
+-   Explainability over black-box prediction\
+-   Conservative safety defaults\
+-   Structural correctness over breadth
 
 Contributions aligned with these principles are encouraged.
