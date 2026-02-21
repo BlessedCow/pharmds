@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import argparse
 import difflib
+import json
 import sqlite3
 import sys
 from itertools import combinations
 from pathlib import Path
 
+from app.json_output import build_json_payload
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
-from core.enums import Domain
 from core.exceptions import UnknownDrugError
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports
@@ -370,10 +371,12 @@ def main() -> None:
     )
     p.add_argument(
         "--format",
-        choices=("plain", "rich"),
+        choices=("plain", "rich", "json"),
         default="plain",
         help=(
-            "Output format. Use 'rich' for colored tables/panels (requires rich). "
+            "Output format.\n"
+            "Use 'rich' for colored tables/panels (requires rich).\n "
+            "Use 'json' for structured output.\n "
             "Default: plain."
         ),
     )
@@ -451,9 +454,6 @@ def main() -> None:
 
     hits = evaluate_all(rules, facts, drug_ids)
     
-    for h in hits:
-        if h.domain == Domain.PK:
-            print("DEBUG PK HIT:", h.rule_id, h.inputs)
 
     from rules.composite_rules import apply_composites
 
@@ -461,6 +461,19 @@ def main() -> None:
 
     templates = {r.id: r.explanation_template for r in rules}
     reports = _build_reports_for_all_pairs(facts, hits, templates, drug_ids)
+
+    if args.format == "json":
+    # JSON MODE
+        payload = build_json_payload(
+            facts=facts,
+            reports=reports,
+            templates=templates,
+            selected_domains=selected,
+            input_drug_names=drug_names,
+            patient_flags=patient_flags,
+        )
+        print(json.dumps(payload, indent=2, ensure_ascii=False))
+        return
 
     if not reports:
         domains = ", ".join(selected)
