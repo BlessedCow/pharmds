@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
+import core.constants as c
 from data.loaders import load_transporters
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -70,11 +71,11 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
     if not isinstance(drugs, list):
         errors.append(CurationError(str(path), "Expected key 'drugs' to be a list."))
         return errors
-
+    PD_EFFECT_IDS = {v for k, v in vars(c).items() if k.startswith("PD_EFFECT_")}
     transporters = load_transporters()
     known_transporters = set(transporters.keys())
-    known_pd_effects = _load_rule_pd_effect_ids()
-
+    known_pd_effects = PD_EFFECT_IDS | _load_rule_pd_effect_ids()
+    
     seen_drug_ids: set[str] = set()
     seen_aliases: dict[str, str] = {}  # alias -> drug_id
 
@@ -328,7 +329,7 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
                 errors.append(
                     CurationError(
                         p2 + ".effect_id",
-                        f"Unknown effect_id '{eid}'. Must match a PD rule effect_id.",
+                        f"Unknown effect_id '{eid}'. Must match a known PD effect_id.",
                     )
                 )
             if eid in seen_pd:
@@ -399,4 +400,5 @@ def assert_valid_drugs_curation(path: Path = DEFAULT_PATH) -> None:
         msg = "Drug curation validation failed:\n" + "\n".join(
             f"- {e.path}: {e.message}" for e in errors
         )
+        print("DEBUG locals:", sorted(locals().keys()))
         raise ValueError(msg)

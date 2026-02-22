@@ -1,0 +1,24 @@
+{
+  "id": "PD_OPIOID_ANTAGONIST_OVERLAP",
+  "name": "Opioid antagonist effect present",
+  "domain": "PD",
+  "severity": "info",
+  "rule_class": "info",
+  "actions": [],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "opioid_antagonist",
+      "min_magnitude": "low"
+    },
+    "rationale": [
+      "Declarative rule to register opioid_antagonist effect_id for validation and future logic."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} include an opioid antagonist effect tag (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Declarative rule: registers opioid_antagonist effect_id."
+    }
+  ]
+}

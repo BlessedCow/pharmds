@@ -1,0 +1,24 @@
+{
+  "id": "PD_WITHDRAWAL_RISK_OVERLAP",
+  "name": "Withdrawal risk effect present",
+  "domain": "PD",
+  "severity": "info",
+  "rule_class": "info",
+  "actions": [],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "withdrawal_risk",
+      "min_magnitude": "low"
+    },
+    "rationale": [
+      "Declarative rule to register withdrawal_risk effect_id for validation and future logic."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} include a withdrawal risk effect tag (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Declarative rule: registers withdrawal_risk effect_id."
+    }
+  ]
+}

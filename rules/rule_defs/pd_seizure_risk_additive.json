@@ -1,0 +1,28 @@
+{
+  "id": "PD_SEIZURE_RISK_ADDITIVE",
+  "name": "Increased seizure risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Assess seizure risk factors and avoid high-risk combinations when possible.",
+    "Use the lowest effective doses and monitor for neurologic symptoms (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "seizure_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs may lower seizure threshold or increase seizure risk.",
+      "Combined effects may increase seizure risk, especially in predisposed patients."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} are both associated with increased seizure risk or lowered seizure threshold. Combined use may increase seizure risk (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive seizure risk / lowered seizure threshold."
+    }
+  ]
+}

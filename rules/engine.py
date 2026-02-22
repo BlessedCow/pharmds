@@ -80,22 +80,33 @@ def rule_mechanisms(rule: Rule) -> list[str]:
 
 def load_rules(rule_dir: Path) -> list[Rule]:
     rules: list[Rule] = []
+
     for p in sorted(rule_dir.glob("*.json")):
         raw = json.loads(p.read_text(encoding="utf-8"))
-        rules.append(
-            Rule(
+
+        try:
+            rule = Rule(
                 id=raw["id"],
                 name=raw["name"],
                 domain=Domain(raw["domain"]),
                 severity=Severity(raw["severity"]),
                 rule_class=RuleClass(raw.get("rule_class", "caution")),
                 logic=raw["logic"],
-                explanation_template=raw["explanation_template"],
+                explanation_template=raw.get(
+                    "explanation_template",
+                    "{A_name} + {B_name}: rule triggered (educational).",
+                ),
                 references=raw.get("references", []),
                 actions=raw.get("actions", []),
                 tags=raw.get("tags", []),
             )
-        )
+        except KeyError as e:
+            raise ValueError(
+                f"Rule file '{p.name}' missing required key: {e}"
+            ) from e
+
+        rules.append(rule)
+
     return rules
 
 

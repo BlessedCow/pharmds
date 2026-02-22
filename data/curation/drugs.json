@@ -923,9 +923,7 @@
       "generic_name": "pseudoephedrine",
       "drug_class": "decongestant",
       "therapeutic_index": "wide",
-      "aliases": [
-        "sudafed"
-      ],
+      "aliases": ["sudafed"],
       "notes": "Sympathomimetic decongestant; increases blood pressure and heart rate.",
       "enzymes": [],
       "transporters": [],
@@ -955,6 +953,288 @@
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
       }
+    },
+    {
+      "id": "gabapentin",
+      "generic_name": "gabapentin",
+      "drug_class": "anticonvulsant",
+      "therapeutic_index": "wide",
+      "aliases": ["neurontin", "gralise", "horizant"],
+      "notes": "Educational anchor: renally eliminated, minimal CYP involvement. Key PD concern is additive CNS and respiratory depression risk when combined with opioids or other CNS depressants.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive sedation and psychomotor impairment with other CNS depressants"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "somnolence and dizziness are common adverse effects"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "FDA warns of serious breathing problems, especially with opioids or other CNS depressants"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "short"
+      },
+      "sources": [
+        {
+          "source": "FDA",
+          "citation": "Neurontin (gabapentin) Prescribing Information",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2017/020235s064_020882s047_021129s046lbl.pdf"
+        },
+        {
+          "source": "FDA",
+          "citation": "Drug Safety Communication: serious breathing problems with gabapentin and pregabalin",
+          "url": "https://www.fda.gov/drugs/drug-safety-and-availability/fda-warns-about-serious-breathing-problems-seizure-and-nerve-pain-medicines-gabapentin-neurontin"
+        }
+      ]
+    },
+    {
+      "id": "pregabalin",
+      "generic_name": "pregabalin",
+      "drug_class": "anticonvulsant",
+      "therapeutic_index": "wide",
+      "aliases": ["lyrica", "lyrica cr"],
+      "notes": "Educational anchor: renally eliminated, minimal CYP involvement. Key PD concern is additive CNS and respiratory depression risk when combined with opioids or other CNS depressants.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive sedation and psychomotor impairment with other CNS depressants"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "somnolence and dizziness are common adverse effects"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "FDA warns of serious breathing problems, especially with opioids or other CNS depressants"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "short"
+      },
+      "sources": [
+        {
+          "source": "FDA",
+          "citation": "Lyrica (pregabalin) Prescribing Information",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2018/021446s035%2C022488s013lbl.pdf"
+        },
+        {
+          "source": "FDA",
+          "citation": "Drug Safety Communication: serious breathing problems with gabapentin and pregabalin",
+          "url": "https://www.fda.gov/drugs/drug-safety-and-availability/fda-warns-about-serious-breathing-problems-seizure-and-nerve-pain-medicines-gabapentin-neurontin"
+        }
+      ]
+    },
+    {
+      "id": "naloxone",
+      "generic_name": "naloxone",
+      "drug_class": "opioid antagonist",
+      "therapeutic_index": "wide",
+      "aliases": ["narcan"],
+      "notes": "Educational anchor: opioid receptor antagonist used for reversal of opioid overdose. May precipitate acute withdrawal in opioid dependent patients.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "opioid_antagonist",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "competitive opioid receptor antagonism"
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "can precipitate withdrawal in opioid dependent patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      },
+      "sources": [
+        {
+          "source": "FDA",
+          "citation": "NARCAN (naloxone hydrochloride) Nasal Spray Prescribing Information",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/208411Orig1s004lbl.pdf"
+        }
+      ]
+    },
+    {
+      "id": "naltrexone",
+      "generic_name": "naltrexone",
+      "drug_class": "opioid antagonist",
+      "therapeutic_index": "wide",
+      "aliases": ["revia", "vivitrol"],
+      "notes": "Educational anchor: long acting opioid antagonist. Blocks opioid effects and can precipitate withdrawal if opioids are present. Label includes hepatotoxicity warnings.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "opioid_antagonist",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "opioid receptor antagonism; blocks opioid agonist effects"
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "can precipitate withdrawal if opioids are present"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "sources": [
+        {
+          "source": "FDA",
+          "citation": "Revia (naltrexone hydrochloride) Prescribing Information",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2013/018932s017lbl.pdf"
+        }
+      ]
+    },
+    {
+      "id": "buprenorphine",
+      "generic_name": "buprenorphine",
+      "drug_class": "opioid (partial agonist)",
+      "therapeutic_index": "moderate",
+      "aliases": ["suboxone", "subutex", "butrans"],
+      "notes": "Educational anchor: CYP3A4 substrate for PK inhibitor and inducer rules. PD: additive CNS and respiratory depression with other CNS depressants. QT effect is product and dose dependent (notably described for transdermal buprenorphine).",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.5
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "opioid related sedation; additive with benzodiazepines and other CNS depressants"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "opioid related somnolence"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "opioid related respiratory depression risk; increased with other CNS depressants"
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "product and dose dependent QT risk; described in transdermal labeling"
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "opioid dependence can occur; withdrawal risk with discontinuation"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      },
+      "sources": [
+        {
+          "source": "FDA",
+          "citation": "SUBOXONE (buprenorphine and naloxone) sublingual tablets Prescribing Information",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2021/020733s028lbl.pdf"
+        },
+        {
+          "source": "FDA",
+          "citation": "BUTRANS (buprenorphine) Transdermal System Prescribing Information",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/021306s035lbl.pdf"
+        },
+        {
+          "source": "FDA",
+          "citation": "Drug Safety Communication: caution about withholding opioid addiction medications from patients taking benzodiazepines or CNS depressants",
+          "url": "https://www.fda.gov/drugs/drug-safety-and-availability/fda-drug-safety-communication-fda-urges-caution-about-withholding-opioid-addiction-medications"
+        }
+      ]
+    },
+    {
+      "id": "bupropion",
+      "generic_name": "bupropion",
+      "drug_class": "antidepressant",
+      "therapeutic_index": "moderate",
+      "aliases": ["wellbutrin", "wellbutrin sr", "wellbutrin xl", "zyban"],
+      "notes": "Educational anchor: CYP2D6 inhibitor and CYP2B6 substrate for PK logic. PD: dose related seizure risk described in labeling. Not classically serotonergic.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2B6",
+          "role": "substrate",
+          "fraction_metabolized": 0.6
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "seizure_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "dose related seizure risk; additive with other seizure threshold lowering agents"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "sources": [
+        {
+          "source": "FDA",
+          "citation": "Wellbutrin XL (bupropion hydrochloride extended release) Prescribing Information",
+          "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/021515s044lbl.pdf"
+        }
+      ]
     }
   ]
 }

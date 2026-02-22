@@ -1,0 +1,28 @@
+{
+  "id": "PD_SEDATION_ADDITIVE",
+  "name": "Additive sedation",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Avoid unnecessary combinations of sedating agents.",
+    "Use the lowest effective doses and monitor for impairment, falls risk, and oversedation (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "sedation",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs are associated with sedation.",
+      "Combined sedating effects can be additive and increase impairment risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both have sedating effects. Combined use may increase sedation, impairment, and falls risk (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive sedation."
+    }
+  ]
+}

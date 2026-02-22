@@ -1,0 +1,28 @@
+{
+  "id": "PD_RESPIRATORY_DEPRESSION_ADDITIVE",
+  "name": "Additive respiratory depression",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "avoid",
+  "actions": [
+    "Avoid combining respiratory depressants when possible.",
+    "If unavoidable, use the lowest effective doses and monitor closely for respiratory depression (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "respiratory_depression",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can depress respiration.",
+      "Combined respiratory depressant effects increase overdose risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both can cause respiratory depression. Combined use can increase overdose risk, especially with higher doses or additional CNS depressants (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive respiratory depression."
+    }
+  ]
+}
