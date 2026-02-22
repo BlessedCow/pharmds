@@ -74,8 +74,14 @@ def _hit_to_dict(
         explanation = render_explanation(tmpl, facts, h)
 
     rat = render_rationale(facts, h)
-    rationale_lines = [ln.strip() for ln in rat.splitlines() if ln.strip()] if rat else []
-
+    if rat:
+        rationale_lines = [
+            ln.strip()
+            for ln in rat.splitlines()
+            if ln.strip()
+        ]
+    else:
+        rationale_lines = []
     refs = list(h.references or [])
     refs_sorted = sorted(refs, key=_ref_key)
 

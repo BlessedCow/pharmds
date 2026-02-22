@@ -5,8 +5,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from core.constants import normalize_pd_effect_id, normalize_transporter_id
 import core.constants as c
+from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from data.loaders import load_transporters
 
 BASE_DIR = Path(__file__).resolve().parents[2]
