@@ -1235,6 +1235,159 @@
           "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/021515s044lbl.pdf"
         }
       ]
+    },
+    {
+      "id": "fluoxetine",
+      "generic_name": "fluoxetine",
+      "aliases": ["Prozac", "Sarafem"],
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {"enzyme_id": "CYP2D6", "role": "inhibitor", "strength": "strong"},
+        {"enzyme_id": "CYP2D6", "role": "substrate"},
+        {"enzyme_id": "CYP2C19", "role": "substrate"}
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
+    },
+        {
+      "id": "venlafaxine",
+      "generic_name": "venlafaxine",
+      "aliases": ["Effexor", "Effexor XR"],
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {"enzyme_id": "CYP2D6", "role": "substrate"}
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
+    },
+    {
+      "id": "duloxetine",
+      "generic_name": "duloxetine",
+      "aliases": ["Cymbalta"],
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {"enzyme_id": "CYP1A2", "role": "substrate"},
+        {"enzyme_id": "CYP2D6", "role": "substrate"},
+        {"enzyme_id": "CYP2D6", "role": "inhibitor", "strength": "moderate"}
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
+    },
+    {
+      "id": "trazodone",
+      "generic_name": "trazodone",
+      "aliases": ["Desyrel"],
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {"enzyme_id": "CYP3A4", "role": "substrate"}
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium"
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium"
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
+    },
+    {
+      "id": "haloperidol",
+      "generic_name": "haloperidol",
+      "aliases": ["Haldol"],
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {"enzyme_id": "CYP2D6", "role": "substrate"},
+        {"enzyme_id": "CYP3A4", "role": "substrate"}
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "high"
+        }
+      ]
+    },
+    {
+      "id": "ziprasidone",
+      "generic_name": "ziprasidone",
+      "aliases": ["Geodon"],
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {"enzyme_id": "CYP3A4", "role": "substrate"}
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
+    },
+    {
+      "id": "lithium",
+      "generic_name": "lithium",
+      "aliases": ["Lithobid", "Eskalith"],
+      "therapeutic_index": "narrow",
+      "enzymes": [],
+      "pd_effects": []
+    },
+    {
+      "id": "lamotrigine",
+      "generic_name": "lamotrigine",
+      "aliases": ["Lamictal"],
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {"enzyme_id": "UGT1A1", "role": "substrate"}
+      ],
+      "pd_effects": []
+    },
+    {
+      "id": "ibuprofen",
+      "generic_name": "ibuprofen",
+      "aliases": ["Advil", "Motrin"],
+      "therapeutic_index": "wide",
+      "enzymes": [],
+      "pd_effects": []
+    },
+    {
+      "id": "lisinopril",
+      "generic_name": "lisinopril",
+      "aliases": ["Prinivil", "Zestril"],
+      "therapeutic_index": "wide",
+      "enzymes": [],
+      "pd_effects": []
+    },
+    {
+      "id": "hydrochlorothiazide",
+      "generic_name": "hydrochlorothiazide",
+      "aliases": ["HCTZ", "Microzide"],
+      "therapeutic_index": "wide",
+      "enzymes": [],
+      "pd_effects": []
     }
   ]
 }

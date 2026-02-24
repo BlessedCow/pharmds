@@ -41,14 +41,13 @@ PD_EFFECT_BRADYCARDIA = "bradycardia"
 PD_EFFECT_SEROTONERGIC = "serotonergic"
 PD_EFFECT_SEROTONIN_SYNDROME = "serotonin_syndrome"
 
+
 # Additional PD effects used for richer educational tagging
 PD_EFFECT_RESP_DEP = "respiratory_depression"
 PD_EFFECT_SEDATION = "sedation"
 PD_EFFECT_SEIZURE_RISK = "seizure_risk"
 PD_EFFECT_OPIOID_ANTAGONIST = "opioid_antagonist"
 PD_EFFECT_WITHDRAWAL = "withdrawal_risk"
-
-
 
 
 _PD_EFFECT_ALIASES: dict[str, str] = {
