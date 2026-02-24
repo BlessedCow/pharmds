@@ -1353,7 +1353,18 @@
       "aliases": ["Lithobid", "Eskalith"],
       "therapeutic_index": "narrow",
       "enzymes": [],
-      "pd_effects": []
+      "pd_effects": [
+        {
+          "effect_id": "neurotoxicity_risk",
+          "direction": "increase",
+          "magnitude": "high"
+        },
+        {
+          "effect_id": "lithium_level_increase_risk",
+          "direction": "increase",
+          "magnitude": "high"
+        }
+      ]
     },
     {
       "id": "lamotrigine",
@@ -1363,7 +1374,13 @@
       "enzymes": [
         {"enzyme_id": "UGT1A1", "role": "substrate"}
       ],
-      "pd_effects": []
+      "pd_effects": [
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
     },
     {
       "id": "ibuprofen",
@@ -1371,7 +1388,18 @@
       "aliases": ["Advil", "Motrin"],
       "therapeutic_index": "wide",
       "enzymes": [],
-      "pd_effects": []
+      "pd_effects": [
+        {
+          "effect_id": "renal_function",
+          "direction": "decrease",
+          "magnitude": "low"
+        },
+        {
+          "effect_id": "lithium_level_increase_risk",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
     },
     {
       "id": "lisinopril",
@@ -1379,7 +1407,18 @@
       "aliases": ["Prinivil", "Zestril"],
       "therapeutic_index": "wide",
       "enzymes": [],
-      "pd_effects": []
+      "pd_effects": [
+        {
+          "effect_id": "hyperkalemia_risk",
+          "direction": "increase",
+          "magnitude": "medium"
+        },
+        {
+          "effect_id": "lithium_level_increase_risk",
+          "direction": "increase",
+          "magnitude": "medium"
+        }
+      ]
     },
     {
       "id": "hydrochlorothiazide",
@@ -1387,7 +1426,18 @@
       "aliases": ["HCTZ", "Microzide"],
       "therapeutic_index": "wide",
       "enzymes": [],
-      "pd_effects": []
+      "pd_effects": [
+        {
+          "effect_id": "hypokalemia_risk",
+          "direction": "increase",
+          "magnitude": "medium"
+        },
+        {
+          "effect_id": "lithium_level_increase_risk",
+          "direction": "increase",
+          "magnitude": "high"
+        }
+      ]
     }
   ]
 }

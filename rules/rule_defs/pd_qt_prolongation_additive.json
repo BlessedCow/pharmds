@@ -1,0 +1,29 @@
+{
+  "id": "PD_QT_PROLONGATION_ADDITIVE",
+  "name": "Additive QT prolongation",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "avoid",
+  "actions": [
+    "Avoid combining QT-prolonging drugs when possible.",
+    "If unavoidable, obtain baseline and follow-up ECG and correct electrolytes (K, Mg) (educational).",
+    "Review for additional QT-prolonging agents and other risk factors (bradycardia, structural heart disease) (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "QT_prolongation",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can prolong the QT interval.",
+      "Combined QT-prolonging effects can increase torsades de pointes risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both can prolong the QT interval. Combined use may increase risk of significant QT prolongation and torsades de pointes, especially with electrolyte abnormalities or other QT-prolonging drugs (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive QT prolongation."
+    }
+  ]
+}

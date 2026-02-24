@@ -48,6 +48,12 @@ PD_EFFECT_SEDATION = "sedation"
 PD_EFFECT_SEIZURE_RISK = "seizure_risk"
 PD_EFFECT_OPIOID_ANTAGONIST = "opioid_antagonist"
 PD_EFFECT_WITHDRAWAL = "withdrawal_risk"
+PD_EFFECT_NEUROTOXICITY_RISK = "neurotoxicity_risk"
+PD_EFFECT_SEIZURE_THRESHOLD = "seizure_threshold"
+PD_EFFECT_HYPOKALEMIA = "hypokalemia_risk"
+PD_EFFECT_HYPERKALEMIA = "hyperkalemia_risk"
+PD_EFFECT_RENAL_FUNCTION = "renal_function"
+PD_EFFECT_LITHIUM_INCREASE_RISK = "lithium_increase_risk"
 
 
 _PD_EFFECT_ALIASES: dict[str, str] = {
@@ -77,8 +83,8 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     # seizure risk / threshold lowering
     "seizure": PD_EFFECT_SEIZURE_RISK,
     "seizure risk": PD_EFFECT_SEIZURE_RISK,
-    "seizure threshold": PD_EFFECT_SEIZURE_RISK,
-    "seizure_threshold_lowering": PD_EFFECT_SEIZURE_RISK,
+    "seizure threshold": PD_EFFECT_SEIZURE_THRESHOLD,
+    "seizure_threshold_lowering": PD_EFFECT_SEIZURE_THRESHOLD,
     "seizure_risk": PD_EFFECT_SEIZURE_RISK,
 
     # opioid antagonist
@@ -91,6 +97,27 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "precipitated withdrawal": PD_EFFECT_WITHDRAWAL,
     "precipitated_withdrawal": PD_EFFECT_WITHDRAWAL,
     "withdrawal_risk": PD_EFFECT_WITHDRAWAL,
+    
+    # potassium effects
+    "hypokalemia_risk": PD_EFFECT_HYPOKALEMIA,
+    "hypokalemia": PD_EFFECT_HYPOKALEMIA,
+    "hyperkalemia_risk": PD_EFFECT_HYPERKALEMIA,
+    "hyperkalemia": PD_EFFECT_HYPERKALEMIA,
+
+    # renal function
+    "renal function": PD_EFFECT_RENAL_FUNCTION,
+    "renal_function": PD_EFFECT_RENAL_FUNCTION,
+    
+    # neurotoxicity risk
+    "neurotoxicity": PD_EFFECT_NEUROTOXICITY_RISK,
+    "neurotoxicity risk": PD_EFFECT_NEUROTOXICITY_RISK,
+    "neurotoxicity_risk": PD_EFFECT_NEUROTOXICITY_RISK,
+    
+    # lithium effects
+    "lithium increase risk": PD_EFFECT_LITHIUM_INCREASE_RISK,
+    "lithium_increase_risk": PD_EFFECT_LITHIUM_INCREASE_RISK,
+    "lithium increase": PD_EFFECT_LITHIUM_INCREASE_RISK,
+    "lithium_increase": PD_EFFECT_LITHIUM_INCREASE_RISK 
 }
 
 

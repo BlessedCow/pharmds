@@ -1,0 +1,29 @@
+{
+  "id": "PD_LITHIUM_LEVEL_INCREASE_RISK",
+  "name": "Lithium level increase risk with interacting drugs",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Avoid combination when possible or consider alternatives (educational).",
+    "If used together, check lithium level after starting or changing the interacting drug and adjust lithium dose as needed (educational).",
+    "Monitor for lithium toxicity (tremor, GI upset, ataxia, confusion) and monitor renal function (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "lithium_level_increase_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Lithium has a narrow therapeutic index.",
+      "The interacting drug can increase lithium levels, increasing toxicity risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can interact in a way that increases lithium concentration and toxicity risk. Monitor lithium levels and renal function and watch for neurotoxicity symptoms, especially after medication changes (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "Lithium interactions: NSAIDs, ACE inhibitors, and thiazide diuretics can increase lithium levels."
+    }
+  ]
+}
