@@ -14,7 +14,7 @@ dev = [
   "ruff",
   "mypy",
 ]
-
+web = ["streamlit>=1.54.0"]
 cli = ["rich>=13.0"]
 
 [tool.setuptools]
