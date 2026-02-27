@@ -1239,7 +1239,9 @@
     {
       "id": "fluoxetine",
       "generic_name": "fluoxetine",
+      "drug_class": "SSRI",
       "aliases": ["Prozac", "Sarafem"],
+      "notes": "SSRI. Strong CYP2D6 inhibitor; can increase exposure of CYP2D6 substrates.", 
       "therapeutic_index": "moderate",
       "enzymes": [
         {"enzyme_id": "CYP2D6", "role": "inhibitor", "strength": "strong"},
@@ -1257,7 +1259,9 @@
         {
       "id": "venlafaxine",
       "generic_name": "venlafaxine",
+      "drug_class": "SNRI",
       "aliases": ["Effexor", "Effexor XR"],
+      "notes": "SNRI. CYP2D6 substrate; exposure may increase with CYP2D6 inhibitors.",
       "therapeutic_index": "moderate",
       "enzymes": [
         {"enzyme_id": "CYP2D6", "role": "substrate"}
@@ -1273,7 +1277,9 @@
     {
       "id": "duloxetine",
       "generic_name": "duloxetine",
+      "drug_class": "SNRI",
       "aliases": ["Cymbalta"],
+      "notes": "SNRI. CYP1A2 and CYP2D6 substrate; moderate CYP2D6 inhibitor.",
       "therapeutic_index": "moderate",
       "enzymes": [
         {"enzyme_id": "CYP1A2", "role": "substrate"},
@@ -1291,7 +1297,9 @@
     {
       "id": "trazodone",
       "generic_name": "trazodone",
+      "drug_class": "serotonin antagonist and reuptake inhibitor",
       "aliases": ["Desyrel"],
+      "notes": "Sedating antidepressant. CYP3A4 substrate; modeled for CNS depression, serotonergic activity, and QT prolongation.",
       "therapeutic_index": "moderate",
       "enzymes": [
         {"enzyme_id": "CYP3A4", "role": "substrate"}
@@ -1317,7 +1325,9 @@
     {
       "id": "haloperidol",
       "generic_name": "haloperidol",
+      "drug_class": "atypical antipsychotic",
       "aliases": ["Haldol"],
+      "notes": "Typical antipsychotic. QT prolongation risk; CYP2D6/CYP3A4 metabolism.",
       "therapeutic_index": "moderate",
       "enzymes": [
         {"enzyme_id": "CYP2D6", "role": "substrate"},
@@ -1334,7 +1344,9 @@
     {
       "id": "ziprasidone",
       "generic_name": "ziprasidone",
+      "drug_class": "atypical antipsychotic",
       "aliases": ["Geodon"],
+      "notes": "Atypical antipsychotic. Higher QT prolongation risk signal; use caution with other QT-prolonging drugs.",
       "therapeutic_index": "moderate",
       "enzymes": [
         {"enzyme_id": "CYP3A4", "role": "substrate"}
@@ -1350,7 +1362,9 @@
     {
       "id": "lithium",
       "generic_name": "lithium",
+      "drug_class": "mood stabilizer",
       "aliases": ["Lithobid", "Eskalith"],
+      "notes": "Mood stabilizer with narrow therapeutic index. Renal elimination; levels can rise with interacting drugs (NSAIDs, ACE inhibitors, thiazides).",
       "therapeutic_index": "narrow",
       "enzymes": [],
       "pd_effects": [
@@ -1369,7 +1383,9 @@
     {
       "id": "lamotrigine",
       "generic_name": "lamotrigine",
+      "drug_class": "antiepileptic",
       "aliases": ["Lamictal"],
+      "notes": "Mood stabilizer/antiepileptic. UGT substrate; interactions via UGT inhibition/induction can affect levels.",
       "therapeutic_index": "moderate",
       "enzymes": [
         {"enzyme_id": "UGT1A1", "role": "substrate"}
@@ -1385,7 +1401,9 @@
     {
       "id": "ibuprofen",
       "generic_name": "ibuprofen",
+      "drug_class": "NSAID",
       "aliases": ["Advil", "Motrin"],
+      "notes": "NSAID. Can increase lithium levels and toxicity risk via reduced renal perfusion.",
       "therapeutic_index": "wide",
       "enzymes": [],
       "pd_effects": [
@@ -1404,7 +1422,9 @@
     {
       "id": "lisinopril",
       "generic_name": "lisinopril",
+      "drug_class": "ACE inhibitor",
       "aliases": ["Prinivil", "Zestril"],
+      "notes": "ACE inhibitor. Can increase lithium levels and toxicity risk; monitor renal function and lithium levels if combined.",
       "therapeutic_index": "wide",
       "enzymes": [],
       "pd_effects": [
@@ -1423,7 +1443,9 @@
     {
       "id": "hydrochlorothiazide",
       "generic_name": "hydrochlorothiazide",
+      "drug_class": "thiazide diuretic",
       "aliases": ["HCTZ", "Microzide"],
+      "notes": "Thiazide diuretic. Can markedly increase lithium levels and toxicity risk; avoid or monitor closely if combined.",
       "therapeutic_index": "wide",
       "enzymes": [],
       "pd_effects": [

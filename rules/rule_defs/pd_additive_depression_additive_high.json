@@ -1,0 +1,29 @@
+{
+  "id": "PD_CNS_DEPRESSION_ADDITIVE_HIGH",
+  "name": "High-risk additive CNS depression",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "avoid",
+  "actions": [
+    "Avoid combining high-potency CNS depressants when possible.",
+    "If unavoidable, use the lowest effective doses, consider staggered timing, and monitor closely for oversedation and respiratory compromise (educational).",
+    "Counsel to avoid alcohol and other sedatives (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "CNS_depression",
+      "min_magnitude": "high"
+    },
+    "rationale": [
+      "Both drugs are high-potency CNS depressants.",
+      "Combined effects can significantly increase oversedation and related harm risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} are both high-potency CNS depressants. Combined use can cause marked sedation and impairment, increasing risk of harm (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: escalation for high-potency CNS depressant combinations."
+    }
+  ]
+}
