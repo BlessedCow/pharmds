@@ -12,7 +12,7 @@ from app.json_output import build_json_payload
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
-from reasoning.combine import build_pair_reports
+from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from rules.engine import evaluate_all, load_rules, rule_mechanisms
 
@@ -424,7 +424,6 @@ def main() -> None:
     try:
         drug_ids = resolve_drug_ids(conn, drug_names)
     except UnknownDrugError as e:
-        # Print one line per unknown token for clarity
         for tok in e.unknown:
             opts = e.suggestions.get(tok, ())
             if opts:
@@ -460,13 +459,16 @@ def main() -> None:
     hits = apply_composites(facts, hits)
 
     templates = {r.id: r.explanation_template for r in rules}
-    reports = _build_reports_for_all_pairs(facts, hits, templates, drug_ids)
-
-    if args.format == "json":
+    pair_reports = _build_reports_for_all_pairs(facts, hits, templates, drug_ids)
+    regimen_summary = None
+    if len(drug_ids) >= 3:
+        regimen_summary = build_regimen_summary(facts, pair_reports)
+    
     # JSON MODE
+    if args.format == "json":
         payload = build_json_payload(
             facts=facts,
-            reports=reports,
+            reports=pair_reports,
             templates=templates,
             selected_domains=selected,
             input_drug_names=drug_names,
@@ -475,7 +477,7 @@ def main() -> None:
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return
 
-    if not reports:
+    if not pair_reports:
         domains = ", ".join(selected)
         print(
             "No rule-based interactions detected in selected domains: "
@@ -485,28 +487,50 @@ def main() -> None:
 
     # RICH MODE
     if args.format == "rich":
+        from rich.console import Console
+        from rich.panel import Panel
+
         from app.render import (
             build_summary_rows,
             render_rich_details,
             render_rich_summary,
         )
 
+        console = Console()
         print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
-        rows = build_summary_rows(facts, reports)
+
+        # Regimen summary (only for 3+ drugs)
+        if regimen_summary:
+            sev = regimen_summary["overall_severity"].value
+            cls = regimen_summary["overall_rule_class"].value
+            n_flags = len(regimen_summary["regimen_flags"])
+            
+            console.print(
+                Panel(
+                    f"Overall (regimen): severity={sev} | class={cls}\n"
+                    f"Flags: {n_flags}",
+                    title="Regimen Summary (all drugs)",
+                    expand=True,
+                )
+            )
+            for flag in regimen_summary["regimen_flags"]:
+                console.print(f"- {flag['message']}")
+            print()
+
+        rows = build_summary_rows(facts, pair_reports)
         render_rich_summary(rows, top=args.top)
-        
-        detail_reports = reports[: args.top] if args.top and args.top > 0 else reports
-        render_rich_details(facts, detail_reports, templates)
-        
-        
+
+        detail_reports = (
+            pair_reports[: args.top] if args.top and args.top > 0 else pair_reports
+        )
         if args.details:
-            render_rich_details(facts, reports, templates)
+            render_rich_details(facts, detail_reports, templates)
 
         return
 
     # PLAIN MODE
     print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
-    for rep in reports:
+    for rep in pair_reports:
         d1 = facts.drugs[rep.drug_1].generic_name
         d2 = facts.drugs[rep.drug_2].generic_name
 

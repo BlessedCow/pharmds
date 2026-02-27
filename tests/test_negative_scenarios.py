@@ -101,3 +101,9 @@ def test_negative_no_oatp_hit_rosuvastatin_fluconazole():
     """Fluconazole is not modeled as an OATP inhibitor in seed data."""
     _, hits = _run(["rosuvastatin", "fluconazole"])
     assert "PK_OATP_INHIB" not in _rule_ids(hits)
+
+def test_pd_cns_dep_additive_does_not_fire_for_low_magnitude():
+    _, hits = _run(["paliperidone", "hydroxyzine"])
+    assert all(h.rule_id != "PD_CNS_DEP_ADDITIVE" for h in hits)
+    
+    

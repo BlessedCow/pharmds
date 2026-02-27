@@ -70,3 +70,39 @@ def test_pk_ugt1a1_inhib_irinotecan_atazanavir():
     assert any(
         h.rule_id == "PK_UGT1A1_INHIB" and h.inputs["A"] == "irinotecan" for h in hits
     )
+
+def test_pd_qt_additive_hydroxyzine_paliperidone():
+    _, hits = _run(["hydroxyzine", "paliperidone"])
+    assert any(h.rule_id == "PD_QT_ADDITIVE" for h in hits)
+    
+def test_pd_qt_only_one_qt_rule_fires_per_pair():
+    _, hits = _run(["citalopram", "ondansetron"])
+    qt_hits = [
+        h for h in hits
+        if h.rule_id in {"PD_QT_ADDITIVE"}
+    ]
+    assert len(qt_hits) == 1
+    
+def test_pd_qt_additive_citalopram_ondansetron():
+    _, hits = _run(["citalopram", "ondansetron"])
+    assert any(h.rule_id == "PD_QT_ADDITIVE" for h in hits)
+    
+def test_pd_cns_dep_additive_lorazepam_hydroxyzine():
+    _, hits = _run(["lorazepam", "hydroxyzine"])
+    assert any(h.rule_id == "PD_CNS_DEP_ADDITIVE" for h in hits)
+
+
+def test_pd_cns_dep_additive_lorazepam_methocarbamol():
+    _, hits = _run(["lorazepam", "methocarbamol"])
+    assert any(h.rule_id == "PD_CNS_DEP_ADDITIVE" for h in hits)
+
+
+def test_pd_cns_dep_additive_hydroxyzine_olanzapine():
+    _, hits = _run(["hydroxyzine", "olanzapine"])
+    assert any(h.rule_id == "PD_CNS_DEP_ADDITIVE" for h in hits)
+
+
+def test_pd_cns_dep_additive_olanzapine_methocarbamol():
+    _, hits = _run(["olanzapine", "methocarbamol"])
+    assert any(h.rule_id == "PD_CNS_DEP_ADDITIVE" for h in hits)
+    
