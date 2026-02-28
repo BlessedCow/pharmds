@@ -21,5 +21,21 @@
     "type": "efflux",
     "primary_sites": ["intestine", "liver"],
     "description": "Efflux transporter involved in drug disposition"
+  },
+  "SERT": {
+    "name": "Serotonin Transporter",
+    "family": "SLC6A4",
+    "gene": "SLC6A4",
+    "type": "uptake",
+    "primary_sites": ["brain"],
+    "description": "Neuronal uptake transporter for serotonin"
+  },
+  "NET": {
+    "name": "Neuroendocrine Transporter",
+    "family": "SLC6A3",
+    "gene": "SLC6A3",
+    "type": "uptake",
+    "primary_sites": ["brain"],
+    "description": "Neuronal uptake transporter for neurotransmitters"
   }
 }

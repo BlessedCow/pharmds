@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 # Canonical transporter IDs (internal representation)
-
 TRANSPORTER_PGP = "P-gp"  # P-glycoprotein
 TRANSPORTER_BCRP = "BCRP"
 TRANSPORTER_OATP1B1 = "OATP1B1"
+TRANSPORTER_SERT = "SERT"
+TRANSPORTER_NET = "NET"
 
 _TRANSPORTER_ALIASES: dict[str, str] = {
     # P-gp (ABCB1 / MDR1)
@@ -21,6 +22,12 @@ _TRANSPORTER_ALIASES: dict[str, str] = {
     # OATP1B1 (SLCO1B1)
     "oatp1b1": TRANSPORTER_OATP1B1,
     "slco1b1": TRANSPORTER_OATP1B1,
+    # SERT (SLC6A4)
+    "sert": TRANSPORTER_SERT,
+    "slc6a4": TRANSPORTER_SERT,
+    # NET (SLC6A2)
+    "net": TRANSPORTER_NET,
+    "slc6a2": TRANSPORTER_NET,
 }
 
 
@@ -54,7 +61,9 @@ PD_EFFECT_HYPOKALEMIA = "hypokalemia_risk"
 PD_EFFECT_HYPERKALEMIA = "hyperkalemia_risk"
 PD_EFFECT_RENAL_FUNCTION = "renal_function"
 PD_EFFECT_LITHIUM_INCREASE_RISK = "lithium_increase_risk"
-
+PD_EFFECT_ORTHOSTATIC_HYPOTENSION = "orthostatic_hypotension"
+PD_EFFECT_ANTICHOLINERGIC = "anticholinergic_effects"
+PD_EFFECT_NORADRENERGIC = "noradrenergic_effects"
 
 _PD_EFFECT_ALIASES: dict[str, str] = {
     # core
@@ -70,7 +79,8 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "serotonergic": PD_EFFECT_SEROTONERGIC,
     "serotonin syndrome": PD_EFFECT_SEROTONIN_SYNDROME,
     "serotonin_syndrome": PD_EFFECT_SEROTONIN_SYNDROME,
-
+    "serotonin_activity": PD_EFFECT_SEROTONERGIC,
+    
     # respiratory depression
     "resp depression": PD_EFFECT_RESP_DEP,
     "respiratory depression": PD_EFFECT_RESP_DEP,
@@ -117,7 +127,18 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "lithium increase risk": PD_EFFECT_LITHIUM_INCREASE_RISK,
     "lithium_increase_risk": PD_EFFECT_LITHIUM_INCREASE_RISK,
     "lithium increase": PD_EFFECT_LITHIUM_INCREASE_RISK,
-    "lithium_increase": PD_EFFECT_LITHIUM_INCREASE_RISK 
+    "lithium_increase": PD_EFFECT_LITHIUM_INCREASE_RISK, 
+
+    # orthostatic hypotension
+    "orthostatic hypotension": PD_EFFECT_ORTHOSTATIC_HYPOTENSION,
+    "orthostatic_hypotension": PD_EFFECT_ORTHOSTATIC_HYPOTENSION,
+
+    # anticholinergic effects
+    "anticholinergic effects": PD_EFFECT_ANTICHOLINERGIC,
+    "anticholinergic_effect": PD_EFFECT_ANTICHOLINERGIC,
+
+    # noradrenergic effects
+    "noradrenergic effects": PD_EFFECT_NORADRENERGIC
 }
 
 

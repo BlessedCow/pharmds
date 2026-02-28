@@ -77,6 +77,8 @@ def seed(conn: sqlite3.Connection) -> None:
         ),
         ("OATP1B1", "Hepatic uptake transporter (SLCO1B1)."),
         ("BCRP", "Breast Cancer Resistance Protein (ABCG2); efflux transporter."),
+        ("SERT", "Serotonin transporter (SLC6A4); relevant for serotonergic drugs."),
+        ("NET", "Norepinephrine transporter (SLC6A2); relevant for some antidepressants."),
     ]
     for t in transporters:
         upsert(conn, "INSERT OR REPLACE INTO transporter(id,description) VALUES(?,?)", t)

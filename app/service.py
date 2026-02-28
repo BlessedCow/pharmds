@@ -6,10 +6,10 @@ from typing import Any
 from app.cli import (
     DB_PATH,
     RULE_DIR,
+    _build_reports_for_all_pairs,
     _collect_drug_inputs,
     _parse_domain_selection,
     _parse_drug_tokens,
-    _build_reports_for_all_pairs,
     connect,
     filter_rules_for_selected_domains,
     load_facts,
@@ -23,10 +23,13 @@ from rules.engine import evaluate_all, load_rules
 
 @dataclass(frozen=True)
 class AnalyzeResult:
-    """Small typed wrapper so Streamlit callers have predictable keys.
+    """
+    Small typed wrapper so Streamlit callers have predictable keys.
 
-    - ok: False when there is a user-correctable issue (too few drugs, unknown drugs, etc.)
-    - payload: success payload (facts/reports/templates/etc.) or error payload
+    - ok: False when there is a user-correctable issue
+    (too few drugs, unknown drugs, etc.)
+    - payload: success payload (facts/reports/templates/etc.)
+    or error payload
     """
 
     ok: bool

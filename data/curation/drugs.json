@@ -24,6 +24,24 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "sedation/respiratory depression"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Depresses respiratory drive; risk increases with other depressants."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
         }
       ],
       "parameters": {
@@ -91,7 +109,8 @@
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
         }
       ],
       "parameters": {
@@ -122,7 +141,26 @@
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "low"
+          "magnitude": "low",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ],
       "parameters": {
@@ -154,7 +192,8 @@
         {
           "effect_id": "bleeding",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
         }
       ],
       "parameters": {
@@ -190,7 +229,8 @@
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "low"
+          "magnitude": "low",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
         }
       ],
       "parameters": {
@@ -222,7 +262,8 @@
         {
           "effect_id": "bleeding",
           "direction": "increase",
-          "magnitude": "high"
+          "magnitude": "high",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
         }
       ],
       "parameters": {
@@ -252,7 +293,8 @@
         {
           "effect_id": "bradycardia",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Slows heart rate; additive AV node suppression possible."
         }
       ],
       "parameters": {
@@ -290,7 +332,8 @@
         {
           "effect_id": "bradycardia",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Slows heart rate; additive AV node suppression possible."
         }
       ],
       "parameters": {
@@ -321,7 +364,20 @@
         {
           "effect_id": "CNS_depression",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Additive CNS depressant effects (sedation, psychomotor impairment)."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
         }
       ],
       "parameters": {
@@ -352,12 +408,32 @@
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
         },
         {
           "effect_id": "serotonergic",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Increases serotonergic tone (5-HT) in CNS/periphery."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
         }
       ],
       "parameters": {
@@ -388,7 +464,8 @@
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
         }
       ],
       "parameters": {
@@ -424,12 +501,26 @@
         {
           "effect_id": "serotonergic",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Increases serotonergic tone (5-HT) in CNS/periphery."
         },
         {
           "effect_id": "serotonin_syndrome",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
         }
       ],
       "parameters": {
@@ -454,7 +545,26 @@
         {
           "effect_id": "serotonin_syndrome",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
         }
       ],
       "parameters": {
@@ -485,7 +595,8 @@
         {
           "effect_id": "bradycardia",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Slows heart rate; additive AV node suppression possible."
         }
       ],
       "parameters": {
@@ -682,6 +793,18 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "additive QT risk when combined with other QT-prolonging agents"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "anticholinergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Muscarinic antagonism; dry mouth, constipation, urinary retention, delirium risk."
         }
       ],
       "parameters": {
@@ -718,6 +841,24 @@
           "direction": "increase",
           "magnitude": "low",
           "mechanism_note": "sedation can be additive with other CNS depressants"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ],
       "parameters": {
@@ -751,6 +892,24 @@
           "direction": "increase",
           "magnitude": "high",
           "mechanism_note": "sedation/respiratory depression"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Depresses respiratory drive; risk increases with other depressants."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
         }
       ],
       "parameters": {
@@ -791,6 +950,24 @@
           "direction": "increase",
           "magnitude": "low",
           "mechanism_note": "possible QT effect; additive with other QT-prolonging agents"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ],
       "parameters": {
@@ -834,6 +1011,24 @@
           "direction": "increase",
           "magnitude": "low",
           "mechanism_note": "conservative flag for additive QT logic"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ],
       "parameters": {
@@ -860,6 +1055,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "sedation/dizziness; additive with other CNS depressants"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
         }
       ],
       "parameters": {
@@ -909,6 +1110,18 @@
           "direction": "increase",
           "magnitude": "high",
           "mechanism_note": "Increased catecholaminergic tone; additive with other sympathomimetics."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ],
       "parameters": {
@@ -923,7 +1136,9 @@
       "generic_name": "pseudoephedrine",
       "drug_class": "decongestant",
       "therapeutic_index": "wide",
-      "aliases": ["sudafed"],
+      "aliases": [
+        "sudafed"
+      ],
       "notes": "Sympathomimetic decongestant; increases blood pressure and heart rate.",
       "enzymes": [],
       "transporters": [],
@@ -945,6 +1160,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Beta-adrenergic stimulation may increase heart rate."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
         }
       ],
       "parameters": {
@@ -959,7 +1180,11 @@
       "generic_name": "gabapentin",
       "drug_class": "anticonvulsant",
       "therapeutic_index": "wide",
-      "aliases": ["neurontin", "gralise", "horizant"],
+      "aliases": [
+        "neurontin",
+        "gralise",
+        "horizant"
+      ],
       "notes": "Educational anchor: renally eliminated, minimal CYP involvement. Key PD concern is additive CNS and respiratory depression risk when combined with opioids or other CNS depressants.",
       "enzymes": [],
       "transporters": [],
@@ -1007,7 +1232,10 @@
       "generic_name": "pregabalin",
       "drug_class": "anticonvulsant",
       "therapeutic_index": "wide",
-      "aliases": ["lyrica", "lyrica cr"],
+      "aliases": [
+        "lyrica",
+        "lyrica cr"
+      ],
       "notes": "Educational anchor: renally eliminated, minimal CYP involvement. Key PD concern is additive CNS and respiratory depression risk when combined with opioids or other CNS depressants.",
       "enzymes": [],
       "transporters": [],
@@ -1055,7 +1283,9 @@
       "generic_name": "naloxone",
       "drug_class": "opioid antagonist",
       "therapeutic_index": "wide",
-      "aliases": ["narcan"],
+      "aliases": [
+        "narcan"
+      ],
       "notes": "Educational anchor: opioid receptor antagonist used for reversal of opioid overdose. May precipitate acute withdrawal in opioid dependent patients.",
       "enzymes": [],
       "transporters": [],
@@ -1092,7 +1322,10 @@
       "generic_name": "naltrexone",
       "drug_class": "opioid antagonist",
       "therapeutic_index": "wide",
-      "aliases": ["revia", "vivitrol"],
+      "aliases": [
+        "revia",
+        "vivitrol"
+      ],
       "notes": "Educational anchor: long acting opioid antagonist. Blocks opioid effects and can precipitate withdrawal if opioids are present. Label includes hepatotoxicity warnings.",
       "enzymes": [],
       "transporters": [],
@@ -1129,7 +1362,11 @@
       "generic_name": "buprenorphine",
       "drug_class": "opioid (partial agonist)",
       "therapeutic_index": "moderate",
-      "aliases": ["suboxone", "subutex", "butrans"],
+      "aliases": [
+        "suboxone",
+        "subutex",
+        "butrans"
+      ],
       "notes": "Educational anchor: CYP3A4 substrate for PK inhibitor and inducer rules. PD: additive CNS and respiratory depression with other CNS depressants. QT effect is product and dose dependent (notably described for transdermal buprenorphine).",
       "enzymes": [
         {
@@ -1200,7 +1437,12 @@
       "generic_name": "bupropion",
       "drug_class": "antidepressant",
       "therapeutic_index": "moderate",
-      "aliases": ["wellbutrin", "wellbutrin sr", "wellbutrin xl", "zyban"],
+      "aliases": [
+        "wellbutrin",
+        "wellbutrin sr",
+        "wellbutrin xl",
+        "zyban"
+      ],
       "notes": "Educational anchor: CYP2D6 inhibitor and CYP2B6 substrate for PK logic. PD: dose related seizure risk described in labeling. Not classically serotonergic.",
       "enzymes": [
         {
@@ -1220,6 +1462,12 @@
           "direction": "increase",
           "magnitude": "high",
           "mechanism_note": "dose related seizure risk; additive with other seizure threshold lowering agents"
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
         }
       ],
       "parameters": {
@@ -1240,37 +1488,101 @@
       "id": "fluoxetine",
       "generic_name": "fluoxetine",
       "drug_class": "SSRI",
-      "aliases": ["Prozac", "Sarafem"],
-      "notes": "SSRI. Strong CYP2D6 inhibitor; can increase exposure of CYP2D6 substrates.", 
+      "aliases": [
+        "Prozac",
+        "Sarafem"
+      ],
+      "notes": "SSRI. Strong CYP2D6 inhibitor; can increase exposure of CYP2D6 substrates.",
       "therapeutic_index": "moderate",
       "enzymes": [
-        {"enzyme_id": "CYP2D6", "role": "inhibitor", "strength": "strong"},
-        {"enzyme_id": "CYP2D6", "role": "substrate"},
-        {"enzyme_id": "CYP2C19", "role": "substrate"}
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate"
+        }
       ],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "serotonergic",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Increases serotonergic tone (5-HT) in CNS/periphery."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
         }
       ]
     },
-        {
+    {
       "id": "venlafaxine",
       "generic_name": "venlafaxine",
       "drug_class": "SNRI",
-      "aliases": ["Effexor", "Effexor XR"],
+      "aliases": [
+        "Effexor",
+        "Effexor XR"
+      ],
       "notes": "SNRI. CYP2D6 substrate; exposure may increase with CYP2D6 inhibitors.",
       "therapeutic_index": "moderate",
       "enzymes": [
-        {"enzyme_id": "CYP2D6", "role": "substrate"}
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        }
       ],
       "pd_effects": [
         {
           "effect_id": "serotonergic",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Increases serotonergic tone (5-HT) in CNS/periphery."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
         }
       ]
     },
@@ -1278,19 +1590,57 @@
       "id": "duloxetine",
       "generic_name": "duloxetine",
       "drug_class": "SNRI",
-      "aliases": ["Cymbalta"],
+      "aliases": [
+        "Cymbalta"
+      ],
       "notes": "SNRI. CYP1A2 and CYP2D6 substrate; moderate CYP2D6 inhibitor.",
       "therapeutic_index": "moderate",
       "enzymes": [
-        {"enzyme_id": "CYP1A2", "role": "substrate"},
-        {"enzyme_id": "CYP2D6", "role": "substrate"},
-        {"enzyme_id": "CYP2D6", "role": "inhibitor", "strength": "moderate"}
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor",
+          "strength": "moderate"
+        }
       ],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "serotonergic",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Increases serotonergic tone (5-HT) in CNS/periphery."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
         }
       ]
     },
@@ -1298,27 +1648,66 @@
       "id": "trazodone",
       "generic_name": "trazodone",
       "drug_class": "serotonin antagonist and reuptake inhibitor",
-      "aliases": ["Desyrel"],
+      "aliases": [
+        "Desyrel"
+      ],
       "notes": "Sedating antidepressant. CYP3A4 substrate; modeled for CNS depression, serotonergic activity, and QT prolongation.",
       "therapeutic_index": "moderate",
       "enzymes": [
-        {"enzyme_id": "CYP3A4", "role": "substrate"}
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
       ],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "CNS_depression",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Additive CNS depressant effects (sedation, psychomotor impairment)."
         },
         {
           "effect_id": "serotonergic",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Increases serotonergic tone (5-HT) in CNS/periphery."
         },
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Impaired platelet aggregation (often via serotonin signaling) increases bleeding risk."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
         }
       ]
     },
@@ -1326,18 +1715,45 @@
       "id": "haloperidol",
       "generic_name": "haloperidol",
       "drug_class": "atypical antipsychotic",
-      "aliases": ["Haldol"],
+      "aliases": [
+        "Haldol"
+      ],
       "notes": "Typical antipsychotic. QT prolongation risk; CYP2D6/CYP3A4 metabolism.",
       "therapeutic_index": "moderate",
       "enzymes": [
-        {"enzyme_id": "CYP2D6", "role": "substrate"},
-        {"enzyme_id": "CYP3A4", "role": "substrate"}
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
       ],
       "pd_effects": [
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "high"
+          "magnitude": "high",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ]
     },
@@ -1345,17 +1761,42 @@
       "id": "ziprasidone",
       "generic_name": "ziprasidone",
       "drug_class": "atypical antipsychotic",
-      "aliases": ["Geodon"],
+      "aliases": [
+        "Geodon"
+      ],
       "notes": "Atypical antipsychotic. Higher QT prolongation risk signal; use caution with other QT-prolonging drugs.",
       "therapeutic_index": "moderate",
       "enzymes": [
-        {"enzyme_id": "CYP3A4", "role": "substrate"}
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
       ],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 blockade/vasodilation; increased fall and syncope risk."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ]
     },
@@ -1363,7 +1804,10 @@
       "id": "lithium",
       "generic_name": "lithium",
       "drug_class": "mood stabilizer",
-      "aliases": ["Lithobid", "Eskalith"],
+      "aliases": [
+        "Lithobid",
+        "Eskalith"
+      ],
       "notes": "Mood stabilizer with narrow therapeutic index. Renal elimination; levels can rise with interacting drugs (NSAIDs, ACE inhibitors, thiazides).",
       "therapeutic_index": "narrow",
       "enzymes": [],
@@ -1371,12 +1815,14 @@
         {
           "effect_id": "neurotoxicity_risk",
           "direction": "increase",
-          "magnitude": "high"
+          "magnitude": "high",
+          "mechanism_note": "Neurotoxic adverse effects; risk increases with interacting agents or higher exposure."
         },
         {
-          "effect_id": "lithium_level_increase_risk",
+          "effect_id": "lithium_increase_risk",
           "direction": "increase",
-          "magnitude": "high"
+          "magnitude": "high",
+          "mechanism_note": "May increase lithium exposure/toxicity risk (often via renal effects)."
         }
       ]
     },
@@ -1384,17 +1830,24 @@
       "id": "lamotrigine",
       "generic_name": "lamotrigine",
       "drug_class": "antiepileptic",
-      "aliases": ["Lamictal"],
+      "aliases": [
+        "Lamictal"
+      ],
       "notes": "Mood stabilizer/antiepileptic. UGT substrate; interactions via UGT inhibition/induction can affect levels.",
       "therapeutic_index": "moderate",
       "enzymes": [
-        {"enzyme_id": "UGT1A1", "role": "substrate"}
+        {
+          "enzyme_id": "UGT1A1",
+          "role": "substrate"
+        }
       ],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "seizure_threshold",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
         }
       ]
     },
@@ -1402,20 +1855,26 @@
       "id": "ibuprofen",
       "generic_name": "ibuprofen",
       "drug_class": "NSAID",
-      "aliases": ["Advil", "Motrin"],
+      "aliases": [
+        "Advil",
+        "Motrin"
+      ],
       "notes": "NSAID. Can increase lithium levels and toxicity risk via reduced renal perfusion.",
       "therapeutic_index": "wide",
       "enzymes": [],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "renal_function",
           "direction": "decrease",
-          "magnitude": "low"
+          "magnitude": "low",
+          "mechanism_note": "May impair renal function or worsen kidney perfusion in susceptible patients."
         },
         {
-          "effect_id": "lithium_level_increase_risk",
+          "effect_id": "lithium_increase_risk",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "May increase lithium exposure/toxicity risk (often via renal effects)."
         }
       ]
     },
@@ -1423,20 +1882,32 @@
       "id": "lisinopril",
       "generic_name": "lisinopril",
       "drug_class": "ACE inhibitor",
-      "aliases": ["Prinivil", "Zestril"],
+      "aliases": [
+        "Prinivil",
+        "Zestril"
+      ],
       "notes": "ACE inhibitor. Can increase lithium levels and toxicity risk; monitor renal function and lithium levels if combined.",
       "therapeutic_index": "wide",
       "enzymes": [],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "hyperkalemia_risk",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Can raise serum potassium; hyperkalemia risk increases with other K+ raising drugs."
         },
         {
-          "effect_id": "lithium_level_increase_risk",
+          "effect_id": "lithium_increase_risk",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "May increase lithium exposure/toxicity risk (often via renal effects)."
+        },
+        {
+          "effect_id": "renal_function",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "May impair renal function or worsen kidney perfusion in susceptible patients."
         }
       ]
     },
@@ -1444,22 +1915,191 @@
       "id": "hydrochlorothiazide",
       "generic_name": "hydrochlorothiazide",
       "drug_class": "thiazide diuretic",
-      "aliases": ["HCTZ", "Microzide"],
+      "aliases": [
+        "HCTZ",
+        "Microzide"
+      ],
       "notes": "Thiazide diuretic. Can markedly increase lithium levels and toxicity risk; avoid or monitor closely if combined.",
       "therapeutic_index": "wide",
       "enzymes": [],
+      "transporters": [],
       "pd_effects": [
         {
           "effect_id": "hypokalemia_risk",
           "direction": "increase",
-          "magnitude": "medium"
+          "magnitude": "medium",
+          "mechanism_note": "Can lower serum potassium; hypokalemia can worsen arrhythmia risk."
         },
         {
-          "effect_id": "lithium_level_increase_risk",
+          "effect_id": "lithium_increase_risk",
           "direction": "increase",
-          "magnitude": "high"
+          "magnitude": "high",
+          "mechanism_note": "May increase lithium exposure/toxicity risk (often via renal effects)."
+        },
+        {
+          "effect_id": "renal_function",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "May impair renal function or worsen kidney perfusion in susceptible patients."
         }
       ]
+    },
+    {
+      "id": "alprazolam",
+      "generic_name": "alprazolam",
+      "drug_class": "benzodiazepine",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "Xanax",
+        "Niravam"
+      ],
+      "notes": "Short to intermediate-acting benzodiazepine metabolized primarily by CYP3A4. Sensitive substrate; exposure significantly increased by strong CYP3A4 inhibitors and reduced by inducers. Additive CNS and respiratory depression with opioids, alcohol, and other sedatives. Risk of dependence, tolerance, and withdrawal with chronic use. Abrupt discontinuation may precipitate withdrawal, including seizures.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.3
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Benzodiazepine; positive allosteric modular GABA-A receptors increasing inhibitory neurotransmission, causing sedation and psychomotor impairment."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Dose-dependent reduction in ventilatory drive; clinically significant risk increases with opioids, alcohol, or other CNS depressants and in respiratory disease."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "amitriptyline",
+      "generic_name": "amitriptyline",
+      "drug_class": "tricyclic antidepressants",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "Elavil",
+        "Endep",
+        "Vanatrip"
+      ],
+      "notes": "TCA with mixed SERT/NET inhibition and significant anticholinergic, antihistaminic, and alpha-1 antagonism. Active metabolite (nortriptyline) contributes to clinical effect and accumulation. CYP2D6 substrate; exposure may increase with 2D6 inhibitors. Associated with QT prolongation and cardiotoxicity risk, especially in overdose or polypharmacy.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "fraction_metabolized": 0.6
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.35
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        },
+        {
+          "transporter_id": "SERT",
+          "role": "inhibitor"
+        },
+        {
+          "transporter_id": "NET",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "H1 histamine receptor antagonism and central monoamine reuptake inhibition causing sedation and psychomotor impairment."
+        },
+        {
+          "effect_id": "anticholinergic_effects",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Strong muscarinic (M1) receptor antagonism leading to dry mouth, constipation, urinary retention, and cognitive impairment."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism resulting in vasodilation and orthostatic blood pressure reduction."
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Dose-dependent cardiac sodium and potassium channel effects that may prolong ventricular repolarization, especially in overdose or with other QT-prolonging agents."
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Inhibition of serotonin reuptake contributing to antidepressant effect and potential serotonergic toxicity in combinations."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Sedating properties; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
     }
   ]
 }

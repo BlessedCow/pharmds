@@ -75,7 +75,10 @@ if run:
     # Quick, simple pair list (sanity output)
     st.subheader("Pair Summary")
     if not pair_reports:
-        st.info("No rule-based interactions detected in selected domains (educational scope).")
+        st.info(
+            "No rule-based interactions detected in selected domains "
+            "(educational scope)."
+        )
         st.stop()
 
     for rep in pair_reports:
@@ -148,7 +151,10 @@ if run:
             for h in (rep.pk_hits or []) + (rep.pd_hits or []):
                 refs.extend(h.references or [])
 
-            uniq = {(r.get("source", ""), r.get("citation", ""), r.get("url", "")) for r in refs}
+            uniq = {
+                (r.get("source", ""), 
+                 r.get("citation", ""), 
+                 r.get("url", "")) for r in refs}
             if uniq:
                 st.markdown("### References (rule-level)")
                 for source, citation, url in sorted(uniq):
