@@ -8,13 +8,19 @@ import sys
 from itertools import combinations
 from pathlib import Path
 
+from rich.console import Console
+from rich.panel import Panel
+
 from app.json_output import build_json_payload
+from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from rules.engine import evaluate_all, load_rules, rule_mechanisms
+
+console = Console()
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
@@ -314,6 +320,10 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
             add("oatp")
         elif p == "ugt":
             add("ugt")
+        elif p == "SERT":
+            add("SERT")
+        elif p == "NET":
+            add("NET")
         else:
             raise SystemExit(
                 "Unknown --domain option. Use: all, pk, pd, cyp, ugt, pgp, bcrp, oatp"
@@ -487,8 +497,6 @@ def main() -> None:
 
     # RICH MODE
     if args.format == "rich":
-        from rich.console import Console
-        from rich.panel import Panel
 
         from app.render import (
             build_summary_rows,
@@ -496,7 +504,6 @@ def main() -> None:
             render_rich_summary,
         )
 
-        console = Console()
         print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
 
         # Regimen summary (only for 3+ drugs)
@@ -553,18 +560,27 @@ def main() -> None:
                 print(f"  Affected: {A} | Interacting: {B}")
                 tmpl = templates.get(h.rule_id, "")
                 if tmpl:
-                    print(f"  Explanation: {render_explanation(tmpl, facts, h)}")
+                    console.print("  Explanation: ", end="")
+                    ex = render_explanation(tmpl, facts, h)
+                    console.print(colorize_effect_tokens(ex))
                 rat = render_rationale(facts, h)
                 if rat:
-                    print("  Rationale:")
-                    for line in rat.splitlines():
-                        print(f"   {line}")
+                    console.print("  Rationale:")
+                    for line in render_rationale(facts, h).splitlines():
+                        console.print("   ", colorize_effect_tokens(line))
                 if h.actions:
-                    print("  Suggested actions:")
+                    console.print("  Suggested actions:")
                     for a in h.actions:
                         print(f"   - {a}")
                 print()
 
+        console.print("\nPD effects (by drug):")
+
+        for drug_id, effects in facts.pd_effects.items():
+            effect_ids = [e.effect_id for e in effects]
+            console.print(f"- {drug_id}: ", end="")
+            console.print(join_effects(sorted(set(effect_ids))))
+        
         if rep.pd_hits:
             print("PD section (shared domain):")
             for h in rep.pd_hits:
@@ -573,7 +589,9 @@ def main() -> None:
                 print(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
                 tmpl = templates.get(h.rule_id, "")
                 if tmpl:
-                    print(f"  Explanation: {render_explanation(tmpl, facts, h)}")
+                    console.print("  Explanation: ", end="")
+                    ex = render_explanation(tmpl, facts, h)
+                    console.print(colorize_effect_tokens(ex))
                 rat = render_rationale(facts, h)
                 if rat:
                     print("  Rationale:")
