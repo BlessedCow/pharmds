@@ -39,7 +39,6 @@ def normalize_transporter_id(raw: str) -> str:
         return ""
     return _TRANSPORTER_ALIASES.get(s.lower(), s)
 
-
 # Canonical PD effect IDs (internal representation)
 PD_EFFECT_CNS_DEP = "CNS_depression"
 PD_EFFECT_QT = "QT_prolongation"
@@ -48,10 +47,10 @@ PD_EFFECT_BRADYCARDIA = "bradycardia"
 PD_EFFECT_SEROTONERGIC = "serotonergic"
 PD_EFFECT_SEROTONIN_SYNDROME = "serotonin_syndrome"
 
-
 # Additional PD effects used for richer educational tagging
 PD_EFFECT_RESP_DEP = "respiratory_depression"
 PD_EFFECT_SEDATION = "sedation"
+PD_EFFECT_H1_ANTAGONISM = "h1_antagonism"
 PD_EFFECT_SEIZURE_RISK = "seizure_risk"
 PD_EFFECT_OPIOID_ANTAGONIST = "opioid_antagonist"
 PD_EFFECT_WITHDRAWAL = "withdrawal_risk"
@@ -90,6 +89,17 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "sedation": PD_EFFECT_SEDATION,
     "sedating": PD_EFFECT_SEDATION,
 
+    # H1 antagonism
+    "h1 antagonism": PD_EFFECT_H1_ANTAGONISM,
+    "h1_antagonism": PD_EFFECT_H1_ANTAGONISM,
+    "H1_antagonism": PD_EFFECT_H1_ANTAGONISM,
+    "H1 antagonist": PD_EFFECT_H1_ANTAGONISM,
+    "h1 receptor antagonism": PD_EFFECT_H1_ANTAGONISM,
+    "histamine h1 antagonism": PD_EFFECT_H1_ANTAGONISM,
+    "histamine h1 blockade": PD_EFFECT_H1_ANTAGONISM,
+    "h1 blockace": PD_EFFECT_H1_ANTAGONISM,
+    "antihistamine": PD_EFFECT_H1_ANTAGONISM,
+    
     # seizure risk / threshold lowering
     "seizure": PD_EFFECT_SEIZURE_RISK,
     "seizure risk": PD_EFFECT_SEIZURE_RISK,

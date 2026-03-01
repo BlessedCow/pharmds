@@ -106,3 +106,6 @@ def test_pd_cns_dep_additive_olanzapine_methocarbamol():
     _, hits = _run(["olanzapine", "methocarbamol"])
     assert any(h.rule_id == "PD_CNS_DEP_ADDITIVE" for h in hits)
     
+def test_pd_h1_antagonism_additive_doxepin_hydroxyzine():
+    _, hits = _run(["doxepin", "hydroxyzine"])
+    assert any(h.rule_id == "PD_H1_ANTAGONISM_ADDITIVE" for h in hits)

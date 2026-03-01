@@ -1,0 +1,28 @@
+{
+  "id": "PD_H1_ANTAGONISM_ADDITIVE",
+  "name": "Additive H1 antagonism",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Avoid unnecessary combinations of strongly sedating antihistaminic agents.",
+    "Use the lowest effective doses and monitor for impairment, falls risk, and oversedation (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "h1_antagonism",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs antagonize the H1 histamine receptor.",
+      "Combined H1 blockade can increase sedation, cognitive slowing, and psychomotor impairment."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both antagonize the H1 histamine receptor. Combined use may increase sedation and impairment (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive H1 antagonism increases sedation/impairment risk."
+    }
+  ]
+}

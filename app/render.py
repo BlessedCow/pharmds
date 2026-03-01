@@ -29,6 +29,7 @@ PD_EFFECT_STYLES: dict[str, str] = {
     "QT_prolongation": "magenta",
     "serotonin_syndrome": "purple",
     "serotonergic": "purple",
+    "h1_antagonism": "bright_yellow",
     "CNS_depression": "cyan",
     "respiratory_depression": "cyan",
     "sedation": "cyan",
@@ -52,6 +53,68 @@ _CLASS_STYLE = {
 
 _EFFECT_TOKEN_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_]+\b")
 
+def _table_style(sev: str, cls: str) -> str:
+    sev = (sev or "").lower()
+    cls = (cls or "").lower()
+
+    # Class override: avoid should always read "danger"
+    if cls == "avoid":
+        if sev == "contraindicated":
+            return "bold red"
+        if sev == "major":
+            return "bold red3"
+        if sev == "caution":
+            return "bold red3"
+        return "bold red3"
+
+    # Otherwise color primarily by severity (foreground only)
+    if sev == "contraindicated":
+        return "bold red"
+    if sev == "major":
+        return "bold red3"
+    if sev == "caution":
+        return "bold orange1" 
+    return "dim"
+
+def _badge_style(sev: str, cls: str) -> str:
+    """
+    Background-style badge coloring for detailed hit rendering.
+    This is intentionally more visually strong than table styling.
+    """
+    sev = (sev or "").lower()
+    cls = (cls or "").lower()
+
+    # Class override first
+    if cls == "avoid":
+        if sev == "contraindicated":
+            return "bold white on red"
+        if sev == "major":
+            return "bold white on dark_red"
+        if sev == "caution":
+            return "bold white on red3"
+        return "bold white on dark_red"
+
+    # Otherwise severity-driven
+    if sev == "contraindicated":
+        return "bold white on red"
+    if sev == "major":
+        return "bold red"
+    if sev == "caution":
+        return "bold orange1"
+    return "dim"
+
+def badge(sev: str, cls: str) -> Text:
+    """
+    Build a colored "[severity | class]" badge.
+    """
+    style = _badge_style(sev, cls)
+    t = Text()
+    t.append("[", style="dim")
+    t.append(sev.lower(), style=style)
+    t.append(" | ", style="dim")
+    t.append(cls.lower(), style=style)
+    t.append("]", style="dim")
+    return t
 
 def _mk_console() -> Console:
     """
@@ -209,11 +272,11 @@ def render_rich_summary(rows: list[SummaryRow], top: int = 0) -> None:
 
     view = rows[:top] if top and top > 0 else rows
     for r in view:
-        sev_style = _SEV_STYLE.get(r.severity, "")
-        sev_text = Text(r.severity, style=sev_style)
-        class_text = Text(r.rule_class, style=_CLASS_STYLE.get(r.rule_class, ""))
+        row_style = _table_style(r.severity, r.rule_class)
 
-        pair_text = Text(r.pair, style=sev_style)
+        sev_text = Text(r.severity, style=row_style)
+        class_text = Text(r.rule_class, style=row_style)
+        pair_text = Text(r.pair, style=row_style)  # optional
 
         table.add_row(
             pair_text,
@@ -277,7 +340,9 @@ def render_rich_details(
             for h in rep.pk_hits:
                 A = facts.drugs[h.inputs["A"]].generic_name
                 B = facts.drugs[h.inputs["B"]].generic_name
-                body.append(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}\n")
+                body.append("- ")
+                body.append_text(badge(h.severity.value, h.rule_class.value))
+                body.append(f" {h.name}\n")
                 body.append(f"  Affected: {A} | Interacting: {B}\n")
 
                 tmpl = templates.get(h.rule_id, "")
@@ -307,7 +372,9 @@ def render_rich_details(
         if rep.pd_hits:
             body.append("PD section (shared domain):\n")
             for h in rep.pd_hits:
-                body.append(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}\n")
+                body.append("- ")
+                body.append_text(badge(h.severity.value, h.rule_class.value))
+                body.append(f" {h.name}\n")
 
                 tmpl = templates.get(h.rule_id, "")
                 tmpl = templates.get(h.rule_id, "")

@@ -805,6 +805,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Muscarinic antagonism; dry mouth, constipation, urinary retention, delirium risk."
+        },
+        {
+          "effect_id": "H1_antagonism",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "H1 histamine receptor antagonism; antihistaminic sedation."
         }
       ],
       "parameters": {
@@ -1875,6 +1881,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "May increase lithium exposure/toxicity risk (often via renal effects)."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Inhibition of platelet function increases bleeding risk."
         }
       ]
     },
@@ -2092,6 +2104,117 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "doxepin",
+      "generic_name": "doxepin",
+      "drug_class": "tricyclic antidepressants",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "Silenor",
+        "Sinequan"
+      ],
+      "notes": "TCA with mixed SERT/NET inhibition and prominent antihistaminic (H1) sedation, plus anticholinergic and alpha-1 antagonism. Active metabolite (nordoxepin) contributes to clinical effect and accumulation. CYP2D6 substrate (major) with additional CYP2C19 metabolism; exposure may increase with 2D6 inhibitors and varies with CYP2D6 phenotype. Associated with QT prolongation and cardiotoxicity risk, especially at higher doses, overdose, or polypharmacy.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.45
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "fraction_metabolized": 0.25
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        },
+        {
+          "transporter_id": "SERT",
+          "role": "inhibitor"
+        },
+        {
+          "transporter_id": "NET",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Strong H1 histamine receptor antagonism with central sedative effects; additive psychomotor impairment with other CNS depressants."
+        },
+        {
+          "effect_id": "anticholinergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Muscarinic (M1) receptor antagonism leading to dry mouth, constipation, urinary retention, and cognitive impairment; additive with other anticholinergics."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism resulting in vasodilation and orthostatic blood pressure reduction."
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Dose-dependent cardiac sodium and potassium channel effects that may prolong ventricular repolarization, especially in overdose or with other QT-prolonging agents."
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Inhibition of serotonin reuptake contributing to antidepressant effect and potential serotonergic toxicity in combinations."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Excess serotonergic activity; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Prominent sedation from H1 antagonism; additive somnolence and impaired coordination."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "May lower seizure threshold at higher doses; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Discontinuation effects can occur (eg, cholinergic rebound, insomnia); tapering is preferred after sustained use."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "NET inhibition increases norepinephrine signaling; may contribute to HR/BP changes and stimulation in some patients."
+        },
+        {
+          "effect_id": "H1_antagonism",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "H1 histamine receptor antagonism; antihistaminic sedation."
         }
       ],
       "parameters": {
