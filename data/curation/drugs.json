@@ -161,6 +161,12 @@
           "direction": "decrease",
           "magnitude": "low",
           "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
         }
       ],
       "parameters": {
@@ -1714,6 +1720,12 @@
           "direction": "increase",
           "magnitude": "low",
           "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and syncope risk."
         }
       ]
     },
@@ -2104,6 +2116,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
         }
       ],
       "parameters": {
@@ -2222,6 +2240,81 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "risperidone",
+      "generic_name": "risperidone",
+      "drug_class": "atypical antipsychotic",
+      "aliases": [
+        "Risperdal",
+        "Risvan",
+        "Perseris"
+      ],
+      "notes": "Atypical antipsychotic; may have sedating, anticholinergic, and CNS depressant effects.",
+      "therapeutic_index": "moderate",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.45
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Strong H1 histamine receptor antagonism with central sedative effects; additive psychomotor impairment with other CNS depressants."
+        },
+        {
+          "effect_id": "H1_antagonism",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "H1 histamine receptor antagonism; antihistaminic sedation."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism resulting in vasodilation and orthostatic blood pressure reduction."
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Dose-dependent cardiac sodium and potassium channel effects that may prolong ventricular repolarization, especially in overdose or with other QT-prolonging agents."
+        },
+        {
+          "effect_id": "D2_blockade",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "D2 dopamine receptor antagonism; antipsychotic sedation."
+        },
+        {
+          "effect_id": "EPS_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Excess serotonin reuptake; risk rises with multiple serotonergic agents."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension and dizziness."
+        }
+      ],
+      "parameters": {
+      "prodrug": false,
+      "active_metabolite": true,
+      "renal_clearance_flag": true,
+      "half_life_bucket": "long"
       }
     }
   ]

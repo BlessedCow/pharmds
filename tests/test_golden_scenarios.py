@@ -109,3 +109,11 @@ def test_pd_cns_dep_additive_olanzapine_methocarbamol():
 def test_pd_h1_antagonism_additive_doxepin_hydroxyzine():
     _, hits = _run(["doxepin", "hydroxyzine"])
     assert any(h.rule_id == "PD_H1_ANTAGONISM_ADDITIVE" for h in hits)
+    
+def test_pd_alpha1_antagonism_additive_risperidone_amitriptyline():
+    _, hits = _run(["risperidone", "amitriptyline"])
+    assert any(h.rule_id == "PD_ALPHA1_ANTAGONISM_ADDITIVE" for h in hits)
+    
+def test_pd_alpha1_antagonism_additive_trazodone_quetiapine():
+    _, hits = _run(["trazodone", "quetiapine"])
+    assert any(h.rule_id == "PD_ALPHA1_ANTAGONISM_ADDITIVE" for h in hits)

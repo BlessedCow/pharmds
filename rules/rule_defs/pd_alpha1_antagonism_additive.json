@@ -1,0 +1,29 @@
+{
+  "id": "PD_ALPHA1_ANTAGONISM_ADDITIVE",
+  "name": "Additive alpha-1 adrenergic antagonism",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Avoid unnecessary combinations of agents with significant alpha-1 blocking activity.",
+    "If combined, titrate slowly, counsel patients to rise slowly from sitting or lying positions, and monitor BP for orthostatic drops (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "alpha1_antagonism",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs antagonize the alpha-1 adrenergic receptor.",
+      "Combined alpha-1 blockade produces additive vasodilation and loss of sympathetic vascular tone, increasing the risk of orthostatic hypotension, reflex tachycardia, dizziness, and falls.",
+      "Risk is compounded in elderly patients, those on antihypertensives, or patients with autonomic dysfunction."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both antagonize the alpha-1 adrenergic receptor. Combined use additively reduces vascular sympathetic tone, increasing orthostatic hypotension and falls risk (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive alpha-1 antagonism produces cumulative vasodilation and orthostatic hypotension risk."
+    }
+  ]
+}

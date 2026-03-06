@@ -63,6 +63,9 @@ PD_EFFECT_LITHIUM_INCREASE_RISK = "lithium_increase_risk"
 PD_EFFECT_ORTHOSTATIC_HYPOTENSION = "orthostatic_hypotension"
 PD_EFFECT_ANTICHOLINERGIC = "anticholinergic_effects"
 PD_EFFECT_NORADRENERGIC = "noradrenergic_effects"
+PD_EFFECT_ALPHA1_ANTAGONISM = "alpha1_antagonism"
+PD_EFFECT_D2_BLOCKADE = "D2_blockade"
+PD_EFFECT_EPS_RISK = "EPS_risk"
 
 _PD_EFFECT_ALIASES: dict[str, str] = {
     # core
@@ -92,13 +95,22 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     # H1 antagonism
     "h1 antagonism": PD_EFFECT_H1_ANTAGONISM,
     "h1_antagonism": PD_EFFECT_H1_ANTAGONISM,
-    "H1_antagonism": PD_EFFECT_H1_ANTAGONISM,
-    "H1 antagonist": PD_EFFECT_H1_ANTAGONISM,
     "h1 receptor antagonism": PD_EFFECT_H1_ANTAGONISM,
     "histamine h1 antagonism": PD_EFFECT_H1_ANTAGONISM,
     "histamine h1 blockade": PD_EFFECT_H1_ANTAGONISM,
-    "h1 blockace": PD_EFFECT_H1_ANTAGONISM,
+    "h1 blockade": PD_EFFECT_H1_ANTAGONISM,
     "antihistamine": PD_EFFECT_H1_ANTAGONISM,
+    
+    # alpha-1 adrenergic antagonism
+    "alpha1 antagonism":           PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha1_antagonism":           PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha-1 antagonism":          PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha-1_antagonism":          PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha1 blockade":             PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha-1 blockade":            PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha1 receptor antagonism":  PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha-1 receptor antagonism": PD_EFFECT_ALPHA1_ANTAGONISM,
+    "alpha adrenergic blockade":   PD_EFFECT_ALPHA1_ANTAGONISM,
     
     # seizure risk / threshold lowering
     "seizure": PD_EFFECT_SEIZURE_RISK,
@@ -148,7 +160,22 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "anticholinergic_effect": PD_EFFECT_ANTICHOLINERGIC,
 
     # noradrenergic effects
-    "noradrenergic effects": PD_EFFECT_NORADRENERGIC
+    "noradrenergic effects": PD_EFFECT_NORADRENERGIC,
+    
+    # D2 blockade
+    "d2 blockade": PD_EFFECT_D2_BLOCKADE,
+    "d2_blockade": PD_EFFECT_D2_BLOCKADE,
+    "dopamine d2 blockade": PD_EFFECT_D2_BLOCKADE,
+    "dopamine_d2_blockade": PD_EFFECT_D2_BLOCKADE,
+
+    # EPS risk
+    "eps risk": PD_EFFECT_EPS_RISK,
+    "eps_risk": PD_EFFECT_EPS_RISK,
+    "extrapyramidal symptoms": PD_EFFECT_EPS_RISK,
+    "extrapyramidal_symptoms": PD_EFFECT_EPS_RISK,
+    "extrapyramidal symptom risk": PD_EFFECT_EPS_RISK,
+    
+    
 }
 
 

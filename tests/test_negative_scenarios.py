@@ -106,4 +106,10 @@ def test_pd_cns_dep_additive_does_not_fire_for_low_magnitude():
     _, hits = _run(["paliperidone", "hydroxyzine"])
     assert all(h.rule_id != "PD_CNS_DEP_ADDITIVE" for h in hits)
     
-    
+def test_pd_alpha1_antagonism_not_triggered_sertraline_gabapentin():
+    _, hits = _run(["sertraline", "gabapentin"])
+    assert all(h.rule_id != "PD_ALPHA1_ANTAGONISM_ADDITIVE" for h in hits)
+
+def test_pd_alpha1_antagonism_not_triggered_warfarin_clarithromycin():
+    _, hits = _run(["warfarin", "clarithromycin"])
+    assert all(h.rule_id != "PD_ALPHA1_ANTAGONISM_ADDITIVE" for h in hits) 
