@@ -167,6 +167,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
+        },
+        {
+          "effect_id": "H1_antagonism",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "H1 histamine receptor antagonism; contributes to sedation and somnolence."
         }
       ],
       "parameters": {
@@ -871,6 +877,24 @@
           "direction": "decrease",
           "magnitude": "low",
           "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
+        },
+        {
+          "effect_id": "D2_blockade",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "D2 dopamine receptor antagonism; primary antipsychotic mechanism and contributor to extrapyramidal adverse effects."
+        },
+        {
+          "effect_id": "EPS_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "D2 blockade increases extrapyramidal symptom risk, especially with other dopamine-blocking agents."
         }
       ],
       "parameters": {
@@ -980,6 +1004,24 @@
           "direction": "decrease",
           "magnitude": "low",
           "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
+        },
+        {
+          "effect_id": "H1_antagonism",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "H1 histamine receptor antagonism; contributes to sedation and somnolence."
+        },
+        {
+          "effect_id": "anticholinergic_effects",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Muscarinic antagonism; may contribute to dry mouth, constipation, and cognitive adverse effects."
         }
       ],
       "parameters": {
@@ -1480,6 +1522,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Lowers seizure threshold in a dose-related manner; additive with other threshold-lowering drugs."
         }
       ],
       "parameters": {
@@ -1772,13 +1820,31 @@
           "direction": "decrease",
           "magnitude": "low",
           "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "D2_blockade",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "D2 dopamine receptor antagonism; primary antipsychotic mechanism and contributor to extrapyramidal adverse effects."
+        },
+        {
+          "effect_id": "EPS_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "D2 blockade increases extrapyramidal symptom risk, especially with other dopamine-blocking agents."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; may contribute to orthostatic hypotension and dizziness."
         }
       ]
     },
     {
       "id": "ziprasidone",
       "generic_name": "ziprasidone",
-      "drug_class": "atypical antipsychotic",
+      "drug_class": "typical antipsychotic",
       "aliases": [
         "Geodon"
       ],
@@ -1815,6 +1881,24 @@
           "direction": "decrease",
           "magnitude": "low",
           "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "D2_blockade",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "D2 dopamine receptor antagonism; contributes to antipsychotic effect and dopamine-blockade adverse effects."
+        },
+        {
+          "effect_id": "EPS_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "D2 blockade increases extrapyramidal symptom risk, especially with other dopamine-blocking agents."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension and dizziness."
         }
       ]
     },
@@ -1860,14 +1944,7 @@
         }
       ],
       "transporters": [],
-      "pd_effects": [
-        {
-          "effect_id": "seizure_threshold",
-          "direction": "increase",
-          "magnitude": "medium",
-          "mechanism_note": "Lowers seizure threshold; additive with other threshold-lowering drugs."
-        }
-      ]
+      "pd_effects": []
     },
     {
       "id": "ibuprofen",
@@ -1989,13 +2066,13 @@
       "pd_effects": [
         {
           "effect_id": "CNS_depression",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Benzodiazepine; positive allosteric modular GABA-A receptors increasing inhibitory neurotransmission, causing sedation and psychomotor impairment."
         },
         {
           "effect_id": "respiratory_depression",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "low",
           "mechanism_note": "Dose-dependent reduction in ventilatory drive; clinically significant risk increases with opioids, alcohol, or other CNS depressants and in respiratory disease."
         },
@@ -2059,7 +2136,7 @@
       "pd_effects": [
         {
           "effect_id": "CNS_depression",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "H1 histamine receptor antagonism and central monoamine reuptake inhibition causing sedation and psychomotor impairment."
         },
@@ -2071,7 +2148,7 @@
         },
         {
           "effect_id": "orthostatic_hypotension",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism resulting in vasodilation and orthostatic blood pressure reduction."
         },
@@ -2122,6 +2199,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
+        },
+        {
+          "effect_id": "H1_antagonism",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "H1 histamine receptor antagonism; contributes substantially to sedation and somnolence."
         }
       ],
       "parameters": {
@@ -2170,7 +2253,7 @@
       "pd_effects": [
         {
           "effect_id": "CNS_depression",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Strong H1 histamine receptor antagonism with central sedative effects; additive psychomotor impairment with other CNS depressants."
         },
@@ -2182,7 +2265,7 @@
         },
         {
           "effect_id": "orthostatic_hypotension",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism resulting in vasodilation and orthostatic blood pressure reduction."
         },
@@ -2269,7 +2352,7 @@
       "pd_effects": [
         {
           "effect_id": "CNS_depression",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Strong H1 histamine receptor antagonism with central sedative effects; additive psychomotor impairment with other CNS depressants."
         },
@@ -2281,7 +2364,7 @@
         },
         {
           "effect_id": "orthostatic_hypotension",
-          "direction": "decrease",
+          "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism resulting in vasodilation and orthostatic blood pressure reduction."
         },
@@ -2301,7 +2384,7 @@
           "effect_id": "EPS_risk",
           "direction": "increase",
           "magnitude": "medium",
-          "mechanism_note": "Excess serotonin reuptake; risk rises with multiple serotonergic agents."
+          "mechanism_note": "D2 blockade increases extrapyramidal symptom risk, especially with other dopamine-blocking agents."
         },
         {
           "effect_id": "alpha1_antagonism",

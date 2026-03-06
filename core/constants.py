@@ -105,7 +105,6 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "alpha1 antagonism":           PD_EFFECT_ALPHA1_ANTAGONISM,
     "alpha1_antagonism":           PD_EFFECT_ALPHA1_ANTAGONISM,
     "alpha-1 antagonism":          PD_EFFECT_ALPHA1_ANTAGONISM,
-    "alpha-1_antagonism":          PD_EFFECT_ALPHA1_ANTAGONISM,
     "alpha1 blockade":             PD_EFFECT_ALPHA1_ANTAGONISM,
     "alpha-1 blockade":            PD_EFFECT_ALPHA1_ANTAGONISM,
     "alpha1 receptor antagonism":  PD_EFFECT_ALPHA1_ANTAGONISM,
@@ -158,9 +157,11 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     # anticholinergic effects
     "anticholinergic effects": PD_EFFECT_ANTICHOLINERGIC,
     "anticholinergic_effect": PD_EFFECT_ANTICHOLINERGIC,
+    "anticholinergic_effects": PD_EFFECT_ANTICHOLINERGIC,
 
     # noradrenergic effects
     "noradrenergic effects": PD_EFFECT_NORADRENERGIC,
+    "noradrenergic_effects": PD_EFFECT_NORADRENERGIC,
     
     # D2 blockade
     "d2 blockade": PD_EFFECT_D2_BLOCKADE,
