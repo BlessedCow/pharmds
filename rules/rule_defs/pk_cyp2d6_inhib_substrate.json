@@ -1,0 +1,38 @@
+{
+  "id": "PK_CYP2D6_INHIB_SUBSTRATE",
+  "name": "CYP2D6 inhibition may increase substrate exposure",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_change"],
+  "scenario": {
+    "classification": "reference",
+    "index_drug": "generic",
+    "confidence": "medium",
+    "notes": "Reference scenario: CYP2D6 inhibitor with a CYP2D6 substrate."
+  },
+  "actions": [
+    "Monitor for increased adverse effects from the affected drug (educational).",
+    "Consider dose adjustment or alternatives if clinically appropriate."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP2D6",
+      "A_role": "substrate",
+      "B_role": "inhibitor"
+    },
+    "A_name_not_is": ["tramadol"],
+    "rationale": [
+      "{B_name} inhibits CYP2D6.",
+      "{A_name} is a CYP2D6 substrate.",
+      "Inhibition may increase {A_name} exposure and adverse effect risk."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits CYP2D6 and {A_name} is a CYP2D6 substrate. This may increase {A_name} exposure and raise adverse effect risk.",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "CYP2D6 inhibition can increase exposure to CYP2D6 substrates and may require closer monitoring."
+    }
+  ]
+}

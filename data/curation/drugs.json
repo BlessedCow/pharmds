@@ -1944,7 +1944,8 @@
         }
       ],
       "transporters": [],
-      "pd_effects": []
+      "pd_effects": [
+]
     },
     {
       "id": "ibuprofen",
@@ -2399,6 +2400,142 @@
       "renal_clearance_flag": true,
       "half_life_bucket": "long"
       }
+    },
+    {
+      "id": "promethazine",
+      "generic_name": "promethazine",
+      "drug_class": "antihistamine",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "Phenergan",
+        "Phenadoz",
+        "Promethegan"
+      ],
+      "notes": "Sedating first-generation H1 antihistamine with antiemetic and anticholinergic effects; also has weak alpha-1 antagonism.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedating H1 antagonism."
+        },
+        {
+          "effect_id": "anticholinergic_effects",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Antimuscarinic effects."
+        },
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Weak alpha-1 adrenergic antagonism may contribute to hypotension/dizziness."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "aripiprazole",
+      "generic_name": "aripiprazole",
+      "drug_class": "atypical_antipsychotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "Abilify"
+      ],
+      "notes": "Atypical antipsychotic; CYP2D6/CYP3A4 substrate with a long half-life. Can cause akathisia, somnolence, and orthostatic hypotension.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "alpha1_antagonism",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "May contribute to orthostatic hypotension and dizziness."
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Can cause somnolence/sedation, though generally less sedating than many other antipsychotics."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "tramadol",
+      "generic_name": "tramadol",
+      "drug_class": "opioid_analgesic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "Ultram",
+        "ConZip",
+        "Qdolo"
+      ],
+      "notes": "Analgesic with opioid and monoaminergic effects; CYP2D6 contributes to formation of the active metabolite.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Opioid-related CNS and respiratory depressant effects."
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Inhibits serotonin reuptake."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Serotonergic activity may contribute to serotonin toxicity risk with other serotonergic drugs."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
     }
+
   ]
 }

@@ -208,6 +208,31 @@ def _transporter_ids_for_family(family: str) -> list[str]:
 
     return ids
 
+def _matches_name_constraints(logic: dict[str, Any], a: str, b: str) -> bool:
+    a_name = a.lower()
+    b_name = b.lower()
+
+    a_name_is = logic.get("A_name_is")
+    if a_name_is and a_name != str(a_name_is).lower():
+        return False
+
+    b_name_is = logic.get("B_name_is")
+    if b_name_is and b_name != str(b_name_is).lower():
+        return False
+
+    a_name_not_is = logic.get("A_name_not_is", [])
+    if isinstance(a_name_not_is, str):
+        a_name_not_is = [a_name_not_is]
+    if a_name in {str(x).lower() for x in a_name_not_is}:
+        return False
+
+    b_name_not_is = logic.get("B_name_not_is", [])
+    if isinstance(b_name_not_is, str):
+        b_name_not_is = [b_name_not_is]
+    if b_name in {str(x).lower() for x in b_name_not_is}:
+        return False
+
+    return True
 
 def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> RuleHit | None:
     """
@@ -249,8 +274,6 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> RuleHit | None:
         elif t_family:
             t_ids = _transporter_ids_for_family(t_family)
             inputs["transporter_family"] = t_family
-            # If the family resolves to exactly one transporter, also attach a canonical transporter_id.
-            # This keeps downstream composite logic robust (e.g., CYP + P-gp dual mechanism).
             if len(t_ids) == 1:
                 inputs["transporter_id"] = t_ids[0]
         else:
@@ -288,6 +311,10 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> RuleHit | None:
         # Prevent symmetric duplicates for PD rules
         if a > b:
             return None
+
+    # Name constraints
+    if not _matches_name_constraints(L, a, b):
+        return None
 
     # Therapeutic index guard
     if "A_ti" in L:
