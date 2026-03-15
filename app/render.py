@@ -42,6 +42,9 @@ PD_EFFECT_STYLES: dict[str, str] = {
     "renal_function": "green",
     "lithium_increase_risk": "bright_red",
     "noradrenergic_effects": "bright_blue",
+    "alpha1_antagonism": "bright_blue",
+    "EPS_risk": "bright_red",
+    "D2_blockade": "red",
 }
 
 _CLASS_STYLE = {

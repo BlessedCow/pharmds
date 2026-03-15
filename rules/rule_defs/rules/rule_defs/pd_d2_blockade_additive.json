@@ -1,0 +1,28 @@
+{
+  "id": "PD_D2_BLOCKADE_ADDITIVE",
+  "name": "Additive D2 blockade",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "caution",
+  "actions": [
+    "Use caution when combining drugs with dopamine D2 receptor blockade.",
+    "Monitor for intolerance related to dopamine blockade, including restlessness, stiffness, tremor, and other extrapyramidal symptoms (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "D2_blockade",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs contribute dopamine D2 receptor blockade.",
+      "Combined D2 blockade may increase adverse effects related to dopamine antagonism."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both contribute dopamine D2 receptor blockade. Combined use may increase adverse effects related to dopamine antagonism, including extrapyramidal symptoms (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive dopamine D2 receptor blockade may increase adverse-effect burden."
+    }
+  ]
+}

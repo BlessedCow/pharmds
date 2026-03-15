@@ -1,0 +1,29 @@
+{
+  "id": "PD_EPS_RISK_ADDITIVE",
+  "name": "Additive extrapyramidal symptom risk",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "caution",
+  "actions": [
+    "Use caution when combining drugs that increase extrapyramidal symptom risk.",
+    "Monitor for rigidity, tremor, akathisia, dystonia, parkinsonism, and other movement-related adverse effects (educational).",
+    "Consider whether a lower-risk alternative is appropriate if symptoms emerge or risk is high (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "EPS_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs increase extrapyramidal symptom risk.",
+      "Combined dopamine-blocking effects may increase the likelihood of movement-related adverse effects."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both increase extrapyramidal symptom risk. Combined use may increase the likelihood of akathisia, parkinsonism, dystonia, or related movement adverse effects (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: additive extrapyramidal symptom risk with concurrent dopamine-blocking drugs."
+    }
+  ]
+}
