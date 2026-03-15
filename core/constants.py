@@ -78,6 +78,8 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "bleeding": PD_EFFECT_BLEEDING,
     "brady": PD_EFFECT_BRADYCARDIA,
     "bradycardia": PD_EFFECT_BRADYCARDIA,
+    
+    # serotonergic effects
     "serotonergic": PD_EFFECT_SEROTONERGIC,
     "serotonin syndrome": PD_EFFECT_SEROTONIN_SYNDROME,
     "serotonin_syndrome": PD_EFFECT_SEROTONIN_SYNDROME,
