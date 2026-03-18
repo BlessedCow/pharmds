@@ -1,0 +1,22 @@
+{
+  "id": "PK_LISDEXAMFETAMINE_FLUOXETINE",
+  "name": "Fluoxetine may increase lisdexamfetamine-related stimulant exposure",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when lisdexamfetamine is combined with fluoxetine.",
+    "Monitor for increased stimulant adverse effects (educational)."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "lisdexamfetamine",
+      "b": "fluoxetine"
+    },
+    "rationale": [
+      "Fluoxetine can inhibit CYP2D6 and may increase amphetamine exposure.",
+      "Combined use may increase stimulant adverse effects."
+    ]
+  },
+  "explanation_template": "{B_name} may increase stimulant-related effects from {A_name}."
+}

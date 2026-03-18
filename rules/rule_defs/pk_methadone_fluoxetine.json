@@ -1,0 +1,22 @@
+{
+  "id": "PK_METHADONE_FLUOXETINE",
+  "name": "Fluoxetine may increase methadone exposure",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when methadone is combined with fluoxetine.",
+    "Monitor for increased methadone effect, oversedation, and respiratory depression (educational)."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "methadone",
+      "b": "fluoxetine"
+    },
+    "rationale": [
+      "Fluoxetine can inhibit metabolic pathways involved in methadone clearance.",
+      "Combined use may increase methadone exposure and opioid toxicity risk."
+    ]
+  },
+  "explanation_template": "{B_name} may increase methadone exposure when combined with {A_name}, increasing the risk of sedation and respiratory depression."
+}

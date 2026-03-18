@@ -1,0 +1,22 @@
+{
+  "id": "PK_DOXYCYCLINE_AMOXICILLIN",
+  "name": "Doxycycline may antagonize amoxicillin activity",
+  "domain": "PK",
+  "severity": "caution",
+  "rule_class": "caution",
+  "actions": [
+    "Use caution when doxycycline is combined with amoxicillin.",
+    "Consider whether combined antibacterial strategy is appropriate for the clinical context (educational)."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "doxycycline",
+      "b": "amoxicillin"
+    },
+    "rationale": [
+      "Doxycycline is bacteriostatic and may antagonize the bactericidal activity of amoxicillin.",
+      "Combined use may reduce antibacterial efficacy in some contexts."
+    ]
+  },
+  "explanation_template": "{A_name} may antagonize the antibacterial activity of {B_name} in some contexts."
+}

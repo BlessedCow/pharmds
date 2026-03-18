@@ -66,6 +66,15 @@ PD_EFFECT_NORADRENERGIC = "noradrenergic_effects"
 PD_EFFECT_ALPHA1_ANTAGONISM = "alpha1_antagonism"
 PD_EFFECT_D2_BLOCKADE = "D2_blockade"
 PD_EFFECT_EPS_RISK = "EPS_risk"
+PD_EFFECT_HYPERSENSITIVITY_RISK = "hypersensitivity_risk"
+PD_EFFECT_SYMPATHOMIMETIC = "sympathomimetic_activity"
+PD_EFFECT_BP_INCREASE = "blood_pressure_increase"
+PD_EFFECT_TACHYCARDIA_RISK = "tachycardia_risk"
+PD_EFFECT_HYPERTENSION_RISK = "hypertension_risk"
+PD_EFFECT_PHOTOSENSITIVITY_RISK = "photosensitivity_risk"
+PD_EFFECT_INTRACRANIAL_HTN_RISK = "intracranial_hypertension_risk"
+PD_EFFECT_URINARY_RETENTION_RISK = "urinary_retention_risk"
+PD_EFFECT_CONSTIPATION_RISK = "constipation_risk"
 
 _PD_EFFECT_ALIASES: dict[str, str] = {
     # core
@@ -84,6 +93,7 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "serotonin syndrome": PD_EFFECT_SEROTONIN_SYNDROME,
     "serotonin_syndrome": PD_EFFECT_SEROTONIN_SYNDROME,
     "serotonin_activity": PD_EFFECT_SEROTONERGIC,
+    "serotonergic_activity": PD_EFFECT_SEROTONERGIC,
     
     # respiratory depression
     "resp depression": PD_EFFECT_RESP_DEP,
@@ -178,6 +188,50 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "extrapyramidal_symptoms": PD_EFFECT_EPS_RISK,
     "extrapyramidal symptom risk": PD_EFFECT_EPS_RISK,
     
+        # hypersensitivity risk
+    "hypersensitivity": PD_EFFECT_HYPERSENSITIVITY_RISK,
+    "hypersensitivity risk": PD_EFFECT_HYPERSENSITIVITY_RISK,
+    "hypersensitivity_risk": PD_EFFECT_HYPERSENSITIVITY_RISK,
+
+    # sympathomimetic activity
+    "sympathomimetic": PD_EFFECT_SYMPATHOMIMETIC,
+    "sympathomimetic activity": PD_EFFECT_SYMPATHOMIMETIC,
+    "sympathomimetic_activity": PD_EFFECT_SYMPATHOMIMETIC,
+
+    # blood pressure increase
+    "blood pressure increase": PD_EFFECT_BP_INCREASE,
+    "blood_pressure_increase": PD_EFFECT_BP_INCREASE,
+    "increased blood pressure": PD_EFFECT_BP_INCREASE,
+
+    # tachycardia risk
+    "tachycardia": PD_EFFECT_TACHYCARDIA_RISK,
+    "tachycardia risk": PD_EFFECT_TACHYCARDIA_RISK,
+    "tachycardia_risk": PD_EFFECT_TACHYCARDIA_RISK,
+
+    # hypertension risk
+    "hypertension": PD_EFFECT_HYPERTENSION_RISK,
+    "hypertension risk": PD_EFFECT_HYPERTENSION_RISK,
+    "hypertension_risk": PD_EFFECT_HYPERTENSION_RISK,
+
+    # photosensitivity risk
+    "photosensitivity": PD_EFFECT_PHOTOSENSITIVITY_RISK,
+    "photosensitivity risk": PD_EFFECT_PHOTOSENSITIVITY_RISK,
+    "photosensitivity_risk": PD_EFFECT_PHOTOSENSITIVITY_RISK,
+
+    # intracranial hypertension risk
+    "intracranial hypertension": PD_EFFECT_INTRACRANIAL_HTN_RISK,
+    "intracranial hypertension risk": PD_EFFECT_INTRACRANIAL_HTN_RISK,
+    "intracranial_hypertension_risk": PD_EFFECT_INTRACRANIAL_HTN_RISK,
+
+    # urinary retention risk
+    "urinary retention": PD_EFFECT_URINARY_RETENTION_RISK,
+    "urinary retention risk": PD_EFFECT_URINARY_RETENTION_RISK,
+    "urinary_retention_risk": PD_EFFECT_URINARY_RETENTION_RISK,
+
+    # constipation risk
+    "constipation": PD_EFFECT_CONSTIPATION_RISK,
+    "constipation risk": PD_EFFECT_CONSTIPATION_RISK,
+    "constipation_risk": PD_EFFECT_CONSTIPATION_RISK,
     
 }
 

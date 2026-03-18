@@ -117,3 +117,47 @@ def test_pd_alpha1_antagonism_additive_risperidone_amitriptyline():
 def test_pd_alpha1_antagonism_additive_trazodone_quetiapine():
     _, hits = _run(["trazodone", "quetiapine"])
     assert any(h.rule_id == "PD_ALPHA1_ANTAGONISM_ADDITIVE" for h in hits)
+
+def test_pd_qt_prolongation_additive_methadone_citalopram():
+    _, hits = _run(["methadone", "citalopram"])
+    assert any(h.rule_id == "PD_QT_PROLONGATION_ADDITIVE_HIGH" for h in hits)
+
+def test_pd_constipation_additive_methadone_erenumab():
+    _, hits = _run(["methadone", "erenumab"])
+    assert any(h.rule_id == "PD_CONSTIPATION_ADDITIVE_MEDIUM" for h in hits)
+
+
+def test_pk_vibegron_digoxin():
+    _, hits = _run(["vibegron", "digoxin"])
+    assert any(h.rule_id == "PK_VIBEGRON_DIGOXIN" for h in hits)
+
+
+def test_pk_doxycycline_warfarin():
+    _, hits = _run(["doxycycline", "warfarin"])
+    assert any(h.rule_id == "PK_DOXYCYCLINE_WARFARIN" for h in hits)
+
+
+def test_pk_doxycycline_amoxicillin():
+    _, hits = _run(["doxycycline", "amoxicillin"])
+    assert any(h.rule_id == "PK_DOXYCYCLINE_AMOXICILLIN" for h in hits)
+
+
+def test_pk_doxycycline_calcium_carbonate():
+    _, hits = _run(["doxycycline", "calcium carbonate"])
+    assert any(h.rule_id == "PK_DOXYCYCLINE_CALCIUM_CARBONATE" for h in hits)
+
+
+def test_pk_methadone_fluoxetine():
+    _, hits = _run(["methadone", "fluoxetine"])
+    assert any(h.rule_id == "PK_METHADONE_FLUOXETINE" for h in hits)
+
+
+def test_pk_methadone_carbamazepine():
+    _, hits = _run(["methadone", "carbamazepine"])
+    assert any(h.rule_id == "PK_METHADONE_CARBAMAZEPINE" for h in hits)
+
+
+def test_pk_lisdexamfetamine_fluoxetine():
+    _, hits = _run(["lisdexamfetamine", "fluoxetine"])
+    assert any(h.rule_id == "PK_LISDEXAMFETAMINE_FLUOXETINE" for h in hits)
+    

@@ -1,0 +1,22 @@
+{
+  "id": "PK_DOXYCYCLINE_CALCIUM_CARBONATE",
+  "name": "Calcium carbonate may reduce doxycycline absorption",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Separate doxycycline and calcium carbonate administration when possible.",
+    "Monitor for reduced doxycycline effect if coadministration cannot be avoided (educational)."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "doxycycline",
+      "b": "calcium_carbonate"
+    },
+    "rationale": [
+      "Calcium can chelate doxycycline in the gastrointestinal tract.",
+      "Combined use may reduce doxycycline absorption and effectiveness."
+    ]
+  },
+  "explanation_template": "{B_name} may reduce absorption of {A_name} through chelation, which can reduce antibiotic effectiveness."
+}

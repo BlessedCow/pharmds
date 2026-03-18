@@ -1,0 +1,22 @@
+{
+  "id": "PK_DOXYCYCLINE_WARFARIN",
+  "name": "Doxycycline may increase warfarin effect",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when doxycycline is combined with warfarin.",
+    "Monitor for increased anticoagulant effect or bleeding risk (educational)."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "doxycycline",
+      "b": "warfarin"
+    },
+    "rationale": [
+      "Doxycycline may potentiate warfarin anticoagulant effect.",
+      "Combined use may increase bleeding risk."
+    ]
+  },
+  "explanation_template": "{A_name} may increase the effect of {B_name}, which can increase bleeding risk."
+}

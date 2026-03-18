@@ -1,0 +1,22 @@
+{
+  "id": "PK_VIBEGRON_DIGOXIN",
+  "name": "Vibegron may increase digoxin exposure",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when vibegron is combined with digoxin.",
+    "Monitor for increased digoxin-related adverse effects (educational)."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "vibegron",
+      "b": "digoxin"
+    },
+    "rationale": [
+      "Vibegron can increase digoxin exposure.",
+      "Combined use may increase the risk of digoxin-related adverse effects."
+    ]
+  },
+  "explanation_template": "{A_name} may increase exposure to {B_name}, which can increase digoxin toxicity risk."
+}

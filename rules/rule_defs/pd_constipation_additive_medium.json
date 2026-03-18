@@ -1,0 +1,23 @@
+{
+  "id": "PD_CONSTIPATION_ADDITIVE_MEDIUM",
+  "name": "Additive constipation risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "caution",
+  "actions": [
+    "Use caution when combining drugs that increase constipation risk.",
+    "Monitor bowel function and consider supportive measures when appropriate (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "constipation_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs increase constipation risk.",
+      "Combined effects may increase gastrointestinal adverse effects and complications."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both increase constipation risk. Combined use may increase the likelihood of significant gastrointestinal adverse effects."
+}
+

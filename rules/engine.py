@@ -109,6 +109,10 @@ def load_rules(rule_dir: Path) -> list[Rule]:
 
     return rules
 
+def _matches_drug_pair(drug_pair: dict, facts: Facts) -> bool:
+    needed = {drug_pair["a"], drug_pair["b"]}
+    present = {d.id for d in facts.drugs}
+    return needed.issubset(present)
 
 def _strength_ok(
     actual: str | None, required: str | None, allowed: list[str] | None = None
@@ -242,6 +246,12 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> RuleHit | None:
     L = rule.logic
     inputs: dict[str, Any] = {"A": a, "B": b}
 
+    # Explicit drug-pair guard
+    if "drug_pair" in L:
+        pair = L["drug_pair"]
+        if a != pair["a"] or b != pair["b"]:
+            return None
+
     # Enzyme pattern
     if "enzyme" in L:
         enzyme_id = L["enzyme"]["id"]
@@ -357,4 +367,18 @@ def evaluate_all(rules: list[Rule], facts: Facts, drug_ids: list[str]) -> list[R
                     if hit:
                         hits.append(hit)
 
-    return hits
+    # Suppress generic QT additive when a higher-risk QT rule exists for the same pair
+    high_qt_pairs = {
+        tuple(sorted((h.inputs["A"], h.inputs["B"])))
+        for h in hits
+        if h.rule_id == "PD_QT_PROLONGATION_ADDITIVE_HIGH"
+    }
+
+    filtered: list[RuleHit] = []
+    for h in hits:
+        pair = tuple(sorted((h.inputs.get("A"), h.inputs.get("B"))))
+        if h.rule_id == "PD_QT_ADDITIVE" and pair in high_qt_pairs:
+            continue
+        filtered.append(h)
+
+    return filtered

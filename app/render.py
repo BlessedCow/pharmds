@@ -30,8 +30,9 @@ PD_EFFECT_STYLES: dict[str, str] = {
     "serotonin_syndrome": "purple",
     "serotonergic": "purple",
     "h1_antagonism": "bright_yellow",
+    "H1_antagonism": "bright_yellow",
     "CNS_depression": "cyan",
-    "respiratory_depression": "cyan",
+    "respiratory_depression": "bright_red",
     "sedation": "cyan",
     "anticholinergic_effects": "bright_magenta",
     "bleeding": "red",
@@ -45,6 +46,7 @@ PD_EFFECT_STYLES: dict[str, str] = {
     "alpha1_antagonism": "bright_blue",
     "EPS_risk": "bright_red",
     "D2_blockade": "red",
+    "constipation_risk": "yellow",
 }
 
 _CLASS_STYLE = {

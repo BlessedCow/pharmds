@@ -1,0 +1,23 @@
+{
+  "id": "PD_QT_PROLONGATION_ADDITIVE_HIGH",
+  "name": "High-risk additive QT prolongation",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "avoid",
+  "actions": [
+    "Avoid combining high-risk QT-prolonging agents when possible.",
+    "If unavoidable, assess patient-specific QT risk factors and monitor closely (educational).",
+    "Consider ECG monitoring when clinically appropriate (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "QT_prolongation",
+      "min_magnitude": "high"
+    },
+    "rationale": [
+      "Both drugs increase QT prolongation risk.",
+      "Combined use may increase the risk of torsades de pointes and other serious ventricular arrhythmias."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both increase QT prolongation risk. Combined use may increase the risk of serious ventricular arrhythmias."
+}

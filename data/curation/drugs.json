@@ -420,7 +420,7 @@
         {
           "effect_id": "QT_prolongation",
           "direction": "increase",
-          "magnitude": "medium",
+          "magnitude": "high",
           "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
         },
         {
@@ -2586,7 +2586,404 @@
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
       }
+    },
+    {
+      "id": "mepolizumab",
+      "generic_name": "mepolizumab",
+      "drug_class": "monoclonal_antibody",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "nucala"
+      ],
+      "notes": "IL-5 antagonist monoclonal antibody. No meaningful CYP/transporter-based DDI signal expected. Best treated as a biologic with minimal classic PK interaction burden.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "hypersensitivity_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "biologic-associated hypersensitivity/anaphylaxis risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "lisdexamfetamine",
+      "generic_name": "lisdexamfetamine",
+      "drug_class": "stimulant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "vyvanse"
+      ],
+      "notes": "Prodrug converted to dextroamphetamine, primarily via hydrolysis in red blood cells. Lisdexamfetamine itself is not metabolized by CYP enzymes. CYP2D6 inhibitors can increase exposure to dextroamphetamine, the active metabolite.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "amphetamine stimulant effects"
+        },
+        {
+          "effect_id": "hypertension_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "can increase blood pressure"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "can increase heart rate"
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "serotonin syndrome warning with serotonergic drugs"
+        }
+      ],
+      "parameters": {
+        "prodrug": true,
+        "active_metabolite": true,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "erenumab",
+      "generic_name": "erenumab",
+      "drug_class": "monoclonal_antibody",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "aimovig", 
+        "erenumab-aooe"
+      ],
+      "notes": "CGRP receptor antagonist monoclonal antibody. Minimal classic CYP/transporter DDI relevance. Main clinically relevant modeled risks are constipation, hypertension, and hypersensitivity.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "constipation with possible serious complications"
+        },
+        {
+          "effect_id": "hypertension_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "new or worsening hypertension reported"
+        },
+        {
+          "effect_id": "hypersensitivity_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "hypersensitivity reactions reported"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "doxycycline",
+      "generic_name": "doxycycline",
+      "drug_class": "tetracycline_antibiotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "acticlate",
+        "doxycycline hyclate"
+      ],
+      "notes": "Tetracycline-class antibiotic. High-value interaction burden is mostly absorption chelation plus a few classic interaction warnings. Best modeled through dedicated rules rather than heavy enzyme/transporter metadata.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "photosensitivity_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "tetracycline-associated photosensitivity"
+        },
+        {
+          "effect_id": "intracranial_hypertension_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "tetracycline-class intracranial hypertension warning"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "vibegron",
+      "generic_name": "vibegron",
+      "drug_class": "beta3_agonist",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "gemtesa"
+      ],
+      "notes": "Beta-3 adrenergic agonist for overactive bladder. Label identifies vibegron as a CYP3A4 substrate and a P-gp substrate. The clearest clinically relevant interaction in labeling is increased digoxin exposure.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.2
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "urinary_retention_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "urinary retention warning"
+        },
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "postmarketing constipation"
+        },
+        {
+          "effect_id": "hypersensitivity_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "angioedema/hypersensitivity reported"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "methadone",
+      "generic_name": "methadone",
+      "drug_class": "opioid",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "dolophine",
+        "methadose"
+      ],
+      "notes": "Long-acting opioid agonist with major PK and PD interaction burden. CYP3A4, CYP2B6, CYP2C19, CYP2C9, and CYP2D6 inhibitors can increase methadone levels, while inducers can lower levels and precipitate withdrawal. Major modeled PD liabilities are CNS depression, respiratory depression, QT prolongation, and serotonergic toxicity potential.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.3
+        },
+        {
+          "enzyme_id": "CYP2B6",
+          "role": "substrate",
+          "fraction_metabolized": 0.3
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "fraction_metabolized": 0.1
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "substrate",
+          "fraction_metabolized": 0.1
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.1
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "opioid sedation"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "life-threatening opioid respiratory depression risk"
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "dose-related QT prolongation risk"
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "serotonin syndrome warning with serotonergic drugs"
+        },
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "opioid bowel effects"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "diazepam",
+      "generic_name": "diazepam",
+      "drug_class": "benzodiazepine",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "valium"
+      ],
+      "notes": "Educational benzodiazepine entry for CNS and respiratory depression interaction testing.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.5
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "fraction_metabolized": 0.3
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "benzodiazepine sedation"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "benzodiazepine respiratory depressant effect"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "amoxicillin",
+      "generic_name": "amoxicillin",
+      "drug_class": "aminopenicillin",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "amoxil"
+      ],
+      "notes": "Educational beta-lactam entry for doxycycline interaction testing.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "calcium_carbonate",
+      "generic_name": "calcium carbonate",
+      "drug_class": "calcium salt",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "tums",
+        "caltrate"
+      ],
+      "notes": "Educational polyvalent cation entry for doxycycline chelation interaction testing.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "carbamazepine",
+      "generic_name": "carbamazepine",
+      "drug_class": "dibenzazepine anticonvulsant",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "tegretol"
+      ],
+      "notes": "Educational strong enzyme inducer entry for methadone interaction testing.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inducer",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inducer",
+          "strength": "moderate"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inducer",
+          "strength": "moderate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inducer",
+          "strength": "moderate"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation/dizziness"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
     }
-
   ]
 }

@@ -53,7 +53,7 @@ def _load_rule_pd_effect_ids() -> set[str]:
         po = logic.get("pd_overlap") or {}
         eff = po.get("effect_id")
         if isinstance(eff, str) and eff.strip():
-            out.add(eff.strip())
+            out.add(normalize_pd_effect_id(eff.strip()))
     return out
 
 
@@ -400,5 +400,4 @@ def assert_valid_drugs_curation(path: Path = DEFAULT_PATH) -> None:
         msg = "Drug curation validation failed:\n" + "\n".join(
             f"- {e.path}: {e.message}" for e in errors
         )
-        print("DEBUG locals:", sorted(locals().keys()))
         raise ValueError(msg)

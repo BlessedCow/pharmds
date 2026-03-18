@@ -1,0 +1,22 @@
+{
+  "id": "PK_METHADONE_CARBAMAZEPINE",
+  "name": "Carbamazepine may reduce methadone exposure",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when methadone is combined with carbamazepine.",
+    "Monitor for reduced methadone effect or opioid withdrawal (educational)."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "methadone",
+      "b": "carbamazepine"
+    },
+    "rationale": [
+      "Carbamazepine can induce metabolic pathways involved in methadone clearance.",
+      "Combined use may reduce methadone exposure and precipitate withdrawal or reduced efficacy."
+    ]
+  },
+  "explanation_template": "{B_name} may reduce methadone exposure when combined with {A_name}, which can reduce opioid effect or precipitate withdrawal."
+}
