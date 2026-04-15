@@ -2984,6 +2984,1148 @@
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
       }
+    },
+    {
+      "id": "escitalopram",
+      "generic_name": "escitalopram",
+      "drug_class": "ssri antidepressant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "lexapro"
+      ],
+      "notes": "Educational SSRI entry with serotonergic, bleeding, and modest QT educational tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "strength": "weak"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "SERT",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "SSRI serotonergic activity"
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "platelet serotonin depletion"
+        },
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "dose-related QT educational tag"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "SSRI-related activation/agitation can occur"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "SSRI-related sleep disruption can occur"
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "antidepressant-associated activation/mania risk in susceptible patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "paroxetine",
+      "generic_name": "paroxetine",
+      "drug_class": "ssri antidepressant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "paxil",
+        "brisdelle"
+      ],
+      "notes": "Educational SSRI entry with strong CYP2D6 inhibition and serotonergic tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "SERT",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "SSRI serotonergic activity"
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "platelet serotonin depletion"
+        },
+        {
+          "effect_id": "anticholinergic_effects",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "relative anticholinergic burden compared with other SSRIs"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "somnolence/sedation possible"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "SSRI-related activation/agitation can occur"
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "antidepressant-associated activation/mania risk in susceptible patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "vilazodone",
+      "generic_name": "vilazodone",
+      "drug_class": "spari antidepressant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "viibryd"
+      ],
+      "notes": "Educational serotonergic antidepressant entry with SSRI and 5-HT1A partial agonist style tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "strength": "weak"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "SERT",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "serotonin reuptake inhibition / serotonergic activity"
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonergic toxicity risk when combined with other serotonergic agents"
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "platelet serotonin depletion educational tag"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "activating serotonergic adverse effects can occur"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "activating antidepressant-related sleep disruption can occur"
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "antidepressant-associated activation/mania risk in susceptible patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "vortioxetine",
+      "generic_name": "vortioxetine",
+      "drug_class": "serotonin modulator antidepressant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "trintellix"
+      ],
+      "notes": "Educational multimodal serotonergic antidepressant entry.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "weak"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "SERT",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "multimodal serotonergic activity"
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonergic toxicity risk with combination therapy"
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "platelet serotonin depletion educational tag"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "activating serotonergic adverse effects can occur"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "sleep disruption can occur"
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "antidepressant-associated activation/mania risk in susceptible patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "lurasidone",
+      "generic_name": "lurasidone",
+      "drug_class": "atypical antipsychotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "latuda"
+      ],
+      "notes": "Educational atypical antipsychotic entry with D2 blockade and CYP3A4 substrate tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "D2_blockade",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "dopamine D2 receptor antagonism"
+        },
+        {
+          "effect_id": "EPS_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "akathisia/EPS educational tag"
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "alpha-1 related blood pressure lowering can occur"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "somnolence/sedation possible"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "clozapine",
+      "generic_name": "clozapine",
+      "drug_class": "atypical antipsychotic",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "clozaril",
+        "fazaclo",
+        "versacloz"
+      ],
+      "notes": "Educational clozapine entry with sedative, anticholinergic, orthostatic, and seizure educational tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "substrate",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "moderate"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "D2_blockade",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "antipsychotic dopamine receptor blockade"
+        },
+        {
+          "effect_id": "H1_antagonism",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "strong antihistaminic sedation burden"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "sedation/somnolence"
+        },
+        {
+          "effect_id": "anticholinergic_effects",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "strong anticholinergic burden"
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "alpha-1 blockade related"
+        },
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "GI hypomotility educational tag"
+        },
+        {
+          "effect_id": "seizure_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "dose-related seizure risk educational tag"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sinus tachycardia can occur"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "brexpiprazole",
+      "generic_name": "brexpiprazole",
+      "drug_class": "atypical antipsychotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "rexulti"
+      ],
+      "notes": "Educational atypical antipsychotic entry with CYP3A4/CYP2D6 substrate tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "D2_blockade",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "dopamine receptor partial agonist / antipsychotic class effect educational tag"
+        },
+        {
+          "effect_id": "EPS_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "akathisia/EPS possible"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "somnolence may occur"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "clonazepam",
+      "generic_name": "clonazepam",
+      "drug_class": "benzodiazepine",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "klonopin"
+      ],
+      "notes": "Educational benzodiazepine entry for additive CNS and respiratory depression testing.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "benzodiazepine CNS depressant"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "sedation/somnolence"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive respiratory depression with other depressants"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "buspirone",
+      "generic_name": "buspirone",
+      "drug_class": "anxiolytic azapirone",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "buspar"
+      ],
+      "notes": "Educational anxiolytic entry with CYP3A4 substrate and serotonergic tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "5-HT1A agonist activity educational tag"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "dizziness/somnolence possible"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "zolpidem",
+      "generic_name": "zolpidem",
+      "drug_class": "sedative hypnotic",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "ambien",
+        "edluar",
+        "intermezzo",
+        "zolpimist"
+      ],
+      "notes": "Educational sedative hypnotic entry for additive CNS depression testing.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "sedative-hypnotic CNS depression"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "prominent hypnotic/sedative effect"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive respiratory depression with other depressants"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "methylphenidate",
+      "generic_name": "methylphenidate",
+      "drug_class": "stimulant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "ritalin",
+        "concerta",
+        "metadate",
+        "daytrana",
+        "quillichew",
+        "quillivant"
+      ],
+      "notes": "Educational stimulant entry with sympathomimetic and cardiovascular educational tagging.",
+      "enzymes": [],
+      "transporters": [
+        {
+          "transporter_id": "NET",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "sympathomimetic_activity",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "catecholamine reuptake inhibition educational tag"
+        },
+        {
+          "effect_id": "blood_pressure_increase",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "pressor effect"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "heart rate increase can occur"
+        },
+        {
+          "effect_id": "hypertension_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive hypertensive effect with other sympathomimetics"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "stimulant-related activation/agitation can occur"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "stimulant-related insomnia is common"
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "stimulants can contribute to mania/activation in susceptible patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "dexmethylphenidate",
+      "generic_name": "dexmethylphenidate",
+      "drug_class": "stimulant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "focalin"
+      ],
+      "notes": "Educational stimulant entry with sympathomimetic and cardiovascular educational tagging.",
+      "enzymes": [],
+      "transporters": [
+        {
+          "transporter_id": "NET",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "sympathomimetic_activity",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "catecholamine reuptake inhibition educational tag"
+        },
+        {
+          "effect_id": "blood_pressure_increase",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "pressor effect"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "heart rate increase can occur"
+        },
+        {
+          "effect_id": "hypertension_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive hypertensive effect with other sympathomimetics"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "stimulant-related activation/agitation can occur"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "stimulant-related insomnia is common"
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "stimulants can contribute to mania/activation in susceptible patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "atomoxetine",
+      "generic_name": "atomoxetine",
+      "drug_class": "selective norepinephrine reuptake inhibitor",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "strattera"
+      ],
+      "notes": "Educational nonstimulant ADHD entry with CYP2D6 substrate and noradrenergic educational tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "NET",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "norepinephrine reuptake inhibition"
+        },
+        {
+          "effect_id": "blood_pressure_increase",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "pressor effect"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "heart rate increase can occur"
+        },
+        {
+          "effect_id": "hypertension_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive hypertensive effect possible"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "noradrenergic activation/agitation can occur"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "noradrenergic sleep disruption can occur"
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "activation/mania risk in susceptible patients"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "guanfacine",
+      "generic_name": "guanfacine",
+      "drug_class": "alpha-2 adrenergic agonist",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "intuniv",
+        "tenex"
+      ],
+      "notes": "Educational alpha-2 agonist entry with bradycardia and orthostatic educational tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "central alpha-2 agonism can lower heart rate"
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "blood pressure lowering educational tag"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "somnolence/sedation possible"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "common sedative effect"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "topiramate",
+      "generic_name": "topiramate",
+      "drug_class": "anticonvulsant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "topamax",
+        "qudexy",
+        "trokendi"
+      ],
+      "notes": "Educational anticonvulsant entry with weak enzyme modulation and CNS effect tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inducer",
+          "strength": "weak"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inhibitor",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "cognitive slowing/dizziness/somnolence"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "somnolence possible"
+        },
+        {
+          "effect_id": "neurotoxicity_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive cognitive adverse effect educational tag"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "divalproex_sodium",
+      "generic_name": "divalproex sodium",
+      "drug_class": "valproate anticonvulsant",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "depakote"
+      ],
+      "notes": "Educational valproate entry with CNS depression and weak CYP2C9 inhibition educational tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation/dizziness/tremor educational tag"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "somnolence possible"
+        },
+        {
+          "effect_id": "neurotoxicity_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "additive CNS adverse effect burden"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "disulfiram",
+      "generic_name": "disulfiram",
+      "drug_class": "alcohol deterrent",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "antabuse"
+      ],
+      "notes": "Educational alcohol deterrent entry with enzyme inhibition educational tagging.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor",
+          "strength": "moderate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "drowsiness/fatigue possible"
+        },
+        {
+          "effect_id": "neurotoxicity_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "neurologic adverse effects can occur"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "acamprosate",
+      "generic_name": "acamprosate",
+      "drug_class": "alcohol use disorder maintenance agent",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "campral"
+      ],
+      "notes": "Educational AUD maintenance entry with renal clearance educational tagging.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "renal_function",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "renally cleared educational tag"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "varenicline",
+      "generic_name": "varenicline",
+      "drug_class": "nicotinic partial agonist",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "chantix"
+      ],
+      "notes": "Educational smoking cessation entry with renal clearance educational tagging.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "renal_function",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "primarily renally eliminated educational tag"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "can worsen insomnia or vivid sleep disturbance"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "clonidine",
+      "generic_name": "clonidine",
+      "drug_class": "alpha-2 adrenergic agonist",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "catapres",
+        "kapvay"
+      ],
+      "notes": "Educational alpha-2 agonist entry with bradycardia, hypotension, and sedation educational tagging.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "central alpha-2 agonism lowers sympathetic outflow"
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "blood pressure lowering educational tag"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation/drowsiness"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "common sedative effect"
+        },
+        {
+          "effect_id": "renal_function",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "primarily renally eliminated educational tag"
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "neuropsychiatric activation/agitation can occur"
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "insomnia and abnormal dreams can occur"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
     }
   ]
 }

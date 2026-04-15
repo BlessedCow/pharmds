@@ -1,0 +1,23 @@
+{
+  "id": "PD_ACTIVATION_AGITATION_ADDITIVE",
+  "name": "Additive activation/agitation risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when combining agents that can increase activation or agitation.",
+    "Monitor for restlessness, irritability, anxiety, agitation, or behavioral activation, especially after initiation or dose increases (educational).",
+    "If clinically significant activation occurs, consider dose reduction, timing changes, or regimen simplification (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "activation_agitation_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to activation or agitation.",
+      "Combined effects may increase restlessness, irritability, anxiety, or behavioral activation."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can both increase activation or agitation risk, which may be more noticeable when used together."
+}

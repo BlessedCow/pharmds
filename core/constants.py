@@ -75,6 +75,9 @@ PD_EFFECT_PHOTOSENSITIVITY_RISK = "photosensitivity_risk"
 PD_EFFECT_INTRACRANIAL_HTN_RISK = "intracranial_hypertension_risk"
 PD_EFFECT_URINARY_RETENTION_RISK = "urinary_retention_risk"
 PD_EFFECT_CONSTIPATION_RISK = "constipation_risk"
+PD_EFFECT_MANIA_ACTIVATION_RISK = "mania_activation_risk"
+PD_EFFECT_INSOMNIA_RISK = "insomnia_risk"
+PD_EFFECT_ACTIVATION_AGITATION_RISK = "activation_agitation_risk"
 
 _PD_EFFECT_ALIASES: dict[str, str] = {
     # core
@@ -188,7 +191,7 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "extrapyramidal_symptoms": PD_EFFECT_EPS_RISK,
     "extrapyramidal symptom risk": PD_EFFECT_EPS_RISK,
     
-        # hypersensitivity risk
+    # hypersensitivity risk
     "hypersensitivity": PD_EFFECT_HYPERSENSITIVITY_RISK,
     "hypersensitivity risk": PD_EFFECT_HYPERSENSITIVITY_RISK,
     "hypersensitivity_risk": PD_EFFECT_HYPERSENSITIVITY_RISK,
@@ -232,6 +235,25 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "constipation": PD_EFFECT_CONSTIPATION_RISK,
     "constipation risk": PD_EFFECT_CONSTIPATION_RISK,
     "constipation_risk": PD_EFFECT_CONSTIPATION_RISK,
+    
+        # mania / activation risk
+    "mania activation risk": PD_EFFECT_MANIA_ACTIVATION_RISK,
+    "mania_activation_risk": PD_EFFECT_MANIA_ACTIVATION_RISK,
+    "mania risk": PD_EFFECT_MANIA_ACTIVATION_RISK,
+
+    # insomnia risk
+    "insomnia": PD_EFFECT_INSOMNIA_RISK,
+    "insomnia risk": PD_EFFECT_INSOMNIA_RISK,
+    "insomnia_risk": PD_EFFECT_INSOMNIA_RISK,
+    "sleep disturbance": PD_EFFECT_INSOMNIA_RISK,
+
+    # activation / agitation risk
+    "activation agitation risk": PD_EFFECT_ACTIVATION_AGITATION_RISK,
+    "activation_agitation_risk": PD_EFFECT_ACTIVATION_AGITATION_RISK,
+    "activation/agitation risk": PD_EFFECT_ACTIVATION_AGITATION_RISK,
+    "agitation risk": PD_EFFECT_ACTIVATION_AGITATION_RISK,
+    "activation": PD_EFFECT_ACTIVATION_AGITATION_RISK,
+    "agitation": PD_EFFECT_ACTIVATION_AGITATION_RISK,
     
 }
 

@@ -113,3 +113,23 @@ def test_pd_alpha1_antagonism_not_triggered_sertraline_gabapentin():
 def test_pd_alpha1_antagonism_not_triggered_warfarin_clarithromycin():
     _, hits = _run(["warfarin", "clarithromycin"])
     assert all(h.rule_id != "PD_ALPHA1_ANTAGONISM_ADDITIVE" for h in hits) 
+    
+def test_negative_no_activation_agitation_hit_clonazepam_zolpidem():
+    _, hits = _run(["clonazepam", "zolpidem"])
+    assert "PD_ACTIVATION_AGITATION_ADDITIVE" not in _rule_ids(hits)
+
+
+def test_negative_no_activation_agitation_hit_clonidine_guanfacine():
+    _, hits = _run(["clonidine", "guanfacine"])
+    assert "PD_ACTIVATION_AGITATION_ADDITIVE" not in _rule_ids(hits)
+
+
+def test_negative_no_insomnia_hit_clonazepam_zolpidem():
+    _, hits = _run(["clonazepam", "zolpidem"])
+    assert "PD_INSOMNIA_ADDITIVE" not in _rule_ids(hits)
+
+
+def test_negative_no_insomnia_hit_clonidine_guanfacine():
+    _, hits = _run(["clonidine", "guanfacine"])
+    assert "PD_INSOMNIA_ADDITIVE" not in _rule_ids(hits)
+    

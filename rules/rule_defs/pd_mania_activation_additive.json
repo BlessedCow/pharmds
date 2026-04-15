@@ -1,0 +1,23 @@
+{
+  "id": "PD_MANIA_ACTIVATION_ADDITIVE",
+  "name": "Additive mania or behavioral activation risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when combining agents that can contribute to mania or behavioral activation in susceptible patients.",
+    "Monitor for decreased need for sleep, increased goal-directed activity, impulsivity, irritability, or unusually elevated mood, especially after initiation or dose escalation (educational).",
+    "Reassess promptly if clinically significant activation emerges (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "mania_activation_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to behavioral activation or mania risk in susceptible patients.",
+      "Combined use may increase the likelihood of clinically significant activation."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can both contribute to activation or mania risk in susceptible patients, so closer monitoring may be appropriate when they are combined."
+}

@@ -36,3 +36,32 @@ def test_domain_pd_fires_qt_only_citalopram_ondansetron():
 def test_domain_pgp_fires_pgp_induc_digoxin_rifampin():
     hits = _run_filtered(["digoxin", "rifampin"], "pgp")
     assert any(h.rule_id == "PK_PGP_INDUC_DIGOXIN" for h in hits)
+
+def test_domain_pd_fires_activation_agitation_methylphenidate_vilazodone():
+    hits = _run_filtered(["methylphenidate", "vilazodone"], "pd")
+    assert any(h.rule_id == "PD_ACTIVATION_AGITATION_ADDITIVE" for h in hits)
+
+
+def test_domain_pd_fires_activation_agitation_atomoxetine_dexmethylphenidate():
+    hits = _run_filtered(["atomoxetine", "dexmethylphenidate"], "pd")
+    assert any(h.rule_id == "PD_ACTIVATION_AGITATION_ADDITIVE" for h in hits)
+
+
+def test_domain_pd_fires_insomnia_methylphenidate_varenicline():
+    hits = _run_filtered(["methylphenidate", "varenicline"], "pd")
+    assert any(h.rule_id == "PD_INSOMNIA_ADDITIVE" for h in hits)
+
+
+def test_domain_pd_fires_insomnia_vilazodone_atomoxetine():
+    hits = _run_filtered(["vilazodone", "atomoxetine"], "pd")
+    assert any(h.rule_id == "PD_INSOMNIA_ADDITIVE" for h in hits)
+
+
+def test_domain_pd_does_not_fire_activation_agitation_clonazepam_zolpidem():
+    hits = _run_filtered(["clonazepam", "zolpidem"], "pd")
+    assert not any(h.rule_id == "PD_ACTIVATION_AGITATION_ADDITIVE" for h in hits)
+
+
+def test_domain_pd_does_not_fire_insomnia_clonidine_guanfacine():
+    hits = _run_filtered(["clonidine", "guanfacine"], "pd")
+    assert not any(h.rule_id == "PD_INSOMNIA_ADDITIVE" for h in hits) 

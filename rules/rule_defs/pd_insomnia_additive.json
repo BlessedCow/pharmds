@@ -1,0 +1,23 @@
+{
+  "id": "PD_INSOMNIA_ADDITIVE",
+  "name": "Additive insomnia risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when combining agents that can worsen insomnia.",
+    "Monitor for difficulty falling asleep, nighttime awakenings, or worsening sleep quality, especially after initiation or dose increases (educational).",
+    "Consider earlier dosing for activating medications and reinforce sleep-supportive habits when appropriate (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "insomnia_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to insomnia or sleep disruption.",
+      "Combined use may increase sleep-related adverse effects."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can both increase insomnia risk, so sleep disruption may be more likely when they are combined."
+}
