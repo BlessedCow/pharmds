@@ -4126,6 +4126,647 @@
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
       }
+    },
+    {
+      "id": "alcohol",
+      "generic_name": "alcohol",
+      "drug_class": "CNS depressant",
+      "therapeutic_index": "wide",
+      "aliases": ["ethanol", "etoh", "alcoholic beverage"],
+      "notes": "Modeled educationally as a CNS depressant with additive sedation, CNS depression, respiratory depression, and withdrawal risk.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Alcohol is a dose-dependent CNS depressant."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Causes somnolence and psychomotor impairment; additive with other sedatives."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Respiratory suppression risk rises especially when combined with opioids or other depressants."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Physiologic dependence and withdrawal can occur with chronic exposure."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "heroin",
+      "generic_name": "heroin",
+      "drug_class": "opioid",
+      "therapeutic_index": "narrow",
+      "aliases": ["diacetylmorphine"],
+      "notes": "Modeled educationally as a high-risk opioid with strong CNS and respiratory depressant effects and withdrawal risk.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Potent opioid-related CNS depression."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Opioid-related somnolence and impairment."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "High overdose risk due to respiratory suppression."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "High dependence and withdrawal liability."
+        },
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Opioid bowel effects."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "oxycodone",
+      "generic_name": "oxycodone",
+      "drug_class": "opioid",
+      "therapeutic_index": "moderate",
+      "aliases": ["roxicodone", "oxycontin", "roxybond"],
+      "notes": "Opioid analgesic with important PK via CYP3A4 and CYP2D6 and major PD overlap with other CNS depressants.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.5
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.2
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Opioid-related CNS depression."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Opioid-related somnolence."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Life-threatening respiratory depression can occur, especially with other depressants."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Dependence and withdrawal can occur with ongoing exposure."
+        },
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Opioid bowel effects."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "fentanyl",
+      "generic_name": "fentanyl",
+      "drug_class": "opioid",
+      "therapeutic_index": "narrow",
+      "aliases": ["duragesic", "sublimaze", "fentanyl citrate"],
+      "notes": "High-potency opioid with major respiratory depression risk and CYP3A4 PK relevance.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.6
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Potent opioid CNS depressant."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Marked opioid sedation."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "High-potency opioid with major overdose risk from respiratory suppression."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Dependence and withdrawal liability."
+        },
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Opioid bowel effects."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "cannabis",
+      "generic_name": "cannabis",
+      "drug_class": "cannabinoid",
+      "therapeutic_index": "wide",
+      "aliases": ["marijuana", "thc", "weed"],
+      "notes": "Modeled conservatively for sedation, CNS depression, tachycardia, and modest withdrawal risk.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Can impair attention and psychomotor function."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can cause somnolence and slowed reaction time."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Acute use can increase heart rate."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Acute use may transiently increase blood pressure."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Withdrawal symptoms can occur in regular users."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "cocaine",
+      "generic_name": "cocaine",
+      "drug_class": "stimulant",
+      "therapeutic_index": "narrow",
+      "aliases": ["coke", "crack cocaine", "crack"],
+      "notes": "Potent sympathomimetic stimulant with major cardiovascular stimulation and seizure risk.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Potent stimulant with agitation and insomnia risk."
+        },
+        {
+          "effect_id": "sympathetic_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Strong catecholaminergic and sympathomimetic activation."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Raises blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Raises heart rate."
+        },
+        {
+          "effect_id": "seizure_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can precipitate seizures, especially at high doses or with co-exposures."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Lowers seizure threshold."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "methamphetamine",
+      "generic_name": "methamphetamine",
+      "drug_class": "stimulant",
+      "therapeutic_index": "narrow",
+      "aliases": ["meth", "crystal meth", "ice"],
+      "notes": "Potent stimulant with strong CNS and sympathetic activation plus seizure liability.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Strong stimulant; can worsen agitation, anxiety, and insomnia."
+        },
+        {
+          "effect_id": "sympathetic_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Marked catecholaminergic activation."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Raises blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Raises heart rate."
+        },
+        {
+          "effect_id": "noradrenergic_effects",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Strong norepinephrine-mediated cardiovascular stimulation."
+        },
+        {
+          "effect_id": "seizure_threshold",
+          "direction": "decrease",
+          "magnitude": "medium",
+          "mechanism_note": "Can lower seizure threshold."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "mdma",
+      "generic_name": "3,4-methylenedioxymethamphetamine",
+      "drug_class": "stimulant / empathogen",
+      "therapeutic_index": "narrow",
+      "aliases": ["mdma", "ecstasy", "molly"],
+      "notes": "Modeled as both stimulant and serotonergic, with serotonin syndrome risk.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_stimulation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Stimulant and activating effects."
+        },
+        {
+          "effect_id": "sympathetic_stimulation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can increase BP and HR."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Raises blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Raises heart rate."
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Large serotonergic effect."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Can contribute to serotonin toxicity with serotonergic combinations."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "lsd",
+      "generic_name": "lysergic acid diethylamide",
+      "drug_class": "psychedelic",
+      "therapeutic_index": "wide",
+      "aliases": ["acid", "lsd"],
+      "notes": "Modeled conservatively for CNS activation and sympathetic effects rather than as a major serotonergic-toxicity driver.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_stimulation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can cause insomnia, agitation, and perceptual activation."
+        },
+        {
+          "effect_id": "sympathetic_stimulation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Can increase autonomic activation."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "May increase blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "May increase heart rate."
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can interfere with sleep."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "nicotine",
+      "generic_name": "nicotine",
+      "drug_class": "stimulant",
+      "therapeutic_index": "wide",
+      "aliases": ["nicotine", "tobacco nicotine"],
+      "notes": "Modeled for dependence, withdrawal, and mild sympathetic stimulation.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_stimulation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Nicotine is activating and can worsen restlessness."
+        },
+        {
+          "effect_id": "sympathetic_stimulation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Increases autonomic tone."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Can acutely increase blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Can acutely increase heart rate."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "High dependence and withdrawal liability."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "kratom",
+      "generic_name": "kratom",
+      "drug_class": "opioid-like botanical",
+      "therapeutic_index": "moderate",
+      "aliases": ["mitragyna speciosa", "kratom"],
+      "notes": "Modeled conservatively with opioid-like CNS depression and withdrawal risk; effects may vary by product and dose.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can produce opioid-like depressant effects at higher doses."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sedation may occur, especially at higher doses."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Conservative educational tag for opioid-like respiratory risk, especially with co-depressants."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Dependence and withdrawal have been reported."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "seven_hydroxymitragynine",
+      "generic_name": "7-hydroxymitragynine",
+      "drug_class": "opioid-like alkaloid",
+      "therapeutic_index": "narrow",
+      "aliases": ["7-oh", "7oh", "7-hydroxymitragynine"],
+      "notes": "Modeled conservatively as a stronger opioid-like kratom alkaloid with higher concern for abuse, dependence, and respiratory depression.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Strong opioid-like CNS depressant effect."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Marked opioid-like sedation."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Conservative high-risk opioid-like respiratory suppression tag."
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "High abuse and dependence concern."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "ketamine",
+      "generic_name": "ketamine",
+      "drug_class": "dissociative anesthetic",
+      "therapeutic_index": "moderate",
+      "aliases": ["ketalar", "special k"],
+      "notes": "Modeled conservatively for sedation/CNS depression plus BP/HR elevation.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Produces dissociation and CNS impairment."
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can produce sedation and immobility."
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Respiratory depression is possible, especially with overdose or co-depressants."
+        },
+        {
+          "effect_id": "hypertension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can increase blood pressure."
+        },
+        {
+          "effect_id": "tachycardia",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Can increase heart rate."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
     }
   ]
 }

@@ -132,4 +132,24 @@ def test_negative_no_insomnia_hit_clonazepam_zolpidem():
 def test_negative_no_insomnia_hit_clonidine_guanfacine():
     _, hits = _run(["clonidine", "guanfacine"])
     assert "PD_INSOMNIA_ADDITIVE" not in _rule_ids(hits)
-    
+
+def test_negative_no_serotonin_syndrome_lsd_sertraline():
+    _, hits = _run(["lsd", "sertraline"])
+    assert "PD_SEROTONIN_SYNDROME_ADDITIVE" not in _rule_ids(hits)
+
+def test_negative_no_respiratory_depression_cannabis_sertraline():
+    _, hits = _run(["cannabis", "sertraline"])
+    assert "PD_RESPIRATORY_DEPRESSION_ADDITIVE" not in _rule_ids(hits)
+
+def test_negative_no_qt_hit_nicotine_citalopram():
+    _, hits = _run(["nicotine", "citalopram"])
+    assert "PD_QT_ADDITIVE" not in _rule_ids(hits)
+
+def test_negative_no_serotonergic_cocaine_citalopram():
+    _, hits = _run(["cocaine", "citalopram"])
+    assert "PD_SEROTONERGIC_ADDITIVE" not in _rule_ids(hits)
+
+def test_negative_no_respiratory_depression_nicotine_methylphenidate():
+    _, hits = _run(["nicotine", "methylphenidate"])
+    assert "PD_RESPIRATORY_DEPRESSION_ADDITIVE" not in _rule_ids(hits)
+        

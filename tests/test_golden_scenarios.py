@@ -4,6 +4,9 @@ from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
 from rules.engine import evaluate_all, load_rules
 
 
+def _rule_ids(hits):
+    return {h.rule_id for h in hits}
+
 def _run(drugs: list[str]):
     conn = connect(DB_PATH)
     drug_ids = resolve_drug_ids(conn, drugs)
@@ -161,3 +164,34 @@ def test_pk_lisdexamfetamine_fluoxetine():
     _, hits = _run(["lisdexamfetamine", "fluoxetine"])
     assert any(h.rule_id == "PK_LISDEXAMFETAMINE_FLUOXETINE" for h in hits)
     
+def test_pd_respiratory_depression_fentanyl_midazolam():
+    _, hits = _run(["fentanyl", "midazolam"])
+    assert "PD_RESPIRATORY_DEPRESSION_ADDITIVE" in _rule_ids(hits)
+
+def test_pd_cns_depression_alcohol_clonazepam():
+    _, hits = _run(["alcohol", "clonazepam"])
+    rids = _rule_ids(hits)
+    assert (
+        "PD_CNS_DEPRESSION_ADDITIVE" in rids
+        or "PD_CNS_DEPRESSION_ADDITIVE_HIGH" in rids
+)
+    assert "PD_SEDATION_ADDITIVE" in rids
+
+def test_pd_serotonin_syndrome_mdma_citalopram():
+    _, hits = _run(["mdma", "citalopram"])
+    assert "PD_SEROTONIN_SYNDROME_ADDITIVE" in _rule_ids(hits)
+
+def test_pd_cns_depression_ketamine_alcohol():
+    _, hits = _run(["ketamine", "alcohol"])
+    rids = _rule_ids(hits)
+    assert "PD_SEDATION_ADDITIVE" in rids
+    
+def test_pd_stimulation_cocaine_amphetamine():
+    _, hits = _run(["cocaine", "amphetamine_dextroamphetamine"])
+    rids = _rule_ids(hits)
+    assert len(rids) > 0
+
+def test_pd_tachycardia_methamphetamine_amphetamine():
+    _, hits = _run(["methamphetamine", "amphetamine_dextroamphetamine"])
+    rids = _rule_ids(hits)
+    assert len(rids) > 0
