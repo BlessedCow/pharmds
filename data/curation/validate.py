@@ -24,6 +24,7 @@ _KNOWN_ENZYMES = {
     "CYP3A4",
     "CYP2C9",
     "CYP2C19",
+    "CYP2A6",
     "CYP2D6",
     "CYP1A2",
     "CYP2B6",

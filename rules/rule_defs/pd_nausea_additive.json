@@ -1,0 +1,18 @@
+{
+  "id": "PD_NAUSEA_ADDITIVE",
+  "name": "Additive nausea risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when combining agents that may increase nausea.",
+    "Monitor for gastrointestinal intolerance, especially after initiation or dose increases (educational).",
+    "Consider taking medications with food or using supportive strategies if appropriate (educational)."
+  ],
+  "logic": {
+    "pd_overlap": {
+        "effect_id": "nausea",
+        "min_magnitude": "medium"
+    }
+  }
+}

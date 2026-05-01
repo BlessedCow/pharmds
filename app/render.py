@@ -62,6 +62,9 @@ PD_EFFECT_STYLES: dict[str, str] = {
     "mania_activation_risk": "bright_magenta",
     "insomnia_risk": "bright_yellow",
     "activation_agitation_risk": "bright_cyan",
+    "nAChR_antagonism": "bright_magenta",
+    "cholinergic_modulation": "bright_magenta",
+    "nausea": "dark_green",
 }
 _CLASS_STYLE = {
     "avoid": "bold red",

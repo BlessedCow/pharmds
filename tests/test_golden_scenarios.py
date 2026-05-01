@@ -195,3 +195,9 @@ def test_pd_tachycardia_methamphetamine_amphetamine():
     _, hits = _run(["methamphetamine", "amphetamine_dextroamphetamine"])
     rids = _rule_ids(hits)
     assert len(rids) > 0
+
+def test_nausea_additive_varenicline_vortioxetine():
+    _, hits = _run(["varenicline", "vortioxetine"])
+    rids = _rule_ids(hits)
+
+    assert "PD_NAUSEA_ADDITIVE" in rids

@@ -111,6 +111,12 @@
           "direction": "increase",
           "magnitude": "medium",
           "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Gastrointestinal adverse effects including nausea are common with macrolide antibiotics."
         }
       ],
       "parameters": {
@@ -243,6 +249,12 @@
           "direction": "increase",
           "magnitude": "low",
           "mechanism_note": "Delays cardiac repolarization; additive QT prolongation risk."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Nausea may occur but is generally mild compared to other agents."
         }
       ],
       "parameters": {
@@ -1506,7 +1518,8 @@
         },
         {
           "enzyme_id": "CYP2D6",
-          "role": "inhibitor"
+          "role": "inhibitor",
+          "strength": "strong"
         }
       ],
       "transporters": [],
@@ -1528,6 +1541,18 @@
           "direction": "decrease",
           "magnitude": "medium",
           "mechanism_note": "Lowers seizure threshold in a dose-related manner; additive with other threshold-lowering drugs."
+        },
+        {
+          "effect_id": "nAChR_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Bupropion and its active metabolites antagonize nicotinic acetylcholine receptors, contributing to smoking cessation effects."
+        },
+        {
+          "effect_id": "cholinergic_modulation",
+          "direction": "decrease",
+          "magnitude": "low",
+          "mechanism_note": "Nicotinic receptor antagonism may reduce nicotinic cholinergic signaling in susceptible patients."
         }
       ],
       "parameters": {
@@ -3216,84 +3241,6 @@
       }
     },
     {
-      "id": "vortioxetine",
-      "generic_name": "vortioxetine",
-      "drug_class": "serotonin modulator antidepressant",
-      "therapeutic_index": "moderate",
-      "aliases": [
-        "trintellix"
-      ],
-      "notes": "Educational multimodal serotonergic antidepressant entry.",
-      "enzymes": [
-        {
-          "enzyme_id": "CYP2D6",
-          "role": "substrate",
-          "strength": "strong"
-        },
-        {
-          "enzyme_id": "CYP3A4",
-          "role": "substrate",
-          "strength": "weak"
-        },
-        {
-          "enzyme_id": "CYP2C19",
-          "role": "substrate",
-          "strength": "weak"
-        }
-      ],
-      "transporters": [
-        {
-          "transporter_id": "SERT",
-          "role": "inhibitor",
-          "strength": "strong"
-        }
-      ],
-      "pd_effects": [
-        {
-          "effect_id": "serotonergic",
-          "direction": "increase",
-          "magnitude": "high",
-          "mechanism_note": "multimodal serotonergic activity"
-        },
-        {
-          "effect_id": "serotonin_syndrome",
-          "direction": "increase",
-          "magnitude": "medium",
-          "mechanism_note": "serotonergic toxicity risk with combination therapy"
-        },
-        {
-          "effect_id": "bleeding",
-          "direction": "increase",
-          "magnitude": "medium",
-          "mechanism_note": "platelet serotonin depletion educational tag"
-        },
-        {
-          "effect_id": "activation_agitation_risk",
-          "direction": "increase",
-          "magnitude": "low",
-          "mechanism_note": "activating serotonergic adverse effects can occur"
-        },
-        {
-          "effect_id": "insomnia_risk",
-          "direction": "increase",
-          "magnitude": "low",
-          "mechanism_note": "sleep disruption can occur"
-        },
-        {
-          "effect_id": "mania_activation_risk",
-          "direction": "increase",
-          "magnitude": "low",
-          "mechanism_note": "antidepressant-associated activation/mania risk in susceptible patients"
-        }
-      ],
-      "parameters": {
-        "prodrug": false,
-        "active_metabolite": false,
-        "renal_clearance_flag": false,
-        "half_life_bucket": "long"
-      }
-    },
-    {
       "id": "lurasidone",
       "generic_name": "lurasidone",
       "drug_class": "atypical antipsychotic",
@@ -4033,38 +3980,6 @@
       }
     },
     {
-      "id": "varenicline",
-      "generic_name": "varenicline",
-      "drug_class": "nicotinic partial agonist",
-      "therapeutic_index": "moderate",
-      "aliases": [
-        "chantix"
-      ],
-      "notes": "Educational smoking cessation entry with renal clearance educational tagging.",
-      "enzymes": [],
-      "transporters": [],
-      "pd_effects": [
-        {
-          "effect_id": "renal_function",
-          "direction": "increase",
-          "magnitude": "high",
-          "mechanism_note": "primarily renally eliminated educational tag"
-        },
-        {
-          "effect_id": "insomnia_risk",
-          "direction": "increase",
-          "magnitude": "medium",
-          "mechanism_note": "can worsen insomnia or vivid sleep disturbance"
-        }
-      ],
-      "parameters": {
-        "prodrug": false,
-        "active_metabolite": false,
-        "renal_clearance_flag": true,
-        "half_life_bucket": "long"
-      }
-    },
-    {
       "id": "clonidine",
       "generic_name": "clonidine",
       "drug_class": "alpha-2 adrenergic agonist",
@@ -4766,6 +4681,193 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "vortioxetine",
+      "generic_name": "vortioxetine",
+      "drug_class": "serotonin modulator and stimulator",
+      "therapeutic_index": "moderate",
+      "aliases": ["trintellix", "brintellix"],
+      "notes": "Multimodal serotonergic antidepressant (SERT inhibition + 5-HT receptor modulation). Primarily metabolized by CYP2D6.",
+      "enzymes": [
+        {
+    "enzyme_id": "CYP2D6",
+    "role": "substrate",
+    "fraction_metabolized": 0.6
+  },
+  {
+    "enzyme_id": "CYP3A4",
+    "role": "substrate",
+    "fraction_metabolized": 0.15
+  },
+  {
+    "enzyme_id": "CYP2C19",
+    "role": "substrate",
+    "fraction_metabolized": 0.1
+  },
+  {
+    "enzyme_id": "CYP2C9",
+    "role": "substrate",
+    "fraction_metabolized": 0.05
+  },
+  {
+    "enzyme_id": "CYP2A6",
+    "role": "substrate",
+    "fraction_metabolized": 0.05
+  },
+  {
+    "enzyme_id": "CYP2B6",
+    "role": "substrate",
+    "fraction_metabolized": 0.05
+  }  
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Inhibits serotonin reuptake and modulates multiple 5-HT receptors."
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Additive serotonergic activity with other agents."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Serotonergic antidepressants may increase bleeding risk through platelet serotonin effects."
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Activating serotonergic adverse effects can occur."
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Mild activating properties in some patients."
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Antidepressant-associated activation or mania risk in susceptible patients."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Nausea is a common serotonergic adverse effect."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      }
+    },
+    {
+      "id": "varenicline",
+      "generic_name": "varenicline",
+      "drug_class": "nicotinic receptor partial agonist",
+      "therapeutic_index": "moderate",
+      "aliases": ["chantix"],
+      "notes": "Partial agonist at alpha4beta2 nicotinic acetylcholine receptors used for smoking cessation.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "nAChR_antagonism",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Partial agonist activity functionally reduces nicotine binding and receptor activation."
+        },
+        {
+          "effect_id": "cholinergic_modulation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Modulates nicotinic cholinergic signaling via partial agonism."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Common dose-dependent adverse effect."
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Neuropsychiatric symptoms including agitation may occur."
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Sleep disturbances and vivid dreams are common."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "mecamylamine",
+      "generic_name": "mecamylamine",
+      "drug_class": "nicotinic receptor antagonist",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "notes": "Nonselective nicotinic acetylcholine receptor antagonist affecting autonomic ganglia.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "nAChR_antagonism",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Blocks nicotinic acetylcholine receptors at autonomic ganglia."
+        },
+        {
+          "effect_id": "cholinergic_modulation",
+          "direction": "decrease",
+          "magnitude": "high",
+          "mechanism_note": "Reduces nicotinic cholinergic signaling."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Ganglionic blockade impairs autonomic vascular tone."
+        },
+        {
+          "effect_id": "constipation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Reduced parasympathetic GI motility."
+        },
+        {
+          "effect_id": "urinary_retention_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Reduced parasympathetic bladder function."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
       }
     }
   ]

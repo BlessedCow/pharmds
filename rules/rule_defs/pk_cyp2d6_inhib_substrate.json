@@ -2,7 +2,7 @@
   "id": "PK_CYP2D6_INHIB_SUBSTRATE",
   "name": "CYP2D6 inhibition may increase substrate exposure",
   "domain": "PK",
-  "severity": "major",
+  "severity": "caution",
   "rule_class": "adjust_monitor",
   "tags": ["exposure_change"],
   "scenario": {
@@ -21,6 +21,8 @@
       "A_role": "substrate",
       "B_role": "inhibitor"
     },
+    "min_fraction_metabolized": 0.3,
+    "min_inhibitor_strength": "moderate",
     "A_name_not_is": ["tramadol"],
     "rationale": [
       "{B_name} inhibits CYP2D6.",

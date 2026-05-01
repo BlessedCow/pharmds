@@ -46,6 +46,7 @@ PD_EFFECT_BLEEDING = "bleeding"
 PD_EFFECT_BRADYCARDIA = "bradycardia"
 PD_EFFECT_SEROTONERGIC = "serotonergic"
 PD_EFFECT_SEROTONIN_SYNDROME = "serotonin_syndrome"
+PD_EFFECT_NAUSEA = "nausea"
 
 # Additional PD effects used for richer educational tagging
 PD_EFFECT_RESP_DEP = "respiratory_depression"
@@ -78,6 +79,8 @@ PD_EFFECT_CONSTIPATION_RISK = "constipation_risk"
 PD_EFFECT_MANIA_ACTIVATION_RISK = "mania_activation_risk"
 PD_EFFECT_INSOMNIA_RISK = "insomnia_risk"
 PD_EFFECT_ACTIVATION_AGITATION_RISK = "activation_agitation_risk"
+PD_EFFECT_NACHR_ANTAGONISM = "nAChR_antagonism"
+PD_EFFECT_CHOLINERGIC_MODULATION = "cholinergic_modulation"
 
 _PD_EFFECT_ALIASES: dict[str, str] = {
     # core
@@ -236,7 +239,13 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "constipation risk": PD_EFFECT_CONSTIPATION_RISK,
     "constipation_risk": PD_EFFECT_CONSTIPATION_RISK,
     
-        # mania / activation risk
+    # nausea
+    "nausea": PD_EFFECT_NAUSEA,
+    "nausea risk": PD_EFFECT_NAUSEA,
+    "nausea_risk": PD_EFFECT_NAUSEA,
+    "GI nausea": PD_EFFECT_NAUSEA,
+    
+    # mania / activation risk
     "mania activation risk": PD_EFFECT_MANIA_ACTIVATION_RISK,
     "mania_activation_risk": PD_EFFECT_MANIA_ACTIVATION_RISK,
     "mania risk": PD_EFFECT_MANIA_ACTIVATION_RISK,
@@ -254,6 +263,16 @@ _PD_EFFECT_ALIASES: dict[str, str] = {
     "agitation risk": PD_EFFECT_ACTIVATION_AGITATION_RISK,
     "activation": PD_EFFECT_ACTIVATION_AGITATION_RISK,
     "agitation": PD_EFFECT_ACTIVATION_AGITATION_RISK,
+    
+    # nicotinic acetylcholine receptor effects
+    "nachr antagonism": PD_EFFECT_NACHR_ANTAGONISM,
+    "nachr_antagonism": PD_EFFECT_NACHR_ANTAGONISM,
+    "nicotinic antagonism": PD_EFFECT_NACHR_ANTAGONISM,
+    "nicotinic acetylcholine receptor antagonism": PD_EFFECT_NACHR_ANTAGONISM,
+
+    "cholinergic modulation": PD_EFFECT_CHOLINERGIC_MODULATION,
+    "cholinergic_modulation": PD_EFFECT_CHOLINERGIC_MODULATION,
+    "cholinergic effects": PD_EFFECT_CHOLINERGIC_MODULATION,
     
 }
 

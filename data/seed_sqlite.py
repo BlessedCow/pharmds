@@ -55,6 +55,7 @@ def seed(conn: sqlite3.Connection) -> None:
         ("CYP2D6", "CYP", "Relevant for codeine/tramadol activation, many antidepressants."),
         ("CYP1A2", "CYP", "Affected by inhibitors and smoking induction (later)."),
         ("CYP2B6", "CYP", "Primary pathway for bupropion metabolism (educational)."),
+        ("CYP2A6", "CYP", "Metabolizes nicotine and some other drugs (educational)."),
         (
             "UGT1A1",
             "UGT",
