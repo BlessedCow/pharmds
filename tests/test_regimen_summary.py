@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from core.enums import Domain, RuleClass, Severity
-from core.models import Drug, Facts, PDEffect, PairReport, RuleHit
+from core.models import Drug, Facts, PairReport, PDEffect, RuleHit
 from reasoning.combine import build_regimen_summary
 
 
