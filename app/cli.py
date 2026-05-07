@@ -484,6 +484,7 @@ def main() -> None:
             selected_domains=selected,
             input_drug_names=drug_names,
             patient_flags=patient_flags,
+            regimen_summary=regimen_summary,
         )
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return

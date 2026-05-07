@@ -4,6 +4,7 @@ from typing import Any
 
 from core.models import Facts, PairReport, RuleHit
 from reasoning.explain import render_explanation, render_rationale
+from reasoning.rationale import action_rationale, severity_rationale
 
 SCHEMA_VERSION = "1.0"
 
@@ -91,6 +92,8 @@ def _hit_to_dict(
         "domain": _val(h.domain),
         "severity": _val(h.severity),
         "class": _val(h.rule_class),
+        "severity_rationale": severity_rationale(h.severity),
+        "action_rationale": action_rationale(h.rule_class),
         "inputs": dict(h.inputs or {}),
         "tags": _sorted_list(list(h.tags or [])),
         "explanation": explanation,
@@ -107,6 +110,21 @@ def _hit_to_dict(
 
     return out
 
+def _json_safe(x: Any) -> Any:
+    """Recursively convert enums and nested objects into JSON-safe values."""
+    if hasattr(x, "value"):
+        return x.value
+
+    if isinstance(x, dict):
+        return {str(k): _json_safe(v) for k, v in x.items()}
+
+    if isinstance(x, list):
+        return [_json_safe(v) for v in x]
+
+    if isinstance(x, tuple):
+        return [_json_safe(v) for v in x]
+
+    return x
 
 def build_json_payload(
     *,
@@ -116,6 +134,7 @@ def build_json_payload(
     selected_domains: list[str],
     input_drug_names: list[str],
     patient_flags: dict[str, bool],
+    regimen_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     pairs_out: list[dict[str, Any]] = []
 
@@ -181,4 +200,8 @@ def build_json_payload(
         },
         "pairs": pairs_out,
     }
+
+    if regimen_summary is not None:
+        payload["regimen_summary"] = _json_safe(regimen_summary)
+
     return payload
