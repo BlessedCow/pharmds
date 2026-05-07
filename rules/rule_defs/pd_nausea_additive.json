@@ -11,8 +11,9 @@
   ],
   "logic": {
     "pd_overlap": {
-        "effect_id": "nausea",
-        "min_magnitude": "medium"
+      "effect_id": "nausea",
+      "min_magnitude": "medium"
     }
-  }
+  },
+  "explanation_template": "{A_name} and {B_name} can both contribute to nausea or gastrointestinal intolerance. Combined use may increase additive nausea burden, especially after initiation or dose changes (educational)."
 }
