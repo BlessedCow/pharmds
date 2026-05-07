@@ -30,5 +30,8 @@ jobs:
       - name: Lint
         run: ruff check .
 
+      - name: Validate rule definitions
+        run: python -m rules.validate_rules
+
       - name: Tests
         run: pytest -q
