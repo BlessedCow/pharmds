@@ -18,6 +18,7 @@ from core.exceptions import UnknownDrugError
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
+from reasoning.rationale import action_rationale, severity_rationale
 from rules.engine import evaluate_all, load_rules, rule_mechanisms
 
 console = Console()
@@ -600,20 +601,30 @@ def main() -> None:
                 B = facts.drugs[h.inputs["B"]].generic_name
                 print(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
                 print(f"  Affected: {A} | Interacting: {B}")
+
                 tmpl = templates.get(h.rule_id, "")
                 if tmpl:
                     console.print("  Explanation: ", end="")
                     ex = render_explanation(tmpl, facts, h)
                     console.print(colorize_effect_tokens(ex))
+
                 rat = render_rationale(facts, h)
                 if rat:
                     console.print("  Rationale:")
-                    for line in render_rationale(facts, h).splitlines():
+                    for line in rat.splitlines():
                         console.print("   ", colorize_effect_tokens(line))
+
+                print("  Severity rationale:")
+                print(f"   {severity_rationale(h.severity)}")
+
+                print("  Action rationale:")
+                print(f"   {action_rationale(h.rule_class)}")
+
                 if h.actions:
-                    console.print("  Suggested actions:")
+                    print("  Suggested actions:")
                     for a in h.actions:
                         print(f"   - {a}")
+
                 print()
 
         console.print("\nPD effects (by drug):")
@@ -629,20 +640,30 @@ def main() -> None:
                 A = facts.drugs[h.inputs["A"]].generic_name
                 B = facts.drugs[h.inputs["B"]].generic_name
                 print(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
+
                 tmpl = templates.get(h.rule_id, "")
                 if tmpl:
                     console.print("  Explanation: ", end="")
                     ex = render_explanation(tmpl, facts, h)
                     console.print(colorize_effect_tokens(ex))
+
                 rat = render_rationale(facts, h)
                 if rat:
-                    print("  Rationale:")
+                    console.print("  Rationale:")
                     for line in rat.splitlines():
-                        print(f"   {line}")
+                        console.print("   ", colorize_effect_tokens(line))
+
+                print("  Severity rationale:")
+                print(f"   {severity_rationale(h.severity)}")
+
+                print("  Action rationale:")
+                print(f"   {action_rationale(h.rule_class)}")
+
                 if h.actions:
                     print("  Suggested actions:")
                     for a in h.actions:
                         print(f"   - {a}")
+
                 print()
 
         refs: list[dict[str, str]] = []

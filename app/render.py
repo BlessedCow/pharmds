@@ -13,6 +13,7 @@ from core.constants import TRANSPORTER_PGP
 from core.enums import Domain
 from core.models import RuleHit
 from reasoning.explain import render_explanation, render_rationale
+from reasoning.rationale import action_rationale, severity_rationale
 
 # Keep ranks local to rendering
 _SEV_RANK = {"info": 0, "caution": 1, "major": 2, "contraindicated": 3}
@@ -383,6 +384,11 @@ def render_rich_details(
                             body.append("   ")
                             body.append_text(colorize_effect_tokens(line.strip()))
                             body.append("\n")
+                body.append("  Severity rationale:\n")
+                body.append(f"   {severity_rationale(h.severity)}\n")
+
+                body.append("  Action rationale:\n")
+                body.append(f"   {action_rationale(h.rule_class)}\n")
 
                 if h.actions:
                     body.append("  Suggested actions:\n")
@@ -399,7 +405,6 @@ def render_rich_details(
                 body.append(f" {h.name}\n")
 
                 tmpl = templates.get(h.rule_id, "")
-                tmpl = templates.get(h.rule_id, "")
                 if tmpl:
                     body.append("  Explanation: ")
                     ex = render_explanation(tmpl, facts, h)
@@ -414,6 +419,12 @@ def render_rich_details(
                             body.append("   ")
                             body.append_text(colorize_effect_tokens(line.strip()))
                             body.append("\n")
+
+                body.append("  Severity rationale:\n")
+                body.append(f"   {severity_rationale(h.severity)}\n")
+
+                body.append("  Action rationale:\n")
+                body.append(f"   {action_rationale(h.rule_class)}\n")
 
                 if h.actions:
                     body.append("  Suggested actions:\n")
