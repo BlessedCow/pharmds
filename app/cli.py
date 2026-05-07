@@ -510,18 +510,60 @@ def main() -> None:
         if regimen_summary:
             sev = regimen_summary["overall_severity"].value
             cls = regimen_summary["overall_rule_class"].value
-            n_flags = len(regimen_summary["regimen_flags"])
-            
+            flags = regimen_summary.get("regimen_flags", [])
+            hit_counts = regimen_summary.get("hit_counts", {})
+            pd_stacks = regimen_summary.get("pd_stacks", [])
+            top_pairs = regimen_summary.get("top_pairs", [])
+
+            lines = [
+                f"Overall (regimen): severity={sev} | class={cls}",
+                f"Drugs: {regimen_summary.get('n_drugs', 0)}",
+                (
+                    "Pairs with hits: "
+                    f"{regimen_summary.get('pair_count_with_hits', 0)}"
+                ),
+                (
+                    "Pairwise hits: "
+                    f"{hit_counts.get('total', 0)} "
+                    f"(PK={hit_counts.get('pk', 0)}, PD={hit_counts.get('pd', 0)})"
+                ),
+                f"Regimen flags: {len(flags)}",
+            ]
+
+            if pd_stacks:
+                lines.append("")
+                lines.append("Repeated PD risk domains:")
+                for stack in pd_stacks[:5]:
+                    drug_names = ", ".join(
+                        d["drug_name"] for d in stack.get("drugs", [])
+                    )
+                    lines.append(
+                        f"- {stack['label']}: {stack['count']} drugs "
+                        f"(max={stack['max_magnitude']})"
+                        f" - {drug_names}"
+                    )
+
+            if top_pairs:
+                lines.append("")
+                lines.append("Top interaction pairs:")
+                for pair in top_pairs[:3]:
+                    lines.append(
+                        f"- {pair['drug_1']['name']} + {pair['drug_2']['name']}: "
+                        f"{pair['severity']} | {pair['class']} "
+                        f"({pair['total_hits']} hits)"
+                    )
+
             console.print(
                 Panel(
-                    f"Overall (regimen): severity={sev} | class={cls}\n"
-                    f"Flags: {n_flags}",
+                    "\n".join(lines),
                     title="Regimen Summary (all drugs)",
                     expand=True,
                 )
             )
-            for flag in regimen_summary["regimen_flags"]:
+
+            for flag in flags:
                 console.print(f"- {flag['message']}")
+
             print()
 
         rows = build_summary_rows(facts, pair_reports)

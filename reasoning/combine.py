@@ -79,20 +79,155 @@ def _effective_overall_class(hits: list[RuleHit], overall_sev: Severity) -> Rule
 
     return eff
 
+def _value(x: object) -> str:
+    """Return enum.value when present, otherwise a string."""
+    return str(getattr(x, "value", x))
+
+
+def _magnitude_rank(magnitude: str | None) -> int:
+    return {"low": 0, "medium": 1, "high": 2}.get(str(magnitude or ""), -1)
+
+
+def _medium_or_high(magnitude: str | None) -> bool:
+    return _magnitude_rank(magnitude) >= _magnitude_rank("medium")
+
+
+def _pd_effect_label(effect_id: str) -> str:
+    labels = {
+        "CNS_depression": "CNS depression",
+        "QT_prolongation": "QT prolongation",
+        "serotonergic": "serotonergic burden",
+        "serotonin_syndrome": "serotonin toxicity risk",
+        "bleeding": "bleeding risk",
+        "anticholinergic_effects": "anticholinergic burden",
+        "orthostatic_hypotension": "orthostatic hypotension",
+        "seizure_risk": "seizure risk",
+        "sedation": "sedation",
+        "nausea": "nausea/GI intolerance",
+        "hypertension_risk": "hypertension risk",
+        "tachycardia_risk": "tachycardia risk",
+        "constipation_risk": "constipation risk",
+        "urinary_retention_risk": "urinary retention risk",
+    }
+    return labels.get(effect_id, effect_id.replace("_", " "))
+
+
+def _summarize_pd_stacks(facts: Facts) -> list[dict]:
+    """
+    Summarize repeated medium/high PD effects across the whole regimen.
+
+    Pairwise rules answer "what interacts with what?"
+    This answers "what risk domains repeat across the whole list?"
+    """
+    grouped: dict[str, list[dict]] = defaultdict(list)
+
+    for drug_id in sorted(facts.drugs):
+        drug = facts.drugs[drug_id]
+        for effect in facts.pd_effects.get(drug_id, []) or []:
+            effect_id = getattr(effect, "effect_id", None)
+            magnitude = getattr(effect, "magnitude", None)
+
+            if not isinstance(effect_id, str):
+                continue
+
+            if not _medium_or_high(magnitude):
+                continue
+
+            grouped[effect_id].append(
+                {
+                    "drug_id": drug_id,
+                    "drug_name": drug.generic_name,
+                    "magnitude": str(magnitude),
+                }
+            )
+
+    stacks: list[dict] = []
+
+    for effect_id, contributors in grouped.items():
+        if len(contributors) < 2:
+            continue
+
+        max_magnitude = max(
+            (c["magnitude"] for c in contributors),
+            key=_magnitude_rank,
+        )
+
+        contributors = sorted(
+            contributors,
+            key=lambda c: (-_magnitude_rank(c["magnitude"]), c["drug_name"]),
+        )
+
+        stacks.append(
+            {
+                "effect_id": effect_id,
+                "label": _pd_effect_label(effect_id),
+                "count": len(contributors),
+                "max_magnitude": max_magnitude,
+                "drugs": contributors,
+            }
+        )
+
+    stacks.sort(
+        key=lambda s: (
+            -int(s["count"]),
+            -_magnitude_rank(str(s["max_magnitude"])),
+            str(s["effect_id"]),
+        )
+    )
+
+    return stacks
+
+
+def _summarize_top_pairs(facts: Facts, pair_reports: list[PairReport]) -> list[dict]:
+    rows: list[dict] = []
+
+    for rep in pair_reports:
+        total_hits = len(rep.pk_hits or []) + len(rep.pd_hits or [])
+
+        rows.append(
+            {
+                "drug_1": {
+                    "id": rep.drug_1,
+                    "name": facts.drugs[rep.drug_1].generic_name,
+                },
+                "drug_2": {
+                    "id": rep.drug_2,
+                    "name": facts.drugs[rep.drug_2].generic_name,
+                },
+                "severity": _value(rep.overall_severity),
+                "class": _value(rep.overall_rule_class),
+                "pk_hits": len(rep.pk_hits or []),
+                "pd_hits": len(rep.pd_hits or []),
+                "total_hits": total_hits,
+            }
+        )
+
+    rows.sort(
+        key=lambda r: (
+            -_SEV_RANK[Severity(r["severity"])],
+            -int(r["total_hits"]),
+            r["drug_1"]["id"],
+            r["drug_2"]["id"],
+        )
+    )
+
+    return rows[:5]
+
+
 def build_regimen_summary(facts: Facts, pair_reports: list[PairReport]) -> dict:
-    drug_ids = list(facts.drugs.keys())
     """
     Build a regimen-level summary across all drugs in the input, beyond pairwise.
 
-    Returns a dict so we don't have to change models yet.
+    Pair reports remain the source of truth for specific interactions. This
+    summary gives the UI/CLI a quick regimen-level readout: overall risk,
+    repeated PD stacks, pairwise hit counts, and the most important pairs.
     """
-    # Aggregate all hits across all pairs
     all_hits: list[RuleHit] = []
-    for rep in pair_reports:
-        all_hits.extend(rep.pk_hits)
-        all_hits.extend(rep.pd_hits)
 
-    # Base severity/class from pairwise (if any)
+    for rep in pair_reports:
+        all_hits.extend(rep.pk_hits or [])
+        all_hits.extend(rep.pd_hits or [])
+
     if all_hits:
         overall_sev = max((h.severity for h in all_hits), key=lambda s: _SEV_RANK[s])
         overall_cls = _effective_overall_class(all_hits, overall_sev)
@@ -100,55 +235,61 @@ def build_regimen_summary(facts: Facts, pair_reports: list[PairReport]) -> dict:
         overall_sev = Severity.info
         overall_cls = RuleClass.info
 
-    # --- Regimen-level PD stacking: 3+ drugs with same PD effect >= medium ---
-    # This uses Drug.pd_effects from Facts (same objects used for pd_overlap).
-    effect_counts: Counter[str] = Counter()
-    for did in drug_ids:
-        for e in (facts.pd_effects.get(did, []) or []):
-            # Expect e.effect_id and e.magnitude based on rule logic
-            if getattr(e, "effect_id", None) == "CNS_depression" and getattr(e, "magnitude", None) in {"medium", "high"}:
-                effect_counts["CNS_depression"] += 1
-            if getattr(e, "effect_id", None) == "QT_prolongation" and getattr(e, "magnitude", None) in {"medium", "high"}:
-                effect_counts["QT_prolongation"] += 1
+    hit_counts = {
+        "total": len(all_hits),
+        "pk": sum(1 for h in all_hits if h.domain == Domain.PK),
+        "pd": sum(1 for h in all_hits if h.domain == Domain.PD),
+        "by_severity": dict(
+            sorted(Counter(_value(h.severity) for h in all_hits).items())
+        ),
+        "by_class": dict(
+            sorted(Counter(_value(h.rule_class) for h in all_hits).items())
+        ),
+    }
 
+    pd_stacks = _summarize_pd_stacks(facts)
     regimen_flags: list[dict] = []
 
-    # CNS triple stack escalation
-    if effect_counts["CNS_depression"] >= 3:
-        regimen_flags.append(
-            {
-                "type": "PD_STACK",
-                "effect_id": "CNS_depression",
-                "count": effect_counts["CNS_depression"],
-                "message": "3+ drugs in the regimen contribute to CNS depression (medium+). Consider avoiding the combination or using intensive monitoring.",
-                "suggested_class": "avoid",
-                "suggested_severity": "contraindicated",
-            }
-        )
-        overall_cls = RuleClass.avoid
-        overall_sev = Severity.contraindicated
+    high_priority_stack_messages = {
+        "CNS_depression": (
+            "3+ drugs in the regimen contribute to CNS depression (medium+). "
+            "Consider avoiding the combination or using intensive monitoring."
+        ),
+        "QT_prolongation": (
+            "3+ drugs in the regimen contribute to QT prolongation risk (medium+). "
+            "Consider avoiding or use ECG monitoring and risk mitigation."
+        ),
+    }
 
-    # QT triple stack escalation
-    if effect_counts["QT_prolongation"] >= 3:
-        regimen_flags.append(
-            {
-                "type": "PD_STACK",
-                "effect_id": "QT_prolongation",
-                "count": effect_counts["QT_prolongation"],
-                "message": "3+ drugs in the regimen contribute to QT prolongation risk (medium+). Consider avoiding or use ECG monitoring and risk mitigation.",
-                "suggested_class": "avoid",
-                "suggested_severity": "contraindicated",
-            }
-        )
-        overall_cls = RuleClass.avoid
-        overall_sev = Severity.contraindicated
+    for stack in pd_stacks:
+        effect_id = stack["effect_id"]
+        count = int(stack["count"])
+
+        if effect_id in high_priority_stack_messages and count >= 3:
+            regimen_flags.append(
+                {
+                    "type": "PD_STACK",
+                    "effect_id": effect_id,
+                    "label": stack["label"],
+                    "count": count,
+                    "message": high_priority_stack_messages[effect_id],
+                    "suggested_class": "avoid",
+                    "suggested_severity": "contraindicated",
+                }
+            )
+            overall_cls = RuleClass.avoid
+            overall_sev = Severity.contraindicated
 
     return {
         "n_drugs": len(facts.drugs),
         "overall_severity": overall_sev,
         "overall_rule_class": overall_cls,
         "regimen_flags": regimen_flags,
+        "pd_stacks": pd_stacks,
+        "pair_count_with_hits": len(pair_reports),
         "pairwise_hit_count": len(all_hits),
+        "hit_counts": hit_counts,
+        "top_pairs": _summarize_top_pairs(facts, pair_reports),
     }
 
 def _pk_summary(pk_hits: list[RuleHit]) -> str | None:
