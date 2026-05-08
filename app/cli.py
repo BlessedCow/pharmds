@@ -15,6 +15,8 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
+from core.mechanism_debug import format_mechanism_effects
+from core.mechanism_inference import infer_mechanism_effects_for_drugs
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
@@ -397,6 +399,14 @@ def main() -> None:
         help=("In rich mode, print full per-pair details after the summary."),
     )
     p.add_argument(
+        "--show-mechanisms",
+        action="store_true",
+        help=(
+            "Print normalized MechanismEffect IR for the selected drugs "
+            "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--top",
         type=int,
         default=0,
@@ -456,6 +466,15 @@ def main() -> None:
         "bleeding_risk": bool(args.bleeding_risk),
     }
     facts = load_facts(conn, drug_ids, patient_flags)
+    
+    if args.show_mechanisms:
+        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
+
+        print("\nNormalized MechanismEffect IR\n")
+        for line in format_mechanism_effects(effects):
+            print(f"- {line}")
+
+        return
 
     selected = _parse_domain_selection(args.domain)
 
