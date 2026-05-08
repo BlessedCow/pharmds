@@ -5,7 +5,40 @@ from pathlib import Path
 
 import streamlit as st
 
+from core.constants import _PD_EFFECT_ALIASES
+
 EXPORT_DIR = Path("exports/medications")
+
+KNOWN_PD_EFFECTS = set(_PD_EFFECT_ALIASES.values())
+
+
+def canonicalize_pd_effect(value: str) -> str | None:
+    """Return canonical PD effect ID for contributor-entered value."""
+    normalized = value.strip()
+
+    if normalized in KNOWN_PD_EFFECTS:
+        return normalized
+
+    return _PD_EFFECT_ALIASES.get(normalized.lower())
+
+
+def validate_pd_effects(pd_effects: list[str]) -> list[str]:
+    """Return validation errors for unknown PD effects."""
+    errors = []
+
+    for effect in pd_effects:
+        canonical = canonicalize_pd_effect(effect)
+
+        if canonical is None:
+            errors.append(f"Unknown PD effect '{effect}'.")
+            continue
+
+        if canonical != effect:
+            errors.append(
+                f"Unknown PD effect '{effect}'. Did you mean '{canonical}'?"
+            )
+
+    return errors
 
 
 def split_csv(value: str) -> list[str]:
@@ -59,6 +92,8 @@ def validate_payload(payload: dict) -> list[str]:
     if not payload["pd_effects"]:
         errors.append("At least one PD effect is recommended.")
 
+    errors.extend(validate_pd_effects(payload["pd_effects"]))
+
     return errors
 
 
@@ -89,7 +124,9 @@ def main() -> None:
         "Generate reviewed medication JSON. This does not write directly "
         "to the database."
     )
-
+    with st.expander("Known PD effects"):
+        st.write(", ".join(sorted(KNOWN_PD_EFFECTS)))
+        
     with st.form("medication_form"):
         generic_name = st.text_input("Generic name *")
 

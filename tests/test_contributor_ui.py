@@ -1,8 +1,10 @@
 from app.contributor_ui import (
     build_medication_payload,
+    canonicalize_pd_effect,
     split_csv,
     split_lines,
     validate_payload,
+    validate_pd_effects,
 )
 
 
@@ -60,3 +62,29 @@ def test_validate_payload_recommends_pd_effects():
     }
 
     assert "At least one PD effect is recommended." in validate_payload(payload)
+    
+def test_canonicalize_pd_effect_accepts_canonical_value():
+    assert canonicalize_pd_effect("CNS_depression") == "CNS_depression"
+
+
+def test_canonicalize_pd_effect_maps_alias():
+    assert canonicalize_pd_effect("cns depression") == "CNS_depression"
+
+
+def test_validate_pd_effects_accepts_known_effects():
+    assert validate_pd_effects(["CNS_depression", "sedation"]) == []
+
+
+def test_validate_pd_effects_warns_with_suggestion():
+    errors = validate_pd_effects(["respiratory depression"])
+
+    assert errors == [
+        "Unknown PD effect 'respiratory depression'. "
+        "Did you mean 'respiratory_depression'?"
+    ]
+
+
+def test_validate_pd_effects_warns_without_suggestion():
+    errors = validate_pd_effects(["made_up_effect"])
+
+    assert errors == ["Unknown PD effect 'made_up_effect'."]
