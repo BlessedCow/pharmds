@@ -392,3 +392,4 @@ def _dedupe_hits(
 
     out.sort(key=lambda x: (-_SEV_RANK[x.severity], x.rule_id))
     return out
+

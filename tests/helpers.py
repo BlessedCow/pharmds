@@ -25,3 +25,4 @@ def assert_no_rule(hits: Iterable[RuleHit], rule_id: str) -> None:
     """Assert that a specific rule did NOT fire."""
     rids = rule_ids(hits)
     assert rule_id not in rids, f"Did NOT expect rule '{rule_id}', but got: {rids}"
+

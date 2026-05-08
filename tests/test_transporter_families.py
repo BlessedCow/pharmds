@@ -13,3 +13,4 @@ def test_transporter_family_rule_matches_pgp_roles():
     hits = evaluate_all(rules, facts, drug_ids)
 
     assert any(h.rule_id == "PK_PGP_INHIB_DIGOXIN" for h in hits)
+

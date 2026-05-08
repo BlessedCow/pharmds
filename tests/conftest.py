@@ -25,3 +25,4 @@ def pytest_sessionstart(session):
     seed(conn)
     conn.commit()
     conn.close()
+

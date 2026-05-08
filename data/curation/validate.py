@@ -402,3 +402,4 @@ def assert_valid_drugs_curation(path: Path = DEFAULT_PATH) -> None:
             f"- {e.path}: {e.message}" for e in errors
         )
         raise ValueError(msg)
+

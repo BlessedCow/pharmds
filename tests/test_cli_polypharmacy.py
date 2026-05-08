@@ -13,3 +13,4 @@ def test_polypharmacy_generates_multiple_pair_reports():
 
     # Expect at least the digoxin+verapamil report to exist (it should in your ruleset)
     assert len(reports) >= 2
+

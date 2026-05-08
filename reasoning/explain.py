@@ -47,3 +47,4 @@ def render_rationale(facts: Facts, hit: RuleHit) -> str:
     for line in hit.rationale:
         bullets.append("- " + _format_text(line, mapping))
     return "\n".join(bullets)
+

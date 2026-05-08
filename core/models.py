@@ -95,3 +95,4 @@ class PairReport:
     pk_hits: list[RuleHit] = field(default_factory=list)
     pd_hits: list[RuleHit] = field(default_factory=list)
     pk_summary: PKSummary | None = None
+

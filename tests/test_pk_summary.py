@@ -50,3 +50,4 @@ def test_pk_summary_mixed_synthetic():
     reports = build_pair_reports(facts, hits, rule_templates={})
     assert reports
     assert reports[0].pk_summary == "mixed (increase + decrease mechanisms present)"
+

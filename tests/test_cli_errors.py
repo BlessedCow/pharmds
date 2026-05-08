@@ -22,3 +22,4 @@ def test_resolve_drug_ids_reports_multiple_unknowns():
         resolve_drug_ids(conn, ["nope1", "nope2"])
 
     assert exc.value.unknown == ("nope1", "nope2")
+

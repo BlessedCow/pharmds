@@ -50,3 +50,4 @@ def test_dual_mechanism_increase_adds_composite_hit_and_uses_max_severity():
     assert dh.severity == Severity.major
     assert dh.rule_class == RuleClass.adjust_monitor
     assert "dual_mechanism" in (dh.tags or [])
+

@@ -51,3 +51,4 @@ def load_drugs_curation(path: Path | None = None) -> dict[str, Any]:
     if path is None:
         path = DATA_DIR / "curation" / "drugs.json"
     return json.loads(path.read_text(encoding="utf-8"))
+

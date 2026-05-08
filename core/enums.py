@@ -40,3 +40,4 @@ class RuleClass(StrEnum):
     adjust_monitor = "adjust_monitor"
     caution = "caution"
     info = "info"
+

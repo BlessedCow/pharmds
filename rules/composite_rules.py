@@ -298,3 +298,4 @@ def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     )
 
     return out
+

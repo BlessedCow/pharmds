@@ -284,3 +284,4 @@ def normalize_pd_effect_id(raw: str) -> str:
     if not s:
         return ""
     return _PD_EFFECT_ALIASES.get(s.lower(), s)
+

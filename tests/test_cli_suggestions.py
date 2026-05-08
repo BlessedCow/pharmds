@@ -28,3 +28,4 @@ def test_unknown_drug_may_have_no_suggestions_for_gibberish():
     err = exc.value
     assert "xqznotadrug" in err.unknown
     assert err.suggestions.get("xqznotadrug", ()) == ()
+

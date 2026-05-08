@@ -382,3 +382,4 @@ def evaluate_all(rules: list[Rule], facts: Facts, drug_ids: list[str]) -> list[R
         filtered.append(h)
 
     return filtered
+

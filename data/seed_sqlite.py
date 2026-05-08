@@ -84,16 +84,7 @@ def seed(conn: sqlite3.Connection) -> None:
     for t in transporters:
         upsert(conn, "INSERT OR REPLACE INTO transporter(id,description) VALUES(?,?)", t)
 
-    # PD effects (lookup)
-    #
-    # IMPORTANT:
-    # - drug_pd_effect has an FK to pd_effect(id)
-    # - pd_effect.description may be NOT NULL in schema, so always provide a string
-    #
-    # Seed:
-    # 1) known PD IDs from constants
-    # 2) PD IDs inferred from PD rules
-    # 3) any curated PD IDs we know appear in drugs.json (defensive)
+    # PD effects
     pd_ids = {v for k, v in vars(c).items() if k.startswith("PD_EFFECT_")}
     pd_ids |= _load_rule_pd_effect_ids()
 

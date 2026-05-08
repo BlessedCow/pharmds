@@ -24,3 +24,4 @@ def test_qt_overlap_citalopram_ondansetron():
     rules = load_rules(RULE_DIR)
     hits = evaluate_all(rules, facts, drug_ids)
     assert any(h.rule_id == "PD_QT_ADDITIVE" for h in hits)
+
