@@ -15,6 +15,8 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
+from core.mechanism_candidate_debug import format_interaction_candidates
+from core.mechanism_candidates import find_interaction_candidates
 from core.mechanism_debug import format_mechanism_effects
 from core.mechanism_inference import infer_mechanism_effects_for_drugs
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
@@ -407,6 +409,14 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-candidates",
+        action="store_true",
+        help=(
+            "Print inferred interaction candidates from MechanismEffect IR "
+            "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--top",
         type=int,
         default=0,
@@ -466,12 +476,22 @@ def main() -> None:
         "bleeding_risk": bool(args.bleeding_risk),
     }
     facts = load_facts(conn, drug_ids, patient_flags)
-    
+
     if args.show_mechanisms:
         effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
 
         print("\nNormalized MechanismEffect IR\n")
         for line in format_mechanism_effects(effects):
+            print(f"- {line}")
+
+        return
+
+    if args.show_candidates:
+        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
+        candidates = find_interaction_candidates(effects)
+
+        print("\nCandidate Interaction Patterns\n")
+        for line in format_interaction_candidates(candidates):
             print(f"- {line}")
 
         return
