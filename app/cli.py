@@ -15,17 +15,13 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
-from core.mechanism_aggregation import aggregate_policy_results
+from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
+from core.mechanism_pipeline import run_mechanism_pipeline
 from core.mechanism_aggregation_debug import format_aggregate_concerns
-from core.mechanism_arbitration import arbitrate_candidates
 from core.mechanism_arbitration_debug import format_arbitration_results
 from core.mechanism_candidate_debug import format_interaction_candidates
-from core.mechanism_candidates import find_interaction_candidates
 from core.mechanism_debug import format_mechanism_effects
-from core.mechanism_policy import apply_concern_policy
 from core.mechanism_policy_debug import format_policy_results
-from core.mechanism_inference import infer_mechanism_effects_for_drugs
-from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from reasoning.rationale import action_rationale, severity_rationale
@@ -507,60 +503,53 @@ def main() -> None:
     }
     facts = load_facts(conn, drug_ids, patient_flags)
 
-    if args.show_mechanisms:
-        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
+    if (
+        args.show_mechanisms
+        or args.show_candidates
+        or args.show_arbitration
+        or args.show_policy
+        or args.show_aggregates
+    ):
+        pipeline = run_mechanism_pipeline(drug_ids, facts)
 
-        print("\nNormalized MechanismEffect IR\n")
-        for line in format_mechanism_effects(effects):
-            print(f"- {line}")
+        if args.show_mechanisms:
+            print("\nNormalized MechanismEffect IR\n")
+            for line in format_mechanism_effects(list(pipeline.effects)):
+                print(f"- {line}")
 
-        return
+            return
 
-    if args.show_candidates:
-        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
-        candidates = find_interaction_candidates(effects)
+        if args.show_candidates:
+            print("\nCandidate Interaction Patterns\n")
+            for line in format_interaction_candidates(list(pipeline.candidates)):
+                print(f"- {line}")
 
-        print("\nCandidate Interaction Patterns\n")
-        for line in format_interaction_candidates(candidates):
-            print(f"- {line}")
+            return
 
-        return
-    
-    if args.show_arbitration:
-        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
-        candidates = find_interaction_candidates(effects)
-        results = arbitrate_candidates(candidates)
+        if args.show_arbitration:
+            print("\nArbitration Results\n")
+            for line in format_arbitration_results(
+                list(pipeline.arbitration_results)
+            ):
+                print(f"- {line}")
 
-        print("\nArbitration Results\n")
-        for line in format_arbitration_results(results):
-            print(f"- {line}")
+            return
 
-        return
+        if args.show_policy:
+            print("\nPolicy Results\n")
+            for line in format_policy_results(list(pipeline.policy_results)):
+                print(f"- {line}")
 
-    if args.show_policy:
-        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
-        candidates = find_interaction_candidates(effects)
-        arbitration_results = arbitrate_candidates(candidates)
-        policy_results = apply_concern_policy(arbitration_results)
+            return
 
-        print("\nPolicy Results\n")
-        for line in format_policy_results(policy_results):
-            print(f"- {line}")
+        if args.show_aggregates:
+            print("\nAggregate Concerns\n")
+            for line in format_aggregate_concerns(
+                list(pipeline.aggregate_concerns)
+            ):
+                print(f"- {line}")
 
-        return
-    
-    if args.show_aggregates:
-        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
-        candidates = find_interaction_candidates(effects)
-        arbitration_results = arbitrate_candidates(candidates)
-        policy_results = apply_concern_policy(arbitration_results)
-        aggregate_concerns = aggregate_policy_results(policy_results)
-
-        print("\nAggregate Concerns\n")
-        for line in format_aggregate_concerns(aggregate_concerns):
-            print(f"- {line}")
-
-        return
+            return
     selected = _parse_domain_selection(args.domain)
 
     rules_all = load_rules(RULE_DIR)
