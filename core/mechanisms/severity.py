@@ -28,6 +28,24 @@ PRELIMINARY_SEVERITY_INFORMATIONAL = "informational"
 PRELIMINARY_SEVERITY_CAUTION = "caution"
 PRELIMINARY_SEVERITY_HIGH_CAUTION = "high_caution"
 
+PRELIMINARY_SEVERITY_RANKS = {
+    "caution": 1,
+    "high_caution": 2,
+}
+
+
+def preliminary_severity_rank(severity: str) -> int:
+    """Return sortable rank for preliminary mechanism severity."""
+    return PRELIMINARY_SEVERITY_RANKS.get(severity, 0)
+
+
+def strongest_preliminary_severity(severities: list[str]) -> str | None:
+    """Return strongest preliminary severity from a list of severity labels."""
+    if not severities:
+        return None
+
+    return max(severities, key=preliminary_severity_rank)
+
 
 @dataclass(frozen=True)
 class SeverityAnnotatedConcern:

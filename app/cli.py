@@ -25,6 +25,7 @@ from core.mechanisms.candidate_debug import format_interaction_candidates
 from core.mechanisms.debug import format_mechanism_effects
 from core.mechanisms.policy_debug import format_policy_results
 from core.mechanisms.scoring_debug import format_scored_concerns
+from core.mechanisms.severity import strongest_preliminary_severity
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
@@ -454,16 +455,26 @@ def render_severity_comparison(pipeline):
             lines.append("  severity_reason: no matching severity annotation")
             continue
 
-        severities = sorted(
-            {annotation.preliminary_severity for annotation in matching_annotations}
-        )
+        severities = [
+            annotation.preliminary_severity
+            for annotation in matching_annotations
+        ]
+        strongest_severity = strongest_preliminary_severity(severities)
+
         reasons = sorted(
             {annotation.severity_reason for annotation in matching_annotations}
         )
 
-        lines.append("  preliminary_severity: " + ", ".join(severities))
+        lines.append(
+            "  strongest_preliminary_severity: "
+            + str(strongest_severity)
+        )
+        lines.append(
+            "  contributing_preliminary_severities: "
+            + ", ".join(sorted(set(severities)))
+        )
         lines.append("  severity_reason: " + " | ".join(reasons))
-
+        
     return "\n".join(lines)
 
 def main() -> None:
