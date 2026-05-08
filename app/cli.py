@@ -15,6 +15,8 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
+from core.mechanism_aggregation import aggregate_policy_results
+from core.mechanism_aggregation_debug import format_aggregate_concerns
 from core.mechanism_arbitration import arbitrate_candidates
 from core.mechanism_arbitration_debug import format_arbitration_results
 from core.mechanism_candidate_debug import format_interaction_candidates
@@ -437,6 +439,14 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-aggregates",
+        action="store_true",
+        help=(
+            "Print aggregate concern clusters from policy results "
+            "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--top",
         type=int,
         default=0,
@@ -539,6 +549,18 @@ def main() -> None:
 
         return
     
+    if args.show_aggregates:
+        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
+        candidates = find_interaction_candidates(effects)
+        arbitration_results = arbitrate_candidates(candidates)
+        policy_results = apply_concern_policy(arbitration_results)
+        aggregate_concerns = aggregate_policy_results(policy_results)
+
+        print("\nAggregate Concerns\n")
+        for line in format_aggregate_concerns(aggregate_concerns):
+            print(f"- {line}")
+
+        return
     selected = _parse_domain_selection(args.domain)
 
     rules_all = load_rules(RULE_DIR)
