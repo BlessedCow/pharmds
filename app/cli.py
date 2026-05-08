@@ -20,6 +20,7 @@ from core.mechanism_arbitration_debug import format_arbitration_results
 from core.mechanism_candidate_debug import format_interaction_candidates
 from core.mechanism_debug import format_mechanism_effects
 from core.mechanism_pipeline import run_mechanism_pipeline
+from core.mechanism_pipeline_json import mechanism_pipeline_to_json_dict
 from core.mechanism_policy_debug import format_policy_results
 from core.mechanism_scoring_debug import format_scored_concerns
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
@@ -404,6 +405,14 @@ def main() -> None:
         help=("In rich mode, print full per-pair details after the summary."),
     )
     p.add_argument(
+        "--show-mechanism-json",
+        action="store_true",
+        help=(
+            "Print the full read-only mechanism pipeline as JSON "
+            "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--show-mechanisms",
         action="store_true",
         help=(
@@ -519,9 +528,14 @@ def main() -> None:
         or args.show_policy
         or args.show_scored
         or args.show_aggregates
+        or args.show_mechanism_json
     ):
         pipeline = run_mechanism_pipeline(drug_ids, facts)
-
+        if args.show_mechanism_json:
+            payload = mechanism_pipeline_to_json_dict(pipeline)
+            print(json.dumps(payload, indent=2, sort_keys=True))
+            return
+        
         if args.show_mechanisms:
             print("\nNormalized MechanismEffect IR\n")
             for line in format_mechanism_effects(list(pipeline.effects)):
