@@ -58,8 +58,8 @@ def run_mechanism_pipeline(
     candidates = find_interaction_candidates(effects)
     arbitration_results = arbitrate_candidates(candidates)
     policy_results = apply_concern_policy(arbitration_results)
-    scored_concerns = score_policy_results(policy_results)
     aggregate_concerns = aggregate_policy_results(policy_results)
+    scored_concerns = score_policy_results(policy_results, aggregate_concerns)
 
     return MechanismPipelineResult(
         effects=tuple(effects),

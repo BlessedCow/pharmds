@@ -130,7 +130,6 @@ def test_apply_concern_policy_maps_multiple_results():
     assert policy_results[0].policy_concern == POLICY_MECHANISTIC_CONCERN
     assert policy_results[1].policy_concern == POLICY_TOLERABILITY_CONCERN
 
-
 def test_dedupe_policy_results_preserves_first_seen_order():
     results = [
         ConcernPolicyResult(

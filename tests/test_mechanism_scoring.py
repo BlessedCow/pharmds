@@ -1,3 +1,8 @@
+from core.mechanism_aggregation import (
+    AGGREGATE_OBJECT_EXPOSURE_INCREASE,
+    AGGREGATE_SHARED_PD_EFFECT,
+    AggregateConcern,
+)
 from core.mechanism_arbitration import (
     CONCERN_ADDITIVE_PD_EFFECT,
     CONCERN_EXPOSURE_INCREASE,
@@ -157,4 +162,55 @@ def test_dedupe_scored_concerns_preserves_first_seen_order():
     assert len(deduped) == 2
     assert deduped[0].effect_id == "nausea"
     assert deduped[1].effect_id == "QT_prolongation"
-    
+def test_scored_concern_carries_object_exposure_aggregate_context():
+    result = ConcernPolicyResult(
+        policy_concern=POLICY_MECHANISTIC_CONCERN,
+        source_concern=CONCERN_EXPOSURE_INCREASE,
+        precipitant_drug="bupropion",
+        object_drug="vortioxetine",
+        target="CYP2D6",
+        candidate_type=CANDIDATE_ENZYME_INHIBITION,
+    )
+    aggregates = [
+        AggregateConcern(
+            aggregate_type=AGGREGATE_OBJECT_EXPOSURE_INCREASE,
+            anchor="vortioxetine",
+            policy_concern=POLICY_MECHANISTIC_CONCERN,
+            drugs=("bupropion", "fluconazole", "vortioxetine"),
+            targets=("CYP2C19", "CYP2D6"),
+            members=(result,),
+        )
+    ]
+
+    scored = policy_result_to_scored_concern(result, aggregates)
+
+    assert scored.aggregate_member_count == 1
+    assert scored.related_targets == ("CYP2C19", "CYP2D6")
+    assert scored.related_effects == ()
+
+
+def test_scored_concern_carries_shared_pd_effect_aggregate_context():
+    result = ConcernPolicyResult(
+        policy_concern=POLICY_TOLERABILITY_CONCERN,
+        source_concern=CONCERN_ADDITIVE_PD_EFFECT,
+        precipitant_drug="fluconazole",
+        object_drug="vortioxetine",
+        effect_id="nausea",
+        candidate_type=CANDIDATE_PD_SHARED_EFFECT,
+    )
+    aggregates = [
+        AggregateConcern(
+            aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+            anchor="nausea",
+            policy_concern=POLICY_TOLERABILITY_CONCERN,
+            drugs=("fluconazole", "vortioxetine"),
+            effect_id="nausea",
+            members=(result,),
+        )
+    ]
+
+    scored = policy_result_to_scored_concern(result, aggregates)
+
+    assert scored.aggregate_member_count == 1
+    assert scored.related_targets == ()
+    assert scored.related_effects == ("nausea",)

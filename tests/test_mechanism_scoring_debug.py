@@ -61,6 +61,28 @@ def test_format_scored_concern_with_effect_id():
         f"| severity={SEVERITY_UNSCORED}"
     )
 
+def test_format_scored_concern_includes_aggregate_context():
+    concern = ScoredConcern(
+        policy_concern=POLICY_MECHANISTIC_CONCERN,
+        source_concern=CONCERN_EXPOSURE_INCREASE,
+        precipitant_drug="bupropion",
+        object_drug="vortioxetine",
+        target="CYP2D6",
+        candidate_type=CANDIDATE_ENZYME_INHIBITION,
+        confidence=CONFIDENCE_HIGH,
+        aggregate_member_count=3,
+        related_targets=("CYP2C19", "CYP2C9", "CYP2D6"),
+    )
+
+    assert format_scored_concern(concern) == (
+        "mechanistic_concern: bupropion -> vortioxetine via CYP2D6 "
+        "| source_concern=exposure_increase "
+        "| candidate_type=ENZYME_INHIBITION_EXPOSURE "
+        f"| confidence={CONFIDENCE_HIGH} "
+        f"| severity={SEVERITY_UNSCORED} "
+        "| aggregate_members=3 "
+        "| related_targets=CYP2C19, CYP2C9, CYP2D6"
+    )
 
 def test_format_scored_concerns_formats_multiple():
     concerns = [

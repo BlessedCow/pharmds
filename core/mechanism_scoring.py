@@ -1,6 +1,7 @@
 """Confidence scoring scaffold for policy concern results.
 
-This module assigns preliminary confidence labels to policy results.
+This module assigns preliminary confidence labels to policy results and carries
+lightweight aggregate context for future scoring.
 
 It intentionally does not assign final clinical severity or recommendations.
 """
@@ -9,6 +10,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from core.mechanism_aggregation import AggregateConcern
 from core.mechanism_candidates import (
     CANDIDATE_ENZYME_INDUCTION,
     CANDIDATE_ENZYME_INHIBITION,
@@ -46,6 +48,9 @@ class ScoredConcern:
     candidate_type: str | None = None
     confidence: str = CONFIDENCE_LOW
     severity: str = SEVERITY_UNSCORED
+    aggregate_member_count: int = 0
+    related_targets: tuple[str, ...] = ()
+    related_effects: tuple[str, ...] = ()
     explanation: str = ""
 
     @property
@@ -62,10 +67,12 @@ class ScoredConcern:
 
 def score_policy_results(
     results: list[ConcernPolicyResult],
+    aggregates: list[AggregateConcern] | None = None,
 ) -> list[ScoredConcern]:
     """Score policy results with preliminary confidence labels."""
+    aggregate_list = aggregates or []
     scored = [
-        policy_result_to_scored_concern(result)
+        policy_result_to_scored_concern(result, aggregate_list)
         for result in results
     ]
 
@@ -74,8 +81,11 @@ def score_policy_results(
 
 def policy_result_to_scored_concern(
     result: ConcernPolicyResult,
+    aggregates: list[AggregateConcern] | None = None,
 ) -> ScoredConcern:
     """Convert one policy result into a scored concern."""
+    aggregate_context = _aggregate_context_for_result(result, aggregates or [])
+
     return ScoredConcern(
         policy_concern=result.policy_concern,
         source_concern=result.source_concern,
@@ -86,6 +96,9 @@ def policy_result_to_scored_concern(
         candidate_type=result.candidate_type,
         confidence=_confidence_for_policy_result(result),
         severity=SEVERITY_UNSCORED,
+        aggregate_member_count=aggregate_context["member_count"],
+        related_targets=aggregate_context["targets"],
+        related_effects=aggregate_context["effects"],
         explanation=result.explanation,
     )
 
@@ -114,6 +127,55 @@ def _confidence_for_policy_result(result: ConcernPolicyResult) -> str:
     return CONFIDENCE_LOW
 
 
+def _aggregate_context_for_result(
+    result: ConcernPolicyResult,
+    aggregates: list[AggregateConcern],
+) -> dict[str, tuple[str, ...] | int]:
+    matching = [
+        aggregate
+        for aggregate in aggregates
+        if _aggregate_matches_result(aggregate, result)
+    ]
+
+    if not matching:
+        return {
+            "member_count": 0,
+            "targets": (),
+            "effects": (),
+        }
+
+    member_count = max(len(aggregate.members) for aggregate in matching)
+    targets = _unique_sorted(
+        target
+        for aggregate in matching
+        for target in aggregate.targets
+    )
+    effects = _unique_sorted(
+        aggregate.effect_id
+        for aggregate in matching
+        if aggregate.effect_id
+    )
+
+    return {
+        "member_count": member_count,
+        "targets": targets,
+        "effects": effects,
+    }
+
+
+def _aggregate_matches_result(
+    aggregate: AggregateConcern,
+    result: ConcernPolicyResult,
+) -> bool:
+    if result.target and aggregate.anchor == result.object_drug:
+        return result.target in aggregate.targets
+
+    if result.effect_id and aggregate.effect_id:
+        return result.effect_id in aggregate.effect_id.split(", ")
+
+    return False
+
+
 def dedupe_scored_concerns(
     concerns: list[ScoredConcern],
 ) -> list[ScoredConcern]:
@@ -128,3 +190,7 @@ def dedupe_scored_concerns(
         out.append(concern)
 
     return out
+
+
+def _unique_sorted(values) -> tuple[str, ...]:
+    return tuple(sorted({value for value in values if value}))
