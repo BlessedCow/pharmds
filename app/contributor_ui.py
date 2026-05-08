@@ -40,6 +40,15 @@ def validate_pd_effects(pd_effects: list[str]) -> list[str]:
 
     return errors
 
+def canonicalize_pd_effects(pd_effects: list[str]) -> list[str]:
+    """Return canonical PD effect IDs where aliases can be resolved."""
+    canonicalized = []
+
+    for effect in pd_effects:
+        canonical = canonicalize_pd_effect(effect)
+        canonicalized.append(canonical if canonical is not None else effect)
+
+    return canonicalized
 
 def split_csv(value: str) -> list[str]:
     """Split comma-separated input into clean non-empty values."""
@@ -208,6 +217,19 @@ def main() -> None:
         st.error("Please fix the following issues:")
         for error in errors:
             st.write(f"- {error}")
+
+        if payload["pd_effects"]:
+            canonicalized_pd_effects = canonicalize_pd_effects(
+                payload["pd_effects"]
+            )
+
+            if canonicalized_pd_effects != payload["pd_effects"]:
+                st.subheader("Canonical PD effects preview")
+                st.code(
+                    "\n".join(canonicalized_pd_effects),
+                    language="text",
+                )
+
         return
 
     payload_json = json.dumps(payload, indent=2, sort_keys=True)

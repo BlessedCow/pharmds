@@ -1,6 +1,7 @@
 from app.contributor_ui import (
     build_medication_payload,
     canonicalize_pd_effect,
+    canonicalize_pd_effects,
     split_csv,
     split_lines,
     validate_payload,
@@ -88,3 +89,14 @@ def test_validate_pd_effects_warns_without_suggestion():
     errors = validate_pd_effects(["made_up_effect"])
 
     assert errors == ["Unknown PD effect 'made_up_effect'."]
+    
+def test_canonicalize_pd_effects_maps_aliases_and_preserves_unknowns():
+    assert canonicalize_pd_effects(
+        ["respiratory depression", "sedating", "made_up_effect"]
+    ) == ["respiratory_depression", "sedation", "made_up_effect"]
+
+
+def test_canonicalize_pd_effects_preserves_canonical_values():
+    assert canonicalize_pd_effects(
+        ["respiratory_depression", "sedation"]
+    ) == ["respiratory_depression", "sedation"]
