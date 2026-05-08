@@ -1,6 +1,8 @@
 from app.cli import DB_PATH, connect, load_facts, resolve_drug_ids
-from core.mechanisms.pipeline import run_mechanism_pipeline
-from core.mechanisms.pipeline_json import mechanism_pipeline_to_json_dict
+from core.mechanisms import (
+    mechanism_pipeline_to_json_dict,
+    run_mechanism_pipeline,
+)
 
 
 def _pipeline_payload_for(names: list[str]):

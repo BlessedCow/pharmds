@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from app.cli import DB_PATH, connect, load_facts, resolve_drug_ids
-from core.mechanisms.pipeline import run_mechanism_pipeline
+from core.mechanisms import run_mechanism_pipeline
 from rules.engine import evaluate_all, load_rules
 
 RULE_DIR = Path("rules/rule_defs")

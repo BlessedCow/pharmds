@@ -15,12 +15,14 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
+from core.mechanisms import (
+    mechanism_pipeline_to_json_dict,
+    run_mechanism_pipeline,
+)
 from core.mechanisms.aggregation_debug import format_aggregate_concerns
 from core.mechanisms.arbitration_debug import format_arbitration_results
 from core.mechanisms.candidate_debug import format_interaction_candidates
 from core.mechanisms.debug import format_mechanism_effects
-from core.mechanisms.pipeline import run_mechanism_pipeline
-from core.mechanisms.pipeline_json import mechanism_pipeline_to_json_dict
 from core.mechanisms.policy_debug import format_policy_results
 from core.mechanisms.scoring_debug import format_scored_concerns
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
