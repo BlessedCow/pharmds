@@ -34,6 +34,10 @@ from core.mechanisms.policy import (
     apply_concern_policy,
 )
 from core.mechanisms.scoring import ScoredConcern, score_policy_results
+from core.mechanisms.severity import (
+    SeverityAnnotatedConcern,
+    annotate_preliminary_severity,
+)
 from core.models import Facts
 
 
@@ -46,8 +50,8 @@ class MechanismPipelineResult:
     arbitration_results: tuple[ArbitrationResult, ...]
     policy_results: tuple[ConcernPolicyResult, ...]
     scored_concerns: tuple[ScoredConcern, ...]
+    severity_annotations: tuple[SeverityAnnotatedConcern, ...]
     aggregate_concerns: tuple[AggregateConcern, ...]
-
 
 def run_mechanism_pipeline(
     drug_ids: list[str],
@@ -60,6 +64,7 @@ def run_mechanism_pipeline(
     policy_results = apply_concern_policy(arbitration_results)
     aggregate_concerns = aggregate_policy_results(policy_results)
     scored_concerns = score_policy_results(policy_results, aggregate_concerns)
+    severity_annotations = annotate_preliminary_severity(scored_concerns)
 
     return MechanismPipelineResult(
         effects=tuple(effects),
@@ -67,5 +72,6 @@ def run_mechanism_pipeline(
         arbitration_results=tuple(arbitration_results),
         policy_results=tuple(policy_results),
         scored_concerns=tuple(scored_concerns),
+        severity_annotations=tuple(severity_annotations),
         aggregate_concerns=tuple(aggregate_concerns),
     )

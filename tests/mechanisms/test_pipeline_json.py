@@ -53,6 +53,7 @@ def test_mechanism_pipeline_to_json_dict_serializes_all_stages():
         "arbitration_results",
         "policy_results",
         "scored_concerns",
+        "severity_annotations",
         "aggregate_concerns",
     }
 
@@ -69,7 +70,13 @@ def test_mechanism_pipeline_to_json_dict_serializes_all_stages():
     assert payload["aggregate_concerns"][0]["aggregate_type"] == (
         "object_exposure_increase_cluster"
     )
-
+    assert payload["severity_annotations"][0]["preliminary_severity"] == (
+        "informational"
+    )
+    assert payload["severity_annotations"][0]["severity_reason"] == (
+        "Single high-confidence mechanistic concern."
+    )
+    assert payload["severity_annotations"][0]["scored"]["confidence"] == "high"
     json.dumps(payload)
 
 
@@ -97,7 +104,7 @@ def test_mechanism_pipeline_to_json_dict_serializes_empty_stages():
         "arbitration_results": [],
         "policy_results": [],
         "scored_concerns": [],
+        "severity_annotations": [],
         "aggregate_concerns": [],
     }
-
     json.dumps(payload)

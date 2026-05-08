@@ -365,6 +365,50 @@ def filter_rules_for_selected_domains(rules_all, selected: list[str]):
 
     return out
 
+def render_severity_annotations(severity_annotations):
+    """Render mechanism severity annotations for CLI debug output."""
+    if not severity_annotations:
+        return "No severity annotations."
+
+    lines = []
+
+    for annotation in severity_annotations:
+        scored = annotation.scored
+
+        lines.append(
+            f"- {scored.precipitant_drug} + {scored.object_drug}"
+            f" | effect={scored.effect_id}"
+            f" | concern={scored.policy_concern}"
+        )
+        lines.append(f"  candidate_type: {scored.candidate_type}")
+        lines.append(f"  confidence: {scored.confidence}")
+        lines.append(f"  preliminary_severity: {annotation.preliminary_severity}")
+        lines.append(f"  severity_reason: {annotation.severity_reason}")
+        lines.append(f"  explanation: {scored.explanation}")
+
+        if scored.related_effects:
+            related_effects = sorted(
+                {
+                    effect.strip()
+                    for effect_group in scored.related_effects
+                    for effect in effect_group.split(",")
+                    if effect.strip()
+                }
+            )
+            lines.append(
+                "  related_effects: "
+                + ", ".join(related_effects)
+            )
+
+        if scored.related_targets:
+            lines.append(
+                "  related_targets: "
+                + ", ".join(scored.related_targets)
+            )
+
+        lines.append("")
+
+    return "\n".join(lines).rstrip()
 
 def main() -> None:
     p = argparse.ArgumentParser(
@@ -412,6 +456,13 @@ def main() -> None:
         help=(
             "Print the full read-only mechanism pipeline as JSON "
             "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
+        "--show-severity",
+        action="store_true",
+        help=(
+            "Show debug severity annotations from the mechanism pipeline."
         ),
     )
     p.add_argument(
@@ -531,6 +582,7 @@ def main() -> None:
         or args.show_scored
         or args.show_aggregates
         or args.show_mechanism_json
+        or args.show_severity
     ):
         pipeline = run_mechanism_pipeline(drug_ids, facts)
         if args.show_mechanism_json:
@@ -574,7 +626,13 @@ def main() -> None:
                 print(f"- {line}")
 
             return
-    
+        
+        if args.show_severity:
+            print("\nSeverity Annotations\n")                
+            print(render_severity_annotations(pipeline.severity_annotations))
+
+            return
+            
         if args.show_aggregates:
             print("\nAggregate Concerns\n")
             for line in format_aggregate_concerns(

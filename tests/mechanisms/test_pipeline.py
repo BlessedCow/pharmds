@@ -7,6 +7,7 @@ from core.mechanisms.registry import (
     MECHANISM_ENZYME_INHIBITION,
     MECHANISM_ENZYME_SUBSTRATE,
 )
+from core.mechanisms.severity import PRELIMINARY_SEVERITY_INFORMATIONAL
 from core.models import Drug, EnzymeRole, Facts
 
 
@@ -57,6 +58,7 @@ def test_run_mechanism_pipeline_returns_all_stages():
     assert len(result.policy_results) == 1
     assert len(result.aggregate_concerns) == 1
     assert len(result.scored_concerns) == 1
+    assert len(result.severity_annotations) == 1
 
     effect_keys = {
         (effect.mechanism, effect.source_drug, effect.target)
@@ -104,6 +106,13 @@ def test_run_mechanism_pipeline_returns_all_stages():
     assert scored.target == "CYP2D6"
     assert scored.confidence == "high"
     assert scored.severity == "unscored"
+    
+    severity = result.severity_annotations[0]
+    assert severity.scored == scored
+    assert severity.preliminary_severity == PRELIMINARY_SEVERITY_INFORMATIONAL
+    assert severity.severity_reason == (
+        "Single high-confidence mechanistic concern."
+    )
 
 def test_run_mechanism_pipeline_returns_empty_stages_without_candidates():
     facts = Facts(

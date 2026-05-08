@@ -27,6 +27,10 @@ def mechanism_pipeline_to_json_dict(
             _to_json_dict(item)
             for item in pipeline.scored_concerns
         ],
+        "severity_annotations": [
+            _to_json_dict(item)
+            for item in pipeline.severity_annotations
+        ],
         "aggregate_concerns": [
             _aggregate_to_json_dict(item)
             for item in pipeline.aggregate_concerns

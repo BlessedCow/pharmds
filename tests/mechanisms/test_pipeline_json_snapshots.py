@@ -66,7 +66,24 @@ def test_bupropion_vortioxetine_fluconazole_json_snapshot():
             and item["object_drug"] == "vortioxetine"
         )
     ]
+    severity_annotations = [
+        item
+        for item in payload["severity_annotations"]
+        if (
+            item["scored"]["policy_concern"] == "mechanistic_concern"
+            and item["scored"]["object_drug"] == "vortioxetine"
+        )
+    ]
 
+    assert len(severity_annotations) == 3
+
+    for annotation in severity_annotations:
+        assert annotation["preliminary_severity"] == "caution"
+        assert annotation["severity_reason"] == (
+            "Multiple mechanism candidates affect the same object drug."
+        )
+        assert annotation["scored"]["confidence"] == "high"
+        assert annotation["scored"]["aggregate_member_count"] == 3
     assert len(scored_exposure_concerns) == 3
 
     for concern in scored_exposure_concerns:
@@ -78,7 +95,24 @@ def test_bupropion_vortioxetine_fluconazole_json_snapshot():
             "CYP2C9",
             "CYP2D6",
         ]
+    severity_annotations = [
+        item
+        for item in payload["severity_annotations"]
+        if (
+            item["scored"]["policy_concern"] == "mechanistic_concern"
+            and item["scored"]["object_drug"] == "vortioxetine"
+        )
+    ]
 
+    assert len(severity_annotations) == 3
+
+    for annotation in severity_annotations:
+        assert annotation["preliminary_severity"] == "caution"
+        assert annotation["severity_reason"] == (
+            "Multiple mechanism candidates affect the same object drug."
+        )
+        assert annotation["scored"]["confidence"] == "high"
+        assert annotation["scored"]["aggregate_member_count"] == 3
     nausea_clusters = [
         item
         for item in payload["aggregate_concerns"]
@@ -130,3 +164,12 @@ def test_bupropion_vortioxetine_json_snapshot():
     assert scored_concerns[0]["severity"] == "unscored"
     assert scored_concerns[0]["aggregate_member_count"] == 1
     assert scored_concerns[0]["related_targets"] == ["CYP2D6"]
+
+    severity_annotations = payload["severity_annotations"]
+
+    assert len(severity_annotations) == 1
+    assert severity_annotations[0]["preliminary_severity"] == "informational"
+    assert severity_annotations[0]["severity_reason"] == (
+        "Single high-confidence mechanistic concern."
+    )
+    assert severity_annotations[0]["scored"]["confidence"] == "high"
