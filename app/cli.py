@@ -20,6 +20,8 @@ from core.mechanism_arbitration_debug import format_arbitration_results
 from core.mechanism_candidate_debug import format_interaction_candidates
 from core.mechanism_candidates import find_interaction_candidates
 from core.mechanism_debug import format_mechanism_effects
+from core.mechanism_policy import apply_concern_policy
+from core.mechanism_policy_debug import format_policy_results
 from core.mechanism_inference import infer_mechanism_effects_for_drugs
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
@@ -427,6 +429,14 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-policy",
+        action="store_true",
+        help=(
+            "Print concern policy classifications from arbitration results "
+            "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--top",
         type=int,
         default=0,
@@ -513,6 +523,18 @@ def main() -> None:
 
         print("\nArbitration Results\n")
         for line in format_arbitration_results(results):
+            print(f"- {line}")
+
+        return
+
+    if args.show_policy:
+        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
+        candidates = find_interaction_candidates(effects)
+        arbitration_results = arbitrate_candidates(candidates)
+        policy_results = apply_concern_policy(arbitration_results)
+
+        print("\nPolicy Results\n")
+        for line in format_policy_results(policy_results):
             print(f"- {line}")
 
         return
