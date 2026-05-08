@@ -86,6 +86,7 @@ def test_validate_pd_effects_warns_with_suggestion():
 
 
 def test_validate_pd_effects_warns_without_suggestion():
+    
     errors = validate_pd_effects(["made_up_effect"])
 
     assert errors == ["Unknown PD effect 'made_up_effect'."]
