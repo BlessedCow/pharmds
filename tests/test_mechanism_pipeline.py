@@ -56,6 +56,7 @@ def test_run_mechanism_pipeline_returns_all_stages():
     assert len(result.arbitration_results) == 1
     assert len(result.policy_results) == 1
     assert len(result.aggregate_concerns) == 1
+    assert len(result.scored_concerns) == 1
 
     effect_keys = {
         (effect.mechanism, effect.source_drug, effect.target)
@@ -96,6 +97,13 @@ def test_run_mechanism_pipeline_returns_all_stages():
     assert aggregate.anchor == "vortioxetine"
     assert aggregate.targets == ("CYP2D6",)
 
+    scored = result.scored_concerns[0]
+    assert scored.policy_concern == POLICY_MECHANISTIC_CONCERN
+    assert scored.precipitant_drug == "bupropion"
+    assert scored.object_drug == "vortioxetine"
+    assert scored.target == "CYP2D6"
+    assert scored.confidence == "high"
+    assert scored.severity == "unscored"
 
 def test_run_mechanism_pipeline_returns_empty_stages_without_candidates():
     facts = Facts(
@@ -127,3 +135,5 @@ def test_run_mechanism_pipeline_returns_empty_stages_without_candidates():
     assert result.arbitration_results == ()
     assert result.policy_results == ()
     assert result.aggregate_concerns == ()
+    assert result.scored_concerns == ()
+    

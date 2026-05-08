@@ -7,8 +7,12 @@ def format_arbitration_result(result: ArbitrationResult) -> str:
     """Return a compact human-readable representation of one result."""
     if result.target:
         route = f"{result.precipitant_drug} -> {result.object_drug} via {result.target}"
+    
     elif result.effect_id:
-        route = f"{result.precipitant_drug} + {result.object_drug} via {result.effect_id}"
+        route = (
+            f"{result.precipitant_drug} + {result.object_drug} "
+            f"via {result.effect_id}"
+        )
     else:
         route = f"{result.precipitant_drug} -> {result.object_drug}"
 

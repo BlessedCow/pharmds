@@ -24,7 +24,6 @@ from core.mechanism_policy import (
     ConcernPolicyResult,
 )
 
-
 CONFIDENCE_LOW = "low"
 CONFIDENCE_MODERATE = "moderate"
 CONFIDENCE_HIGH = "high"

@@ -9,7 +9,6 @@ from core.mechanism_arbitration import (
     ArbitrationResult,
 )
 
-
 POLICY_MECHANISTIC_CONCERN = "mechanistic_concern"
 POLICY_EXPOSURE_REDUCTION_CONCERN = "exposure_reduction_concern"
 POLICY_TOLERABILITY_CONCERN = "tolerability_concern"

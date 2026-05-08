@@ -33,6 +33,7 @@ from core.mechanism_policy import (
     ConcernPolicyResult,
     apply_concern_policy,
 )
+from core.mechanism_scoring import ScoredConcern, score_policy_results
 from core.models import Facts
 
 
@@ -44,6 +45,7 @@ class MechanismPipelineResult:
     candidates: tuple[InteractionCandidate, ...]
     arbitration_results: tuple[ArbitrationResult, ...]
     policy_results: tuple[ConcernPolicyResult, ...]
+    scored_concerns: tuple[ScoredConcern, ...]
     aggregate_concerns: tuple[AggregateConcern, ...]
 
 
@@ -56,6 +58,7 @@ def run_mechanism_pipeline(
     candidates = find_interaction_candidates(effects)
     arbitration_results = arbitrate_candidates(candidates)
     policy_results = apply_concern_policy(arbitration_results)
+    scored_concerns = score_policy_results(policy_results)
     aggregate_concerns = aggregate_policy_results(policy_results)
 
     return MechanismPipelineResult(
@@ -63,5 +66,6 @@ def run_mechanism_pipeline(
         candidates=tuple(candidates),
         arbitration_results=tuple(arbitration_results),
         policy_results=tuple(policy_results),
+        scored_concerns=tuple(scored_concerns),
         aggregate_concerns=tuple(aggregate_concerns),
     )

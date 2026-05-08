@@ -11,7 +11,6 @@ from core.mechanism_candidates import (
     InteractionCandidate,
 )
 
-
 CONCERN_EXPOSURE_INCREASE = "exposure_increase"
 CONCERN_EXPOSURE_DECREASE = "exposure_decrease"
 CONCERN_ADDITIVE_PD_EFFECT = "additive_pd_effect"

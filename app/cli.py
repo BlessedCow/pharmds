@@ -15,13 +15,14 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
-from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
-from core.mechanism_pipeline import run_mechanism_pipeline
 from core.mechanism_aggregation_debug import format_aggregate_concerns
 from core.mechanism_arbitration_debug import format_arbitration_results
 from core.mechanism_candidate_debug import format_interaction_candidates
 from core.mechanism_debug import format_mechanism_effects
+from core.mechanism_pipeline import run_mechanism_pipeline
 from core.mechanism_policy_debug import format_policy_results
+from core.mechanism_scoring_debug import format_scored_concerns
+from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from reasoning.rationale import action_rationale, severity_rationale
@@ -435,6 +436,14 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-scored",
+        action="store_true",
+        help=(
+            "Print confidence-scored concern results from policy results "
+            "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--show-aggregates",
         action="store_true",
         help=(
@@ -508,6 +517,7 @@ def main() -> None:
         or args.show_candidates
         or args.show_arbitration
         or args.show_policy
+        or args.show_scored
         or args.show_aggregates
     ):
         pipeline = run_mechanism_pipeline(drug_ids, facts)
@@ -541,7 +551,14 @@ def main() -> None:
                 print(f"- {line}")
 
             return
+        
+        if args.show_scored:
+            print("\nScored Concerns\n")
+            for line in format_scored_concerns(list(pipeline.scored_concerns)):
+                print(f"- {line}")
 
+            return
+    
         if args.show_aggregates:
             print("\nAggregate Concerns\n")
             for line in format_aggregate_concerns(

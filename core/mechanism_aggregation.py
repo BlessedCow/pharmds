@@ -10,7 +10,6 @@ from core.mechanism_policy import (
     ConcernPolicyResult,
 )
 
-
 AGGREGATE_OBJECT_EXPOSURE_INCREASE = "object_exposure_increase_cluster"
 AGGREGATE_OBJECT_EXPOSURE_DECREASE = "object_exposure_decrease_cluster"
 AGGREGATE_SHARED_PD_EFFECT = "shared_pd_effect_cluster"
