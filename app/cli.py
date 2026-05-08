@@ -15,6 +15,8 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.exceptions import UnknownDrugError
+from core.mechanism_arbitration import arbitrate_candidates
+from core.mechanism_arbitration_debug import format_arbitration_results
 from core.mechanism_candidate_debug import format_interaction_candidates
 from core.mechanism_candidates import find_interaction_candidates
 from core.mechanism_debug import format_mechanism_effects
@@ -417,6 +419,14 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-arbitration",
+        action="store_true",
+        help=(
+            "Print arbitration scaffold results from inferred candidates "
+            "and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--top",
         type=int,
         default=0,
@@ -495,7 +505,18 @@ def main() -> None:
             print(f"- {line}")
 
         return
+    
+    if args.show_arbitration:
+        effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
+        candidates = find_interaction_candidates(effects)
+        results = arbitrate_candidates(candidates)
 
+        print("\nArbitration Results\n")
+        for line in format_arbitration_results(results):
+            print(f"- {line}")
+
+        return
+    
     selected = _parse_domain_selection(args.domain)
 
     rules_all = load_rules(RULE_DIR)
