@@ -410,6 +410,62 @@ def render_severity_annotations(severity_annotations):
 
     return "\n".join(lines).rstrip()
 
+def render_severity_comparison(pipeline):
+    """Render comparison between severity annotations and aggregate concerns."""
+    if not pipeline.aggregate_concerns:
+        return "No aggregate concerns."
+
+    lines = []
+
+    annotations_by_key = {
+        (
+            annotation.scored.effect_id,
+            annotation.scored.policy_concern,
+        ): annotation
+        for annotation in pipeline.severity_annotations
+    }
+
+    for aggregate in pipeline.aggregate_concerns:
+        drugs = ", ".join(aggregate.drugs)
+        effect_id = aggregate.effect_id or aggregate.anchor
+
+        lines.append("")
+        lines.append(
+            f"- {aggregate.aggregate_type}: {aggregate.anchor}"
+            f" | policy_concern={aggregate.policy_concern}"
+            f" | drugs={drugs}"
+            f" | effect={effect_id}"
+        )
+
+        effect_ids = [
+            effect.strip()
+            for effect in effect_id.split(",")
+            if effect.strip()
+        ]
+
+        matching_annotations = [
+            annotations_by_key[(effect, aggregate.policy_concern)]
+            for effect in effect_ids
+            if (effect, aggregate.policy_concern) in annotations_by_key
+        ]
+
+        if not matching_annotations:
+            lines.append("  preliminary_severity: none")
+            lines.append("  severity_reason: no matching severity annotation")
+            continue
+
+        severities = sorted(
+            {annotation.preliminary_severity for annotation in matching_annotations}
+        )
+        reasons = sorted(
+            {annotation.severity_reason for annotation in matching_annotations}
+        )
+
+        lines.append("  preliminary_severity: " + ", ".join(severities))
+        lines.append("  severity_reason: " + " | ".join(reasons))
+
+    return "\n".join(lines)
+
 def main() -> None:
     p = argparse.ArgumentParser(
         description="Educational PK/PD interaction reasoner (rule-based)."
@@ -463,6 +519,14 @@ def main() -> None:
         action="store_true",
         help=(
             "Show debug severity annotations from the mechanism pipeline."
+        ),
+    )
+    p.add_argument(
+        "--show-severity-comparison",
+        action="store_true",
+        help=(
+            "Show debug comparison between severity annotations "
+            "and aggregate concern severity."
         ),
     )
     p.add_argument(
@@ -583,6 +647,7 @@ def main() -> None:
         or args.show_aggregates
         or args.show_mechanism_json
         or args.show_severity
+        or args.show_severity_comparison
     ):
         pipeline = run_mechanism_pipeline(drug_ids, facts)
         if args.show_mechanism_json:
@@ -632,7 +697,13 @@ def main() -> None:
             print(render_severity_annotations(pipeline.severity_annotations))
 
             return
-            
+        
+        if args.show_severity_comparison:
+            print("\nSeverity Comparison")
+            print(render_severity_comparison(pipeline))
+
+            return
+         
         if args.show_aggregates:
             print("\nAggregate Concerns\n")
             for line in format_aggregate_concerns(
