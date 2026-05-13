@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pharmds.local/schemas/evidence/evidence_source.schema.json",
+  "title": "Evidence Source",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "title",
+    "source_type",
+    "publisher",
+    "url",
+    "published_at",
+    "accessed_at",
+    "version",
+    "reliability_tier"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "pattern": "^source_[a-z0-9_]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "drug_label",
+        "clinical_guideline",
+        "review_article",
+        "primary_literature",
+        "case_report",
+        "mechanistic_inference",
+        "internal_curated_entry"
+      ]
+    },
+    "publisher": {
+      "type": "string",
+      "minLength": 1
+    },
+    "url": {
+      "type": ["string", "null"]
+    },
+    "published_at": {
+      "type": ["string", "null"]
+    },
+    "accessed_at": {
+      "type": ["string", "null"]
+    },
+    "version": {
+      "type": ["string", "null"]
+    },
+    "reliability_tier": {
+      "type": "string",
+      "enum": [
+        "authoritative",
+        "high",
+        "moderate",
+        "low",
+        "curated"
+      ]
+    }
+  }
+}

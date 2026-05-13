@@ -1,0 +1,56 @@
+[
+  {
+    "claim_id": "claim_clarithromycin_pd_effect_nausea_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "clarithromycin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "nausea"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_fluconazole_pd_effect_nausea_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "fluconazole"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "nausea"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  }
+]

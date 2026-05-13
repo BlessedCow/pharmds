@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pharmds.local/schemas/evidence/evidence_claim.schema.json",
+  "title": "Evidence Claim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "claim_type",
+    "subject",
+    "predicate",
+    "object",
+    "evidence",
+    "review",
+    "claim_status"
+  ],
+  "properties": {
+    "claim_id": {
+      "type": "string",
+      "pattern": "^claim_[a-z0-9_]+_[0-9]{3}$"
+    },
+    "claim_type": {
+      "type": "string",
+      "enum": [
+        "pd_effect"
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity_type",
+        "id"
+      ],
+      "properties": {
+        "entity_type": {
+          "type": "string",
+          "enum": [
+            "drug"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "predicate": {
+      "type": "string",
+      "enum": [
+        "has_pd_effect"
+      ]
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "effect_id"
+      ],
+      "properties": {
+        "effect_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "evidence_type",
+          "supports_claim",
+          "confidence",
+          "notes"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "pattern": "^source_[a-z0-9_]+$"
+          },
+          "evidence_type": {
+            "type": "string",
+            "enum": [
+              "drug_label",
+              "clinical_guideline",
+              "review_article",
+              "primary_literature",
+              "case_report",
+              "mechanistic_inference",
+              "internal_curated_entry"
+            ]
+          },
+          "supports_claim": {
+            "type": "boolean"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "high",
+              "moderate",
+              "low",
+              "uncertain"
+            ]
+          },
+          "notes": {
+            "type": ["string", "null"]
+          }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_by",
+        "reviewed_at"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "submitted",
+            "needs_changes",
+            "approved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewed_by": {
+          "type": ["string", "null"]
+        },
+        "reviewed_at": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "claim_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "deprecated",
+        "superseded",
+        "conflicting",
+        "under_review"
+      ]
+    }
+  }
+}
