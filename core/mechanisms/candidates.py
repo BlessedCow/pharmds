@@ -1,7 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any
 
+from core.evidence.pd_interaction_traces import (
+    build_additive_pd_effect_evidence_trace,
+)
 from core.mechanisms.effects import MechanismEffect
 from core.mechanisms.registry import (
     MECHANISM_ENZYME_INDUCTION,
@@ -45,6 +49,7 @@ class InteractionCandidate:
     mechanism: str | None = None
     object_mechanism: str | None = None
     explanation: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
     def key(self) -> tuple[str, str, str, str | None, str | None]:
@@ -243,6 +248,12 @@ def _find_shared_pd_effect_candidates(
                         f"{first} and {second} both contribute to "
                         f"{left.effect_id}."
                     ),
+                    metadata={
+                        "evidence_trace": build_additive_pd_effect_evidence_trace(
+                            drug_ids=[first, second],
+                            effect_id=left.effect_id,
+                        )
+                    },
                 )
             )
 
