@@ -4869,6 +4869,431 @@
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
       }
+    },
+    {
+      "id": "turmeric",
+      "generic_name": "turmeric",
+      "drug_class": "herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["curcuma longa", "curcumin"],
+      "notes": "Herbal supplement containing curcuminoids with anti-inflammatory and antioxidant properties. Curcumin may inhibit multiple CYP enzymes and P-gp in vitro, though clinical interaction magnitude is variable.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor"
+        },
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "p-gp",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Possible antiplatelet effects may increase bleeding risk with anticoagulants or antiplatelet agents."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "GI upset and nausea may occur at higher doses."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "ginkgo_biloba",
+      "generic_name": "ginkgo biloba",
+      "drug_class": "herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["ginkgo"],
+      "notes": "Herbal supplement used for cognitive and circulatory support. Contains flavonoids and terpene lactones with potential platelet and CYP effects.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inducer"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inducer"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "Antiplatelet activity may increase bleeding risk, especially with anticoagulants or antiplatelets."
+        },
+        {
+          "effect_id": "seizure_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Ginkgotoxin content may lower seizure threshold in susceptible individuals."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "GI adverse effects may occur."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "milk_thistle",
+      "generic_name": "milk thistle",
+      "drug_class": "herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["silymarin", "silybum marianum"],
+      "notes": "Herbal supplement commonly used for hepatoprotective purposes. Silymarin components may inhibit CYP3A4 and P-gp activity.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "p-gp",
+          "role": "inhibitor"
+        },
+        {
+          "transporter_id": "oatp1b1",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "GI upset may occur."
+        },
+        {
+          "effect_id": "hypersensitivity_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Allergic reactions may occur, especially in individuals sensitive to Asteraceae plants."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "rhodiola_rosea",
+      "generic_name": "rhodiola rosea",
+      "drug_class": "adaptogenic herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["rhodiola", "golden root", "arctic root"],
+      "notes": "Adaptogenic herbal supplement with possible monoaminergic and stimulating effects. Limited evidence suggests CYP modulation potential.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Mild stimulating and activating effects may occur."
+        },
+        {
+          "effect_id": "insomnia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "May interfere with sleep in some individuals."
+        },
+        {
+          "effect_id": "mania_activation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Possible mood activation in susceptible individuals."
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Possible mild monoaminergic and serotonergic activity."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "holy_basil",
+      "generic_name": "holy basil",
+      "drug_class": "herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["tulsi", "ocimum sanctum", "ocimum tenuiflorum"],
+      "notes": "Adaptogenic herbal supplement traditionally used for stress and metabolic support. May have mild antiplatelet and sedative effects.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Mild calming or sedative properties may occur."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Possible antiplatelet activity may contribute to bleeding risk."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "GI adverse effects are possible."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "aloe_vera",
+      "generic_name": "aloe vera",
+      "drug_class": "herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["aloe"],
+      "notes": "Botanical supplement used topically and orally. Oral aloe latex has stimulant laxative properties and may affect electrolyte balance.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "hypokalemia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "Chronic stimulant laxative effects may contribute to potassium loss."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "GI cramping, diarrhea, and nausea may occur."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      }
+    },
+    {
+      "id": "lions_mane_mushroom",
+      "generic_name": "lion's mane mushroom",
+      "drug_class": "medicinal mushroom supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["hericium erinaceus", "lion's mane"],
+      "notes": "Medicinal mushroom supplement investigated for neurocognitive and neurotrophic effects. Clinically significant CYP interactions are not well established.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "cholinergic_modulation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Possible neurotrophic and cholinergic modulation effects."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "GI upset may occur."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "cordyceps",
+      "generic_name": "cordyceps",
+      "drug_class": "medicinal mushroom supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["cordyceps sinensis", "cordyceps militaris"],
+      "notes": "Medicinal mushroom supplement used for energy and endurance support. Limited evidence suggests possible immunologic and platelet effects.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Possible mild antiplatelet effects."
+        },
+        {
+          "effect_id": "activation_agitation_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "May produce mild stimulating effects."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "GI adverse effects may occur."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "motherwort",
+      "generic_name": "motherwort",
+      "drug_class": "herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["leonurus cardiaca"],
+      "notes": "Traditional herbal supplement used for anxiety and cardiovascular symptoms. Limited clinical interaction data available.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "May have mild sedative or anxiolytic effects."
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Possible mild hypotensive effects."
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Potential antiplatelet activity may increase bleeding risk."
+        },
+        {
+          "effect_id": "nausea",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "GI upset may occur."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
+    },
+    {
+      "id": "ashwagandha",
+      "generic_name": "ashwagandha",
+      "drug_class": "adaptogenic herbal supplement",
+      "therapeutic_index": "moderate",
+      "aliases": ["withania somnifera", "indian ginseng"],
+      "notes": "Adaptogenic herbal supplement with anxiolytic and sedative properties. May have GABAergic and thyroid-modulating effects.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "May enhance sedative or CNS depressant effects."
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Possible additive CNS depressant effects."
+        },
+        {
+          "effect_id": "hypersensitivity_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Rare allergic or hypersensitivity reactions reported."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      }
     }
   ]
 }
