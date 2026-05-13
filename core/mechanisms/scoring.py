@@ -8,7 +8,8 @@ It intentionally does not assign final clinical severity or recommendations.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any
 
 from core.mechanisms.aggregation import AggregateConcern
 from core.mechanisms.candidates import (
@@ -52,6 +53,7 @@ class ScoredConcern:
     related_targets: tuple[str, ...] = ()
     related_effects: tuple[str, ...] = ()
     explanation: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
     def key(self) -> tuple[str, str, str, str | None, str | None]:
@@ -100,6 +102,7 @@ def policy_result_to_scored_concern(
         related_targets=aggregate_context["targets"],
         related_effects=aggregate_context["effects"],
         explanation=result.explanation,
+        metadata=result.metadata,
     )
 
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any
 
 from core.mechanisms.arbitration import (
     CONCERN_ADDITIVE_PD_EFFECT,
@@ -64,6 +65,7 @@ class ConcernPolicyResult:
     confidence: str = "unscored"
     severity: str = "unscored"
     explanation: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
     def key(self) -> tuple[str, str, str, str | None, str | None]:
@@ -104,6 +106,7 @@ def arbitration_result_to_policy_result(
         confidence=result.confidence,
         severity=result.severity,
         explanation=result.explanation,
+        metadata=result.metadata,
     )
 
 

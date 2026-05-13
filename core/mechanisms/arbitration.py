@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any
 
 from core.mechanisms.candidates import (
     CANDIDATE_ENZYME_INDUCTION,
@@ -36,6 +37,7 @@ class ArbitrationResult:
         confidence: Placeholder for future evidence/confidence scoring.
         severity: Placeholder for future severity synthesis.
         explanation: Human-readable explanation inherited from the candidate.
+         metadata: Optional structured data inherited from the candidate.
     """
 
     candidate_type: str
@@ -47,6 +49,7 @@ class ArbitrationResult:
     confidence: str = CONFIDENCE_PLACEHOLDER
     severity: str = SEVERITY_PLACEHOLDER
     explanation: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
     def key(self) -> tuple[str, str, str, str | None, str | None]:
@@ -84,6 +87,7 @@ def candidate_to_arbitration_result(
         target=candidate.target,
         effect_id=candidate.effect_id,
         explanation=candidate.explanation,
+        metadata=candidate.metadata,
     )
 
 
