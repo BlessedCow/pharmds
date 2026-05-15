@@ -52,5 +52,113 @@
       "reviewed_at": null
     },
     "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_alprazolam_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "alprazolam"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_clonazepam_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "clonazepam"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_alprazolam_pd_effect_cns_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "alprazolam"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_clonazepam_pd_effect_cns_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "clonazepam"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
   }
 ]

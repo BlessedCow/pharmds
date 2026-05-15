@@ -109,3 +109,47 @@ def test_build_additive_pd_effect_evidence_traces_returns_one_trace_per_effect()
 
     assert traces_by_effect["nausea"]["overall_evidence_status"] == "complete"
     assert traces_by_effect["sedation"]["overall_evidence_status"] == "missing"
+    
+def test_build_additive_pd_effect_evidence_trace_returns_complete_for_sedation():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["alprazolam", "clonazepam"],
+        "sedation",
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    statuses = {
+        item["drug_id"]: item["evidence_status"]
+        for item in trace["drugs"]
+    }
+
+    assert statuses == {
+        "alprazolam": "present",
+        "clonazepam": "present",
+    }
+    
+def test_build_additive_pd_effect_evidence_trace_returns_complete_for_cns_depression():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["alprazolam", "clonazepam"],
+        "CNS_depression",
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    claim_ids_by_drug = {
+        item["drug_id"]: {
+            claim["claim_id"]
+            for claim in item["claims"]
+        }
+        for item in trace["drugs"]
+    }
+
+    assert (
+        "claim_alprazolam_pd_effect_cns_depression_001"
+        in claim_ids_by_drug["alprazolam"]
+    )
+    assert (
+        "claim_clonazepam_pd_effect_cns_depression_001"
+        in claim_ids_by_drug["clonazepam"]
+    )
+    

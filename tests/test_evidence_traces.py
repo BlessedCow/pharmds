@@ -141,3 +141,20 @@ def test_has_approved_active_pd_effect_evidence_returns_false_for_missing_claim(
     )
 
     assert result is False
+    
+def test_build_pd_effect_traces_for_drug_returns_expanded_pd_claims():
+    traces = build_pd_effect_traces_for_drug("alprazolam")
+
+    claim_ids = {trace["claim_id"] for trace in traces}
+
+    assert "claim_alprazolam_pd_effect_sedation_001" in claim_ids
+    assert "claim_alprazolam_pd_effect_cns_depression_001" in claim_ids
+    
+def test_has_approved_active_pd_effect_evidence_returns_true_for_expanded_claim():
+    result = has_approved_active_pd_effect_evidence(
+        "clonazepam",
+        "sedation",
+    )
+
+    assert result is True
+    

@@ -112,3 +112,23 @@ def test_get_approved_active_pd_effect_claims_for_drug_effect_returns_match():
 
     assert len(claims) == 1
     assert claims[0]["claim_id"] == "claim_fluconazole_pd_effect_nausea_001"
+    
+def test_get_pd_effect_claims_for_effect_returns_sedation_claims():
+    claims = get_pd_effect_claims_for_effect("sedation")
+
+    claim_ids = {claim["claim_id"] for claim in claims}
+
+    assert "claim_alprazolam_pd_effect_sedation_001" in claim_ids
+    assert "claim_clonazepam_pd_effect_sedation_001" in claim_ids
+    
+def test_get_approved_active_pd_effect_claims_for_drug_effect_returns_cns_match():
+    claims = get_approved_active_pd_effect_claims_for_drug_effect(
+        "alprazolam",
+        "CNS_depression",
+    )
+
+    assert len(claims) == 1
+    assert (
+        claims[0]["claim_id"]
+        == "claim_alprazolam_pd_effect_cns_depression_001"
+    )
