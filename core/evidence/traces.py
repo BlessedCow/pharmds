@@ -20,6 +20,9 @@ def build_source_trace(source_id: str) -> dict[str, Any]:
             "source_type": None,
             "publisher": None,
             "url": None,
+            "published_at": None,
+            "accessed_at": None,
+            "version": None,
             "reliability_tier": None,
         }
 
@@ -30,6 +33,9 @@ def build_source_trace(source_id: str) -> dict[str, Any]:
         "source_type": source["source_type"],
         "publisher": source["publisher"],
         "url": source["url"],
+        "published_at": source.get("published_at"),
+        "accessed_at": source.get("accessed_at"),
+        "version": source.get("version"),
         "reliability_tier": source["reliability_tier"],
     }
 

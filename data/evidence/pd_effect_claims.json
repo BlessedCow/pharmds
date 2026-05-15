@@ -1961,6 +1961,13 @@
         "supports_claim": true,
         "confidence": "moderate",
         "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_clarithromycin_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Selected real source record attached to demonstrate authoritative source support."
       }
     ],
     "review": {
@@ -1988,6 +1995,13 @@
         "supports_claim": true,
         "confidence": "moderate",
         "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_clarithromycin_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Selected real source record attached to demonstrate authoritative source support."
       }
     ],
     "review": {
@@ -4148,6 +4162,13 @@
         "supports_claim": true,
         "confidence": "moderate",
         "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_fluconazole_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Selected real source record attached to demonstrate authoritative source support."
       }
     ],
     "review": {
@@ -4175,6 +4196,13 @@
         "supports_claim": true,
         "confidence": "moderate",
         "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_fluconazole_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Selected real source record attached to demonstrate authoritative source support."
       }
     ],
     "review": {

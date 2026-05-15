@@ -9,7 +9,27 @@
     "accessed_at": null,
     "version": "1.0",
     "reliability_tier": "curated"
+  },
+  {
+    "source_id": "source_dailymed_clarithromycin_label",
+    "title": "Clarithromycin Prescribing Information",
+    "source_type": "drug_label",
+    "publisher": "DailyMed",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=clarithromycin",
+    "published_at": null,
+    "accessed_at": "2026-05-15",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_dailymed_fluconazole_label",
+    "title": "Fluconazole Prescribing Information",
+    "source_type": "drug_label",
+    "publisher": "DailyMed",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=fluconazole",
+    "published_at": null,
+    "accessed_at": "2026-05-15",
+    "version": null,
+    "reliability_tier": "authoritative"
   }
 ]
-
-

@@ -122,7 +122,27 @@ def test_format_claim_trace_handles_claim_without_evidence():
         "example_drug -> nausea: pd_effect; "
         "claim_status=active; review_status=approved; evidence=none"
     )
+    
+    
+def test_format_source_trace_includes_accessed_at_when_present():
+    source = {
+        "source_id": "source_dailymed_fluconazole_label",
+        "found": True,
+        "title": "Fluconazole Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://example.com/fluconazole",
+        "published_at": None,
+        "accessed_at": "2026-05-15",
+        "version": None,
+        "reliability_tier": "authoritative",
+    }
 
+    assert format_source_trace(source) == (
+        "Fluconazole Prescribing Information "
+        "(DailyMed, authoritative; accessed 2026-05-15)"
+    )
+    
 
 def test_format_evidence_trace_returns_readable_lines():
     trace = {

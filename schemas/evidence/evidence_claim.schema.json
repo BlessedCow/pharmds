@@ -17,7 +17,7 @@
   "properties": {
     "claim_id": {
       "type": "string",
-      "pattern": "^claim_[a-z0-9_]+_[0-9]{3}$"
+      "pattern": "^claim_[A-Za-z0-9_]+_[0-9]{3}$"
     },
     "claim_type": {
       "type": "string",

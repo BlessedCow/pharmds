@@ -70,6 +70,28 @@ def test_get_source_by_id_returns_matching_source():
     assert source is not None
     assert source["title"] == "Internal curated pharmacodynamic effects dataset"
 
+def test_load_sources_includes_real_drug_label_sources():
+    sources = load_sources()
+
+    source_ids = {
+        source["source_id"]
+        for source in sources
+    }
+
+    assert "source_dailymed_clarithromycin_label" in source_ids
+    assert "source_dailymed_fluconazole_label" in source_ids
+
+
+def test_get_source_by_id_returns_real_drug_label_source():
+    source = get_source_by_id("source_dailymed_fluconazole_label")
+
+    assert source is not None
+    assert source["title"] == "Fluconazole Prescribing Information"
+    assert source["source_type"] == "drug_label"
+    assert source["publisher"] == "DailyMed"
+    assert source["reliability_tier"] == "authoritative"
+    assert source["accessed_at"] == "2026-05-15"
+    
 
 def test_get_source_by_id_returns_none_for_unknown_source():
     source = get_source_by_id("source_missing")
@@ -357,3 +379,19 @@ def test_pd_effect_claim_ids_match_canonical_pattern():
 
         assert claim["claim_id"] == expected_claim_id
         
+def test_selected_pd_effect_claims_include_real_source_evidence():
+    claims = get_approved_active_pd_effect_claims_for_drug_effect(
+        "fluconazole",
+        "QT_prolongation",
+    )
+
+    assert len(claims) == 1
+
+    source_ids = {
+        evidence["source_id"]
+        for evidence in claims[0]["evidence"]
+    }
+
+    assert "source_internal_curated_pd_effects_v1" in source_ids
+    assert "source_dailymed_fluconazole_label" in source_ids
+    

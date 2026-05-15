@@ -25,6 +25,13 @@ def format_source_trace(source: dict[str, Any]) -> str:
     title = _display_value(source.get("title"), "Unknown source")
     publisher = _display_value(source.get("publisher"))
     reliability_tier = _display_value(source.get("reliability_tier"))
+    accessed_at = source.get("accessed_at")
+
+    if accessed_at:
+        return (
+            f"{title} ({publisher}, {reliability_tier}; "
+            f"accessed {accessed_at})"
+        )
 
     return f"{title} ({publisher}, {reliability_tier})"
 

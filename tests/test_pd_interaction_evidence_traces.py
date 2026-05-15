@@ -358,3 +358,28 @@ def test_build_additive_pd_effect_evidence_trace_returns_complete_for_expanded_b
     for drug_id, expected_claim_ids in expected_claim_ids_by_drug.items():
         assert expected_claim_ids <= claim_ids_by_drug[drug_id]
         
+def test_additive_pd_effect_trace_includes_real_source_records():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["clarithromycin", "fluconazole"],
+        "QT_prolongation",
+    )
+
+    source_ids_by_drug = {
+        item["drug_id"]: {
+            evidence["source"]["source_id"]
+            for claim in item["claims"]
+            for evidence in claim["evidence"]
+        }
+        for item in trace["drugs"]
+    }
+
+    assert (
+        "source_dailymed_clarithromycin_label"
+        in source_ids_by_drug["clarithromycin"]
+    )
+    assert (
+        "source_dailymed_fluconazole_label"
+        in source_ids_by_drug["fluconazole"]
+    )
+    
+    

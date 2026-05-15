@@ -38,9 +38,31 @@ def test_build_source_trace_returns_source_metadata():
         "source_type": "internal_curated_entry",
         "publisher": "PharmDS",
         "url": None,
+        "published_at": None,
+        "accessed_at": None,
+        "version": "1.0",
         "reliability_tier": "curated",
     }
 
+def test_build_source_trace_returns_real_drug_label_source():
+    trace = build_source_trace("source_dailymed_clarithromycin_label")
+
+    assert trace == {
+        "source_id": "source_dailymed_clarithromycin_label",
+        "found": True,
+        "title": "Clarithromycin Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": (
+            "https://dailymed.nlm.nih.gov/dailymed/search.cfm?"
+            "query=clarithromycin"
+        ),
+        "published_at": None,
+        "accessed_at": "2026-05-15",
+        "version": None,
+        "reliability_tier": "authoritative",
+    }
+    
 
 def test_build_source_trace_handles_missing_source():
     trace = build_source_trace("source_missing")
@@ -52,6 +74,9 @@ def test_build_source_trace_handles_missing_source():
         "source_type": None,
         "publisher": None,
         "url": None,
+        "published_at": None,
+        "accessed_at": None,
+        "version": None,
         "reliability_tier": None,
     }
 
@@ -317,3 +342,22 @@ def test_all_curated_pd_effects_have_approved_active_evidence_traces():
 
         assert result is True
         
+def test_selected_pd_effect_trace_includes_real_source_trace():
+    traces = build_pd_effect_traces_for_drug_effect(
+        "clarithromycin",
+        "QT_prolongation",
+    )
+
+    assert len(traces) == 1
+
+    evidence_items = traces[0]["evidence"]
+
+    source_ids = {
+        evidence["source"]["source_id"]
+        for evidence in evidence_items
+    }
+
+    assert "source_internal_curated_pd_effects_v1" in source_ids
+    assert "source_dailymed_clarithromycin_label" in source_ids
+    
+

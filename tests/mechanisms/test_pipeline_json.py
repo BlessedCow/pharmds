@@ -168,6 +168,9 @@ def test_mechanism_pipeline_to_json_dict_includes_evidence_trace_metadata():
         "source_type": "internal_curated_entry",
         "publisher": "PharmDS",
         "url": None,
+        "published_at": None,
+        "accessed_at": None,
+        "version": "1.0",
         "reliability_tier": "curated",
     }
 
