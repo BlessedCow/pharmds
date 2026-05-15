@@ -14,6 +14,9 @@ from rich.panel import Panel
 from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
+from core.evidence.human_rendering import (
+    build_human_evidence_lines_for_rule_hit,
+)
 from core.exceptions import UnknownDrugError
 from core.mechanisms import (
     mechanism_pipeline_to_json_dict,
@@ -518,6 +521,14 @@ def main() -> None:
         help=("In rich mode, print full per-pair details after the summary."),
     )
     p.add_argument(
+        "--show-evidence",
+        action="store_true",
+        help=(
+            "Show compact human-facing evidence summaries in normal "
+            "plain output and rich details."
+        ),
+    )
+    p.add_argument(
         "--show-mechanism-json",
         action="store_true",
         help=(
@@ -841,8 +852,12 @@ def main() -> None:
             pair_reports[: args.top] if args.top and args.top > 0 else pair_reports
         )
         if args.details:
-            render_rich_details(facts, detail_reports, templates)
-
+           render_rich_details(
+                facts,
+                detail_reports,
+                templates,
+                show_evidence=args.show_evidence,
+            )
         return
 
     # PLAIN MODE
@@ -930,6 +945,16 @@ def main() -> None:
                     print("  Suggested actions:")
                     for a in h.actions:
                         print(f"   - {a}")
+
+                if args.show_evidence:
+                    evidence_lines = build_human_evidence_lines_for_rule_hit(
+                        facts,
+                        h,
+                    )
+                    if evidence_lines:
+                        print("  Evidence:")
+                        for line in evidence_lines:
+                            print(f"   {line}")
 
                 print()
 

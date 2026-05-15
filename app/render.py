@@ -11,6 +11,9 @@ from rich.text import Text
 
 from core.constants import TRANSPORTER_PGP
 from core.enums import Domain
+from core.evidence.human_rendering import (
+    build_human_evidence_lines_for_rule_hit,
+)
 from core.models import RuleHit
 from reasoning.explain import render_explanation, render_rationale
 from reasoning.rationale import action_rationale, severity_rationale
@@ -75,6 +78,9 @@ _CLASS_STYLE = {
 }
 
 _EFFECT_TOKEN_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_]+\b")
+_LABEL_PREFIX_RE = re.compile(
+    r"(?m)^(\s*(?:-\s*)?)([A-Za-z][A-Za-z0-9_ /()|-]*:)"
+)
 
 def _table_style(sev: str, cls: str) -> str:
     sev = (sev or "").lower()
@@ -194,6 +200,22 @@ def colorize_effect_tokens(s: str) -> Text:
         out.append(s[pos:])
     return out
 
+def bold_label_prefixes(text: Text) -> Text:
+    """
+    Bold human-facing label prefixes in rich detail output.
+
+    Examples:
+    - "Rationale:"
+    - "Severity rationale:"
+    - "PD effects (by drug):"
+    - "- alprazolam:"
+    """
+    for match in _LABEL_PREFIX_RE.finditer(text.plain):
+        start = match.start(2)
+        end = match.end(2)
+        text.stylize("bold", start, end)
+
+    return text
 
 @dataclass(frozen=True)
 class SummaryRow:
@@ -317,6 +339,8 @@ def render_rich_details(
     facts: Any,
     reports: Iterable[Any],
     templates: dict[str, str],
+    *,
+    show_evidence: bool = False,
 ) -> None:
     """
     Rich details renderer used by `--format rich --details`.
@@ -431,10 +455,22 @@ def render_rich_details(
                     for a in h.actions:
                         body.append(f"   - {a}\n")
 
+                if show_evidence:
+                    evidence_lines = build_human_evidence_lines_for_rule_hit(
+                        facts,
+                        h,
+                    )
+                    if evidence_lines:
+                        body.append("  Evidence:\n")
+                        for line in evidence_lines:
+                            body.append(f"   {line}\n")
+
                 body.append("\n")
 
         if not body.plain.strip():
             body = Text("(No details.)", style="dim")
+        else:
+            body = bold_label_prefixes(body)
 
         console.print(
             Panel(

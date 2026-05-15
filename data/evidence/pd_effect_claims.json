@@ -22,9 +22,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alcohol_pd_effect_CNS_depression_001",
@@ -49,9 +54,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alcohol_pd_effect_respiratory_depression_001",
@@ -76,9 +86,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alcohol_pd_effect_sedation_001",
@@ -103,9 +118,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alcohol_pd_effect_withdrawal_risk_001",
@@ -130,9 +150,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_aloe_vera_pd_effect_hypokalemia_risk_001",
@@ -157,9 +182,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_aloe_vera_pd_effect_nausea_001",
@@ -184,9 +214,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alprazolam_pd_effect_CNS_depression_001",
@@ -211,9 +246,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alprazolam_pd_effect_respiratory_depression_001",
@@ -238,9 +278,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alprazolam_pd_effect_sedation_001",
@@ -265,9 +310,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_alprazolam_pd_effect_withdrawal_risk_001",
@@ -292,9 +342,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_CNS_depression_001",
@@ -319,9 +374,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_H1_antagonism_001",
@@ -346,9 +406,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_QT_prolongation_001",
@@ -373,9 +438,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_alpha1_antagonism_001",
@@ -400,9 +470,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_anticholinergic_effects_001",
@@ -427,9 +502,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_noradrenergic_effects_001",
@@ -454,9 +534,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_orthostatic_hypotension_001",
@@ -481,9 +566,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_sedation_001",
@@ -508,9 +598,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_seizure_threshold_001",
@@ -535,9 +630,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_serotonergic_001",
@@ -562,9 +662,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_serotonin_syndrome_001",
@@ -589,9 +694,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amitriptyline_pd_effect_withdrawal_risk_001",
@@ -616,9 +726,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_CNS_stimulation_001",
@@ -643,9 +758,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_hypertension_001",
@@ -670,9 +790,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_noradrenergic_effects_001",
@@ -697,9 +822,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_seizure_threshold_001",
@@ -724,9 +854,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_sympathetic_stimulation_001",
@@ -751,9 +886,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_tachycardia_001",
@@ -778,9 +918,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_aripiprazole_pd_effect_CNS_depression_001",
@@ -805,9 +950,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_aripiprazole_pd_effect_alpha1_antagonism_001",
@@ -832,9 +982,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ashwagandha_pd_effect_CNS_depression_001",
@@ -859,9 +1014,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ashwagandha_pd_effect_hypersensitivity_risk_001",
@@ -886,9 +1046,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ashwagandha_pd_effect_sedation_001",
@@ -913,9 +1078,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_atomoxetine_pd_effect_activation_agitation_risk_001",
@@ -940,9 +1110,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_atomoxetine_pd_effect_blood_pressure_increase_001",
@@ -967,9 +1142,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_atomoxetine_pd_effect_hypertension_risk_001",
@@ -994,9 +1174,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_atomoxetine_pd_effect_insomnia_risk_001",
@@ -1021,9 +1206,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_atomoxetine_pd_effect_mania_activation_risk_001",
@@ -1048,9 +1238,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_atomoxetine_pd_effect_noradrenergic_effects_001",
@@ -1075,9 +1270,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_atomoxetine_pd_effect_tachycardia_risk_001",
@@ -1102,9 +1302,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_brexpiprazole_pd_effect_CNS_depression_001",
@@ -1129,9 +1334,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_brexpiprazole_pd_effect_D2_blockade_001",
@@ -1156,9 +1366,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_brexpiprazole_pd_effect_EPS_risk_001",
@@ -1183,9 +1398,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_buprenorphine_pd_effect_CNS_depression_001",
@@ -1210,9 +1430,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_buprenorphine_pd_effect_QT_prolongation_001",
@@ -1237,9 +1462,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_buprenorphine_pd_effect_respiratory_depression_001",
@@ -1264,9 +1494,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_buprenorphine_pd_effect_sedation_001",
@@ -1291,9 +1526,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_buprenorphine_pd_effect_withdrawal_risk_001",
@@ -1318,9 +1558,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_bupropion_pd_effect_cholinergic_modulation_001",
@@ -1345,9 +1590,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_bupropion_pd_effect_nAChR_antagonism_001",
@@ -1372,9 +1622,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_bupropion_pd_effect_noradrenergic_effects_001",
@@ -1399,9 +1654,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_bupropion_pd_effect_seizure_risk_001",
@@ -1426,9 +1686,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_bupropion_pd_effect_seizure_threshold_001",
@@ -1453,9 +1718,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_buspirone_pd_effect_CNS_depression_001",
@@ -1480,9 +1750,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_buspirone_pd_effect_serotonergic_001",
@@ -1507,9 +1782,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cannabis_pd_effect_CNS_depression_001",
@@ -1534,9 +1814,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cannabis_pd_effect_hypertension_001",
@@ -1561,9 +1846,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cannabis_pd_effect_sedation_001",
@@ -1588,9 +1878,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cannabis_pd_effect_tachycardia_001",
@@ -1615,9 +1910,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cannabis_pd_effect_withdrawal_risk_001",
@@ -1642,9 +1942,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_carbamazepine_pd_effect_CNS_depression_001",
@@ -1669,9 +1974,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cariprazine_pd_effect_CNS_depression_001",
@@ -1696,9 +2006,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cariprazine_pd_effect_QT_prolongation_001",
@@ -1723,9 +2038,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cariprazine_pd_effect_orthostatic_hypotension_001",
@@ -1750,9 +2070,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cariprazine_pd_effect_sedation_001",
@@ -1777,9 +2102,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cariprazine_pd_effect_seizure_threshold_001",
@@ -1804,9 +2134,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_citalopram_pd_effect_QT_prolongation_001",
@@ -1831,9 +2166,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_citalopram_pd_effect_bleeding_001",
@@ -1858,9 +2198,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_citalopram_pd_effect_serotonergic_001",
@@ -1885,9 +2230,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_citalopram_pd_effect_serotonin_syndrome_001",
@@ -1912,9 +2262,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_citalopram_pd_effect_withdrawal_risk_001",
@@ -1939,9 +2294,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clarithromycin_pd_effect_QT_prolongation_001",
@@ -1973,9 +2333,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clarithromycin_pd_effect_nausea_001",
@@ -2007,9 +2372,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonazepam_pd_effect_CNS_depression_001",
@@ -2034,9 +2404,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonazepam_pd_effect_respiratory_depression_001",
@@ -2061,9 +2436,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonazepam_pd_effect_sedation_001",
@@ -2088,9 +2468,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonidine_pd_effect_CNS_depression_001",
@@ -2115,9 +2500,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonidine_pd_effect_activation_agitation_risk_001",
@@ -2142,9 +2532,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonidine_pd_effect_bradycardia_001",
@@ -2169,9 +2564,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonidine_pd_effect_insomnia_risk_001",
@@ -2196,9 +2596,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonidine_pd_effect_orthostatic_hypotension_001",
@@ -2223,9 +2628,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonidine_pd_effect_renal_function_001",
@@ -2250,9 +2660,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clonidine_pd_effect_sedation_001",
@@ -2277,9 +2692,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clopidogrel_pd_effect_bleeding_001",
@@ -2304,9 +2724,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_CNS_depression_001",
@@ -2331,9 +2756,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_D2_blockade_001",
@@ -2358,9 +2788,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_H1_antagonism_001",
@@ -2385,9 +2820,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_anticholinergic_effects_001",
@@ -2412,9 +2852,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_constipation_risk_001",
@@ -2439,9 +2884,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_orthostatic_hypotension_001",
@@ -2466,9 +2916,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_seizure_risk_001",
@@ -2493,9 +2948,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_clozapine_pd_effect_tachycardia_risk_001",
@@ -2520,9 +2980,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cocaine_pd_effect_CNS_stimulation_001",
@@ -2547,9 +3012,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cocaine_pd_effect_hypertension_001",
@@ -2574,9 +3044,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cocaine_pd_effect_seizure_risk_001",
@@ -2601,9 +3076,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cocaine_pd_effect_seizure_threshold_001",
@@ -2628,9 +3108,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cocaine_pd_effect_sympathetic_stimulation_001",
@@ -2655,9 +3140,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cocaine_pd_effect_tachycardia_001",
@@ -2682,9 +3172,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cordyceps_pd_effect_activation_agitation_risk_001",
@@ -2709,9 +3204,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cordyceps_pd_effect_bleeding_001",
@@ -2736,9 +3236,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_cordyceps_pd_effect_nausea_001",
@@ -2763,9 +3268,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_desvenlafaxine_pd_effect_bleeding_001",
@@ -2790,9 +3300,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_desvenlafaxine_pd_effect_noradrenergic_effects_001",
@@ -2817,9 +3332,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_desvenlafaxine_pd_effect_serotonin_syndrome_001",
@@ -2844,9 +3364,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_desvenlafaxine_pd_effect_withdrawal_risk_001",
@@ -2871,9 +3396,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_dexmethylphenidate_pd_effect_activation_agitation_risk_001",
@@ -2898,9 +3428,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_dexmethylphenidate_pd_effect_blood_pressure_increase_001",
@@ -2925,9 +3460,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_dexmethylphenidate_pd_effect_hypertension_risk_001",
@@ -2952,9 +3492,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_dexmethylphenidate_pd_effect_insomnia_risk_001",
@@ -2979,9 +3524,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_dexmethylphenidate_pd_effect_mania_activation_risk_001",
@@ -3006,9 +3556,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_dexmethylphenidate_pd_effect_sympathomimetic_activity_001",
@@ -3033,9 +3588,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_dexmethylphenidate_pd_effect_tachycardia_risk_001",
@@ -3060,9 +3620,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_diazepam_pd_effect_CNS_depression_001",
@@ -3087,9 +3652,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_diazepam_pd_effect_respiratory_depression_001",
@@ -3114,9 +3684,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_digoxin_pd_effect_bradycardia_001",
@@ -3141,9 +3716,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_disulfiram_pd_effect_CNS_depression_001",
@@ -3168,9 +3748,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_disulfiram_pd_effect_neurotoxicity_risk_001",
@@ -3195,9 +3780,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_divalproex_sodium_pd_effect_CNS_depression_001",
@@ -3222,9 +3812,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_divalproex_sodium_pd_effect_neurotoxicity_risk_001",
@@ -3249,9 +3844,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_divalproex_sodium_pd_effect_sedation_001",
@@ -3276,9 +3876,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_CNS_depression_001",
@@ -3303,9 +3908,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_H1_antagonism_001",
@@ -3330,9 +3940,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_QT_prolongation_001",
@@ -3357,9 +3972,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_anticholinergic_effects_001",
@@ -3384,9 +4004,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_noradrenergic_effects_001",
@@ -3411,9 +4036,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_orthostatic_hypotension_001",
@@ -3438,9 +4068,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_sedation_001",
@@ -3465,9 +4100,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_seizure_threshold_001",
@@ -3492,9 +4132,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_serotonergic_001",
@@ -3519,9 +4164,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_serotonin_syndrome_001",
@@ -3546,9 +4196,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxepin_pd_effect_withdrawal_risk_001",
@@ -3573,9 +4228,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxycycline_pd_effect_intracranial_hypertension_risk_001",
@@ -3600,9 +4260,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_doxycycline_pd_effect_photosensitivity_risk_001",
@@ -3627,9 +4292,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_duloxetine_pd_effect_bleeding_001",
@@ -3654,9 +4324,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_duloxetine_pd_effect_noradrenergic_effects_001",
@@ -3681,9 +4356,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_duloxetine_pd_effect_serotonergic_001",
@@ -3708,9 +4388,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_duloxetine_pd_effect_serotonin_syndrome_001",
@@ -3735,9 +4420,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_duloxetine_pd_effect_withdrawal_risk_001",
@@ -3762,9 +4452,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_erenumab_pd_effect_constipation_risk_001",
@@ -3789,9 +4484,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_erenumab_pd_effect_hypersensitivity_risk_001",
@@ -3816,9 +4516,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_erenumab_pd_effect_hypertension_risk_001",
@@ -3843,9 +4548,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_escitalopram_pd_effect_QT_prolongation_001",
@@ -3870,9 +4580,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_escitalopram_pd_effect_activation_agitation_risk_001",
@@ -3897,9 +4612,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_escitalopram_pd_effect_bleeding_001",
@@ -3924,9 +4644,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_escitalopram_pd_effect_insomnia_risk_001",
@@ -3951,9 +4676,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_escitalopram_pd_effect_mania_activation_risk_001",
@@ -3978,9 +4708,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_escitalopram_pd_effect_serotonergic_001",
@@ -4005,9 +4740,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fentanyl_pd_effect_CNS_depression_001",
@@ -4032,9 +4772,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fentanyl_pd_effect_constipation_risk_001",
@@ -4059,9 +4804,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fentanyl_pd_effect_respiratory_depression_001",
@@ -4086,9 +4836,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fentanyl_pd_effect_sedation_001",
@@ -4113,9 +4868,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fentanyl_pd_effect_withdrawal_risk_001",
@@ -4140,9 +4900,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fluconazole_pd_effect_QT_prolongation_001",
@@ -4174,9 +4939,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fluconazole_pd_effect_nausea_001",
@@ -4208,9 +4978,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fluoxetine_pd_effect_bleeding_001",
@@ -4235,9 +5010,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fluoxetine_pd_effect_serotonergic_001",
@@ -4262,9 +5042,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fluoxetine_pd_effect_serotonin_syndrome_001",
@@ -4289,9 +5074,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_fluoxetine_pd_effect_withdrawal_risk_001",
@@ -4316,9 +5106,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_gabapentin_pd_effect_CNS_depression_001",
@@ -4343,9 +5138,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_gabapentin_pd_effect_respiratory_depression_001",
@@ -4370,9 +5170,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_gabapentin_pd_effect_sedation_001",
@@ -4397,9 +5202,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ginkgo_biloba_pd_effect_bleeding_001",
@@ -4424,9 +5234,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ginkgo_biloba_pd_effect_nausea_001",
@@ -4451,9 +5266,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ginkgo_biloba_pd_effect_seizure_risk_001",
@@ -4478,9 +5298,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_guanfacine_pd_effect_CNS_depression_001",
@@ -4505,9 +5330,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_guanfacine_pd_effect_bradycardia_001",
@@ -4532,9 +5362,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_guanfacine_pd_effect_orthostatic_hypotension_001",
@@ -4559,9 +5394,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_guanfacine_pd_effect_sedation_001",
@@ -4586,9 +5426,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_haloperidol_pd_effect_D2_blockade_001",
@@ -4613,9 +5458,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_haloperidol_pd_effect_EPS_risk_001",
@@ -4640,9 +5490,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_haloperidol_pd_effect_QT_prolongation_001",
@@ -4667,9 +5522,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_haloperidol_pd_effect_alpha1_antagonism_001",
@@ -4694,9 +5554,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_haloperidol_pd_effect_orthostatic_hypotension_001",
@@ -4721,9 +5586,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_haloperidol_pd_effect_sedation_001",
@@ -4748,9 +5618,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_haloperidol_pd_effect_seizure_threshold_001",
@@ -4775,9 +5650,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_heroin_pd_effect_CNS_depression_001",
@@ -4802,9 +5682,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_heroin_pd_effect_constipation_risk_001",
@@ -4829,9 +5714,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_heroin_pd_effect_respiratory_depression_001",
@@ -4856,9 +5746,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_heroin_pd_effect_sedation_001",
@@ -4883,9 +5778,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_heroin_pd_effect_withdrawal_risk_001",
@@ -4910,9 +5810,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_holy_basil_pd_effect_bleeding_001",
@@ -4937,9 +5842,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_holy_basil_pd_effect_nausea_001",
@@ -4964,9 +5874,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_holy_basil_pd_effect_sedation_001",
@@ -4991,9 +5906,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydrochlorothiazide_pd_effect_hypokalemia_risk_001",
@@ -5018,9 +5938,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydrochlorothiazide_pd_effect_lithium_increase_risk_001",
@@ -5045,9 +5970,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydrochlorothiazide_pd_effect_renal_function_001",
@@ -5072,9 +6002,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydroxyzine_pd_effect_CNS_depression_001",
@@ -5099,9 +6034,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydroxyzine_pd_effect_H1_antagonism_001",
@@ -5126,9 +6066,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydroxyzine_pd_effect_QT_prolongation_001",
@@ -5153,9 +6098,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydroxyzine_pd_effect_anticholinergic_effects_001",
@@ -5180,9 +6130,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_hydroxyzine_pd_effect_sedation_001",
@@ -5207,9 +6162,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ibuprofen_pd_effect_bleeding_001",
@@ -5234,9 +6194,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ibuprofen_pd_effect_lithium_increase_risk_001",
@@ -5261,9 +6226,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ibuprofen_pd_effect_renal_function_001",
@@ -5288,9 +6258,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ketamine_pd_effect_CNS_depression_001",
@@ -5315,9 +6290,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ketamine_pd_effect_hypertension_001",
@@ -5342,9 +6322,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ketamine_pd_effect_respiratory_depression_001",
@@ -5369,9 +6354,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ketamine_pd_effect_sedation_001",
@@ -5396,9 +6386,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ketamine_pd_effect_tachycardia_001",
@@ -5423,9 +6418,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_kratom_pd_effect_CNS_depression_001",
@@ -5450,9 +6450,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_kratom_pd_effect_respiratory_depression_001",
@@ -5477,9 +6482,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_kratom_pd_effect_sedation_001",
@@ -5504,9 +6514,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_kratom_pd_effect_withdrawal_risk_001",
@@ -5531,9 +6546,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lions_mane_mushroom_pd_effect_cholinergic_modulation_001",
@@ -5558,9 +6578,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lions_mane_mushroom_pd_effect_nausea_001",
@@ -5585,9 +6610,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lisdexamfetamine_pd_effect_hypertension_risk_001",
@@ -5612,9 +6642,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lisdexamfetamine_pd_effect_noradrenergic_effects_001",
@@ -5639,9 +6674,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lisdexamfetamine_pd_effect_serotonergic_001",
@@ -5666,9 +6706,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lisdexamfetamine_pd_effect_tachycardia_risk_001",
@@ -5693,9 +6738,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lisinopril_pd_effect_hyperkalemia_risk_001",
@@ -5720,9 +6770,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lisinopril_pd_effect_lithium_increase_risk_001",
@@ -5747,9 +6802,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lisinopril_pd_effect_renal_function_001",
@@ -5774,9 +6834,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lithium_pd_effect_lithium_increase_risk_001",
@@ -5801,9 +6866,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lithium_pd_effect_neurotoxicity_risk_001",
@@ -5828,9 +6898,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lorazepam_pd_effect_CNS_depression_001",
@@ -5855,9 +6930,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lorazepam_pd_effect_respiratory_depression_001",
@@ -5882,9 +6962,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lorazepam_pd_effect_sedation_001",
@@ -5909,9 +6994,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lorazepam_pd_effect_withdrawal_risk_001",
@@ -5936,9 +7026,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lsd_pd_effect_CNS_stimulation_001",
@@ -5963,9 +7058,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lsd_pd_effect_hypertension_001",
@@ -5990,9 +7090,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lsd_pd_effect_insomnia_risk_001",
@@ -6017,9 +7122,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lsd_pd_effect_sympathetic_stimulation_001",
@@ -6044,9 +7154,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lsd_pd_effect_tachycardia_001",
@@ -6071,9 +7186,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lurasidone_pd_effect_CNS_depression_001",
@@ -6098,9 +7218,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lurasidone_pd_effect_D2_blockade_001",
@@ -6125,9 +7250,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lurasidone_pd_effect_EPS_risk_001",
@@ -6152,9 +7282,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_lurasidone_pd_effect_orthostatic_hypotension_001",
@@ -6179,9 +7314,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mdma_pd_effect_CNS_stimulation_001",
@@ -6206,9 +7346,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mdma_pd_effect_hypertension_001",
@@ -6233,9 +7378,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mdma_pd_effect_serotonergic_001",
@@ -6260,9 +7410,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mdma_pd_effect_serotonin_syndrome_001",
@@ -6287,9 +7442,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mdma_pd_effect_sympathetic_stimulation_001",
@@ -6314,9 +7474,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mdma_pd_effect_tachycardia_001",
@@ -6341,9 +7506,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mecamylamine_pd_effect_cholinergic_modulation_001",
@@ -6368,9 +7538,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mecamylamine_pd_effect_constipation_risk_001",
@@ -6395,9 +7570,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mecamylamine_pd_effect_nAChR_antagonism_001",
@@ -6422,9 +7602,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mecamylamine_pd_effect_orthostatic_hypotension_001",
@@ -6449,9 +7634,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mecamylamine_pd_effect_urinary_retention_risk_001",
@@ -6476,9 +7666,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mepolizumab_pd_effect_hypersensitivity_risk_001",
@@ -6503,9 +7698,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methadone_pd_effect_CNS_depression_001",
@@ -6530,9 +7730,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methadone_pd_effect_QT_prolongation_001",
@@ -6557,9 +7762,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methadone_pd_effect_constipation_risk_001",
@@ -6584,9 +7794,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methadone_pd_effect_respiratory_depression_001",
@@ -6611,9 +7826,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methadone_pd_effect_serotonergic_001",
@@ -6638,9 +7858,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methamphetamine_pd_effect_CNS_stimulation_001",
@@ -6665,9 +7890,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methamphetamine_pd_effect_hypertension_001",
@@ -6692,9 +7922,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methamphetamine_pd_effect_noradrenergic_effects_001",
@@ -6719,9 +7954,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methamphetamine_pd_effect_seizure_threshold_001",
@@ -6746,9 +7986,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methamphetamine_pd_effect_sympathetic_stimulation_001",
@@ -6773,9 +8018,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methamphetamine_pd_effect_tachycardia_001",
@@ -6800,9 +8050,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methocarbamol_pd_effect_CNS_depression_001",
@@ -6827,9 +8082,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methocarbamol_pd_effect_sedation_001",
@@ -6854,9 +8114,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methylphenidate_pd_effect_activation_agitation_risk_001",
@@ -6881,9 +8146,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methylphenidate_pd_effect_blood_pressure_increase_001",
@@ -6908,9 +8178,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methylphenidate_pd_effect_hypertension_risk_001",
@@ -6935,9 +8210,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methylphenidate_pd_effect_insomnia_risk_001",
@@ -6962,9 +8242,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methylphenidate_pd_effect_mania_activation_risk_001",
@@ -6989,9 +8274,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methylphenidate_pd_effect_sympathomimetic_activity_001",
@@ -7016,9 +8306,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_methylphenidate_pd_effect_tachycardia_risk_001",
@@ -7043,9 +8338,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_midazolam_pd_effect_CNS_depression_001",
@@ -7070,9 +8370,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_midazolam_pd_effect_respiratory_depression_001",
@@ -7097,9 +8402,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_midazolam_pd_effect_sedation_001",
@@ -7124,9 +8434,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_midazolam_pd_effect_withdrawal_risk_001",
@@ -7151,9 +8466,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_milk_thistle_pd_effect_hypersensitivity_risk_001",
@@ -7178,9 +8498,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_milk_thistle_pd_effect_nausea_001",
@@ -7205,9 +8530,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mirtazapine_pd_effect_CNS_depression_001",
@@ -7232,9 +8562,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mirtazapine_pd_effect_QT_prolongation_001",
@@ -7259,9 +8594,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_mirtazapine_pd_effect_serotonergic_001",
@@ -7286,9 +8626,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_motherwort_pd_effect_bleeding_001",
@@ -7313,9 +8658,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_motherwort_pd_effect_nausea_001",
@@ -7340,9 +8690,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_motherwort_pd_effect_orthostatic_hypotension_001",
@@ -7367,9 +8722,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_motherwort_pd_effect_sedation_001",
@@ -7394,9 +8754,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_naloxone_pd_effect_opioid_antagonist_001",
@@ -7421,9 +8786,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_naloxone_pd_effect_withdrawal_risk_001",
@@ -7448,9 +8818,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_naltrexone_pd_effect_opioid_antagonist_001",
@@ -7475,9 +8850,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_naltrexone_pd_effect_withdrawal_risk_001",
@@ -7502,9 +8882,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_nicotine_pd_effect_CNS_stimulation_001",
@@ -7529,9 +8914,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_nicotine_pd_effect_hypertension_001",
@@ -7556,9 +8946,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_nicotine_pd_effect_sympathetic_stimulation_001",
@@ -7583,9 +8978,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_nicotine_pd_effect_tachycardia_001",
@@ -7610,9 +9010,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_nicotine_pd_effect_withdrawal_risk_001",
@@ -7637,9 +9042,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_CNS_depression_001",
@@ -7664,9 +9074,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_H1_antagonism_001",
@@ -7691,9 +9106,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_QT_prolongation_001",
@@ -7718,9 +9138,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_alpha1_antagonism_001",
@@ -7745,9 +9170,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_anticholinergic_effects_001",
@@ -7772,9 +9202,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_orthostatic_hypotension_001",
@@ -7799,9 +9234,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_sedation_001",
@@ -7826,9 +9266,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_olanzapine_pd_effect_seizure_threshold_001",
@@ -7853,9 +9298,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ondansetron_pd_effect_QT_prolongation_001",
@@ -7880,9 +9330,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_oxycodone_pd_effect_CNS_depression_001",
@@ -7907,9 +9362,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_oxycodone_pd_effect_constipation_risk_001",
@@ -7934,9 +9394,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_oxycodone_pd_effect_respiratory_depression_001",
@@ -7961,9 +9426,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_oxycodone_pd_effect_sedation_001",
@@ -7988,9 +9458,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_oxycodone_pd_effect_withdrawal_risk_001",
@@ -8015,9 +9490,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_CNS_depression_001",
@@ -8042,9 +9522,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_D2_blockade_001",
@@ -8069,9 +9554,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_EPS_risk_001",
@@ -8096,9 +9586,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_QT_prolongation_001",
@@ -8123,9 +9618,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_alpha1_antagonism_001",
@@ -8150,9 +9650,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_orthostatic_hypotension_001",
@@ -8177,9 +9682,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_sedation_001",
@@ -8204,9 +9714,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paliperidone_pd_effect_seizure_threshold_001",
@@ -8231,9 +9746,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paroxetine_pd_effect_CNS_depression_001",
@@ -8258,9 +9778,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paroxetine_pd_effect_activation_agitation_risk_001",
@@ -8285,9 +9810,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paroxetine_pd_effect_anticholinergic_effects_001",
@@ -8312,9 +9842,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paroxetine_pd_effect_bleeding_001",
@@ -8339,9 +9874,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paroxetine_pd_effect_mania_activation_risk_001",
@@ -8366,9 +9906,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_paroxetine_pd_effect_serotonergic_001",
@@ -8393,9 +9938,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_pregabalin_pd_effect_CNS_depression_001",
@@ -8420,9 +9970,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_pregabalin_pd_effect_respiratory_depression_001",
@@ -8447,9 +10002,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_pregabalin_pd_effect_sedation_001",
@@ -8474,9 +10034,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_promethazine_pd_effect_CNS_depression_001",
@@ -8501,9 +10066,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_promethazine_pd_effect_alpha1_antagonism_001",
@@ -8528,9 +10098,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_promethazine_pd_effect_anticholinergic_effects_001",
@@ -8555,9 +10130,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_propranolol_pd_effect_bradycardia_001",
@@ -8582,9 +10162,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_pseudoephedrine_pd_effect_hypertension_001",
@@ -8609,9 +10194,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_pseudoephedrine_pd_effect_noradrenergic_effects_001",
@@ -8636,9 +10226,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_pseudoephedrine_pd_effect_sympathetic_stimulation_001",
@@ -8663,9 +10258,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_pseudoephedrine_pd_effect_tachycardia_001",
@@ -8690,9 +10290,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_quetiapine_pd_effect_H1_antagonism_001",
@@ -8717,9 +10322,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_quetiapine_pd_effect_QT_prolongation_001",
@@ -8744,9 +10354,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_quetiapine_pd_effect_alpha1_antagonism_001",
@@ -8771,9 +10386,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_quetiapine_pd_effect_orthostatic_hypotension_001",
@@ -8798,9 +10418,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_quetiapine_pd_effect_sedation_001",
@@ -8825,9 +10450,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_quetiapine_pd_effect_seizure_threshold_001",
@@ -8852,9 +10482,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_rhodiola_rosea_pd_effect_activation_agitation_risk_001",
@@ -8879,9 +10514,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_rhodiola_rosea_pd_effect_insomnia_risk_001",
@@ -8906,9 +10546,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_rhodiola_rosea_pd_effect_mania_activation_risk_001",
@@ -8933,9 +10578,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_rhodiola_rosea_pd_effect_serotonergic_001",
@@ -8960,9 +10610,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_risperidone_pd_effect_CNS_depression_001",
@@ -8987,9 +10642,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_risperidone_pd_effect_D2_blockade_001",
@@ -9014,9 +10674,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_risperidone_pd_effect_EPS_risk_001",
@@ -9041,9 +10706,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_risperidone_pd_effect_H1_antagonism_001",
@@ -9068,9 +10738,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_risperidone_pd_effect_QT_prolongation_001",
@@ -9095,9 +10770,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_risperidone_pd_effect_alpha1_antagonism_001",
@@ -9122,9 +10802,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_risperidone_pd_effect_orthostatic_hypotension_001",
@@ -9149,9 +10834,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_sertraline_pd_effect_bleeding_001",
@@ -9176,9 +10866,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_sertraline_pd_effect_serotonergic_001",
@@ -9203,9 +10898,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_sertraline_pd_effect_serotonin_syndrome_001",
@@ -9230,9 +10930,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_sertraline_pd_effect_withdrawal_risk_001",
@@ -9257,9 +10962,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_seven_hydroxymitragynine_pd_effect_CNS_depression_001",
@@ -9284,9 +10994,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_seven_hydroxymitragynine_pd_effect_respiratory_depression_001",
@@ -9311,9 +11026,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_seven_hydroxymitragynine_pd_effect_sedation_001",
@@ -9338,9 +11058,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_seven_hydroxymitragynine_pd_effect_withdrawal_risk_001",
@@ -9365,9 +11090,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_tizanidine_pd_effect_CNS_depression_001",
@@ -9392,9 +11122,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_tizanidine_pd_effect_orthostatic_hypotension_001",
@@ -9419,9 +11154,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_tizanidine_pd_effect_sedation_001",
@@ -9446,9 +11186,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_topiramate_pd_effect_CNS_depression_001",
@@ -9473,9 +11218,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_topiramate_pd_effect_neurotoxicity_risk_001",
@@ -9500,9 +11250,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_topiramate_pd_effect_sedation_001",
@@ -9527,9 +11282,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_tramadol_pd_effect_CNS_depression_001",
@@ -9554,9 +11314,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_tramadol_pd_effect_serotonergic_001",
@@ -9581,9 +11346,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_tramadol_pd_effect_serotonin_syndrome_001",
@@ -9608,9 +11378,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_CNS_depression_001",
@@ -9635,9 +11410,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_QT_prolongation_001",
@@ -9662,9 +11442,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_alpha1_antagonism_001",
@@ -9689,9 +11474,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_bleeding_001",
@@ -9716,9 +11506,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_orthostatic_hypotension_001",
@@ -9743,9 +11538,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_sedation_001",
@@ -9770,9 +11570,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_serotonergic_001",
@@ -9797,9 +11602,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_serotonin_syndrome_001",
@@ -9824,9 +11634,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_trazodone_pd_effect_withdrawal_risk_001",
@@ -9851,9 +11666,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_turmeric_pd_effect_bleeding_001",
@@ -9878,9 +11698,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_turmeric_pd_effect_nausea_001",
@@ -9905,9 +11730,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_varenicline_pd_effect_activation_agitation_risk_001",
@@ -9932,9 +11762,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_varenicline_pd_effect_cholinergic_modulation_001",
@@ -9959,9 +11794,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_varenicline_pd_effect_insomnia_risk_001",
@@ -9986,9 +11826,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_varenicline_pd_effect_nAChR_antagonism_001",
@@ -10013,9 +11858,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_varenicline_pd_effect_nausea_001",
@@ -10040,9 +11890,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_venlafaxine_pd_effect_bleeding_001",
@@ -10067,9 +11922,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_venlafaxine_pd_effect_noradrenergic_effects_001",
@@ -10094,9 +11954,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_venlafaxine_pd_effect_serotonergic_001",
@@ -10121,9 +11986,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_venlafaxine_pd_effect_serotonin_syndrome_001",
@@ -10148,9 +12018,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_venlafaxine_pd_effect_withdrawal_risk_001",
@@ -10175,9 +12050,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_verapamil_pd_effect_bradycardia_001",
@@ -10202,9 +12082,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vibegron_pd_effect_constipation_risk_001",
@@ -10229,9 +12114,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vibegron_pd_effect_hypersensitivity_risk_001",
@@ -10256,9 +12146,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vibegron_pd_effect_urinary_retention_risk_001",
@@ -10283,9 +12178,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vilazodone_pd_effect_activation_agitation_risk_001",
@@ -10310,9 +12210,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vilazodone_pd_effect_bleeding_001",
@@ -10337,9 +12242,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vilazodone_pd_effect_insomnia_risk_001",
@@ -10364,9 +12274,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vilazodone_pd_effect_mania_activation_risk_001",
@@ -10391,9 +12306,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vilazodone_pd_effect_serotonergic_001",
@@ -10418,9 +12338,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vilazodone_pd_effect_serotonin_syndrome_001",
@@ -10445,9 +12370,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vortioxetine_pd_effect_activation_agitation_risk_001",
@@ -10472,9 +12402,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vortioxetine_pd_effect_bleeding_001",
@@ -10499,9 +12434,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vortioxetine_pd_effect_insomnia_risk_001",
@@ -10526,9 +12466,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vortioxetine_pd_effect_mania_activation_risk_001",
@@ -10553,9 +12498,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vortioxetine_pd_effect_nausea_001",
@@ -10580,9 +12530,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vortioxetine_pd_effect_serotonergic_001",
@@ -10607,9 +12562,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_vortioxetine_pd_effect_serotonin_syndrome_001",
@@ -10634,9 +12594,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_warfarin_pd_effect_bleeding_001",
@@ -10661,9 +12626,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ziprasidone_pd_effect_D2_blockade_001",
@@ -10688,9 +12658,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ziprasidone_pd_effect_EPS_risk_001",
@@ -10715,9 +12690,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ziprasidone_pd_effect_QT_prolongation_001",
@@ -10742,9 +12722,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ziprasidone_pd_effect_alpha1_antagonism_001",
@@ -10769,9 +12754,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ziprasidone_pd_effect_orthostatic_hypotension_001",
@@ -10796,9 +12786,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ziprasidone_pd_effect_sedation_001",
@@ -10823,9 +12818,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_ziprasidone_pd_effect_seizure_threshold_001",
@@ -10850,9 +12850,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_zolpidem_pd_effect_CNS_depression_001",
@@ -10877,9 +12882,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_zolpidem_pd_effect_respiratory_depression_001",
@@ -10904,9 +12914,14 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   },
   {
     "claim_id": "claim_zolpidem_pd_effect_sedation_001",
@@ -10931,8 +12946,13 @@
     "review": {
       "status": "approved",
       "reviewed_by": "maintainer",
-      "reviewed_at": null
+      "reviewed_at": "2026-05-13"
     },
-    "claim_status": "active"
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-13"
+    }
   }
 ]

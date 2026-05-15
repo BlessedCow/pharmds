@@ -12,7 +12,8 @@
     "object",
     "evidence",
     "review",
-    "claim_status"
+    "claim_status",
+    "contributor"
   ],
   "properties": {
     "claim_id": {
@@ -107,7 +108,10 @@
             ]
           },
           "notes": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       }
@@ -133,10 +137,16 @@
           ]
         },
         "reviewed_by": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "reviewed_at": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },
@@ -149,6 +159,30 @@
         "conflicting",
         "under_review"
       ]
+    },
+    "contributor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role",
+        "submitted_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "submitted_at": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     }
   }
 }

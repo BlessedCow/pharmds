@@ -37,6 +37,11 @@ def _valid_submission():
                 "notes": "Contributor-submitted label evidence.",
             }
         ],
+        "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-13",
+        },
         "review": {
             "status": "submitted",
         },

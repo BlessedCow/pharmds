@@ -13,6 +13,7 @@ CLAIM_TYPE_PD_EFFECT = "pd_effect"
 PREDICATE_HAS_PD_EFFECT = "has_pd_effect"
 DEFAULT_CONTRIBUTOR_REVIEW_STATUS = "submitted"
 DEFAULT_CONTRIBUTOR_CLAIM_STATUS = "draft"
+DEFAULT_CONTRIBUTOR_ROLE = "contributor"
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CONTRIBUTOR_PD_EFFECT_SCHEMA_PATH = (
@@ -79,6 +80,9 @@ def contributor_submission_to_draft_claim(
 
     normalized["claim_id"] = build_pd_effect_claim_id(drug_id, effect_id)
     normalized["claim_status"] = DEFAULT_CONTRIBUTOR_CLAIM_STATUS
+
+    contributor = normalized.setdefault("contributor", {})
+    contributor.setdefault("role", DEFAULT_CONTRIBUTOR_ROLE)
 
     review = normalized.setdefault("review", {})
     review.setdefault("status", DEFAULT_CONTRIBUTOR_REVIEW_STATUS)

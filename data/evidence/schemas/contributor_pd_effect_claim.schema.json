@@ -10,6 +10,7 @@
     "predicate",
     "object",
     "evidence",
+    "contributor",
     "review"
   ],
   "properties": {
@@ -88,6 +89,30 @@
           "notes": {
             "type": "string"
           }
+        }
+      }
+    },
+    "contributor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role",
+        "submitted_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "submitted_at": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
