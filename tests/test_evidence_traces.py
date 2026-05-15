@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import pytest
 
 from core.evidence.traces import (
@@ -8,6 +11,22 @@ from core.evidence.traces import (
     has_approved_active_pd_effect_evidence,
 )
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DRUGS_PATH = PROJECT_ROOT / "data" / "curation" / "drugs.json"
+
+
+def _ontology_pd_effect_pairs() -> set[tuple[str, str]]:
+    raw = json.loads(DRUGS_PATH.read_text(encoding="utf-8"))
+
+    pairs = set()
+
+    for drug in raw["drugs"]:
+        drug_id = drug["id"]
+
+        for pd_effect in drug.get("pd_effects", []) or []:
+            pairs.add((drug_id, pd_effect["effect_id"]))
+
+    return pairs
 
 def test_build_source_trace_returns_source_metadata():
     trace = build_source_trace("source_internal_curated_pd_effects_v1")
@@ -150,7 +169,7 @@ def test_build_pd_effect_traces_for_drug_returns_expanded_pd_claims():
     claim_ids = {trace["claim_id"] for trace in traces}
 
     assert "claim_alprazolam_pd_effect_sedation_001" in claim_ids
-    assert "claim_alprazolam_pd_effect_cns_depression_001" in claim_ids
+    assert "claim_alprazolam_pd_effect_CNS_depression_001" in claim_ids
     
 def test_has_approved_active_pd_effect_evidence_returns_true_for_expanded_claim():
     result = has_approved_active_pd_effect_evidence(
@@ -165,7 +184,7 @@ def test_build_pd_effect_traces_for_drug_returns_qt_claim():
 
     claim_ids = {trace["claim_id"] for trace in traces}
 
-    assert "claim_clarithromycin_pd_effect_qt_prolongation_001" in claim_ids
+    assert "claim_clarithromycin_pd_effect_QT_prolongation_001" in claim_ids
     
 def test_has_approved_active_pd_effect_evidence_returns_true_for_qt_claim():
     result = has_approved_active_pd_effect_evidence(
@@ -289,3 +308,12 @@ def test_has_approved_active_pd_effect_evidence_returns_true_for_expanded_batch(
 
     assert result is True
     
+def test_all_curated_pd_effects_have_approved_active_evidence_traces():
+    for drug_id, effect_id in _ontology_pd_effect_pairs():
+        result = has_approved_active_pd_effect_evidence(
+            drug_id,
+            effect_id,
+        )
+
+        assert result is True
+        

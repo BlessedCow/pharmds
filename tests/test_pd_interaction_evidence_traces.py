@@ -147,11 +147,11 @@ def test_build_additive_pd_effect_evidence_trace_returns_complete_for_cns_depres
     }
 
     assert (
-        "claim_alprazolam_pd_effect_cns_depression_001"
+        "claim_alprazolam_pd_effect_CNS_depression_001"
         in claim_ids_by_drug["alprazolam"]
     )
     assert (
-        "claim_clonazepam_pd_effect_cns_depression_001"
+        "claim_clonazepam_pd_effect_CNS_depression_001"
         in claim_ids_by_drug["clonazepam"]
     )
 
@@ -172,11 +172,11 @@ def test_build_additive_pd_effect_evidence_trace_returns_complete_for_qt():
     }
 
     assert (
-        "claim_clarithromycin_pd_effect_qt_prolongation_001"
+        "claim_clarithromycin_pd_effect_QT_prolongation_001"
         in claim_ids_by_drug["clarithromycin"]
     )
     assert (
-        "claim_fluconazole_pd_effect_qt_prolongation_001"
+        "claim_fluconazole_pd_effect_QT_prolongation_001"
         in claim_ids_by_drug["fluconazole"]
     )
     

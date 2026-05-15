@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import pytest
 
 from core.evidence.loader import (
@@ -12,6 +15,35 @@ from core.evidence.loader import (
     load_sources,
 )
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DRUGS_PATH = PROJECT_ROOT / "data" / "curation" / "drugs.json"
+
+
+def _ontology_pd_effect_pairs() -> set[tuple[str, str]]:
+    raw = json.loads(DRUGS_PATH.read_text(encoding="utf-8"))
+
+    pairs = set()
+
+    for drug in raw["drugs"]:
+        drug_id = drug["id"]
+
+        for pd_effect in drug.get("pd_effects", []) or []:
+            pairs.add((drug_id, pd_effect["effect_id"]))
+
+    return pairs
+
+
+def _claim_pd_effect_pairs() -> set[tuple[str, str]]:
+    claims = get_approved_active_pd_effect_claims()
+
+    return {
+        (
+            claim["subject"]["id"],
+            claim["object"]["effect_id"],
+        )
+        for claim in claims
+        if claim["claim_type"] == "pd_effect"
+    }
 
 def test_load_sources_returns_sources():
     sources = load_sources()
@@ -132,7 +164,7 @@ def test_get_approved_active_pd_effect_claims_for_drug_effect_returns_cns_match(
     assert len(claims) == 1
     assert (
         claims[0]["claim_id"]
-        == "claim_alprazolam_pd_effect_cns_depression_001"
+        == "claim_alprazolam_pd_effect_CNS_depression_001"
     )
 
 def test_get_pd_effect_claims_for_effect_returns_qt_claims():
@@ -140,8 +172,8 @@ def test_get_pd_effect_claims_for_effect_returns_qt_claims():
 
     claim_ids = {claim["claim_id"] for claim in claims}
 
-    assert "claim_clarithromycin_pd_effect_qt_prolongation_001" in claim_ids
-    assert "claim_fluconazole_pd_effect_qt_prolongation_001" in claim_ids
+    assert "claim_clarithromycin_pd_effect_QT_prolongation_001" in claim_ids
+    assert "claim_fluconazole_pd_effect_QT_prolongation_001" in claim_ids
     
 def test_get_approved_active_pd_effect_claims_for_drug_effect_returns_qt_match():
     claims = get_approved_active_pd_effect_claims_for_drug_effect(
@@ -152,7 +184,7 @@ def test_get_approved_active_pd_effect_claims_for_drug_effect_returns_qt_match()
     assert len(claims) == 1
     assert (
         claims[0]["claim_id"]
-        == "claim_fluconazole_pd_effect_qt_prolongation_001"
+        == "claim_fluconazole_pd_effect_QT_prolongation_001"
     )
     
 def test_get_pd_effect_claims_for_effect_returns_serotonergic_claims():
@@ -298,3 +330,30 @@ def test_get_approved_active_pd_effect_claims_returns_expanded_batch_match(
 
     assert len(claims) == 1
     assert claims[0]["claim_id"] == expected_claim_id
+    
+def test_approved_active_pd_effect_claims_cover_curated_ontology():
+    missing_pairs = _ontology_pd_effect_pairs() - _claim_pd_effect_pairs()
+
+    assert missing_pairs == set()
+
+
+def test_pd_effect_claim_ids_are_unique():
+    claims = load_pd_effect_claims()
+    claim_ids = [
+        claim["claim_id"]
+        for claim in claims
+    ]
+
+    assert len(claim_ids) == len(set(claim_ids))
+
+
+def test_pd_effect_claim_ids_match_canonical_pattern():
+    claims = load_pd_effect_claims()
+
+    for claim in claims:
+        drug_id = claim["subject"]["id"]
+        effect_id = claim["object"]["effect_id"]
+        expected_claim_id = f"claim_{drug_id}_pd_effect_{effect_id}_001"
+
+        assert claim["claim_id"] == expected_claim_id
+        
