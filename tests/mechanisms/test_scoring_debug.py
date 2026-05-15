@@ -182,17 +182,21 @@ def test_format_evidence_trace_for_debug():
             "  clarithromycin evidence_status=present; "
             "clarithromycin -> nausea: pd_effect; "
             "claim_status=active; review_status=approved; "
+            "evidence_support_status=unknown; "
             "evidence=Internal curated pharmacodynamic effects dataset "
             "(PharmDS, curated); "
-            "evidence_type=internal_curated_entry; confidence=moderate"
+            "evidence_type=internal_curated_entry; "
+            "supports_claim=unknown; confidence=moderate"
         ),
         (
             "  fluconazole evidence_status=present; "
             "fluconazole -> nausea: pd_effect; "
             "claim_status=active; review_status=approved; "
+            "evidence_support_status=unknown; "
             "evidence=Internal curated pharmacodynamic effects dataset "
             "(PharmDS, curated); "
-            "evidence_type=internal_curated_entry; confidence=moderate"
+            "evidence_type=internal_curated_entry; "
+            "supports_claim=unknown; confidence=moderate"
         ),
     ]
 
@@ -329,16 +333,20 @@ def test_format_debug_evidence_trace():
             "  clarithromycin evidence_status=present; "
             "clarithromycin -> nausea: pd_effect; "
             "claim_status=active; review_status=approved; "
+            "evidence_support_status=unknown; "
             "evidence=Internal curated pharmacodynamic effects dataset "
             "(PharmDS, curated); "
-            "evidence_type=internal_curated_entry; confidence=moderate"
+            "evidence_type=internal_curated_entry; "
+            "supports_claim=unknown; confidence=moderate"
         ),
         (
             "  fluconazole evidence_status=present; "
             "fluconazole -> nausea: pd_effect; "
             "claim_status=active; review_status=approved; "
+            "evidence_support_status=unknown; "
             "evidence=Internal curated pharmacodynamic effects dataset "
             "(PharmDS, curated); "
-            "evidence_type=internal_curated_entry; confidence=moderate"
+            "evidence_type=internal_curated_entry; "
+            "supports_claim=unknown; confidence=moderate"
         ),
     ]

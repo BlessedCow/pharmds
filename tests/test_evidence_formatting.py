@@ -59,7 +59,8 @@ def test_format_evidence_item_trace_returns_readable_summary():
     assert format_evidence_item_trace(evidence) == (
         "Internal curated pharmacodynamic effects dataset "
         "(PharmDS, curated); "
-        "evidence_type=internal_curated_entry; confidence=moderate"
+        "evidence_type=internal_curated_entry; "
+        "supports_claim=true; confidence=moderate"
     )
 
 
@@ -98,9 +99,11 @@ def test_format_claim_trace_returns_readable_summary():
     assert format_claim_trace(claim) == (
         "fluconazole -> nausea: pd_effect; "
         "claim_status=active; review_status=approved; "
+        "evidence_support_status=unknown; "
         "evidence=Internal curated pharmacodynamic effects dataset "
         "(PharmDS, curated); "
-        "evidence_type=internal_curated_entry; confidence=moderate"
+        "evidence_type=internal_curated_entry; "
+        "supports_claim=true; confidence=moderate"
     )
 
 
@@ -120,7 +123,8 @@ def test_format_claim_trace_handles_claim_without_evidence():
 
     assert format_claim_trace(claim) == (
         "example_drug -> nausea: pd_effect; "
-        "claim_status=active; review_status=approved; evidence=none"
+        "claim_status=active; review_status=approved; "
+        "evidence_support_status=unknown; evidence=none"
     )
     
     
@@ -210,9 +214,11 @@ def test_format_evidence_trace_returns_readable_lines():
             "clarithromycin evidence_status=present; "
             "clarithromycin -> nausea: pd_effect; "
             "claim_status=active; review_status=approved; "
+            "evidence_support_status=unknown; "
             "evidence=Internal curated pharmacodynamic effects dataset "
             "(PharmDS, curated); "
-            "evidence_type=internal_curated_entry; confidence=moderate"
+            "evidence_type=internal_curated_entry; "
+            "supports_claim=true; confidence=moderate"
         ),
         (
             "fluconazole -> nausea: evidence_status=present; "

@@ -40,6 +40,14 @@ def format_evidence_item_trace(evidence: dict[str, Any]) -> str:
     """Return a display-ready evidence item summary."""
     evidence_type = _display_value(evidence.get("evidence_type"))
     confidence = _display_value(evidence.get("confidence"))
+    supports_claim = evidence.get("supports_claim")
+    support_label = "supports_claim=unknown"
+
+    if supports_claim is True:
+        support_label = "supports_claim=true"
+    elif supports_claim is False:
+        support_label = "supports_claim=false"
+
     source = evidence.get("source", {})
 
     if not isinstance(source, dict):
@@ -49,7 +57,7 @@ def format_evidence_item_trace(evidence: dict[str, Any]) -> str:
 
     return (
         f"{source_summary}; evidence_type={evidence_type}; "
-        f"confidence={confidence}"
+        f"{support_label}; confidence={confidence}"
     )
 
 
@@ -67,12 +75,17 @@ def format_claim_trace(claim: dict[str, Any]) -> str:
 
     review_status = _display_value(review.get("status"))
 
+    evidence_support_status = _display_value(
+        claim.get("evidence_support_status"),
+        "unknown",
+    )
     evidence_items = claim.get("evidence", [])
 
     if not evidence_items:
         return (
             f"{drug_id} -> {effect_id}: {claim_type}; "
             f"claim_status={claim_status}; review_status={review_status}; "
+            f"evidence_support_status={evidence_support_status}; "
             "evidence=none"
         )
 
@@ -81,6 +94,7 @@ def format_claim_trace(claim: dict[str, Any]) -> str:
     return (
         f"{drug_id} -> {effect_id}: {claim_type}; "
         f"claim_status={claim_status}; review_status={review_status}; "
+        f"evidence_support_status={evidence_support_status}; "
         f"evidence={evidence_summary}"
     )
 

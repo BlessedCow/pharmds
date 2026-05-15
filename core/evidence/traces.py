@@ -2,6 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
+from core.evidence.conflicts import (
+    claim_has_supporting_evidence,
+    classify_evidence_support,
+    count_evidence_support,
+)
 from core.evidence.loader import (
     get_approved_active_pd_effect_claims_for_drug,
     get_approved_active_pd_effect_claims_for_drug_effect,
@@ -56,6 +61,8 @@ def build_pd_effect_claim_trace(claim: dict[str, Any]) -> dict[str, Any]:
             }
         )
 
+    evidence_support_counts = count_evidence_support(evidence_items)
+
     return {
         "claim_id": claim["claim_id"],
         "claim_type": claim["claim_type"],
@@ -64,6 +71,9 @@ def build_pd_effect_claim_trace(claim: dict[str, Any]) -> dict[str, Any]:
         "effect_id": claim["object"]["effect_id"],
         "claim_status": claim["claim_status"],
         "review": claim["review"],
+        "contributor": claim.get("contributor"),
+        "evidence_support_status": classify_evidence_support(evidence_items),
+        "evidence_support_counts": evidence_support_counts,
         "evidence": evidence_items,
     }
 
@@ -92,9 +102,9 @@ def has_approved_active_pd_effect_evidence(
     drug_id: str,
     effect_id: str,
 ) -> bool:
-    return bool(
-        get_approved_active_pd_effect_claims_for_drug_effect(
-            drug_id,
-            effect_id,
-        )
+    claims = get_approved_active_pd_effect_claims_for_drug_effect(
+        drug_id,
+        effect_id,
     )
+
+    return any(claim_has_supporting_evidence(claim) for claim in claims)

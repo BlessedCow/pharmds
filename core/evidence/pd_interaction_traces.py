@@ -2,14 +2,39 @@ from __future__ import annotations
 
 from typing import Any
 
+from core.evidence.conflicts import (
+    EVIDENCE_SUPPORT_CONFLICTING,
+    EVIDENCE_SUPPORT_DISPUTED,
+    EVIDENCE_SUPPORT_SUPPORTED,
+)
 from core.evidence.traces import build_pd_effect_traces_for_drug_effect
 
 
 def _evidence_status_for_drug_traces(
     drug_traces: list[dict[str, Any]],
 ) -> str:
-    if drug_traces:
+    statuses = {
+        trace.get("evidence_support_status")
+        for trace in drug_traces
+    }
+
+    if EVIDENCE_SUPPORT_CONFLICTING in statuses:
+        return "conflicting"
+
+    if (
+        EVIDENCE_SUPPORT_SUPPORTED in statuses
+        and EVIDENCE_SUPPORT_DISPUTED in statuses
+    ):
+        return "conflicting"
+
+    if EVIDENCE_SUPPORT_SUPPORTED in statuses:
         return "present"
+
+    if EVIDENCE_SUPPORT_DISPUTED in statuses:
+        return "disputed"
+
+    if drug_traces:
+        return "undetermined"
 
     return "missing"
 
@@ -22,11 +47,17 @@ def _overall_evidence_status(
         for item in drug_trace_items
     }
 
+    if "conflicting" in statuses:
+        return "conflicting"
+
     if statuses == {"present"}:
         return "complete"
 
     if "present" in statuses:
         return "partial"
+
+    if "disputed" in statuses:
+        return "disputed"
 
     return "missing"
 
