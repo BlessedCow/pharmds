@@ -1,3 +1,5 @@
+import pytest
+
 from core.evidence.pd_interaction_traces import (
     build_additive_pd_effect_evidence_trace,
     build_additive_pd_effect_evidence_traces,
@@ -152,4 +154,207 @@ def test_build_additive_pd_effect_evidence_trace_returns_complete_for_cns_depres
         "claim_clonazepam_pd_effect_cns_depression_001"
         in claim_ids_by_drug["clonazepam"]
     )
+
+def test_build_additive_pd_effect_evidence_trace_returns_complete_for_qt():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["clarithromycin", "fluconazole"],
+        "QT_prolongation",
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    claim_ids_by_drug = {
+        item["drug_id"]: {
+            claim["claim_id"]
+            for claim in item["claims"]
+        }
+        for item in trace["drugs"]
+    }
+
+    assert (
+        "claim_clarithromycin_pd_effect_qt_prolongation_001"
+        in claim_ids_by_drug["clarithromycin"]
+    )
+    assert (
+        "claim_fluconazole_pd_effect_qt_prolongation_001"
+        in claim_ids_by_drug["fluconazole"]
+    )
     
+def test_build_additive_pd_effect_evidence_trace_returns_complete_for_serotonergic():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["citalopram", "sertraline"],
+        "serotonergic",
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    claim_ids_by_drug = {
+        item["drug_id"]: {
+            claim["claim_id"]
+            for claim in item["claims"]
+        }
+        for item in trace["drugs"]
+    }
+
+    assert (
+        "claim_citalopram_pd_effect_serotonergic_001"
+        in claim_ids_by_drug["citalopram"]
+    )
+    assert (
+        "claim_sertraline_pd_effect_serotonergic_001"
+        in claim_ids_by_drug["sertraline"]
+    )
+
+
+def test_build_additive_pd_trace_returns_complete_for_serotonin_syndrome():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["citalopram", "sertraline"],
+        "serotonin_syndrome",
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    claim_ids_by_drug = {
+        item["drug_id"]: {
+            claim["claim_id"]
+            for claim in item["claims"]
+        }
+        for item in trace["drugs"]
+    }
+
+    assert (
+        "claim_citalopram_pd_effect_serotonin_syndrome_001"
+        in claim_ids_by_drug["citalopram"]
+    )
+    assert (
+        "claim_sertraline_pd_effect_serotonin_syndrome_001"
+        in claim_ids_by_drug["sertraline"]
+    )
+    
+def test_build_additive_pd_effect_evidence_trace_returns_complete_for_bleeding():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["warfarin", "ibuprofen"],
+        "bleeding",
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    claim_ids_by_drug = {
+        item["drug_id"]: {
+            claim["claim_id"]
+            for claim in item["claims"]
+        }
+        for item in trace["drugs"]
+    }
+
+    assert (
+        "claim_warfarin_pd_effect_bleeding_001"
+        in claim_ids_by_drug["warfarin"]
+    )
+    assert (
+        "claim_ibuprofen_pd_effect_bleeding_001"
+        in claim_ids_by_drug["ibuprofen"]
+    )
+    
+
+def test_build_additive_pd_effect_evidence_trace_returns_complete_for_seizure_risk():
+    trace = build_additive_pd_effect_evidence_trace(
+        ["bupropion", "ginkgo_biloba"],
+        "seizure_risk",
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    claim_ids_by_drug = {
+        item["drug_id"]: {
+            claim["claim_id"]
+            for claim in item["claims"]
+        }
+        for item in trace["drugs"]
+    }
+
+    assert (
+        "claim_bupropion_pd_effect_seizure_risk_001"
+        in claim_ids_by_drug["bupropion"]
+    )
+    assert (
+        "claim_ginkgo_biloba_pd_effect_seizure_risk_001"
+        in claim_ids_by_drug["ginkgo_biloba"]
+    )
+    
+@pytest.mark.parametrize(
+    ("drug_ids", "effect_id", "expected_claim_ids_by_drug"),
+    [
+        (
+            ["vortioxetine", "varenicline"],
+            "insomnia_risk",
+            {
+                "vortioxetine": {
+                    "claim_vortioxetine_pd_effect_insomnia_risk_001",
+                },
+                "varenicline": {
+                    "claim_varenicline_pd_effect_insomnia_risk_001",
+                },
+            },
+        ),
+        (
+            ["vortioxetine", "varenicline"],
+            "activation_agitation_risk",
+            {
+                "vortioxetine": {
+                    "claim_vortioxetine_pd_effect_activation_agitation_risk_001",
+                },
+                "varenicline": {
+                    "claim_varenicline_pd_effect_activation_agitation_risk_001",
+                },
+            },
+        ),
+        (
+            ["hydroxyzine", "paroxetine"],
+            "anticholinergic_effects",
+            {
+                "hydroxyzine": {
+                    "claim_hydroxyzine_pd_effect_anticholinergic_effects_001",
+                },
+                "paroxetine": {
+                    "claim_paroxetine_pd_effect_anticholinergic_effects_001",
+                },
+            },
+        ),
+        (
+            ["trazodone", "clonidine"],
+            "orthostatic_hypotension",
+            {
+                "trazodone": {
+                    "claim_trazodone_pd_effect_orthostatic_hypotension_001",
+                },
+                "clonidine": {
+                    "claim_clonidine_pd_effect_orthostatic_hypotension_001",
+                },
+            },
+        ),
+    ],
+)
+def test_build_additive_pd_effect_evidence_trace_returns_complete_for_expanded_batch(
+    drug_ids,
+    effect_id,
+    expected_claim_ids_by_drug,
+):
+    trace = build_additive_pd_effect_evidence_trace(
+        drug_ids,
+        effect_id,
+    )
+
+    assert trace["overall_evidence_status"] == "complete"
+
+    claim_ids_by_drug = {
+        item["drug_id"]: {
+            claim["claim_id"]
+            for claim in item["claims"]
+        }
+        for item in trace["drugs"]
+    }
+
+    for drug_id, expected_claim_ids in expected_claim_ids_by_drug.items():
+        assert expected_claim_ids <= claim_ids_by_drug[drug_id]
+        

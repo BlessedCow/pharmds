@@ -1,3 +1,5 @@
+import pytest
+
 from core.evidence.traces import (
     build_pd_effect_claim_trace,
     build_pd_effect_traces_for_drug,
@@ -154,6 +156,135 @@ def test_has_approved_active_pd_effect_evidence_returns_true_for_expanded_claim(
     result = has_approved_active_pd_effect_evidence(
         "clonazepam",
         "sedation",
+    )
+
+    assert result is True
+    
+def test_build_pd_effect_traces_for_drug_returns_qt_claim():
+    traces = build_pd_effect_traces_for_drug("clarithromycin")
+
+    claim_ids = {trace["claim_id"] for trace in traces}
+
+    assert "claim_clarithromycin_pd_effect_qt_prolongation_001" in claim_ids
+    
+def test_has_approved_active_pd_effect_evidence_returns_true_for_qt_claim():
+    result = has_approved_active_pd_effect_evidence(
+        "fluconazole",
+        "QT_prolongation",
+    )
+
+    assert result is True
+    
+def test_build_pd_effect_traces_for_drug_returns_serotonergic_claims():
+    traces = build_pd_effect_traces_for_drug("sertraline")
+
+    claim_ids = {trace["claim_id"] for trace in traces}
+
+    assert "claim_sertraline_pd_effect_serotonergic_001" in claim_ids
+    assert "claim_sertraline_pd_effect_serotonin_syndrome_001" in claim_ids
+
+
+def test_has_approved_active_pd_effect_evidence_returns_true_for_serotonergic_claim():
+    result = has_approved_active_pd_effect_evidence(
+        "citalopram",
+        "serotonergic",
+    )
+
+    assert result is True
+    
+def test_build_pd_effect_traces_for_drug_returns_bleeding_claim():
+    traces = build_pd_effect_traces_for_drug("ibuprofen")
+
+    claim_ids = {trace["claim_id"] for trace in traces}
+
+    assert "claim_ibuprofen_pd_effect_bleeding_001" in claim_ids
+
+
+def test_has_approved_active_pd_effect_evidence_returns_true_for_bleeding_claim():
+    result = has_approved_active_pd_effect_evidence(
+        "warfarin",
+        "bleeding",
+    )
+
+    assert result is True
+    
+def test_build_pd_effect_traces_for_drug_returns_seizure_risk_claim():
+    traces = build_pd_effect_traces_for_drug("ginkgo_biloba")
+
+    claim_ids = {trace["claim_id"] for trace in traces}
+
+    assert "claim_ginkgo_biloba_pd_effect_seizure_risk_001" in claim_ids
+
+
+def test_has_approved_active_pd_effect_evidence_returns_true_for_seizure_risk_claim():
+    result = has_approved_active_pd_effect_evidence(
+        "bupropion",
+        "seizure_risk",
+    )
+
+    assert result is True
+    
+@pytest.mark.parametrize(
+    ("drug_id", "expected_claim_ids"),
+    [
+        (
+            "vortioxetine",
+            {
+                "claim_vortioxetine_pd_effect_insomnia_risk_001",
+                "claim_vortioxetine_pd_effect_activation_agitation_risk_001",
+            },
+        ),
+        (
+            "varenicline",
+            {
+                "claim_varenicline_pd_effect_insomnia_risk_001",
+                "claim_varenicline_pd_effect_activation_agitation_risk_001",
+            },
+        ),
+        (
+            "hydroxyzine",
+            {
+                "claim_hydroxyzine_pd_effect_anticholinergic_effects_001",
+            },
+        ),
+        (
+            "clonidine",
+            {
+                "claim_clonidine_pd_effect_orthostatic_hypotension_001",
+            },
+        ),
+    ],
+)
+def test_build_pd_effect_traces_for_drug_returns_expanded_batch_claims(
+    drug_id,
+    expected_claim_ids,
+):
+    traces = build_pd_effect_traces_for_drug(drug_id)
+
+    claim_ids = {
+        trace["claim_id"]
+        for trace in traces
+    }
+
+    assert expected_claim_ids <= claim_ids
+
+
+@pytest.mark.parametrize(
+    ("drug_id", "effect_id"),
+    [
+        ("vortioxetine", "insomnia_risk"),
+        ("varenicline", "activation_agitation_risk"),
+        ("paroxetine", "anticholinergic_effects"),
+        ("clonidine", "orthostatic_hypotension"),
+    ],
+)
+def test_has_approved_active_pd_effect_evidence_returns_true_for_expanded_batch(
+    drug_id,
+    effect_id,
+):
+    result = has_approved_active_pd_effect_evidence(
+        drug_id,
+        effect_id,
     )
 
     assert result is True

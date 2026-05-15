@@ -160,5 +160,491 @@
       "reviewed_at": null
     },
     "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_clarithromycin_pd_effect_qt_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "clarithromycin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_fluconazole_pd_effect_qt_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "fluconazole"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_citalopram_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "citalopram"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_sertraline_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "sertraline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_citalopram_pd_effect_serotonin_syndrome_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "citalopram"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonin_syndrome"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_sertraline_pd_effect_serotonin_syndrome_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "sertraline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonin_syndrome"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_warfarin_pd_effect_bleeding_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "warfarin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bleeding"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_ibuprofen_pd_effect_bleeding_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ibuprofen"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bleeding"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_bupropion_pd_effect_seizure_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "bupropion"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "seizure_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_ginkgo_biloba_pd_effect_seizure_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ginkgo_biloba"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "seizure_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_vortioxetine_pd_effect_insomnia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "vortioxetine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "insomnia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_varenicline_pd_effect_insomnia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "varenicline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "insomnia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_vortioxetine_pd_effect_activation_agitation_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "vortioxetine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "activation_agitation_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_varenicline_pd_effect_activation_agitation_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "varenicline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "activation_agitation_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_hydroxyzine_pd_effect_anticholinergic_effects_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "hydroxyzine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "anticholinergic_effects"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_paroxetine_pd_effect_anticholinergic_effects_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "paroxetine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "anticholinergic_effects"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_trazodone_pd_effect_orthostatic_hypotension_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "trazodone"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "orthostatic_hypotension"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
+  },
+  {
+    "claim_id": "claim_clonidine_pd_effect_orthostatic_hypotension_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "clonidine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "orthostatic_hypotension"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": null
+    },
+    "claim_status": "active"
   }
 ]
