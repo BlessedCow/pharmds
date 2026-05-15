@@ -8,7 +8,7 @@ from core.mechanisms.registry import (
     MECHANISM_ENZYME_SUBSTRATE,
 )
 from core.mechanisms.severity import PRELIMINARY_SEVERITY_INFORMATIONAL
-from core.models import Drug, EnzymeRole, Facts
+from core.models import Drug, EnzymeRole, Facts, PDEffect
 
 
 def test_run_mechanism_pipeline_returns_all_stages():
@@ -146,3 +146,156 @@ def test_run_mechanism_pipeline_returns_empty_stages_without_candidates():
     assert result.aggregate_concerns == ()
     assert result.scored_concerns == ()
     
+def test_run_mechanism_pipeline_keeps_default_behavior_without_evidence_gating():
+    facts = Facts(
+        drugs={
+            "test_drug_a": Drug(
+                id="test_drug_a",
+                generic_name="Test Drug A",
+                drug_class="test",
+                therapeutic_index="moderate",
+            ),
+            "test_drug_b": Drug(
+                id="test_drug_b",
+                generic_name="Test Drug B",
+                drug_class="test",
+                therapeutic_index="moderate",
+            ),
+        },
+        enzyme_roles={},
+        transporter_roles={},
+        pd_effects={
+            "test_drug_a": [
+                PDEffect(
+                    effect_id="nausea",
+                    direction="increase",
+                    magnitude="medium",
+                )
+            ],
+            "test_drug_b": [
+                PDEffect(
+                    effect_id="nausea",
+                    direction="increase",
+                    magnitude="medium",
+                )
+            ],
+        },
+    )
+
+    result = run_mechanism_pipeline(
+        ["test_drug_a", "test_drug_b"],
+        facts,
+    )
+
+    assert len(result.effects) == 2
+    assert len(result.candidates) == 1
+    assert len(result.arbitration_results) == 1
+    assert len(result.policy_results) == 1
+    assert len(result.scored_concerns) == 1
+
+
+def test_run_mechanism_pipeline_filters_unsupported_pd_effects_when_evidence_gated():
+    facts = Facts(
+        drugs={
+            "test_drug_a": Drug(
+                id="test_drug_a",
+                generic_name="Test Drug A",
+                drug_class="test",
+                therapeutic_index="moderate",
+            ),
+            "test_drug_b": Drug(
+                id="test_drug_b",
+                generic_name="Test Drug B",
+                drug_class="test",
+                therapeutic_index="moderate",
+            ),
+        },
+        enzyme_roles={},
+        transporter_roles={},
+        pd_effects={
+            "test_drug_a": [
+                PDEffect(
+                    effect_id="nausea",
+                    direction="increase",
+                    magnitude="medium",
+                )
+            ],
+            "test_drug_b": [
+                PDEffect(
+                    effect_id="nausea",
+                    direction="increase",
+                    magnitude="medium",
+                )
+            ],
+        },
+    )
+
+    result = run_mechanism_pipeline(
+        ["test_drug_a", "test_drug_b"],
+        facts,
+        evidence_gated=True,
+    )
+
+    assert result.effects == ()
+    assert result.candidates == ()
+    assert result.arbitration_results == ()
+    assert result.policy_results == ()
+    assert result.scored_concerns == ()
+    assert result.severity_annotations == ()
+    assert result.aggregate_concerns == ()
+
+
+def test_run_mechanism_pipeline_keeps_supported_pd_effects_when_evidence_gated():
+    facts = Facts(
+        drugs={
+            "clarithromycin": Drug(
+                id="clarithromycin",
+                generic_name="clarithromycin",
+                drug_class="macrolide antibiotic",
+                therapeutic_index="moderate",
+            ),
+            "fluconazole": Drug(
+                id="fluconazole",
+                generic_name="fluconazole",
+                drug_class="azole antifungal",
+                therapeutic_index="moderate",
+            ),
+        },
+        enzyme_roles={},
+        transporter_roles={},
+        pd_effects={
+            "clarithromycin": [
+                PDEffect(
+                    effect_id="nausea",
+                    direction="increase",
+                    magnitude="medium",
+                )
+            ],
+            "fluconazole": [
+                PDEffect(
+                    effect_id="nausea",
+                    direction="increase",
+                    magnitude="medium",
+                )
+            ],
+        },
+    )
+
+    result = run_mechanism_pipeline(
+        ["clarithromycin", "fluconazole"],
+        facts,
+        evidence_gated=True,
+    )
+
+    assert len(result.effects) == 2
+    assert len(result.candidates) == 1
+    assert len(result.arbitration_results) == 1
+    assert len(result.policy_results) == 1
+    assert len(result.scored_concerns) == 1
+
+    scored = result.scored_concerns[0]
+
+    assert scored.effect_id == "nausea"
+    assert scored.metadata["evidence_trace"]["overall_evidence_status"] == (
+        "complete"
+    )

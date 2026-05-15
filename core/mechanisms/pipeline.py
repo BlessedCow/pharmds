@@ -15,6 +15,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from core.evidence.gating import filter_facts_to_evidence_backed_pd_effects
 from core.mechanisms.aggregation import (
     AggregateConcern,
     aggregate_policy_results,
@@ -56,9 +57,16 @@ class MechanismPipelineResult:
 def run_mechanism_pipeline(
     drug_ids: list[str],
     facts: Facts,
+    *,
+    evidence_gated: bool = False,
 ) -> MechanismPipelineResult:
     """Run the read-only normalized mechanism pipeline for selected drugs."""
-    effects = infer_mechanism_effects_for_drugs(drug_ids, facts)
+    pipeline_facts = facts
+
+    if evidence_gated:
+        pipeline_facts = filter_facts_to_evidence_backed_pd_effects(facts)
+
+    effects = infer_mechanism_effects_for_drugs(drug_ids, pipeline_facts)
     candidates = find_interaction_candidates(effects)
     arbitration_results = arbitrate_candidates(candidates)
     policy_results = apply_concern_policy(arbitration_results)
