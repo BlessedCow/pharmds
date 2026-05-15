@@ -17,6 +17,7 @@ from core.mechanisms.scoring import (
     ScoredConcern,
 )
 from core.mechanisms.scoring_debug import (
+    _format_debug_evidence_trace,
     format_scored_concern,
     format_scored_concerns,
 )
@@ -61,7 +62,8 @@ def test_format_scored_concern_with_effect_id():
         f"| severity={SEVERITY_UNSCORED}"
     )
 
-def test_format_scored_concern_includes_aggregate_context():
+
+def es_aggregate_contexttest_format_scored_concern_includ():
     concern = ScoredConcern(
         policy_concern=POLICY_MECHANISTIC_CONCERN,
         source_concern=CONCERN_EXPOSURE_INCREASE,
@@ -83,6 +85,116 @@ def test_format_scored_concern_includes_aggregate_context():
         "| aggregate_members=3 "
         "| related_targets=CYP2C19, CYP2C9, CYP2D6"
     )
+
+
+def test_format_evidence_trace_for_debug():
+    trace = {
+        "trace_type": "additive_pd_effect",
+        "effect_id": "nausea",
+        "drug_ids": ["clarithromycin", "fluconazole"],
+        "overall_evidence_status": "complete",
+        "drugs": [
+            {
+                "drug_id": "clarithromycin",
+                "effect_id": "nausea",
+                "evidence_status": "present",
+                "claims": [
+                    {
+                        "claim_id": (
+                            "claim_clarithromycin_pd_effect_nausea_001"
+                        ),
+                        "claim_type": "pd_effect",
+                        "drug_id": "clarithromycin",
+                        "predicate": "has_pd_effect",
+                        "effect_id": "nausea",
+                        "claim_status": "active",
+                        "review": {
+                            "status": "approved",
+                        },
+                        "evidence": [
+                            {
+                                "source": {
+                                    "source_id": (
+                                        "source_internal_curated_pd_effects_v1"
+                                    ),
+                                    "found": True,
+                                    "title": (
+                                        "Internal curated pharmacodynamic "
+                                        "effects dataset"
+                                    ),
+                                    "source_type": "internal_curated_entry",
+                                    "publisher": "PharmDS",
+                                    "url": None,
+                                    "reliability_tier": "curated",
+                                },
+                                "evidence_type": "internal_curated_entry",
+                                "confidence": "moderate",
+                            }
+                        ],
+                    }
+                ],
+            },
+            {
+                "drug_id": "fluconazole",
+                "effect_id": "nausea",
+                "evidence_status": "present",
+                "claims": [
+                    {
+                        "claim_id": "claim_fluconazole_pd_effect_nausea_001",
+                        "claim_type": "pd_effect",
+                        "drug_id": "fluconazole",
+                        "predicate": "has_pd_effect",
+                        "effect_id": "nausea",
+                        "claim_status": "active",
+                        "review": {
+                            "status": "approved",
+                        },
+                        "evidence": [
+                            {
+                                "source": {
+                                    "source_id": (
+                                        "source_internal_curated_pd_effects_v1"
+                                    ),
+                                    "found": True,
+                                    "title": (
+                                        "Internal curated pharmacodynamic "
+                                        "effects dataset"
+                                    ),
+                                    "source_type": "internal_curated_entry",
+                                    "publisher": "PharmDS",
+                                    "url": None,
+                                    "reliability_tier": "curated",
+                                },
+                                "evidence_type": "internal_curated_entry",
+                                "confidence": "moderate",
+                            }
+                        ],
+                    }
+                ],
+            },
+        ],
+    }
+
+    assert _format_debug_evidence_trace(trace) == [
+        "Evidence:",
+        "  Evidence status for nausea: complete",
+        (
+            "  clarithromycin evidence_status=present; "
+            "clarithromycin -> nausea: pd_effect; "
+            "claim_status=active; review_status=approved; "
+            "evidence=Internal curated pharmacodynamic effects dataset "
+            "(PharmDS, curated); "
+            "evidence_type=internal_curated_entry; confidence=moderate"
+        ),
+        (
+            "  fluconazole evidence_status=present; "
+            "fluconazole -> nausea: pd_effect; "
+            "claim_status=active; review_status=approved; "
+            "evidence=Internal curated pharmacodynamic effects dataset "
+            "(PharmDS, curated); "
+            "evidence_type=internal_curated_entry; confidence=moderate"
+        ),
+    ]
 
 def test_format_scored_concerns_formats_multiple():
     concerns = [
@@ -120,5 +232,113 @@ def test_format_scored_concerns_formats_multiple():
             "| candidate_type=PD_SHARED_EFFECT "
             f"| confidence={CONFIDENCE_MODERATE} "
             f"| severity={SEVERITY_UNSCORED}"
+        ),
+    ]
+def test_format_debug_evidence_trace():
+    trace = {
+        "trace_type": "additive_pd_effect",
+        "effect_id": "nausea",
+        "drug_ids": ["clarithromycin", "fluconazole"],
+        "overall_evidence_status": "complete",
+        "drugs": [
+            {
+                "drug_id": "clarithromycin",
+                "effect_id": "nausea",
+                "evidence_status": "present",
+                "claims": [
+                    {
+                        "claim_id": (
+                            "claim_clarithromycin_pd_effect_nausea_001"
+                        ),
+                        "claim_type": "pd_effect",
+                        "drug_id": "clarithromycin",
+                        "predicate": "has_pd_effect",
+                        "effect_id": "nausea",
+                        "claim_status": "active",
+                        "review": {
+                            "status": "approved",
+                        },
+                        "evidence": [
+                            {
+                                "source": {
+                                    "source_id": (
+                                        "source_internal_curated_pd_effects_v1"
+                                    ),
+                                    "found": True,
+                                    "title": (
+                                        "Internal curated pharmacodynamic "
+                                        "effects dataset"
+                                    ),
+                                    "source_type": "internal_curated_entry",
+                                    "publisher": "PharmDS",
+                                    "url": None,
+                                    "reliability_tier": "curated",
+                                },
+                                "evidence_type": "internal_curated_entry",
+                                "confidence": "moderate",
+                            }
+                        ],
+                    }
+                ],
+            },
+            {
+                "drug_id": "fluconazole",
+                "effect_id": "nausea",
+                "evidence_status": "present",
+                "claims": [
+                    {
+                        "claim_id": "claim_fluconazole_pd_effect_nausea_001",
+                        "claim_type": "pd_effect",
+                        "drug_id": "fluconazole",
+                        "predicate": "has_pd_effect",
+                        "effect_id": "nausea",
+                        "claim_status": "active",
+                        "review": {
+                            "status": "approved",
+                        },
+                        "evidence": [
+                            {
+                                "source": {
+                                    "source_id": (
+                                        "source_internal_curated_pd_effects_v1"
+                                    ),
+                                    "found": True,
+                                    "title": (
+                                        "Internal curated pharmacodynamic "
+                                        "effects dataset"
+                                    ),
+                                    "source_type": "internal_curated_entry",
+                                    "publisher": "PharmDS",
+                                    "url": None,
+                                    "reliability_tier": "curated",
+                                },
+                                "evidence_type": "internal_curated_entry",
+                                "confidence": "moderate",
+                            }
+                        ],
+                    }
+                ],
+            },
+        ],
+    }
+
+    assert _format_debug_evidence_trace(trace) == [
+        "Evidence:",
+        "  Evidence status for nausea: complete",
+        (
+            "  clarithromycin evidence_status=present; "
+            "clarithromycin -> nausea: pd_effect; "
+            "claim_status=active; review_status=approved; "
+            "evidence=Internal curated pharmacodynamic effects dataset "
+            "(PharmDS, curated); "
+            "evidence_type=internal_curated_entry; confidence=moderate"
+        ),
+        (
+            "  fluconazole evidence_status=present; "
+            "fluconazole -> nausea: pd_effect; "
+            "claim_status=active; review_status=approved; "
+            "evidence=Internal curated pharmacodynamic effects dataset "
+            "(PharmDS, curated); "
+            "evidence_type=internal_curated_entry; confidence=moderate"
         ),
     ]

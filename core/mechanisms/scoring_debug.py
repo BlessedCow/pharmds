@@ -2,7 +2,25 @@
 
 from __future__ import annotations
 
+from typing import Any
+
+from core.evidence.formatting import format_evidence_trace
 from core.mechanisms.scoring import ScoredConcern
+
+
+def _format_debug_evidence_trace(trace: dict[str, Any]) -> list[str]:
+    """Return compact debug lines for an evidence trace."""
+    formatted_lines = format_evidence_trace(trace)
+
+    if not formatted_lines:
+        return []
+
+    debug_lines = ["Evidence:"]
+
+    for line in formatted_lines:
+        debug_lines.append(f"  {line}")
+
+    return debug_lines
 
 
 def format_scored_concern(concern: ScoredConcern) -> str:
@@ -37,7 +55,19 @@ def format_scored_concern(concern: ScoredConcern) -> str:
     if concern.related_effects:
         parts.append(f"related_effects={', '.join(concern.related_effects)}")
 
-    return " | ".join(parts)
+    summary = " | ".join(parts)
+
+    evidence_trace = concern.metadata.get("evidence_trace")
+
+    if not isinstance(evidence_trace, dict):
+        return summary
+
+    evidence_lines = _format_debug_evidence_trace(evidence_trace)
+
+    if not evidence_lines:
+        return summary
+
+    return "\n".join([summary, *evidence_lines])
 
 
 def format_scored_concerns(
