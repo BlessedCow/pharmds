@@ -15,7 +15,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from core.evidence.gating import filter_facts_to_evidence_backed_pd_effects
+from core.evidence.gating import (
+    EVIDENCE_MODE_OFF,
+    EVIDENCE_MODE_SUPPORTED,
+    filter_facts_to_evidence_backed_pd_effects,
+    require_valid_evidence_mode,
+)
 from core.mechanisms.aggregation import (
     AggregateConcern,
     aggregate_policy_results,
@@ -59,12 +64,21 @@ def run_mechanism_pipeline(
     facts: Facts,
     *,
     evidence_gated: bool = False,
+    evidence_mode: str = EVIDENCE_MODE_OFF,
 ) -> MechanismPipelineResult:
     """Run the read-only normalized mechanism pipeline for selected drugs."""
+    if evidence_gated and evidence_mode == EVIDENCE_MODE_OFF:
+        evidence_mode = EVIDENCE_MODE_SUPPORTED
+
+    require_valid_evidence_mode(evidence_mode)
+
     pipeline_facts = facts
 
-    if evidence_gated:
-        pipeline_facts = filter_facts_to_evidence_backed_pd_effects(facts)
+    if evidence_mode != EVIDENCE_MODE_OFF:
+        pipeline_facts = filter_facts_to_evidence_backed_pd_effects(
+            facts,
+            mode=evidence_mode,
+        )
 
     effects = infer_mechanism_effects_for_drugs(drug_ids, pipeline_facts)
     candidates = find_interaction_candidates(effects)

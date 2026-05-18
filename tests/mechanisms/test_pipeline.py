@@ -1,3 +1,7 @@
+from core.evidence.gating import (
+    EVIDENCE_MODE_MODERATE,
+    EVIDENCE_MODE_SUPPORTED,
+)
 from core.mechanisms.aggregation import AGGREGATE_OBJECT_EXPOSURE_INCREASE
 from core.mechanisms.arbitration import CONCERN_EXPOSURE_INCREASE
 from core.mechanisms.candidates import CANDIDATE_ENZYME_INHIBITION
@@ -113,7 +117,54 @@ def test_run_mechanism_pipeline_returns_all_stages():
     assert severity.severity_reason == (
         "Single high-confidence mechanistic concern."
     )
+def test_run_mechanism_pipeline_preserves_evidence_gated_compatibility(
+    monkeypatch,
+):
+    seen = {}
 
+    def fake_filter(facts, *, mode):
+        seen["mode"] = mode
+        return facts
+
+    monkeypatch.setattr(
+        "core.mechanisms.pipeline."
+        "filter_facts_to_evidence_backed_pd_effects",
+        fake_filter,
+    )
+
+    facts = Facts()
+    run_mechanism_pipeline(
+        [],
+        facts,
+        evidence_gated=True,
+    )
+
+    assert seen["mode"] == EVIDENCE_MODE_SUPPORTED
+
+
+def test_run_mechanism_pipeline_accepts_evidence_mode(monkeypatch):
+    seen = {}
+
+    def fake_filter(facts, *, mode):
+        seen["mode"] = mode
+        return facts
+
+    monkeypatch.setattr(
+        "core.mechanisms.pipeline."
+        "filter_facts_to_evidence_backed_pd_effects",
+        fake_filter,
+    )
+
+    facts = Facts()
+    run_mechanism_pipeline(
+        [],
+        facts,
+        evidence_mode=EVIDENCE_MODE_MODERATE,
+    )
+
+    assert seen["mode"] == EVIDENCE_MODE_MODERATE
+    
+    
 def test_run_mechanism_pipeline_returns_empty_stages_without_candidates():
     facts = Facts(
         drugs={

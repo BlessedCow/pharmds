@@ -14,6 +14,12 @@ from rich.panel import Panel
 from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
+from core.evidence.gating import (
+    EVIDENCE_MODE_MODERATE,
+    EVIDENCE_MODE_OFF,
+    EVIDENCE_MODE_STRICT,
+    EVIDENCE_MODE_SUPPORTED,
+)
 from core.evidence.human_rendering import (
     build_human_evidence_lines_for_rule_hit,
 )
@@ -537,6 +543,23 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--evidence-mode",
+        choices=[
+            EVIDENCE_MODE_OFF,
+            EVIDENCE_MODE_SUPPORTED,
+            EVIDENCE_MODE_MODERATE,
+            EVIDENCE_MODE_STRICT,
+        ],
+        default=EVIDENCE_MODE_OFF,
+        help=(
+            "Evidence gating mode for mechanism pipeline PD effects. "
+            "Use 'off' for default behavior, 'supported' to require "
+            "supporting evidence, 'moderate' to require moderate/high "
+            "synthesized confidence, or 'strict' to require high-confidence "
+            "cleanly supported evidence."
+        ),
+    )
+    p.add_argument(
         "--show-severity",
         action="store_true",
         help=(
@@ -671,12 +694,16 @@ def main() -> None:
         or args.show_severity
         or args.show_severity_comparison
     ):
-        pipeline = run_mechanism_pipeline(drug_ids, facts)
+        pipeline = run_mechanism_pipeline(
+            drug_ids,
+            facts,
+            evidence_mode=args.evidence_mode,
+        )
         if args.show_mechanism_json:
             payload = mechanism_pipeline_to_json_dict(pipeline)
             print(json.dumps(payload, indent=2, sort_keys=True))
             return
-        
+
         if args.show_mechanisms:
             print("\nNormalized MechanismEffect IR\n")
             for line in format_mechanism_effects(list(pipeline.effects)):
