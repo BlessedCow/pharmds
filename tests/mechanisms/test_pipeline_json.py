@@ -55,6 +55,7 @@ def test_mechanism_pipeline_to_json_dict_serializes_all_stages():
         "scored_concerns",
         "severity_annotations",
         "aggregate_concerns",
+        "aggregate_severity_annotations",
     }
 
     assert payload["effects"][0]["source_drug"] == "bupropion"
@@ -203,5 +204,6 @@ def test_mechanism_pipeline_to_json_dict_serializes_empty_stages():
         "scored_concerns": [],
         "severity_annotations": [],
         "aggregate_concerns": [],
+        "aggregate_severity_annotations": [],
     }
     json.dumps(payload)

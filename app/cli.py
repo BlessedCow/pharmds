@@ -34,7 +34,6 @@ from core.mechanisms.candidate_debug import format_interaction_candidates
 from core.mechanisms.debug import format_mechanism_effects
 from core.mechanisms.policy_debug import format_policy_results
 from core.mechanisms.scoring_debug import format_scored_concerns
-from core.mechanisms.severity import strongest_preliminary_severity
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
@@ -421,21 +420,14 @@ def render_severity_annotations(severity_annotations):
     return "\n".join(lines).rstrip()
 
 def render_severity_comparison(pipeline):
-    """Render comparison between severity annotations and aggregate concerns."""
-    if not pipeline.aggregate_concerns:
-        return "No aggregate concerns."
+    """Render comparison between aggregate concerns and aggregate severity."""
+    if not pipeline.aggregate_severity_annotations:
+        return "No aggregate severity annotations."
 
     lines = []
 
-    annotations_by_key = {
-        (
-            annotation.scored.effect_id,
-            annotation.scored.policy_concern,
-        ): annotation
-        for annotation in pipeline.severity_annotations
-    }
-
-    for aggregate in pipeline.aggregate_concerns:
+    for annotation in pipeline.aggregate_severity_annotations:
+        aggregate = annotation.aggregate
         drugs = ", ".join(aggregate.drugs)
         effect_id = aggregate.effect_id or aggregate.anchor
 
@@ -446,44 +438,27 @@ def render_severity_comparison(pipeline):
             f" | drugs={drugs}"
             f" | effect={effect_id}"
         )
-
-        effect_ids = [
-            effect.strip()
-            for effect in effect_id.split(",")
-            if effect.strip()
-        ]
-
-        matching_annotations = [
-            annotations_by_key[(effect, aggregate.policy_concern)]
-            for effect in effect_ids
-            if (effect, aggregate.policy_concern) in annotations_by_key
-        ]
-
-        if not matching_annotations:
-            lines.append("  preliminary_severity: none")
-            lines.append("  severity_reason: no matching severity annotation")
-            continue
-
-        severities = [
-            annotation.preliminary_severity
-            for annotation in matching_annotations
-        ]
-        strongest_severity = strongest_preliminary_severity(severities)
-
-        reasons = sorted(
-            {annotation.severity_reason for annotation in matching_annotations}
-        )
-
         lines.append(
             "  strongest_preliminary_severity: "
-            + str(strongest_severity)
+            + str(annotation.strongest_preliminary_severity)
         )
-        lines.append(
-            "  contributing_preliminary_severities: "
-            + ", ".join(sorted(set(severities)))
-        )
-        lines.append("  severity_reason: " + " | ".join(reasons))
-        
+
+        if annotation.contributing_preliminary_severities:
+            lines.append(
+                "  contributing_preliminary_severities: "
+                + ", ".join(annotation.contributing_preliminary_severities)
+            )
+        else:
+            lines.append("  contributing_preliminary_severities: none")
+
+        if annotation.severity_reasons:
+            lines.append(
+                "  severity_reason: "
+                + " | ".join(annotation.severity_reasons)
+            )
+        else:
+            lines.append("  severity_reason: no matching severity annotation")
+
     return "\n".join(lines)
 
 def main() -> None:

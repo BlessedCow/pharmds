@@ -21,6 +21,10 @@ from core.evidence.gating import (
     filter_facts_to_evidence_backed_pd_effects,
     require_valid_evidence_mode,
 )
+from core.mechanisms.aggregate_severity import (
+    AggregateSeverityAnnotation,
+    annotate_aggregate_preliminary_severity,
+)
 from core.mechanisms.aggregation import (
     AggregateConcern,
     aggregate_policy_results,
@@ -49,7 +53,7 @@ from core.models import Facts
 
 @dataclass(frozen=True)
 class MechanismPipelineResult:
-    """Container for each stage of the normalized mechanism pipeline."""
+    """Container for all read-only mechanism pipeline stages."""
 
     effects: tuple[MechanismEffect, ...]
     candidates: tuple[InteractionCandidate, ...]
@@ -58,7 +62,10 @@ class MechanismPipelineResult:
     scored_concerns: tuple[ScoredConcern, ...]
     severity_annotations: tuple[SeverityAnnotatedConcern, ...]
     aggregate_concerns: tuple[AggregateConcern, ...]
-
+    aggregate_severity_annotations: tuple[
+        AggregateSeverityAnnotation,
+        ...,
+    ]
 def run_mechanism_pipeline(
     drug_ids: list[str],
     facts: Facts,
@@ -87,6 +94,10 @@ def run_mechanism_pipeline(
     aggregate_concerns = aggregate_policy_results(policy_results)
     scored_concerns = score_policy_results(policy_results, aggregate_concerns)
     severity_annotations = annotate_preliminary_severity(scored_concerns)
+    aggregate_severity_annotations = annotate_aggregate_preliminary_severity(
+        aggregate_concerns,
+        severity_annotations,
+    )
 
     return MechanismPipelineResult(
         effects=tuple(effects),
@@ -96,4 +107,7 @@ def run_mechanism_pipeline(
         scored_concerns=tuple(scored_concerns),
         severity_annotations=tuple(severity_annotations),
         aggregate_concerns=tuple(aggregate_concerns),
+        aggregate_severity_annotations=tuple(
+            aggregate_severity_annotations,
+        ),
     )

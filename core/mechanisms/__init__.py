@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from core.mechanisms.aggregate_severity import AggregateSeverityAnnotation
 from core.mechanisms.pipeline import (
     MechanismPipelineResult,
     run_mechanism_pipeline,
@@ -12,4 +13,5 @@ __all__ = [
     "MechanismPipelineResult",
     "mechanism_pipeline_to_json_dict",
     "run_mechanism_pipeline",
+    "AggregateSeverityAnnotation",
 ]

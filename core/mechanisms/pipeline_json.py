@@ -35,6 +35,10 @@ def mechanism_pipeline_to_json_dict(
             _aggregate_to_json_dict(item)
             for item in pipeline.aggregate_concerns
         ],
+        "aggregate_severity_annotations": [
+            _aggregate_severity_to_json_dict(item)
+            for item in pipeline.aggregate_severity_annotations
+        ],
     }
 
 
@@ -47,6 +51,12 @@ def _aggregate_to_json_dict(item) -> dict[str, Any]:
 def _to_json_dict(item) -> dict[str, Any]:
     data = asdict(item)
     return _normalize_json_value(data)
+
+
+def _aggregate_severity_to_json_dict(item) -> dict[str, Any]:
+    data = _to_json_dict(item)
+    data["aggregate"] = _aggregate_to_json_dict(item.aggregate)
+    return data
 
 
 def _normalize_json_value(value):
