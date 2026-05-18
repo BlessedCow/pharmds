@@ -21,6 +21,10 @@ from core.evidence.gating import (
     filter_facts_to_evidence_backed_pd_effects,
     require_valid_evidence_mode,
 )
+from core.mechanisms.aggregate_evidence import (
+    AggregateEvidenceSummary,
+    summarize_aggregate_evidence,
+)
 from core.mechanisms.aggregate_severity import (
     AggregateSeverityAnnotation,
     annotate_aggregate_preliminary_severity,
@@ -66,6 +70,10 @@ class MechanismPipelineResult:
         AggregateSeverityAnnotation,
         ...,
     ]
+    aggregate_evidence_summaries: tuple[
+        AggregateEvidenceSummary,
+        ...,
+    ]
 def run_mechanism_pipeline(
     drug_ids: list[str],
     facts: Facts,
@@ -98,6 +106,9 @@ def run_mechanism_pipeline(
         aggregate_concerns,
         severity_annotations,
     )
+    aggregate_evidence_summaries = summarize_aggregate_evidence(
+    aggregate_concerns,
+    )
 
     return MechanismPipelineResult(
         effects=tuple(effects),
@@ -109,5 +120,8 @@ def run_mechanism_pipeline(
         aggregate_concerns=tuple(aggregate_concerns),
         aggregate_severity_annotations=tuple(
             aggregate_severity_annotations,
+        ),
+        aggregate_evidence_summaries=tuple(
+            aggregate_evidence_summaries
         ),
     )

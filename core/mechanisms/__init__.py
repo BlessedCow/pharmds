@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from core.mechanisms.aggregate_evidence import AggregateEvidenceSummary
 from core.mechanisms.aggregate_severity import AggregateSeverityAnnotation
 from core.mechanisms.pipeline import (
     MechanismPipelineResult,
@@ -14,4 +15,5 @@ __all__ = [
     "mechanism_pipeline_to_json_dict",
     "run_mechanism_pipeline",
     "AggregateSeverityAnnotation",
+    "AggregateEvidenceSummary",
 ]
