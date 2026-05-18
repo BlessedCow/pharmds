@@ -1,0 +1,28 @@
+﻿{
+  "claim_type": "pd_effect",
+  "subject": {
+    "entity_type": "drug",
+    "id": "fluconazole"
+  },
+  "predicate": "has_pd_effect",
+  "object": {
+    "effect_id": "QT_prolongation"
+  },
+  "evidence": [
+    {
+      "source_id": "source_internal_curated_pd_effects_v1",
+      "evidence_type": "internal_curated_entry",
+      "supports_claim": true,
+      "confidence": "moderate",
+      "notes": "Contributor-submitted evidence."
+    }
+  ],
+  "contributor": {
+    "id": "test_contributor",
+    "role": "contributor",
+    "submitted_at": "2026-05-18"
+  },
+  "review": {
+    "status": "submitted"
+  }
+}
