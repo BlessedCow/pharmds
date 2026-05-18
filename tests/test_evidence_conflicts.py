@@ -100,3 +100,9 @@ def test_build_pd_effect_claim_trace_includes_conflict_metadata():
         "supporting": 1,
         "disputing": 1,
     }
+    assert trace["evidence_confidence"]["level"] in {
+        "low",
+        "uncertain",
+        "moderate",
+    }
+    assert "conflicting evidence" in trace["evidence_confidence"]["reasons"]

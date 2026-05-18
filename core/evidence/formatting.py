@@ -79,6 +79,9 @@ def format_claim_trace(claim: dict[str, Any]) -> str:
         claim.get("evidence_support_status"),
         "unknown",
     )
+    evidence_confidence = format_evidence_confidence(
+        claim.get("evidence_confidence"),
+    )
     evidence_items = claim.get("evidence", [])
 
     if not evidence_items:
@@ -86,17 +89,28 @@ def format_claim_trace(claim: dict[str, Any]) -> str:
             f"{drug_id} -> {effect_id}: {claim_type}; "
             f"claim_status={claim_status}; review_status={review_status}; "
             f"evidence_support_status={evidence_support_status}; "
+            f"evidence_confidence={evidence_confidence}; "
             "evidence=none"
         )
-
     evidence_summary = format_evidence_item_trace(evidence_items[0])
 
     return (
         f"{drug_id} -> {effect_id}: {claim_type}; "
         f"claim_status={claim_status}; review_status={review_status}; "
         f"evidence_support_status={evidence_support_status}; "
+        f"evidence_confidence={evidence_confidence}; "
         f"evidence={evidence_summary}"
     )
+
+def format_evidence_confidence(confidence: dict[str, Any] | None) -> str:
+    """Return a compact synthesized confidence summary."""
+    if not isinstance(confidence, dict):
+        return "unknown"
+
+    level = _display_value(confidence.get("level"))
+    score = _display_value(confidence.get("score"))
+
+    return f"{level}({score})"
 
 
 def format_evidence_trace(trace: dict[str, Any]) -> list[str]:

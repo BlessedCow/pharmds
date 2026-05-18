@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from core.evidence.confidence import synthesize_claim_confidence
 from core.evidence.conflicts import (
     claim_has_supporting_evidence,
     classify_evidence_support,
@@ -62,8 +63,7 @@ def build_pd_effect_claim_trace(claim: dict[str, Any]) -> dict[str, Any]:
         )
 
     evidence_support_counts = count_evidence_support(evidence_items)
-
-    return {
+    trace = {
         "claim_id": claim["claim_id"],
         "claim_type": claim["claim_type"],
         "drug_id": claim["subject"]["id"],
@@ -76,6 +76,9 @@ def build_pd_effect_claim_trace(claim: dict[str, Any]) -> dict[str, Any]:
         "evidence_support_counts": evidence_support_counts,
         "evidence": evidence_items,
     }
+    trace["evidence_confidence"] = synthesize_claim_confidence(trace)
+
+    return trace
 
 
 def build_pd_effect_traces_for_drug_effect(

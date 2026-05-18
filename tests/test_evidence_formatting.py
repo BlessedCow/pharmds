@@ -100,6 +100,7 @@ def test_format_claim_trace_returns_readable_summary():
         "fluconazole -> nausea: pd_effect; "
         "claim_status=active; review_status=approved; "
         "evidence_support_status=unknown; "
+        "evidence_confidence=unknown; "
         "evidence=Internal curated pharmacodynamic effects dataset "
         "(PharmDS, curated); "
         "evidence_type=internal_curated_entry; "
@@ -124,10 +125,11 @@ def test_format_claim_trace_handles_claim_without_evidence():
     assert format_claim_trace(claim) == (
         "example_drug -> nausea: pd_effect; "
         "claim_status=active; review_status=approved; "
-        "evidence_support_status=unknown; evidence=none"
+        "evidence_support_status=unknown; "
+        "evidence_confidence=unknown; evidence=none"
     )
-    
-    
+
+
 def test_format_source_trace_includes_accessed_at_when_present():
     source = {
         "source_id": "source_dailymed_fluconazole_label",
@@ -146,7 +148,7 @@ def test_format_source_trace_includes_accessed_at_when_present():
         "Fluconazole Prescribing Information "
         "(DailyMed, authoritative; accessed 2026-05-15)"
     )
-    
+
 
 def test_format_evidence_trace_returns_readable_lines():
     trace = {
@@ -215,6 +217,7 @@ def test_format_evidence_trace_returns_readable_lines():
             "clarithromycin -> nausea: pd_effect; "
             "claim_status=active; review_status=approved; "
             "evidence_support_status=unknown; "
+            "evidence_confidence=unknown; "
             "evidence=Internal curated pharmacodynamic effects dataset "
             "(PharmDS, curated); "
             "evidence_type=internal_curated_entry; "
