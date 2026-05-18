@@ -43,6 +43,10 @@ def mechanism_pipeline_to_json_dict(
             _aggregate_evidence_to_json_dict(item)
             for item in pipeline.aggregate_evidence_summaries
         ],
+        "aggregate_concern_summaries": [
+            _aggregate_concern_summary_to_json_dict(item)
+            for item in pipeline.aggregate_concern_summaries
+        ],
     }
 
 
@@ -66,6 +70,21 @@ def _aggregate_evidence_to_json_dict(item) -> dict[str, Any]:
     data = _to_json_dict(item)
     data["aggregate"] = _aggregate_to_json_dict(item.aggregate)
     return data
+
+def _aggregate_concern_summary_to_json_dict(item) -> dict[str, Any]:
+    return {
+        "aggregate": _aggregate_to_json_dict(item.aggregate),
+        "severity_annotation": (
+            _aggregate_severity_to_json_dict(item.severity_annotation)
+            if item.severity_annotation
+            else None
+        ),
+        "evidence_summary": (
+            _aggregate_evidence_to_json_dict(item.evidence_summary)
+            if item.evidence_summary
+            else None
+        ),
+    }
 
 def _normalize_json_value(value):
     if isinstance(value, dict):

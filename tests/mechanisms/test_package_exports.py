@@ -1,4 +1,5 @@
 from core.mechanisms import (
+    AggregateConcernSummary,
     AggregateEvidenceSummary,
     AggregateSeverityAnnotation,
     MechanismPipelineResult,
@@ -13,3 +14,4 @@ def test_mechanisms_package_exports_public_entrypoints():
     assert mechanism_pipeline_to_json_dict is not None
     assert AggregateSeverityAnnotation is not None
     assert AggregateEvidenceSummary is not None
+    assert AggregateConcernSummary is not None

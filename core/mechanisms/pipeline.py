@@ -29,6 +29,10 @@ from core.mechanisms.aggregate_severity import (
     AggregateSeverityAnnotation,
     annotate_aggregate_preliminary_severity,
 )
+from core.mechanisms.aggregate_summary import (
+    AggregateConcernSummary,
+    build_aggregate_concern_summaries,
+)
 from core.mechanisms.aggregation import (
     AggregateConcern,
     aggregate_policy_results,
@@ -74,6 +78,10 @@ class MechanismPipelineResult:
         AggregateEvidenceSummary,
         ...,
     ]
+    aggregate_concern_summaries: tuple[
+        AggregateConcernSummary,
+        ...,
+    ]
 def run_mechanism_pipeline(
     drug_ids: list[str],
     facts: Facts,
@@ -109,6 +117,11 @@ def run_mechanism_pipeline(
     aggregate_evidence_summaries = summarize_aggregate_evidence(
     aggregate_concerns,
     )
+    aggregate_concern_summaries = build_aggregate_concern_summaries(
+        aggregate_concerns,
+        aggregate_severity_annotations,
+        aggregate_evidence_summaries,
+    )
 
     return MechanismPipelineResult(
         effects=tuple(effects),
@@ -123,5 +136,8 @@ def run_mechanism_pipeline(
         ),
         aggregate_evidence_summaries=tuple(
             aggregate_evidence_summaries
+        ),
+                aggregate_concern_summaries=tuple(
+            aggregate_concern_summaries,
         ),
     )

@@ -57,6 +57,7 @@ def test_mechanism_pipeline_to_json_dict_serializes_all_stages():
         "aggregate_concerns",
         "aggregate_severity_annotations",
         "aggregate_evidence_summaries",
+        "aggregate_concern_summaries",
     }
 
     assert payload["effects"][0]["source_drug"] == "bupropion"
@@ -176,6 +177,24 @@ def test_mechanism_pipeline_to_json_dict_includes_evidence_trace_metadata():
         "reliability_tier": "curated",
     }
 
+    evidence_summary = payload["aggregate_evidence_summaries"][0]
+
+    assert evidence_summary["overall_evidence_status"] == "complete"
+    assert evidence_summary["evidence_trace_count"] == 1
+    assert evidence_summary["evidence_effect_ids"] == ["nausea"]
+    assert evidence_summary["evidence_gap_count"] == 0
+    assert evidence_summary["evidence_claim_count"] >= 2
+
+    aggregate_summary = payload["aggregate_concern_summaries"][0]
+
+    assert aggregate_summary["aggregate"]["effect_id"] == "nausea"
+    assert aggregate_summary["severity_annotation"] is not None
+    assert aggregate_summary["evidence_summary"] is not None
+    assert (
+        aggregate_summary["evidence_summary"]["overall_evidence_status"]
+        == "complete"
+    )
+
     json.dumps(payload)
 
 
@@ -207,5 +226,6 @@ def test_mechanism_pipeline_to_json_dict_serializes_empty_stages():
         "aggregate_concerns": [],
         "aggregate_severity_annotations": [],
         "aggregate_evidence_summaries": [],
+        "aggregate_concern_summaries": [],
     }
     json.dumps(payload)
