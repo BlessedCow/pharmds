@@ -419,6 +419,82 @@ def render_severity_annotations(severity_annotations):
 
     return "\n".join(lines).rstrip()
 
+def render_aggregate_evidence_summary(pipeline):
+    """Render aggregate evidence summaries for CLI debug output."""
+    if not pipeline.aggregate_evidence_summaries:
+        return "No aggregate evidence summaries."
+
+    lines = []
+
+    for summary in pipeline.aggregate_evidence_summaries:
+        aggregate = summary.aggregate
+        drugs = ", ".join(aggregate.drugs)
+        effect_id = aggregate.effect_id or aggregate.anchor
+
+        lines.append("")
+        lines.append(
+            f"- {aggregate.aggregate_type}: {aggregate.anchor}"
+            f" | policy_concern={aggregate.policy_concern}"
+            f" | drugs={drugs}"
+            f" | effect={effect_id}"
+        )
+        lines.append(
+            "  overall_evidence_status: "
+            + str(summary.overall_evidence_status)
+        )
+        lines.append(
+            "  evidence_trace_count: "
+            + str(summary.evidence_trace_count)
+        )
+
+        if summary.evidence_trace_types:
+            lines.append(
+                "  evidence_trace_types: "
+                + ", ".join(summary.evidence_trace_types)
+            )
+        else:
+            lines.append("  evidence_trace_types: none")
+
+        if summary.evidence_effect_ids:
+            lines.append(
+                "  evidence_effect_ids: "
+                + ", ".join(summary.evidence_effect_ids)
+            )
+        else:
+            lines.append("  evidence_effect_ids: none")
+
+        if summary.evidence_statuses:
+            lines.append(
+                "  evidence_statuses: "
+                + ", ".join(summary.evidence_statuses)
+            )
+        else:
+            lines.append("  evidence_statuses: none")
+
+        lines.append(
+            "  evidence_gap_count: "
+            + str(summary.evidence_gap_count)
+        )
+        lines.append(
+            "  evidence_claim_count: "
+            + str(summary.evidence_claim_count)
+        )
+
+        if summary.evidence_source_ids:
+            lines.append(
+                "  evidence_source_ids: "
+                + ", ".join(summary.evidence_source_ids)
+            )
+        else:
+            lines.append("  evidence_source_ids: none")
+
+        lines.append(
+            "  member_without_evidence_trace_count: "
+            + str(summary.member_without_evidence_trace_count)
+        )
+
+    return "\n".join(lines)
+
 def render_severity_comparison(pipeline):
     """Render comparison between aggregate concerns and aggregate severity."""
     if not pipeline.aggregate_severity_annotations:
@@ -550,6 +626,14 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-aggregate-evidence",
+        action="store_true",
+        help=(
+            "Show aggregate-level evidence summaries from the mechanism "
+            "pipeline and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--show-mechanisms",
         action="store_true",
         help=(
@@ -668,6 +752,7 @@ def main() -> None:
         or args.show_mechanism_json
         or args.show_severity
         or args.show_severity_comparison
+        or args.show_aggregate_evidence
     ):
         pipeline = run_mechanism_pipeline(
             drug_ids,
@@ -727,7 +812,13 @@ def main() -> None:
             print(render_severity_comparison(pipeline))
 
             return
-         
+        
+        if args.show_aggregate_evidence:
+            print("\nAggregate Evidence Summary")
+            print(render_aggregate_evidence_summary(pipeline))
+
+            return
+        
         if args.show_aggregates:
             print("\nAggregate Concerns\n")
             for line in format_aggregate_concerns(
