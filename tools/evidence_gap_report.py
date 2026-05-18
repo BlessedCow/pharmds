@@ -1,98 +1,118 @@
-"""Report curated ontology facts that are missing evidence claims."""
+"""Print a maintainer-facing PD effect evidence gap report."""
 
 from __future__ import annotations
 
+import argparse
 import json
-from pathlib import Path
-from typing import Any
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DRUGS_PATH = PROJECT_ROOT / "data" / "curation" / "drugs.json"
-PD_EFFECT_CLAIMS_PATH = (
-    PROJECT_ROOT / "data" / "evidence" / "pd_effect_claims.json"
-)
+from app.cli import DB_PATH, connect, load_facts
+from core.evidence.completeness import build_pd_effect_evidence_gap_report
 
 
-def load_json(path: Path) -> Any:
-    """Load JSON from a file path."""
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def curated_pd_effect_pairs() -> set[tuple[str, str]]:
-    """Return all curated drug/effect pairs from the ontology."""
-    raw = load_json(DRUGS_PATH)
-
-    pairs = set()
-
-    for drug in raw["drugs"]:
-        drug_id = drug["id"]
-
-        for pd_effect in drug.get("pd_effects", []) or []:
-            pairs.add((drug_id, pd_effect["effect_id"]))
-
-    return pairs
-
-
-def approved_active_pd_effect_claim_pairs() -> set[tuple[str, str]]:
-    """Return drug/effect pairs with approved active PD evidence claims."""
-    claims = load_json(PD_EFFECT_CLAIMS_PATH)
-
-    pairs = set()
-
-    for claim in claims:
-        if claim.get("claim_type") != "pd_effect":
-            continue
-
-        if claim.get("claim_status") != "active":
-            continue
-
-        review = claim.get("review", {})
-
-        if review.get("status") != "approved":
-            continue
-
-        drug_id = claim["subject"]["id"]
-        effect_id = claim["object"]["effect_id"]
-
-        pairs.add((drug_id, effect_id))
-
-    return pairs
-
-
-def missing_pd_effect_claim_pairs() -> list[tuple[str, str]]:
-    """Return curated PD effect pairs missing approved active evidence claims."""
-    missing = (
-        curated_pd_effect_pairs()
-        - approved_active_pd_effect_claim_pairs()
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Print a PD effect evidence gap report.",
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Print the full report as JSON.",
+    )
+    parser.add_argument(
+        "--show-complete",
+        action="store_true",
+        help="Include complete/moderate/high-confidence rows in text output.",
     )
 
-    return sorted(missing)
+    return parser
 
 
-def build_report_lines() -> list[str]:
-    """Return a human-readable evidence gap report."""
-    missing_pairs = missing_pd_effect_claim_pairs()
+def _format_count_block(title: str, counts: dict[str, int]) -> list[str]:
+    lines = [title]
 
-    lines = [
-        "Evidence gap report",
-        "",
-        "PD effects without approved active evidence claims:",
-    ]
-
-    if not missing_pairs:
-        lines.append("- None")
+    if not counts:
+        lines.append("  none")
         return lines
 
-    for drug_id, effect_id in missing_pairs:
-        lines.append(f"- {drug_id} -> {effect_id}")
+    for key, value in sorted(counts.items()):
+        lines.append(f"  {key}: {value}")
 
     return lines
 
 
+def _format_report_text(
+    report: dict,
+    *,
+    show_complete: bool = False,
+) -> str:
+    lines = [
+        "PD effect evidence gap report",
+        "",
+        f"Total ontology PD effects: {report['total_pd_effects']}",
+        "",
+    ]
+    lines.extend(
+        _format_count_block(
+            "Coverage counts:",
+            report["coverage_counts"],
+        )
+    )
+    lines.append("")
+    lines.extend(
+        _format_count_block(
+            "Confidence counts:",
+            report["confidence_counts"],
+        )
+    )
+    lines.append("")
+    lines.extend(
+        _format_count_block(
+            "Classification counts:",
+            report["classification_counts"],
+        )
+    )
+    lines.append("")
+    lines.append("Items:")
+
+    for item in report["items"]:
+        classification = item["classification"]
+
+        if not show_complete and classification in {
+            "high_confidence",
+            "moderate_confidence",
+        }:
+            continue
+
+        lines.append(
+            "  "
+            f"{item['drug_id']} -> {item['effect_id']}: "
+            f"{classification} "
+            f"(coverage={item['coverage_status']}, "
+            f"confidence={item['confidence_level'] or 'none'}, "
+            f"claims={item['claim_count']})"
+        )
+
+    return "\n".join(lines)
+
+
 def main() -> None:
-    """Print the evidence gap report."""
-    for line in build_report_lines():
-        print(line)
+    args = _build_parser().parse_args()
+
+    with connect(DB_PATH) as conn:
+        facts = load_facts(conn)
+
+    report = build_pd_effect_evidence_gap_report(facts)
+
+    if args.json:
+        print(json.dumps(report, indent=2))
+        return
+
+    print(
+        _format_report_text(
+            report,
+            show_complete=args.show_complete,
+        )
+    )
 
 
 if __name__ == "__main__":
