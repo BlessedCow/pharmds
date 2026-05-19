@@ -5,13 +5,17 @@ from core.mechanisms import (
 )
 
 
-def _pipeline_payload_for(names: list[str]):
+def _pipeline_payload_for(
+    names: list[str],
+    patient_flags: dict[str, bool] | None = None,
+):
     conn = connect(DB_PATH)
     drug_ids = resolve_drug_ids(conn, names)
     facts = load_facts(
         conn,
         drug_ids,
-        patient_flags={
+        patient_flags=patient_flags
+        or {
             "qt_risk": False,
             "bleeding_risk": False,
         },
@@ -19,7 +23,58 @@ def _pipeline_payload_for(names: list[str]):
     pipeline = run_mechanism_pipeline(drug_ids, facts)
     return mechanism_pipeline_to_json_dict(pipeline)
 
+def _aggregate_summary_by(
+    payload: dict,
+    aggregate_type: str,
+    anchor: str,
+) -> dict:
+    return next(
+        summary
+        for summary in payload["aggregate_concern_summaries"]
+        if (
+            summary["aggregate"]["aggregate_type"] == aggregate_type
+            and summary["aggregate"]["anchor"] == anchor
+        )
+    )
 
+
+def _assert_aggregate_summary_json_shape(summary: dict):
+    assert set(summary) == {
+        "aggregate",
+        "severity_annotation",
+        "evidence_summary",
+        "patient_risk_modifiers",
+        "risk_context",
+        "evidence_conflict_level",
+        "evidence_conflict_message",
+        "evidence_conflict_source_ids",
+        "evidence_conflict_trace_types",
+        "narrative",
+    }
+
+    assert isinstance(summary["aggregate"], dict)
+    assert (
+        isinstance(summary["severity_annotation"], dict)
+        or summary["severity_annotation"] is None
+    )
+    assert (
+        isinstance(summary["evidence_summary"], dict)
+        or summary["evidence_summary"] is None
+    )
+    assert isinstance(summary["patient_risk_modifiers"], list)
+    assert (
+        isinstance(summary["risk_context"], str)
+        or summary["risk_context"] is None
+    )
+    assert isinstance(summary["evidence_conflict_level"], str)
+    assert (
+        isinstance(summary["evidence_conflict_message"], str)
+        or summary["evidence_conflict_message"] is None
+    )
+    assert isinstance(summary["evidence_conflict_source_ids"], list)
+    assert isinstance(summary["evidence_conflict_trace_types"], list)
+    assert isinstance(summary["narrative"], str)
+    
 def test_bupropion_vortioxetine_fluconazole_json_snapshot():
     payload = _pipeline_payload_for(
         ["bupropion", "vortioxetine", "fluconazole"],
@@ -173,3 +228,231 @@ def test_bupropion_vortioxetine_json_snapshot():
         "Single high-confidence mechanistic concern."
     )
     assert severity_annotations[0]["scored"]["confidence"] == "high"
+
+def test_clarithromycin_fluconazole_aggregate_summary_json_snapshot():
+    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+
+    assert len(payload["aggregate_concern_summaries"]) == 4
+
+    for summary in payload["aggregate_concern_summaries"]:
+        _assert_aggregate_summary_json_shape(summary)
+
+    qt_summary = _aggregate_summary_by(
+        payload,
+        "shared_pd_effect_cluster",
+        "QT_prolongation",
+    )
+
+    assert qt_summary["aggregate"]["policy_concern"] == "safety_concern"
+    assert qt_summary["aggregate"]["drugs"] == [
+        "clarithromycin",
+        "fluconazole",
+    ]
+    assert qt_summary["aggregate"]["effect_id"] == "QT_prolongation"
+    assert (
+        qt_summary["severity_annotation"]["strongest_preliminary_severity"]
+        == "high_caution"
+    )
+    assert (
+        qt_summary["evidence_summary"]["overall_evidence_status"]
+        == "complete"
+    )
+    assert qt_summary["patient_risk_modifiers"] == []
+    assert qt_summary["risk_context"] is None
+    assert qt_summary["evidence_conflict_level"] == "none"
+    assert qt_summary["evidence_conflict_message"] is None
+    assert qt_summary["evidence_conflict_source_ids"] == []
+    assert qt_summary["evidence_conflict_trace_types"] == []
+    assert "QT_prolongation-related pharmacodynamic effect" in (
+        qt_summary["narrative"]
+    )
+    assert "complete curated evidence support" in qt_summary["narrative"]
+    assert "high_caution-level" in qt_summary["narrative"]
+    assert "educational and not diagnostic" in qt_summary["narrative"]
+
+    nausea_summary = _aggregate_summary_by(
+        payload,
+        "shared_pd_effect_cluster",
+        "nausea",
+    )
+
+    assert nausea_summary["aggregate"]["policy_concern"] == (
+        "tolerability_concern"
+    )
+    assert nausea_summary["aggregate"]["drugs"] == [
+        "clarithromycin",
+        "fluconazole",
+    ]
+    assert nausea_summary["aggregate"]["effect_id"] == "nausea"
+    assert (
+        nausea_summary["severity_annotation"]["strongest_preliminary_severity"]
+        == "informational"
+    )
+    assert (
+        nausea_summary["evidence_summary"]["overall_evidence_status"]
+        == "complete"
+    )
+    assert nausea_summary["evidence_conflict_level"] == "none"
+    assert "nausea-related pharmacodynamic effect" in (
+        nausea_summary["narrative"]
+    )
+
+
+def test_bupropion_vortioxetine_aggregate_summary_json_snapshot():
+    payload = _pipeline_payload_for(["bupropion", "vortioxetine"])
+
+    assert len(payload["aggregate_concern_summaries"]) == 1
+
+    summary = _aggregate_summary_by(
+        payload,
+        "object_exposure_increase_cluster",
+        "vortioxetine",
+    )
+
+    _assert_aggregate_summary_json_shape(summary)
+
+    assert summary["aggregate"]["policy_concern"] == "mechanistic_concern"
+    assert summary["aggregate"]["drugs"] == [
+        "bupropion",
+        "vortioxetine",
+    ]
+    assert summary["aggregate"]["targets"] == ["CYP2D6"]
+    assert summary["aggregate"]["effect_id"] is None
+    assert len(summary["aggregate"]["members"]) == 1
+
+    assert (
+        summary["severity_annotation"]["strongest_preliminary_severity"]
+        == "informational"
+    )
+    assert (
+        summary["evidence_summary"]["overall_evidence_status"]
+        == "not_applicable"
+    )
+    assert summary["evidence_summary"]["evidence_claim_count"] == 0
+    assert summary["evidence_summary"]["evidence_gap_count"] == 0
+
+    assert summary["patient_risk_modifiers"] == []
+    assert summary["risk_context"] is None
+    assert summary["evidence_conflict_level"] == "none"
+    assert summary["evidence_conflict_message"] is None
+    assert summary["evidence_conflict_source_ids"] == []
+    assert summary["evidence_conflict_trace_types"] == []
+
+    assert (
+        "bupropion and vortioxetine include mechanism(s) that may increase "
+        "vortioxetine exposure through CYP2D6-related mechanism(s)."
+    ) in summary["narrative"]
+    assert "no aggregate-level curated evidence requirement" in (
+        summary["narrative"]
+    )
+    assert "informational-level" in summary["narrative"]
+    assert "educational and not diagnostic" in summary["narrative"]
+
+
+def test_alcohol_clonazepam_aggregate_summary_json_snapshot():
+    payload = _pipeline_payload_for(["alcohol", "clonazepam"])
+
+    assert len(payload["aggregate_concern_summaries"]) == 5
+
+    for summary in payload["aggregate_concern_summaries"]:
+        _assert_aggregate_summary_json_shape(summary)
+
+    respiratory_summary = _aggregate_summary_by(
+        payload,
+        "shared_pd_effect_cluster",
+        "respiratory_depression",
+    )
+
+    assert respiratory_summary["aggregate"]["policy_concern"] == (
+        "safety_concern"
+    )
+    assert respiratory_summary["aggregate"]["drugs"] == [
+        "alcohol",
+        "clonazepam",
+    ]
+    assert respiratory_summary["aggregate"]["effect_id"] == (
+        "respiratory_depression"
+    )
+    assert (
+        respiratory_summary["severity_annotation"][
+            "strongest_preliminary_severity"
+        ]
+        == "high_caution"
+    )
+    assert (
+        respiratory_summary["evidence_summary"]["overall_evidence_status"]
+        == "complete"
+    )
+    assert respiratory_summary["evidence_conflict_level"] == "none"
+    assert "respiratory_depression-related pharmacodynamic effect" in (
+        respiratory_summary["narrative"]
+    )
+
+    cns_summary = _aggregate_summary_by(
+        payload,
+        "shared_pd_effect_cluster",
+        "CNS_depression",
+    )
+
+    assert cns_summary["aggregate"]["policy_concern"] == (
+        "tolerability_concern"
+    )
+    assert cns_summary["aggregate"]["effect_id"] == "CNS_depression"
+    assert (
+        cns_summary["severity_annotation"]["strongest_preliminary_severity"]
+        == "caution"
+    )
+    assert cns_summary["evidence_conflict_level"] == "none"
+    assert "CNS_depression-related pharmacodynamic effect" in (
+        cns_summary["narrative"]
+    )
+
+    sedation_summary = _aggregate_summary_by(
+        payload,
+        "shared_pd_effect_cluster",
+        "sedation",
+    )
+
+    assert sedation_summary["aggregate"]["policy_concern"] == (
+        "tolerability_concern"
+    )
+    assert sedation_summary["aggregate"]["effect_id"] == "sedation"
+    assert (
+        sedation_summary["severity_annotation"][
+            "strongest_preliminary_severity"
+        ]
+        == "caution"
+    )
+    assert sedation_summary["evidence_conflict_level"] == "none"
+    assert "sedation-related pharmacodynamic effect" in (
+        sedation_summary["narrative"]
+    )
+
+
+def test_qt_risk_aggregate_summary_json_snapshot():
+    payload = _pipeline_payload_for(
+        ["clarithromycin", "fluconazole"],
+        patient_flags={
+            "qt_risk": True,
+            "bleeding_risk": False,
+        },
+    )
+
+    qt_summary = _aggregate_summary_by(
+        payload,
+        "shared_pd_effect_cluster",
+        "QT_prolongation",
+    )
+
+    _assert_aggregate_summary_json_shape(qt_summary)
+
+    assert qt_summary["patient_risk_modifiers"] == ["qt_risk"]
+    assert qt_summary["risk_context"] == (
+        "QT-related concern may be more important when QT risk flag is present."
+    )
+    assert "Patient risk modifier(s) present: qt_risk." in (
+        qt_summary["narrative"]
+    )
+    assert "QT-related concern may be more important" in (
+        qt_summary["narrative"]
+    )
