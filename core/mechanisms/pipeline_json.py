@@ -86,6 +86,15 @@ def _aggregate_concern_summary_to_json_dict(item) -> dict[str, Any]:
         ),
         "patient_risk_modifiers": list(item.patient_risk_modifiers),
         "risk_context": item.risk_context,
+        "evidence_conflict_level": item.evidence_conflict_level,
+        "evidence_conflict_message": item.evidence_conflict_message,
+        "evidence_conflict_source_ids": list(
+            item.evidence_conflict_source_ids
+        ),
+        "evidence_conflict_trace_types": list(
+            item.evidence_conflict_trace_types
+        ),
+        "narrative": item.narrative,
     }
 
 def _normalize_json_value(value):

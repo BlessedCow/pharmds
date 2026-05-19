@@ -135,6 +135,10 @@ def test_mechanism_pipeline_to_json_dict_includes_patient_risk_context():
     assert aggregate_summary["risk_context"] == (
         "QT-related concern may be more important when QT risk flag is present."
     )
+    assert "Patient risk modifier(s) present: qt_risk." in aggregate_summary[
+    "narrative"
+    ]
+    assert "educational and not diagnostic" in aggregate_summary["narrative"]
 
     json.dumps(payload)
 
@@ -252,6 +256,12 @@ def test_mechanism_pipeline_to_json_dict_includes_evidence_trace_metadata():
 
     assert aggregate_summary["patient_risk_modifiers"] == []
     assert aggregate_summary["risk_context"] is None
+    assert aggregate_summary["narrative"]
+    assert "educational and not diagnostic" in aggregate_summary["narrative"]
+    assert aggregate_summary["evidence_conflict_level"] == "none"
+    assert aggregate_summary["evidence_conflict_message"] is None
+    assert aggregate_summary["evidence_conflict_source_ids"] == []
+    assert aggregate_summary["evidence_conflict_trace_types"] == []
     
     json.dumps(payload)
 

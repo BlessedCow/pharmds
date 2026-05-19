@@ -1,5 +1,10 @@
 from core.mechanisms.aggregate_evidence import (
     EVIDENCE_STATUS_COMPLETE,
+    EVIDENCE_STATUS_CONFLICTING,
+    EVIDENCE_STATUS_DISPUTED,
+    EVIDENCE_STATUS_MISSING,
+    EVIDENCE_STATUS_NOT_APPLICABLE,
+    EVIDENCE_STATUS_PARTIAL,
     AggregateEvidenceSummary,
 )
 from core.mechanisms.aggregate_severity import AggregateSeverityAnnotation
@@ -62,13 +67,22 @@ def test_build_aggregate_concern_summaries_joins_matching_layers():
         [evidence],
     )
 
-    assert summaries == [
-        AggregateConcernSummary(
-            aggregate=aggregate,
-            severity_annotation=severity,
-            evidence_summary=evidence,
-        )
-    ]
+    assert len(summaries) == 1
+
+    summary = summaries[0]
+
+    assert summary.aggregate == aggregate
+    assert summary.severity_annotation == severity
+    assert summary.evidence_summary == evidence
+    assert summary.patient_risk_modifiers == ()
+    assert summary.risk_context is None
+    assert summary.narrative
+    assert "clarithromycin and fluconazole share a nausea-related" in (
+        summary.narrative
+    )
+    assert "complete curated evidence support" in summary.narrative
+    assert "caution-level" in summary.narrative
+    assert "educational and not diagnostic" in summary.narrative
 
 
 def test_build_aggregate_concern_summaries_handles_missing_severity():
@@ -293,3 +307,172 @@ def test_build_aggregate_concern_summaries_ignores_irrelevant_patient_flag():
 
     assert summaries[0].patient_risk_modifiers == ()
     assert summaries[0].risk_context is None
+    
+def test_build_aggregate_concern_summaries_adds_pd_narrative():
+    aggregate = _pd_aggregate()
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [
+            AggregateSeverityAnnotation(
+                aggregate=aggregate,
+                strongest_preliminary_severity="informational",
+            )
+        ],
+        [
+            AggregateEvidenceSummary(
+                aggregate=aggregate,
+                overall_evidence_status="complete",
+            )
+        ],
+    )
+
+    assert summaries[0].narrative == (
+        "clarithromycin and fluconazole share a nausea-related "
+        "pharmacodynamic effect. This grouped concern has complete curated "
+        "evidence support. It is preliminarily classified as "
+        "informational-level. This explanation is educational and not "
+        "diagnostic."
+    )
+
+
+def test_build_aggregate_concern_summaries_adds_pk_narrative():
+    aggregate = _pk_aggregate()
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [
+            AggregateSeverityAnnotation(
+                aggregate=aggregate,
+                strongest_preliminary_severity="caution",
+            )
+        ],
+        [
+            AggregateEvidenceSummary(
+                aggregate=aggregate,
+                overall_evidence_status="not_applicable",
+            )
+        ],
+    )
+
+    assert summaries[0].narrative == (
+        "bupropion and vortioxetine include mechanism(s) that may increase "
+        "vortioxetine exposure through CYP2D6-related mechanism(s). This "
+        "grouped concern has no aggregate-level curated evidence requirement. "
+        "It is preliminarily classified as caution-level. This explanation is "
+        "educational and not diagnostic."
+    )
+
+
+def test_build_aggregate_concern_summaries_adds_patient_risk_to_narrative():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="QT_prolongation",
+        policy_concern="safety_concern",
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="QT_prolongation",
+    )
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [],
+        patient_flags={
+            "qt_risk": True,
+            "bleeding_risk": False,
+        },
+    )
+
+    assert (
+        "Patient risk modifier(s) present: qt_risk. QT-related concern may "
+        "be more important when QT risk flag is present."
+    ) in summaries[0].narrative
+    assert summaries[0].narrative.endswith(
+        "This explanation is educational and not diagnostic."
+    )
+def test_build_aggregate_concern_summaries_surfaces_conflicting_evidence():
+    aggregate = _pd_aggregate()
+    evidence = AggregateEvidenceSummary(
+        aggregate=aggregate,
+        overall_evidence_status=EVIDENCE_STATUS_CONFLICTING,
+        evidence_trace_types=("additive_pd_effect",),
+        evidence_source_ids=(
+            "source_a",
+            "source_b",
+        ),
+    )
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [evidence],
+    )
+
+    summary = summaries[0]
+
+    assert summary.evidence_conflict_level == "conflicting"
+    assert summary.evidence_conflict_message == (
+        "Conflicting curated evidence is attached to this aggregate concern "
+        "and should be reviewed separately instead of being treated as "
+        "complete support."
+    )
+    assert summary.evidence_conflict_source_ids == ("source_a", "source_b")
+    assert summary.evidence_conflict_trace_types == ("additive_pd_effect",)
+    assert "Conflicting curated evidence" in summary.narrative
+
+
+def test_build_aggregate_concern_summaries_surfaces_disputed_evidence():
+    aggregate = _pd_aggregate()
+    evidence = AggregateEvidenceSummary(
+        aggregate=aggregate,
+        overall_evidence_status=EVIDENCE_STATUS_DISPUTED,
+        evidence_trace_types=("additive_pd_effect",),
+        evidence_source_ids=("source_a",),
+    )
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [evidence],
+    )
+
+    summary = summaries[0]
+
+    assert summary.evidence_conflict_level == "disputed"
+    assert summary.evidence_conflict_message == (
+        "Disputed curated evidence is attached to this aggregate concern "
+        "and should be reviewed separately."
+    )
+    assert summary.evidence_conflict_source_ids == ("source_a",)
+    assert summary.evidence_conflict_trace_types == ("additive_pd_effect",)
+    assert "Disputed curated evidence" in summary.narrative
+
+
+def test_build_aggregate_concern_summaries_does_not_flag_non_conflict_statuses():
+    aggregate = _pd_aggregate()
+
+    for status in (
+        EVIDENCE_STATUS_COMPLETE,
+        EVIDENCE_STATUS_PARTIAL,
+        EVIDENCE_STATUS_MISSING,
+        EVIDENCE_STATUS_NOT_APPLICABLE,
+    ):
+        evidence = AggregateEvidenceSummary(
+            aggregate=aggregate,
+            overall_evidence_status=status,
+            evidence_trace_types=("additive_pd_effect",),
+            evidence_source_ids=("source_a",),
+        )
+
+        summaries = build_aggregate_concern_summaries(
+            [aggregate],
+            [],
+            [evidence],
+        )
+
+        summary = summaries[0]
+
+        assert summary.evidence_conflict_level == "none"
+        assert summary.evidence_conflict_message is None
+        assert summary.evidence_conflict_source_ids == ()
+        assert summary.evidence_conflict_trace_types == ()

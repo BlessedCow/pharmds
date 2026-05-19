@@ -156,3 +156,30 @@ def test_cli_show_aggregate_summaries_outputs_patient_risk_context(
         "risk_context: QT-related concern may be more important when QT risk "
         "flag is present."
     ) in out
+    
+def test_cli_show_aggregate_summaries_outputs_narrative(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "fluconazole",
+            "--show-aggregate-summaries",
+            "--top",
+            "0",
+        ],
+    )
+
+    main()
+
+    out = capsys.readouterr().out
+
+    assert "narrative:" in out
+    assert "clarithromycin and fluconazole share a nausea-related" in out
+    assert "educational and not diagnostic" in out
+    assert "evidence_conflict_level: none" in out
+    assert "evidence_conflict_message:" not in out

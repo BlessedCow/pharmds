@@ -1,5 +1,8 @@
 from core.mechanisms.aggregate_evidence import (
     EVIDENCE_STATUS_COMPLETE,
+    EVIDENCE_STATUS_CONFLICTING,
+    EVIDENCE_STATUS_DISPUTED,
+    EVIDENCE_STATUS_MISSING,
     EVIDENCE_STATUS_NOT_APPLICABLE,
     EVIDENCE_STATUS_PARTIAL,
     AggregateEvidenceSummary,
@@ -207,3 +210,84 @@ def test_dedupe_aggregate_evidence_summaries_preserves_first_seen():
     )
 
     assert dedupe_aggregate_evidence_summaries([first, second]) == [first]
+    
+def test_aggregate_evidence_conflicting_status_overrides_complete():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="nausea",
+        policy_concern=POLICY_TOLERABILITY_CONCERN,
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="nausea",
+        members=(
+            _pd_member(
+                "clarithromycin",
+                "fluconazole",
+                evidence_trace=_trace(EVIDENCE_STATUS_COMPLETE),
+            ),
+            _pd_member(
+                "fluconazole",
+                "clarithromycin",
+                evidence_trace=_trace(EVIDENCE_STATUS_CONFLICTING),
+            ),
+        ),
+    )
+
+    summary = aggregate_to_evidence_summary(aggregate)
+
+    assert summary.overall_evidence_status == EVIDENCE_STATUS_CONFLICTING
+    assert summary.evidence_statuses == (
+        EVIDENCE_STATUS_COMPLETE,
+        EVIDENCE_STATUS_CONFLICTING,
+    )
+
+
+def test_aggregate_evidence_partial_status_overrides_disputed():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="nausea",
+        policy_concern=POLICY_TOLERABILITY_CONCERN,
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="nausea",
+        members=(
+            _pd_member(
+                "clarithromycin",
+                "fluconazole",
+                evidence_trace=_trace(EVIDENCE_STATUS_DISPUTED),
+            ),
+            _pd_member(
+                "fluconazole",
+                "clarithromycin",
+                evidence_trace=_trace(EVIDENCE_STATUS_PARTIAL),
+            ),
+        ),
+    )
+
+    summary = aggregate_to_evidence_summary(aggregate)
+
+    assert summary.overall_evidence_status == EVIDENCE_STATUS_PARTIAL
+    assert summary.evidence_statuses == (
+        EVIDENCE_STATUS_DISPUTED,
+        EVIDENCE_STATUS_PARTIAL,
+    )
+
+
+def test_aggregate_evidence_missing_status_is_not_complete():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="nausea",
+        policy_concern=POLICY_TOLERABILITY_CONCERN,
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="nausea",
+        members=(
+            _pd_member(
+                "clarithromycin",
+                "fluconazole",
+                evidence_trace=_trace(EVIDENCE_STATUS_MISSING),
+            ),
+        ),
+    )
+
+    summary = aggregate_to_evidence_summary(aggregate)
+
+    assert summary.overall_evidence_status == EVIDENCE_STATUS_MISSING
+    assert summary.evidence_statuses == (EVIDENCE_STATUS_MISSING,)

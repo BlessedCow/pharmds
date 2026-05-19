@@ -568,10 +568,35 @@ def render_aggregate_concern_summaries(
             )
         else:
             lines.append("  patient_risk_modifiers: none")
-            
+
         if summary.risk_context:
             lines.append("  risk_context: " + summary.risk_context)
 
+        lines.append(
+            "  evidence_conflict_level: "
+            + str(summary.evidence_conflict_level)
+        )
+
+        if summary.evidence_conflict_message:
+            lines.append(
+                "  evidence_conflict_message: "
+                + summary.evidence_conflict_message
+            )
+
+        if summary.evidence_conflict_source_ids:
+            lines.append(
+                "  evidence_conflict_source_ids: "
+                + ", ".join(summary.evidence_conflict_source_ids)
+            )
+
+        if summary.evidence_conflict_trace_types:
+            lines.append(
+                "  evidence_conflict_trace_types: "
+                + ", ".join(summary.evidence_conflict_trace_types)
+            )
+
+        if summary.narrative:
+            lines.append("  narrative: " + summary.narrative)   
     if hidden_count > 0:
         noun = "summary" if hidden_count == 1 else "summaries"
         lines.append("")

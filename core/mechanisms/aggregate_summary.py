@@ -9,7 +9,7 @@ read-only structure for JSON/debug/UI rendering.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from core.mechanisms.aggregate_evidence import (
     EVIDENCE_STATUS_COMPLETE,
@@ -20,7 +20,12 @@ from core.mechanisms.aggregate_evidence import (
     AggregateEvidenceSummary,
 )
 from core.mechanisms.aggregate_severity import AggregateSeverityAnnotation
-from core.mechanisms.aggregation import AggregateConcern
+from core.mechanisms.aggregation import (
+    AGGREGATE_OBJECT_EXPOSURE_DECREASE,
+    AGGREGATE_OBJECT_EXPOSURE_INCREASE,
+    AGGREGATE_SHARED_PD_EFFECT,
+    AggregateConcern,
+)
 from core.mechanisms.policy import POLICY_MECHANISTIC_CONCERN
 from core.mechanisms.severity import (
     PRELIMINARY_SEVERITY_CAUTION,
@@ -56,7 +61,9 @@ PATIENT_RISK_CONTEXT = {
         "is present."
     ),
 }
-
+EVIDENCE_CONFLICT_LEVEL_NONE = "none"
+EVIDENCE_CONFLICT_LEVEL_DISPUTED = "disputed"
+EVIDENCE_CONFLICT_LEVEL_CONFLICTING = "conflicting"
 
 @dataclass(frozen=True)
 class AggregateConcernSummary:
@@ -67,6 +74,11 @@ class AggregateConcernSummary:
     evidence_summary: AggregateEvidenceSummary | None = None
     patient_risk_modifiers: tuple[str, ...] = ()
     risk_context: str | None = None
+    evidence_conflict_level: str = EVIDENCE_CONFLICT_LEVEL_NONE
+    evidence_conflict_message: str | None = None
+    evidence_conflict_source_ids: tuple[str, ...] = ()
+    evidence_conflict_trace_types: tuple[str, ...] = ()
+    narrative: str = ""
 
     @property
     def key(self) -> tuple[str, str, str | None]:
@@ -97,13 +109,29 @@ def build_aggregate_concern_summaries(
             aggregate,
             patient_flags or {},
         )
+        evidence_summary = evidence_by_key.get(aggregate.key)
+        (
+            conflict_level,
+            conflict_message,
+            conflict_source_ids,
+            conflict_trace_types,
+        ) = summarize_evidence_conflict_surface(evidence_summary)
+
+        summary = AggregateConcernSummary(
+            aggregate=aggregate,
+            severity_annotation=severity_by_key.get(aggregate.key),
+            evidence_summary=evidence_summary,
+            patient_risk_modifiers=modifiers,
+            risk_context=risk_context,
+            evidence_conflict_level=conflict_level,
+            evidence_conflict_message=conflict_message,
+            evidence_conflict_source_ids=conflict_source_ids,
+            evidence_conflict_trace_types=conflict_trace_types,
+        )
         summaries.append(
-            AggregateConcernSummary(
-                aggregate=aggregate,
-                severity_annotation=severity_by_key.get(aggregate.key),
-                evidence_summary=evidence_by_key.get(aggregate.key),
-                patient_risk_modifiers=modifiers,
-                risk_context=risk_context,
+            replace(
+                summary,
+                narrative=build_aggregate_summary_narrative(summary),
             )
         )
 
@@ -111,6 +139,13 @@ def build_aggregate_concern_summaries(
         dedupe_aggregate_concern_summaries(summaries)
     )
 
+def _aggregate_evidence_conflict_narrative(
+    summary: AggregateConcernSummary,
+) -> str:
+    if not summary.evidence_conflict_message:
+        return ""
+
+    return summary.evidence_conflict_message
 
 def dedupe_aggregate_concern_summaries(
     summaries: list[AggregateConcernSummary],
@@ -190,6 +225,186 @@ def summarize_patient_risk_modifiers(
 
     return tuple(modifiers), " ".join(contexts) if contexts else None
 
+def summarize_evidence_conflict_surface(
+    evidence: AggregateEvidenceSummary | None,
+) -> tuple[str, str | None, tuple[str, ...], tuple[str, ...]]:
+    """Return human-readable conflict/dispute context for aggregate evidence."""
+    if not evidence:
+        return EVIDENCE_CONFLICT_LEVEL_NONE, None, (), ()
+
+    if evidence.overall_evidence_status == EVIDENCE_STATUS_CONFLICTING:
+        return (
+            EVIDENCE_CONFLICT_LEVEL_CONFLICTING,
+            (
+                "Conflicting curated evidence is attached to this aggregate "
+                "concern and should be reviewed separately instead of being "
+                "treated as complete support."
+            ),
+            evidence.evidence_source_ids,
+            evidence.evidence_trace_types,
+        )
+
+    if evidence.overall_evidence_status == EVIDENCE_STATUS_DISPUTED:
+        return (
+            EVIDENCE_CONFLICT_LEVEL_DISPUTED,
+            (
+                "Disputed curated evidence is attached to this aggregate "
+                "concern and should be reviewed separately."
+            ),
+            evidence.evidence_source_ids,
+            evidence.evidence_trace_types,
+        )
+
+    return EVIDENCE_CONFLICT_LEVEL_NONE, None, (), ()
+
+def build_aggregate_summary_narrative(
+    summary: AggregateConcernSummary,
+) -> str:
+    """Build a short educational narrative for an aggregate summary.
+
+    The narrative is intentionally conservative. It explains the grouped
+    mechanism, evidence status, and preliminary severity without making
+    treatment recommendations.
+    """
+    aggregate = summary.aggregate
+    mechanism_text = _aggregate_mechanism_narrative(aggregate)
+    evidence_text = _aggregate_evidence_narrative(summary)
+    severity_text = _aggregate_severity_narrative(summary)
+    conflict_text = _aggregate_evidence_conflict_narrative(summary)
+    risk_text = _aggregate_patient_risk_narrative(summary)
+
+    parts = [
+        mechanism_text,
+        evidence_text,
+        severity_text,
+    ]
+
+    if conflict_text:
+        parts.append(conflict_text)
+
+    if risk_text:
+        parts.append(risk_text)
+
+    parts.append("This explanation is educational and not diagnostic.")
+
+    return " ".join(part for part in parts if part)
+
+
+def _aggregate_mechanism_narrative(
+    aggregate: AggregateConcern,
+) -> str:
+    drugs = _human_join(aggregate.drugs)
+
+    if aggregate.aggregate_type == AGGREGATE_SHARED_PD_EFFECT:
+        effect_id = aggregate.effect_id or aggregate.anchor
+        return (
+            f"{drugs} share a {effect_id}-related pharmacodynamic effect."
+        )
+
+    if aggregate.aggregate_type == AGGREGATE_OBJECT_EXPOSURE_INCREASE:
+        targets = _human_join(aggregate.targets)
+        target_text = (
+            f" through {targets}-related mechanism(s)"
+            if targets
+            else ""
+        )
+        return (
+            f"{drugs} include mechanism(s) that may increase "
+            f"{aggregate.anchor} exposure{target_text}."
+        )
+
+    if aggregate.aggregate_type == AGGREGATE_OBJECT_EXPOSURE_DECREASE:
+        targets = _human_join(aggregate.targets)
+        target_text = (
+            f" through {targets}-related mechanism(s)"
+            if targets
+            else ""
+        )
+        return (
+            f"{drugs} include mechanism(s) that may decrease "
+            f"{aggregate.anchor} exposure{target_text}."
+        )
+
+    if aggregate.effect_id:
+        return (
+            f"{drugs} are grouped around {aggregate.effect_id} "
+            f"as a {aggregate.policy_concern}."
+        )
+
+    return (
+        f"{drugs} are grouped as a {aggregate.policy_concern}."
+    )
+
+
+def _aggregate_evidence_narrative(
+    summary: AggregateConcernSummary,
+) -> str:
+    evidence = summary.evidence_summary
+
+    if not evidence:
+        return "No aggregate-level evidence summary is attached."
+
+    evidence_label = _evidence_status_label(
+        evidence.overall_evidence_status,
+    )
+
+    return f"This grouped concern has {evidence_label}."
+
+
+def _aggregate_severity_narrative(
+    summary: AggregateConcernSummary,
+) -> str:
+    severity = summary.severity_annotation
+
+    if not severity or not severity.strongest_preliminary_severity:
+        return "It does not have a preliminary severity classification."
+
+    return (
+        "It is preliminarily classified as "
+        f"{severity.strongest_preliminary_severity}-level."
+    )
+
+
+def _aggregate_patient_risk_narrative(
+    summary: AggregateConcernSummary,
+) -> str:
+    if not summary.patient_risk_modifiers:
+        return ""
+
+    modifiers = _human_join(summary.patient_risk_modifiers)
+    context = summary.risk_context or ""
+
+    if context:
+        return f"Patient risk modifier(s) present: {modifiers}. {context}"
+
+    return f"Patient risk modifier(s) present: {modifiers}."
+
+
+def _evidence_status_label(status: str) -> str:
+    labels = {
+        EVIDENCE_STATUS_COMPLETE: "complete curated evidence support",
+        EVIDENCE_STATUS_PARTIAL: "partial curated evidence support",
+        EVIDENCE_STATUS_MISSING: "missing curated evidence support",
+        EVIDENCE_STATUS_DISPUTED: "disputed curated evidence context",
+        EVIDENCE_STATUS_CONFLICTING: "conflicting curated evidence context",
+        "not_applicable": "no aggregate-level curated evidence requirement",
+        "undetermined": "undetermined curated evidence support",
+    }
+
+    return labels.get(status, f"{status} evidence status")
+
+
+def _human_join(items: tuple[str, ...]) -> str:
+    if not items:
+        return "No selected drugs"
+
+    if len(items) == 1:
+        return items[0]
+
+    if len(items) == 2:
+        return f"{items[0]} and {items[1]}"
+
+    return f"{', '.join(items[:-1])}, and {items[-1]}"
 
 def _aggregate_effect_ids(aggregate: AggregateConcern) -> set[str]:
     effect_ids: set[str] = set()
