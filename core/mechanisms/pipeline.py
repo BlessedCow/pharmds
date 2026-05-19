@@ -121,6 +121,7 @@ def run_mechanism_pipeline(
         aggregate_concerns,
         aggregate_severity_annotations,
         aggregate_evidence_summaries,
+        patient_flags=facts.patient_flags,
     )
 
     return MechanismPipelineResult(

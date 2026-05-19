@@ -84,9 +84,12 @@ def _aggregate_concern_summary_to_json_dict(item) -> dict[str, Any]:
             if item.evidence_summary
             else None
         ),
+        "patient_risk_modifiers": list(item.patient_risk_modifiers),
+        "risk_context": item.risk_context,
     }
 
 def _normalize_json_value(value):
+    
     if isinstance(value, dict):
         return {
             key: _normalize_json_value(item)

@@ -82,6 +82,61 @@ def test_mechanism_pipeline_to_json_dict_serializes_all_stages():
     assert payload["severity_annotations"][0]["scored"]["confidence"] == "high"
     json.dumps(payload)
 
+def test_mechanism_pipeline_to_json_dict_includes_patient_risk_context():
+    facts = Facts(
+        drugs={
+            "clarithromycin": Drug(
+                id="clarithromycin",
+                generic_name="clarithromycin",
+                drug_class="macrolide antibiotic",
+                therapeutic_index="moderate",
+            ),
+            "fluconazole": Drug(
+                id="fluconazole",
+                generic_name="fluconazole",
+                drug_class="azole antifungal",
+                therapeutic_index="moderate",
+            ),
+        },
+        enzyme_roles={},
+        transporter_roles={},
+        pd_effects={
+            "clarithromycin": [
+                PDEffect(
+                    effect_id="QT_prolongation",
+                    direction="increase",
+                    magnitude="high",
+                )
+            ],
+            "fluconazole": [
+                PDEffect(
+                    effect_id="QT_prolongation",
+                    direction="increase",
+                    magnitude="high",
+                )
+            ],
+        },
+        patient_flags={
+            "qt_risk": True,
+            "bleeding_risk": False,
+        },
+    )
+
+    pipeline = run_mechanism_pipeline(
+        ["clarithromycin", "fluconazole"],
+        facts,
+    )
+    payload = mechanism_pipeline_to_json_dict(pipeline)
+
+    aggregate_summary = payload["aggregate_concern_summaries"][0]
+
+    assert aggregate_summary["aggregate"]["effect_id"] == "QT_prolongation"
+    assert aggregate_summary["patient_risk_modifiers"] == ["qt_risk"]
+    assert aggregate_summary["risk_context"] == (
+        "QT-related concern may be more important when QT risk flag is present."
+    )
+
+    json.dumps(payload)
 
 def test_mechanism_pipeline_to_json_dict_includes_evidence_trace_metadata():
     facts = Facts(
@@ -195,6 +250,9 @@ def test_mechanism_pipeline_to_json_dict_includes_evidence_trace_metadata():
         == "complete"
     )
 
+    assert aggregate_summary["patient_risk_modifiers"] == []
+    assert aggregate_summary["risk_context"] is None
+    
     json.dumps(payload)
 
 

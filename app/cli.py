@@ -46,6 +46,8 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
 RULE_DIR = BASE_DIR / "rules" / "rule_defs"
 
+DEFAULT_AGGREGATE_SUMMARY_LIMIT = 5
+
 
 def _parse_drug_tokens(text: str) -> list[str]:
     """Parse drug tokens from free-form text.
@@ -495,6 +497,91 @@ def render_aggregate_evidence_summary(pipeline):
 
     return "\n".join(lines)
 
+def render_aggregate_concern_summaries(
+    pipeline,
+    top: int | None = DEFAULT_AGGREGATE_SUMMARY_LIMIT,
+):
+    """Render joined aggregate concern summaries for CLI debug output."""
+    summaries = list(pipeline.aggregate_concern_summaries)
+
+    if not summaries:
+        return "No aggregate concern summaries."
+
+    if top is not None and top > 0:
+        visible_summaries = summaries[:top]
+    else:
+        visible_summaries = summaries
+
+    hidden_count = len(summaries) - len(visible_summaries)
+    lines = []
+
+    for summary in visible_summaries:
+        aggregate = summary.aggregate
+        severity = summary.severity_annotation
+        evidence = summary.evidence_summary
+        drugs = ", ".join(aggregate.drugs) if aggregate.drugs else "none"
+        targets = ", ".join(aggregate.targets) if aggregate.targets else "none"
+        effect_id = aggregate.effect_id or aggregate.anchor
+
+        lines.append("")
+        lines.append(f"- {aggregate.aggregate_type}: {aggregate.anchor}")
+        lines.append(f"  drugs: {drugs}")
+        lines.append(f"  effect: {effect_id}")
+        lines.append(f"  targets: {targets}")
+        lines.append(f"  policy_concern: {aggregate.policy_concern}")
+
+        if severity:
+            lines.append(
+                "  strongest_preliminary_severity: "
+                + str(severity.strongest_preliminary_severity)
+            )
+        else:
+            lines.append("  strongest_preliminary_severity: none")
+
+        if evidence:
+            lines.append(
+                "  evidence_status: "
+                + str(evidence.overall_evidence_status)
+            )
+            lines.append(
+                "  evidence_gap_count: "
+                + str(evidence.evidence_gap_count)
+            )
+            lines.append(
+                "  evidence_claim_count: "
+                + str(evidence.evidence_claim_count)
+            )
+            lines.append(
+                "  evidence_source_count: "
+                + str(len(evidence.evidence_source_ids))
+            )
+        else:
+            lines.append("  evidence_status: none")
+            lines.append("  evidence_gap_count: 0")
+            lines.append("  evidence_claim_count: 0")
+            lines.append("  evidence_source_count: 0")
+
+        if summary.patient_risk_modifiers:
+            lines.append(
+                "  patient_risk_modifiers: "
+                + ", ".join(summary.patient_risk_modifiers)
+            )
+        else:
+            lines.append("  patient_risk_modifiers: none")
+            
+        if summary.risk_context:
+            lines.append("  risk_context: " + summary.risk_context)
+
+    if hidden_count > 0:
+        noun = "summary" if hidden_count == 1 else "summaries"
+        lines.append("")
+        lines.append(
+            f"... {hidden_count} aggregate concern {noun} hidden. "
+            "Use --top 0 to show all."
+        )
+
+    return "\n".join(lines)
+
 def render_severity_comparison(pipeline):
     """Render comparison between aggregate concerns and aggregate severity."""
     if not pipeline.aggregate_severity_annotations:
@@ -634,6 +721,14 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-aggregate-summaries",
+        action="store_true",
+        help=(
+            "Show joined aggregate concern, severity, and evidence summaries "
+            "from the mechanism pipeline and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
         "--show-mechanisms",
         action="store_true",
         help=(
@@ -684,8 +779,12 @@ def main() -> None:
     p.add_argument(
         "--top",
         type=int,
-        default=0,
-        help=("In rich mode, show only the top N pairs in the summary (0 = all)."),
+        default=None,
+        help=(
+            "Show only the top N rows or aggregate summaries. "
+            "For aggregate summaries, omitted uses the default limit. "
+            "Use 0 to show all."
+        ),
     )
     p.add_argument(
         "--qt-risk",
@@ -753,6 +852,7 @@ def main() -> None:
         or args.show_severity
         or args.show_severity_comparison
         or args.show_aggregate_evidence
+        or args.show_aggregate_summaries
     ):
         pipeline = run_mechanism_pipeline(
             drug_ids,
@@ -816,6 +916,17 @@ def main() -> None:
         if args.show_aggregate_evidence:
             print("\nAggregate Evidence Summary")
             print(render_aggregate_evidence_summary(pipeline))
+
+            return
+        
+        if args.show_aggregate_summaries:
+            print("\nAggregate Concern Summaries")
+            print(
+                render_aggregate_concern_summaries(
+                    pipeline,
+                    top=args.top,
+                )
+            )
 
             return
         
@@ -939,7 +1050,7 @@ def main() -> None:
             print()
 
         rows = build_summary_rows(facts, pair_reports)
-        render_rich_summary(rows, top=args.top)
+        render_rich_summary(rows, top=args.top or 0)
 
         detail_reports = (
             pair_reports[: args.top] if args.top and args.top > 0 else pair_reports

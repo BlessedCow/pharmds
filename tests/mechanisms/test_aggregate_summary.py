@@ -143,3 +143,153 @@ def test_dedupe_aggregate_concern_summaries_preserves_first_seen():
     )
 
     assert dedupe_aggregate_concern_summaries([first, second]) == [first]
+    
+    
+def test_build_aggregate_concern_summaries_ranks_by_severity_first():
+    lower = _pd_aggregate()
+    higher = _pk_aggregate()
+
+    summaries = build_aggregate_concern_summaries(
+        [lower, higher],
+        [
+            AggregateSeverityAnnotation(
+                aggregate=lower,
+                strongest_preliminary_severity="informational",
+            ),
+            AggregateSeverityAnnotation(
+                aggregate=higher,
+                strongest_preliminary_severity="caution",
+            ),
+        ],
+        [],
+    )
+
+    assert [summary.aggregate for summary in summaries] == [higher, lower]
+
+def test_build_aggregate_concern_summaries_ranks_evidence_when_severity_ties():
+    partial = _pd_aggregate()
+    complete = _pk_aggregate()
+
+    summaries = build_aggregate_concern_summaries(
+        [partial, complete],
+        [
+            AggregateSeverityAnnotation(
+                aggregate=partial,
+                strongest_preliminary_severity="caution",
+            ),
+            AggregateSeverityAnnotation(
+                aggregate=complete,
+                strongest_preliminary_severity="caution",
+            ),
+        ],
+        [
+            AggregateEvidenceSummary(
+                aggregate=partial,
+                overall_evidence_status="partial",
+            ),
+            AggregateEvidenceSummary(
+                aggregate=complete,
+                overall_evidence_status="complete",
+            ),
+        ],
+    )
+
+    assert [summary.aggregate for summary in summaries] == [complete, partial]
+
+
+def test_build_aggregate_concern_summaries_keeps_stable_order_on_rank_tie():
+    first = _pd_aggregate()
+    second = _pk_aggregate()
+
+    summaries = build_aggregate_concern_summaries(
+        [first, second],
+        [
+            AggregateSeverityAnnotation(
+                aggregate=first,
+                strongest_preliminary_severity="caution",
+            ),
+            AggregateSeverityAnnotation(
+                aggregate=second,
+                strongest_preliminary_severity="caution",
+            ),
+        ],
+        [
+            AggregateEvidenceSummary(
+                aggregate=first,
+                overall_evidence_status="complete",
+            ),
+            AggregateEvidenceSummary(
+                aggregate=second,
+                overall_evidence_status="complete",
+            ),
+        ],
+    )
+
+    assert [summary.aggregate for summary in summaries] == [first, second]
+    
+def test_build_aggregate_concern_summaries_adds_qt_risk_modifier():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="QT_prolongation",
+        policy_concern="safety_concern",
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="QT_prolongation",
+    )
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [],
+        patient_flags={
+            "qt_risk": True,
+            "bleeding_risk": False,
+        },
+    )
+
+    assert summaries[0].patient_risk_modifiers == ("qt_risk",)
+    assert summaries[0].risk_context == (
+        "QT-related concern may be more important when QT risk flag is present."
+    )
+
+
+def test_build_aggregate_concern_summaries_adds_bleeding_risk_modifier():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="bleeding",
+        policy_concern="safety_concern",
+        drugs=("ibuprofen", "warfarin"),
+        effect_id="bleeding",
+    )
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [],
+        patient_flags={
+            "qt_risk": False,
+            "bleeding_risk": True,
+        },
+    )
+
+    assert summaries[0].patient_risk_modifiers == ("bleeding_risk",)
+    assert summaries[0].risk_context == (
+        "Bleeding-related concern may be more important when bleeding risk flag "
+        "is present."
+    )
+
+
+def test_build_aggregate_concern_summaries_ignores_irrelevant_patient_flag():
+    aggregate = _pd_aggregate()
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [],
+        patient_flags={
+            "qt_risk": True,
+            "bleeding_risk": True,
+        },
+    )
+
+    assert summaries[0].patient_risk_modifiers == ()
+    assert summaries[0].risk_context is None
