@@ -15,6 +15,7 @@
       "A_role": "substrate",
       "B_role": "inhibitor"
     },
+    "A_name_is": "clopidogrel",
     "rationale": [
       "Clopidogrel is a prodrug requiring CYP2C19-mediated activation.",
       "Reduced activation can lower antiplatelet effect."

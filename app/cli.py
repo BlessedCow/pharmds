@@ -33,6 +33,10 @@ from core.mechanisms.arbitration_debug import format_arbitration_results
 from core.mechanisms.candidate_debug import format_interaction_candidates
 from core.mechanisms.debug import format_mechanism_effects
 from core.mechanisms.policy_debug import format_policy_results
+from core.mechanisms.result_summary import (
+    ResultSummary,
+    build_public_result_summaries,
+)
 from core.mechanisms.scoring_debug import format_scored_concerns
 from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
 from reasoning.combine import build_pair_reports, build_regimen_summary
@@ -47,7 +51,7 @@ DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
 RULE_DIR = BASE_DIR / "rules" / "rule_defs"
 
 DEFAULT_AGGREGATE_SUMMARY_LIMIT = 5
-
+DEFAULT_PUBLIC_RESULT_SUMMARY_LIMIT = 5
 
 def _parse_drug_tokens(text: str) -> list[str]:
     """Parse drug tokens from free-form text.
@@ -607,6 +611,42 @@ def render_aggregate_concern_summaries(
 
     return "\n".join(lines)
 
+def render_public_result_summaries(
+    summaries: list[ResultSummary],
+    top: int | None = DEFAULT_PUBLIC_RESULT_SUMMARY_LIMIT,
+) -> str:
+    """Render public result summaries for default plain CLI output."""
+    if not summaries:
+        return "No key interaction summaries."
+
+    if top is not None and top > 0:
+        visible_summaries = summaries[:top]
+    else:
+        visible_summaries = summaries
+
+    hidden_count = len(summaries) - len(visible_summaries)
+    lines = []
+
+    for summary in visible_summaries:
+        drugs = ", ".join(summary.drugs) if summary.drugs else "none"
+
+        lines.append(f"- {summary.title}")
+        lines.append(f"  drugs: {drugs}")
+        lines.append(f"  concern_type: {summary.concern_type}")
+        lines.append(f"  severity: {summary.severity_label}")
+        lines.append(f"  evidence: {summary.evidence_label}")
+        lines.append(f"  explanation: {summary.explanation}")
+        lines.append("")
+
+    if hidden_count > 0:
+        noun = "summary" if hidden_count == 1 else "summaries"
+        lines.append(
+            f"... {hidden_count} key interaction {noun} hidden. "
+            "Use --top 0 to show all."
+        )
+
+    return "\n".join(lines).rstrip()
+
 def render_severity_comparison(pipeline):
     """Render comparison between aggregate concerns and aggregate severity."""
     if not pipeline.aggregate_severity_annotations:
@@ -980,7 +1020,14 @@ def main() -> None:
     regimen_summary = None
     if len(drug_ids) >= 3:
         regimen_summary = build_regimen_summary(facts, pair_reports)
-    
+
+    pipeline = run_mechanism_pipeline(
+        drug_ids,
+        facts,
+        evidence_mode=args.evidence_mode,
+    )
+    public_result_summaries = build_public_result_summaries(pipeline)
+        
     # JSON MODE
     if args.format == "json":
         payload = build_json_payload(
@@ -995,7 +1042,7 @@ def main() -> None:
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return
 
-    if not pair_reports:
+    if not pair_reports and not public_result_summaries:
         domains = ", ".join(selected)
         print(
             "No rule-based interactions detected in selected domains: "
@@ -1091,6 +1138,12 @@ def main() -> None:
 
     # PLAIN MODE
     print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
+
+    if public_result_summaries:
+        print("Key Interaction Summaries")
+        print(render_public_result_summaries(public_result_summaries, top=args.top))
+        print()
+
     for rep in pair_reports:
         d1 = facts.drugs[rep.drug_1].generic_name
         d2 = facts.drugs[rep.drug_2].generic_name
