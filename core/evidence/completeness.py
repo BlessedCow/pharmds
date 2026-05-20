@@ -39,6 +39,19 @@ GAP_CLASSIFICATIONS = {
 }
 
 SOURCE_TYPE_NONE = "no_source"
+BACKFILL_PRIORITY_MISSING = "p0_missing_evidence"
+BACKFILL_PRIORITY_CONFLICT = "p1_conflict_review"
+BACKFILL_PRIORITY_UNDETERMINED = "p2_undetermined_review"
+BACKFILL_PRIORITY_CONFIDENCE = "p3_confidence_backfill"
+
+BACKFILL_PREFERRED_SOURCE_TYPES = ("drug_label",)
+
+_BACKFILL_PRIORITY_RANK = {
+    BACKFILL_PRIORITY_MISSING: 0,
+    BACKFILL_PRIORITY_CONFLICT: 1,
+    BACKFILL_PRIORITY_UNDETERMINED: 2,
+    BACKFILL_PRIORITY_CONFIDENCE: 3,
+}
 
 _CONFIDENCE_STATUS_BY_LEVEL = {
     "high": CONFIDENCE_HIGH,
@@ -285,6 +298,124 @@ def group_evidence_gaps(
         for group_name, group in grouped.items()
     }
 
+def _evidence_gap_priority(item: dict[str, Any]) -> str | None:
+    """Classify an evidence item into a maintainer backfill priority."""
+    coverage_status = item.get("coverage_status")
+    confidence_status = item.get("confidence_status")
+
+    if coverage_status == COVERAGE_MISSING:
+        return BACKFILL_PRIORITY_MISSING
+
+    if coverage_status in {COVERAGE_CONFLICTING, COVERAGE_DISPUTED}:
+        return BACKFILL_PRIORITY_CONFLICT
+
+    if coverage_status == COVERAGE_UNDETERMINED:
+        return BACKFILL_PRIORITY_UNDETERMINED
+
+    if confidence_status in {
+        CONFIDENCE_LOW,
+        CONFIDENCE_UNCERTAIN,
+        CONFIDENCE_NONE,
+    }:
+        return BACKFILL_PRIORITY_CONFIDENCE
+
+    return None
+
+
+def _missing_source_types(row: dict[str, Any]) -> list[str]:
+    """Return preferred source types still missing for a row."""
+    existing_source_types = set(row.get("source_types") or [])
+    return [
+        source_type
+        for source_type in BACKFILL_PREFERRED_SOURCE_TYPES
+        if source_type not in existing_source_types
+    ]
+
+
+def _suggested_backfill_action(
+    priority: str,
+    missing_source_types: list[str],
+) -> str:
+    """Return a maintainer-facing suggested next action."""
+    if priority == BACKFILL_PRIORITY_MISSING:
+        return (
+            "Add curated evidence claim(s), starting with "
+            f"{', '.join(missing_source_types or BACKFILL_PREFERRED_SOURCE_TYPES)}."
+        )
+
+    if priority == BACKFILL_PRIORITY_CONFLICT:
+        return (
+            "Review conflicting or disputed evidence claims and clarify the "
+            "preferred curated interpretation."
+        )
+
+    if priority == BACKFILL_PRIORITY_UNDETERMINED:
+        return (
+            "Review source material and assign a supported evidence confidence."
+        )
+
+    return (
+        "Add stronger or more complete supporting evidence for this drug/effect."
+    )
+
+
+def build_evidence_gap_backfill_plan(
+    report: dict[str, Any],
+) -> dict[str, Any]:
+    """Build prioritized maintainer tasks from evidence gap report items."""
+    tasks: list[dict[str, Any]] = []
+
+    for item in report.get("items", []):
+        priority = _evidence_gap_priority(item)
+        if priority is None:
+            continue
+
+        missing_source_types = _missing_source_types(item)
+        task = {
+            "priority": priority,
+            "drug_id": item["drug_id"],
+            "effect_id": item["effect_id"],
+            "coverage_status": item["coverage_status"],
+            "confidence_level": item.get("confidence_level"),
+            "confidence_status": item["confidence_status"],
+            "classification": item["classification"],
+            "claim_count": item["claim_count"],
+            "source_types": list(item.get("source_types") or []),
+            "missing_source_types": missing_source_types,
+            "suggested_next_action": _suggested_backfill_action(
+                priority,
+                missing_source_types,
+            ),
+        }
+        tasks.append(task)
+
+    tasks.sort(
+        key=lambda task: (
+            _BACKFILL_PRIORITY_RANK[task["priority"]],
+            task["effect_id"],
+            task["drug_id"],
+            task["classification"],
+        )
+    )
+
+    by_pd_effect: dict[str, list[dict[str, Any]]] = {}
+    by_drug: dict[str, list[dict[str, Any]]] = {}
+    priority_counts: dict[str, int] = {}
+
+    for task in tasks:
+        by_pd_effect.setdefault(task["effect_id"], []).append(task)
+        by_drug.setdefault(task["drug_id"], []).append(task)
+        priority_counts[task["priority"]] = (
+            priority_counts.get(task["priority"], 0) + 1
+        )
+
+    return {
+        "total_tasks": len(tasks),
+        "priority_counts": dict(sorted(priority_counts.items())),
+        "tasks": tasks,
+        "by_pd_effect": by_pd_effect,
+        "by_drug": by_drug,
+    }
 
 def add_grouped_evidence_gaps(
     report: dict[str, Any],
@@ -292,8 +423,10 @@ def add_grouped_evidence_gaps(
     """Return report with grouped missing/partial coverage sections."""
     enriched = dict(report)
     grouped = group_evidence_gaps(report)
+    
     enriched["gap_count"] = len(evidence_gap_items(report))
     enriched["gaps_by_pd_effect"] = grouped["by_pd_effect"]
     enriched["gaps_by_drug"] = grouped["by_drug"]
     enriched["gaps_by_source_type"] = grouped["by_source_type"]
+    enriched["backfill_plan"] = build_evidence_gap_backfill_plan(enriched)
     return enriched

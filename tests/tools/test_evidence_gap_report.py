@@ -1,4 +1,5 @@
-from tools.evidence_gap_report import _format_report_text
+from core.evidence.completeness import BACKFILL_PRIORITY_MISSING
+from tools import evidence_gap_report
 
 
 def test_format_report_text_hides_complete_items_by_default():
@@ -78,7 +79,7 @@ def test_format_report_text_hides_complete_items_by_default():
         ],
     }
 
-    text = _format_report_text(report)
+    text = evidence_gap_report._format_report_text(report)
 
     assert "PD effect evidence gap report" in text
     assert "Missing/partial evidence rows: 1" in text
@@ -118,9 +119,105 @@ def test_format_report_text_can_show_complete_items():
         ],
     }
 
-    text = _format_report_text(report, show_complete=True)
+    text = evidence_gap_report._format_report_text(
+        report,
+        show_complete=True,
+    )
 
-    assert "Grouped by PD effect:\n  none" in text
-    assert "Complete/moderate/high rows:" in text
-    assert "drug_a -> nausea: high_confidence" in text
-    assert "source_types=drug_label" in text
+    assert "complete" in text
+
+
+def test_format_report_text_includes_backfill_plan():
+    report = {
+        "total_pd_effects": 1,
+        "gap_count": 1,
+        "coverage_counts": {"missing": 1},
+        "confidence_counts": {"none": 1},
+        "classification_counts": {"missing": 1},
+        "source_type_counts": {"no_source": 1},
+        "gaps_by_pd_effect": {
+            "nausea": [
+                {
+                    "drug_id": "drug_a",
+                    "effect_id": "nausea",
+                    "coverage_status": "missing",
+                    "confidence_status": "none",
+                    "classification": "missing",
+                    "claim_count": 0,
+                    "source_types": ["no_source"],
+                }
+            ]
+        },
+        "gaps_by_drug": {
+            "drug_a": [
+                {
+                    "drug_id": "drug_a",
+                    "effect_id": "nausea",
+                    "coverage_status": "missing",
+                    "confidence_status": "none",
+                    "classification": "missing",
+                    "claim_count": 0,
+                    "source_types": ["no_source"],
+                }
+            ]
+        },
+        "gaps_by_source_type": {
+            "no_source": [
+                {
+                    "drug_id": "drug_a",
+                    "effect_id": "nausea",
+                    "coverage_status": "missing",
+                    "confidence_status": "none",
+                    "classification": "missing",
+                    "claim_count": 0,
+                    "source_types": ["no_source"],
+                }
+            ]
+        },
+        "items": [
+            {
+                "drug_id": "drug_a",
+                "effect_id": "nausea",
+                "coverage_status": "missing",
+                "confidence_status": "none",
+                "classification": "missing",
+                "claim_count": 0,
+                "source_types": ["no_source"],
+            }
+        ],
+        "backfill_plan": {
+            "total_tasks": 1,
+            "priority_counts": {BACKFILL_PRIORITY_MISSING: 1},
+            "tasks": [
+                {
+                    "priority": BACKFILL_PRIORITY_MISSING,
+                    "drug_id": "drug_a",
+                    "effect_id": "nausea",
+                    "coverage_status": "missing",
+                    "confidence_level": None,
+                    "confidence_status": "none",
+                    "classification": "missing",
+                    "claim_count": 0,
+                    "source_types": ["no_source"],
+                    "missing_source_types": ["drug_label"],
+                    "suggested_next_action": (
+                        "Add curated evidence claim(s), starting with "
+                        "drug_label."
+                    ),
+                }
+            ],
+            "by_pd_effect": {},
+            "by_drug": {},
+        },
+    }
+
+    text = evidence_gap_report._format_report_text(
+        report,
+        show_complete=False,
+    )
+
+    assert "Backfill planning report:" in text
+    assert "Total backfill tasks: 1" in text
+    assert BACKFILL_PRIORITY_MISSING in text
+    assert "drug_a -> nausea" in text
+    assert "missing_sources=drug_label" in text

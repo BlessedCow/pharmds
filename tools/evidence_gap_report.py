@@ -8,6 +8,10 @@ import sqlite3
 
 from app.cli import DB_PATH, connect, load_facts
 from core.evidence.completeness import (
+    BACKFILL_PRIORITY_CONFIDENCE,
+    BACKFILL_PRIORITY_CONFLICT,
+    BACKFILL_PRIORITY_MISSING,
+    BACKFILL_PRIORITY_UNDETERMINED,
     GAP_CLASSIFICATIONS,
     build_pd_effect_evidence_gap_report,
 )
@@ -159,9 +163,63 @@ def _format_report_text(
         else:
             for item in complete_items:
                 lines.append(f"  - {_format_item(item)}")
+        
+    backfill_lines = _format_backfill_plan(report)
+    if backfill_lines:
+        lines.append("")
+        lines.extend(backfill_lines)
 
     return "\n".join(lines)
 
+def _format_backfill_plan(report: dict[str, object]) -> list[str]:
+    """Format prioritized evidence backfill tasks for maintainers."""
+    backfill_plan = report.get("backfill_plan") or {}
+    if not isinstance(backfill_plan, dict):
+        return []
+
+    tasks = backfill_plan.get("tasks") or []
+    if not tasks:
+        return ["Backfill planning report:", "  No backfill tasks found."]
+
+    priority_counts = backfill_plan.get("priority_counts") or {}
+    priority_order = (
+        BACKFILL_PRIORITY_MISSING,
+        BACKFILL_PRIORITY_CONFLICT,
+        BACKFILL_PRIORITY_UNDETERMINED,
+        BACKFILL_PRIORITY_CONFIDENCE,
+    )
+
+    lines = [
+        "Backfill planning report:",
+        f"  Total backfill tasks: {backfill_plan.get('total_tasks', 0)}",
+    ]
+
+    for priority in priority_order:
+        count = priority_counts.get(priority, 0)
+        if count:
+            lines.append(f"  {priority}: {count}")
+
+    lines.append("  Prioritized tasks:")
+
+    for task in tasks:
+        if not isinstance(task, dict):
+            continue
+
+        missing_source_types = task.get("missing_source_types") or []
+        missing_sources = ", ".join(missing_source_types) or "none"
+        lines.append(
+            "    - "
+            f"[{task.get('priority')}] "
+            f"{task.get('drug')} -> {task.get('pd_effect')}: "
+            f"{task.get('coverage_status')} evidence, "
+            f"confidence={task.get('confidence')}, "
+            f"conflict={task.get('conflict_status')}, "
+            f"claims={task.get('claim_count')}, "
+            f"missing_sources={missing_sources}. "
+            f"{task.get('suggested_next_action')}"
+        )
+
+    return lines
 
 def main() -> None:
     args = _build_parser().parse_args()

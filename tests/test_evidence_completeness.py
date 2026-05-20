@@ -1,4 +1,7 @@
 from core.evidence.completeness import (
+    BACKFILL_PRIORITY_CONFIDENCE,
+    BACKFILL_PRIORITY_CONFLICT,
+    BACKFILL_PRIORITY_MISSING,
     CONFIDENCE_HIGH,
     CONFIDENCE_LOW,
     CONFIDENCE_MODERATE,
@@ -8,6 +11,7 @@ from core.evidence.completeness import (
     COVERAGE_DISPUTED,
     COVERAGE_MISSING,
     SOURCE_TYPE_NONE,
+    build_evidence_gap_backfill_plan,
     build_pd_effect_evidence_gap_report,
     group_evidence_gaps,
     summarize_pd_effect_claim_coverage,
@@ -303,3 +307,84 @@ def test_group_evidence_gaps_groups_by_effect_drug_and_source_type():
     assert grouped["by_pd_effect"]["sedation"][0]["drug_id"] == "drug_b"
     assert grouped["by_drug"]["drug_a"][0]["effect_id"] == "nausea"
     assert grouped["by_source_type"]["drug_label"][0]["effect_id"] == "sedation"
+    
+def test_build_evidence_gap_backfill_plan_prioritizes_missing_first():
+    report = {
+        "items": [
+            {
+                "drug_id": "drug_b",
+                "effect_id": "sedation",
+                "classification": CONFIDENCE_LOW,
+                "coverage_status": COVERAGE_COMPLETE,
+                "confidence_status": CONFIDENCE_LOW,
+                "confidence_level": "low",
+                "claim_count": 1,
+                "source_types": ["drug_label"],
+            },
+            {
+                "drug_id": "drug_a",
+                "effect_id": "nausea",
+                "classification": COVERAGE_MISSING,
+                "coverage_status": COVERAGE_MISSING,
+                "confidence_status": CONFIDENCE_NONE,
+                "confidence_level": None,
+                "claim_count": 0,
+                "source_types": [SOURCE_TYPE_NONE],
+            },
+            {
+                "drug_id": "drug_c",
+                "effect_id": "tachycardia",
+                "classification": COVERAGE_CONFLICTING,
+                "coverage_status": COVERAGE_CONFLICTING,
+                "confidence_status": CONFIDENCE_MODERATE,
+                "confidence_level": "moderate",
+                "claim_count": 2,
+                "source_types": ["case_report"],
+            },
+        ],
+    }
+
+    plan = build_evidence_gap_backfill_plan(report)
+
+    assert plan["total_tasks"] == 3
+    assert [task["priority"] for task in plan["tasks"]] == [
+        BACKFILL_PRIORITY_MISSING,
+        BACKFILL_PRIORITY_CONFLICT,
+        BACKFILL_PRIORITY_CONFIDENCE,
+    ]
+    assert plan["tasks"][0]["drug_id"] == "drug_a"
+    assert plan["tasks"][0]["effect_id"] == "nausea"
+    assert plan["tasks"][0]["missing_source_types"] == ["drug_label"]
+    assert "evidence" in plan["tasks"][0]["suggested_next_action"]
+    assert plan["by_pd_effect"]["nausea"][0]["drug_id"] == "drug_a"
+    assert plan["by_drug"]["drug_c"][0]["effect_id"] == "tachycardia"
+
+
+def test_build_pd_effect_evidence_gap_report_includes_backfill_plan(
+    monkeypatch,
+):
+    facts = Facts(
+        pd_effects={
+            "drug_a": [
+                PDEffect(
+                    effect_id="nausea",
+                    direction="increase",
+                    magnitude="medium",
+                ),
+            ],
+        },
+    )
+
+    monkeypatch.setattr(
+        "core.evidence.completeness.build_pd_effect_traces_for_drug_effect",
+        lambda drug_id, effect_id: [],
+    )
+
+    report = build_pd_effect_evidence_gap_report(facts)
+
+    assert report["backfill_plan"]["total_tasks"] == 1
+    assert report["backfill_plan"]["tasks"][0]["priority"] == (
+        BACKFILL_PRIORITY_MISSING
+    )
+    assert report["backfill_plan"]["tasks"][0]["drug_id"] == "drug_a"
+    assert report["backfill_plan"]["tasks"][0]["effect_id"] == "nausea"
