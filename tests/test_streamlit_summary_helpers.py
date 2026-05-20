@@ -115,3 +115,44 @@ def test_aggregate_summary_debug_lines_include_optional_context():
     assert "Aggregate type: object_exposure_increase" in lines
     assert "Targets: CYP2D6" in lines
     assert "Evidence conflict: Conflicting evidence was found." in lines
+    
+def test_aggregate_summary_debug_fields_accepts_dataclass_summary():
+    from core.mechanisms.aggregate_evidence import AggregateEvidenceSummary
+    from core.mechanisms.aggregate_severity import AggregateSeverityAnnotation
+    from core.mechanisms.aggregate_summary import AggregateConcernSummary
+    from core.mechanisms.aggregation import AggregateConcern
+
+    aggregate = AggregateConcern(
+        aggregate_type="shared_pd_effect_cluster",
+        anchor="QT_prolongation",
+        policy_concern="safety_concern",
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="QT_prolongation",
+    )
+    aggregate_summary = AggregateConcernSummary(
+        aggregate=aggregate,
+        severity_annotation=AggregateSeverityAnnotation(
+            aggregate=aggregate,
+            strongest_preliminary_severity="high_caution",
+        ),
+        evidence_summary=AggregateEvidenceSummary(
+            aggregate=aggregate,
+            overall_evidence_status="complete",
+            evidence_claim_count=2,
+            evidence_trace_count=2,
+        ),
+        patient_risk_modifiers=("qt_risk",),
+        risk_context="QT-related concern may be more important.",
+    )
+
+    fields = aggregate_summary_debug_fields(aggregate_summary)
+
+    assert fields["aggregate_type"] == "shared_pd_effect_cluster"
+    assert fields["policy_concern"] == "safety_concern"
+    assert fields["anchor"] == "QT_prolongation"
+    assert fields["effect_id"] == "QT_prolongation"
+    assert fields["severity"] == "high_caution"
+    assert fields["evidence_status"] == "complete"
+    assert fields["evidence_claim_count"] == 2
+    assert fields["evidence_trace_count"] == 2
+    assert fields["patient_risk_modifiers"] == ["qt_risk"]

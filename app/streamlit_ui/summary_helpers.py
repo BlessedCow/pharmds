@@ -75,38 +75,76 @@ def result_summaries_to_streamlit_cards(
     return cards[:limit]
 
 
+def _summary_value(source: Any, field: str, default: Any = None) -> Any:
+    """Read a field from dict or dataclass-style summary objects."""
+    if source is None:
+        return default
+
+    if isinstance(source, dict):
+        return source.get(field, default)
+
+    return getattr(source, field, default)
+
+
 def aggregate_summary_debug_fields(
-    aggregate_summary: dict[str, Any],
+    aggregate_summary: Any,
 ) -> dict[str, Any]:
     """Extract compact aggregate/evidence details for an expander."""
-    aggregate = aggregate_summary.get("aggregate") or {}
-    evidence = aggregate_summary.get("evidence_summary") or {}
-    severity = aggregate_summary.get("severity_annotation") or {}
+    aggregate = _summary_value(aggregate_summary, "aggregate", {})
+    evidence = _summary_value(aggregate_summary, "evidence_summary", {})
+    severity = _summary_value(
+        aggregate_summary,
+        "severity_annotation",
+        {},
+    )
 
     return {
-        "aggregate_type": _clean_label(aggregate.get("aggregate_type")),
-        "policy_concern": _clean_label(aggregate.get("policy_concern")),
-        "anchor": _clean_label(aggregate.get("anchor")),
-        "effect_id": _clean_label(aggregate.get("effect_id")),
-        "targets": list(aggregate.get("targets") or []),
+        "aggregate_type": _clean_label(
+            _summary_value(aggregate, "aggregate_type")
+        ),
+        "policy_concern": _clean_label(
+            _summary_value(aggregate, "policy_concern")
+        ),
+        "anchor": _clean_label(_summary_value(aggregate, "anchor")),
+        "effect_id": _clean_label(_summary_value(aggregate, "effect_id")),
+        "targets": list(_summary_value(aggregate, "targets", ()) or []),
         "severity": _clean_label(
-            severity.get("strongest_preliminary_severity"),
+            _summary_value(severity, "strongest_preliminary_severity"),
         ),
         "evidence_status": _clean_label(
-            evidence.get("overall_evidence_status"),
+            _summary_value(evidence, "overall_evidence_status"),
         ),
-        "evidence_claim_count": evidence.get("evidence_claim_count", 0),
-        "evidence_gap_count": evidence.get("evidence_gap_count", 0),
-        "evidence_trace_count": evidence.get("evidence_trace_count", 0),
+        "evidence_claim_count": _summary_value(
+            evidence,
+            "evidence_claim_count",
+            0,
+        ),
+        "evidence_gap_count": _summary_value(
+            evidence,
+            "evidence_gap_count",
+            0,
+        ),
+        "evidence_trace_count": _summary_value(
+            evidence,
+            "evidence_trace_count",
+            0,
+        ),
         "patient_risk_modifiers": list(
-            aggregate_summary.get("patient_risk_modifiers") or []
+            _summary_value(
+                aggregate_summary,
+                "patient_risk_modifiers",
+                (),
+            )
+            or []
         ),
-        "risk_context": aggregate_summary.get("risk_context"),
-        "evidence_conflict_level": aggregate_summary.get(
-            "evidence_conflict_level"
+        "risk_context": _summary_value(aggregate_summary, "risk_context"),
+        "evidence_conflict_level": _summary_value(
+            aggregate_summary,
+            "evidence_conflict_level",
         ),
-        "evidence_conflict_message": aggregate_summary.get(
-            "evidence_conflict_message"
+        "evidence_conflict_message": _summary_value(
+            aggregate_summary,
+            "evidence_conflict_message",
         ),
     }
 

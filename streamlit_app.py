@@ -42,24 +42,49 @@ st.set_page_config(page_title="PharmDS (Educational)", layout="wide")
 st.title("PharmDS")
 st.caption("EDUCATIONAL ONLY. NOT FOR DIAGNOSTIC OR CLINICAL USE.")
 
+
+def reset_analysis_state():
+    """Clear user inputs and cached analysis output."""
+    st.session_state["drug_text"] = ""
+    st.session_state["qt_risk"] = False
+    st.session_state["bleeding_risk"] = False
+    st.session_state["domain"] = "all"
+    st.session_state["debug_mechanism_json"] = False
+    st.session_state["analysis_result"] = None
+
+
+if "analysis_result" not in st.session_state:
+    st.session_state["analysis_result"] = None
+
+st.button("Reset", on_click=reset_analysis_state)
+
 drug_text = st.text_area(
     "Drugs (one per line, or comma/space separated)",
     height=140,
     placeholder="quetiapine\nclarithromycin",
+    key="drug_text",
 )
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    qt_risk = st.checkbox("QT risk factors", value=False)
+    qt_risk = st.checkbox("QT risk factors", value=False, key="qt_risk")
 with col2:
-    bleeding_risk = st.checkbox("Bleeding risk factors", value=False)
+    bleeding_risk = st.checkbox(
+        "Bleeding risk factors",
+        value=False,
+        key="bleeding_risk",
+    )
 with col3:
-    domain = st.text_input("Domains (e.g.all, pk, pd, cyp,pd)", value="all")
+    domain = st.text_input(
+        "Domains (e.g. all, pk, pd, cyp, ugt, pgp, bcrp, oatp)",
+        value="all",
+        key="domain",
+    )
 
 run = st.button("Analyze", type="primary")
 
 if run:
-    res = analyze_text(
+    st.session_state["analysis_result"] = analyze_text(
         drug_text,
         qt_risk=qt_risk,
         bleeding_risk=bleeding_risk,
@@ -67,6 +92,9 @@ if run:
         as_json_payload=False,
     )
 
+res = st.session_state["analysis_result"]
+
+if res is not None:
     # analyze_text returns AnalyzeResult(ok: bool, payload: dict)
     if not res.ok:
         payload = res.payload
@@ -102,9 +130,12 @@ if run:
         aggregate_concern_summaries,
     )
 
-    if st.checkbox("Debug: full mechanism JSON", value=False):
+    if st.checkbox(
+        "Debug: full mechanism JSON",
+        value=False,
+        key="debug_mechanism_json",
+    ):
         st.json(payload.get("mechanism_pipeline_json", {}))
-
     # Regimen summary (only for 3+ drugs)
     if regimen_summary:
         st.subheader("Regimen Summary (all drugs)")
