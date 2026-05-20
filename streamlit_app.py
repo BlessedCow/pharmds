@@ -1,7 +1,43 @@
 import streamlit as st
 
 from app.service import analyze_text
+from app.streamlit_ui.summary_helpers import (
+    aggregate_summary_debug_lines,
+    result_summaries_to_streamlit_cards,
+)
 
+
+def render_public_result_summaries(
+    public_result_summaries,
+    aggregate_concern_summaries,
+):
+    """Render public aggregate summaries and compact evidence details."""
+    cards = result_summaries_to_streamlit_cards(public_result_summaries)
+
+    if not cards:
+        return
+
+    st.subheader("Aggregate Summary")
+
+    for index, card in enumerate(cards):
+        with st.container(border=True):
+            st.markdown(f"### {card['title']}")
+            st.write(card["explanation"])
+
+            col_a, col_b, col_c = st.columns(3)
+            col_a.metric("Concern", card["concern_type"])
+            col_b.metric("Severity", card["severity_label"])
+            col_c.metric("Evidence", card["evidence_label"])
+
+            st.caption(f"Drugs: {card['drugs']}")
+
+            if index < len(aggregate_concern_summaries):
+                with st.expander("Evidence and mechanism details"):
+                    for line in aggregate_summary_debug_lines(
+                        aggregate_concern_summaries[index]
+                    ):
+                        st.write(line)
+                        
 st.set_page_config(page_title="PharmDS (Educational)", layout="wide")
 st.title("PharmDS")
 st.caption("EDUCATIONAL ONLY. NOT FOR DIAGNOSTIC OR CLINICAL USE.")
@@ -52,12 +88,22 @@ if run:
     templates = payload["templates"]
     selected_domains = payload["selected_domains"]
     regimen_summary = payload.get("regimen_summary")
+    public_result_summaries = payload.get("public_result_summaries", [])
+    aggregate_concern_summaries = payload.get("aggregate_concern_summaries", [])
 
     st.success(
         f"Drugs: {len(payload['drug_ids'])} | "
         f"Pairs: {len(pair_reports)} | "
         f"Domains: {', '.join(selected_domains)}"
     )
+
+    render_public_result_summaries(
+        public_result_summaries,
+        aggregate_concern_summaries,
+    )
+
+    if st.checkbox("Debug: full mechanism JSON", value=False):
+        st.json(payload.get("mechanism_pipeline_json", {}))
 
     # Regimen summary (only for 3+ drugs)
     if regimen_summary:

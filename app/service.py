@@ -17,6 +17,9 @@ from app.cli import (
 )
 from app.json_output import build_json_payload
 from core.exceptions import UnknownDrugError
+from core.mechanisms.pipeline import run_mechanism_pipeline
+from core.mechanisms.pipeline_json import mechanism_pipeline_to_json_dict
+from core.mechanisms.result_summary import build_public_result_summaries
 from reasoning.combine import build_regimen_summary
 from rules.engine import evaluate_all, load_rules
 
@@ -124,6 +127,18 @@ def analyze_names(
     if len(drug_ids) >= 3:
         regimen_summary = build_regimen_summary(facts, pair_reports)
 
+    mechanism_pipeline = run_mechanism_pipeline(
+        drug_ids,
+        facts,
+    )
+    public_result_summaries = build_public_result_summaries(
+        mechanism_pipeline,
+        pair_reports,
+    )
+    mechanism_pipeline_json = mechanism_pipeline_to_json_dict(
+        mechanism_pipeline,
+    )
+
     if as_json_payload:
         payload = build_json_payload(
             facts=facts,
@@ -134,11 +149,26 @@ def analyze_names(
             patient_flags=patient_flags,
             regimen_summary=regimen_summary,
         )
+
+        payload["mechanism_pipeline"] = mechanism_pipeline_json
+        payload["public_result_summaries"] = [
+            {
+                "source": summary.source,
+                "title": summary.title,
+                "drugs": list(summary.drugs),
+                "concern_type": summary.concern_type,
+                "severity_label": summary.severity_label,
+                "evidence_label": summary.evidence_label,
+                "explanation": summary.explanation,
+            }
+            for summary in public_result_summaries
+        ]
+
         if input_drug_text is not None:
             payload["input_drug_text"] = input_drug_text
+
         return AnalyzeResult(ok=True, payload=payload)
 
-    # Default: return python objects for rich Streamlit rendering
     return AnalyzeResult(
         ok=True,
         payload={
@@ -150,5 +180,12 @@ def analyze_names(
             "patient_flags": patient_flags,
             "input_drug_names": drug_names,
             "regimen_summary": regimen_summary,
+            "mechanism_pipeline": mechanism_pipeline,
+            "mechanism_pipeline_json": mechanism_pipeline_json,
+            "public_result_summaries": public_result_summaries,
+            "aggregate_concern_summaries": tuple(
+                mechanism_pipeline.aggregate_concern_summaries
+            ),
         },
     )
+    
