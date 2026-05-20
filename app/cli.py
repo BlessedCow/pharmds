@@ -14,6 +14,10 @@ from rich.panel import Panel
 from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
+from core.evidence.completeness import (
+    GAP_CLASSIFICATIONS,
+    build_pd_effect_evidence_gap_report,
+)
 from core.evidence.gating import (
     EVIDENCE_MODE_MODERATE,
     EVIDENCE_MODE_OFF,
@@ -379,6 +383,85 @@ def filter_rules_for_selected_domains(rules_all, selected: list[str]):
             out.append(r)
 
     return out
+
+
+def _is_gap_classification(classification: str) -> bool:
+    return classification in GAP_CLASSIFICATIONS
+
+
+def _format_evidence_gap_item(item: dict) -> str:
+    source_types = ", ".join(item.get("source_types") or ["no_source"])
+    confidence = item.get("confidence_level") or "none"
+
+    return (
+        f"{item['drug_id']} -> {item['effect_id']}: "
+        f"{item['classification']} "
+        f"(coverage={item['coverage_status']}, "
+        f"confidence={confidence}, "
+        f"claims={item['claim_count']}, "
+        f"source_types={source_types})"
+    )
+
+
+def render_evidence_gap_report(
+    report: dict,
+    *,
+    show_complete: bool = False,
+) -> str:
+    """Render selected-drug PD evidence coverage gaps for CLI output."""
+    lines = [
+        "PD Effect Evidence Gaps",
+        "",
+        f"Total PD effects checked: {report['total_pd_effects']}",
+        f"Missing/partial evidence rows: {report['gap_count']}",
+        "",
+        "Coverage counts:",
+    ]
+
+    for key, count in sorted(report["coverage_counts"].items()):
+        lines.append(f"  {key}: {count}")
+
+    lines.extend(["", "Confidence counts:"])
+    for key, count in sorted(report["confidence_counts"].items()):
+        lines.append(f"  {key}: {count}")
+
+    def add_group(title: str, group: dict[str, list[dict]]) -> None:
+        lines.extend(["", title])
+        if not group:
+            lines.append("  none")
+            return
+
+        for key, items in sorted(group.items()):
+            visible_items = [
+                item
+                for item in items
+                if show_complete
+                or _is_gap_classification(item["classification"])
+            ]
+            if not visible_items:
+                continue
+
+            lines.append(f"  {key}:")
+            for item in visible_items:
+                lines.append(f"    - {_format_evidence_gap_item(item)}")
+
+    add_group("Grouped by PD effect:", report["gaps_by_pd_effect"])
+    add_group("Grouped by drug:", report["gaps_by_drug"])
+    add_group("Grouped by source type:", report["gaps_by_source_type"])
+
+    if show_complete:
+        lines.extend(["", "Complete/moderate/high rows:"])
+        complete_items = [
+            item
+            for item in report["items"]
+            if not _is_gap_classification(item["classification"])
+        ]
+        if not complete_items:
+            lines.append("  none")
+        for item in complete_items:
+            lines.append(f"  - {_format_evidence_gap_item(item)}")
+
+    return "\n".join(lines)
 
 def render_severity_annotations(severity_annotations):
     """Render mechanism severity annotations for CLI debug output."""
@@ -794,6 +877,22 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--show-evidence-gaps",
+        action="store_true",
+        help=(
+            "Show missing or partial PD effect evidence coverage for the "
+            "selected drugs and exit without evaluating rules."
+        ),
+    )
+    p.add_argument(
+        "--show-complete-evidence-coverage",
+        action="store_true",
+        help=(
+            "When used with --show-evidence-gaps, also include complete "
+            "moderate/high-confidence rows after the gap sections."
+        ),
+    )
+    p.add_argument(
         "--show-mechanisms",
         action="store_true",
         help=(
@@ -906,6 +1005,16 @@ def main() -> None:
     }
     facts = load_facts(conn, drug_ids, patient_flags)
 
+    if args.show_evidence_gaps:
+        report = build_pd_effect_evidence_gap_report(facts)
+        print(
+            render_evidence_gap_report(
+                report,
+                show_complete=args.show_complete_evidence_coverage,
+            )
+        )
+        return
+    
     if (
         args.show_mechanisms
         or args.show_candidates

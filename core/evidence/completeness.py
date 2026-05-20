@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections import Counter
+from collections import Counter, defaultdict
 from typing import Any
 
 from core.evidence.traces import build_pd_effect_traces_for_drug_effect
@@ -26,6 +26,19 @@ _CONFIDENCE_RANK = {
     "moderate": 3,
     "high": 4,
 }
+
+
+GAP_CLASSIFICATIONS = {
+    COVERAGE_MISSING,
+    COVERAGE_CONFLICTING,
+    COVERAGE_DISPUTED,
+    COVERAGE_UNDETERMINED,
+    CONFIDENCE_LOW,
+    CONFIDENCE_UNCERTAIN,
+    CONFIDENCE_NONE,
+}
+
+SOURCE_TYPE_NONE = "no_source"
 
 _CONFIDENCE_STATUS_BY_LEVEL = {
     "high": CONFIDENCE_HIGH,
@@ -145,6 +158,7 @@ def summarize_pd_effect_claim_coverage(
             confidence_status,
         ),
         "claim_count": len(claim_traces),
+        "source_types": _source_types_for_claim_traces(claim_traces),
         "claims": claim_traces,
     }
 
@@ -184,7 +198,7 @@ def build_pd_effect_evidence_gap_report(
         for item in items
     )
 
-    return {
+    report = {
         "report_type": "pd_effect_evidence_gap_report",
         "total_pd_effects": len(items),
         "classification_counts": dict(sorted(classification_counts.items())),
@@ -192,3 +206,94 @@ def build_pd_effect_evidence_gap_report(
         "confidence_counts": dict(sorted(confidence_counts.items())),
         "items": items,
     }
+
+    return add_grouped_evidence_gaps(report)
+
+
+def evidence_gap_items(report: dict[str, Any]) -> list[dict[str, Any]]:
+    """Return rows that represent missing or partial evidence coverage."""
+    return [
+        item
+        for item in report.get("items", [])
+        if item.get("classification") in GAP_CLASSIFICATIONS
+    ]
+
+
+def _source_types_for_claim_traces(
+    claim_traces: list[dict[str, Any]],
+) -> list[str]:
+    source_types: set[str] = set()
+
+    for claim_trace in claim_traces:
+        for evidence in claim_trace.get("evidence", []) or []:
+            source = evidence.get("source") or {}
+            source_type = source.get("source_type")
+
+            if not source_type:
+                source_type = evidence.get("evidence_type")
+
+            if source_type:
+                source_types.add(str(source_type))
+
+    if not source_types:
+        return [SOURCE_TYPE_NONE]
+
+    return sorted(source_types)
+
+
+def _empty_grouped_gap_report() -> dict[str, dict[str, list[dict[str, Any]]]]:
+    return {
+        "by_pd_effect": {},
+        "by_drug": {},
+        "by_source_type": {},
+    }
+
+
+def group_evidence_gaps(
+    report: dict[str, Any],
+) -> dict[str, dict[str, list[dict[str, Any]]]]:
+    """Group missing/partial evidence rows by effect, drug, and source type."""
+    grouped = {
+        "by_pd_effect": defaultdict(list),
+        "by_drug": defaultdict(list),
+        "by_source_type": defaultdict(list),
+    }
+
+    for item in evidence_gap_items(report):
+        grouped["by_pd_effect"][item["effect_id"]].append(item)
+        grouped["by_drug"][item["drug_id"]].append(item)
+
+        source_types = item.get("source_types") or [SOURCE_TYPE_NONE]
+        for source_type in source_types:
+            grouped["by_source_type"][source_type].append(item)
+
+    if not any(grouped.values()):
+        return _empty_grouped_gap_report()
+
+    return {
+        group_name: {
+            key: sorted(
+                values,
+                key=lambda item: (
+                    item["drug_id"],
+                    item["effect_id"],
+                    item["classification"],
+                ),
+            )
+            for key, values in sorted(group.items())
+        }
+        for group_name, group in grouped.items()
+    }
+
+
+def add_grouped_evidence_gaps(
+    report: dict[str, Any],
+) -> dict[str, Any]:
+    """Return report with grouped missing/partial coverage sections."""
+    enriched = dict(report)
+    grouped = group_evidence_gaps(report)
+    enriched["gap_count"] = len(evidence_gap_items(report))
+    enriched["gaps_by_pd_effect"] = grouped["by_pd_effect"]
+    enriched["gaps_by_drug"] = grouped["by_drug"]
+    enriched["gaps_by_source_type"] = grouped["by_source_type"]
+    return enriched

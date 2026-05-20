@@ -7,7 +7,9 @@ from core.evidence.completeness import (
     COVERAGE_CONFLICTING,
     COVERAGE_DISPUTED,
     COVERAGE_MISSING,
+    SOURCE_TYPE_NONE,
     build_pd_effect_evidence_gap_report,
+    group_evidence_gaps,
     summarize_pd_effect_claim_coverage,
 )
 from core.models import Facts, PDEffect
@@ -17,7 +19,24 @@ def _claim_trace(
     *,
     support_status="supported",
     confidence_level="moderate",
+    source_type=None,
 ):
+    evidence = []
+
+    if source_type is not None:
+        evidence.append(
+            {
+                "source": {
+                    "source_id": "source_test_001",
+                    "source_type": source_type,
+                },
+                "evidence_type": "clinical_reference",
+                "supports_claim": support_status == "supported",
+                "confidence": confidence_level,
+                "notes": "test evidence",
+            }
+        )
+
     return {
         "claim_id": "claim_test_drug_pd_effect_nausea_001",
         "claim_type": "pd_effect",
@@ -40,7 +59,7 @@ def _claim_trace(
             "score": 60,
             "reasons": ["test reason"],
         },
-        "evidence": [],
+        "evidence": evidence,
     }
 
 
@@ -199,3 +218,88 @@ def test_build_pd_effect_evidence_gap_report_counts_classifications(
         CONFIDENCE_MODERATE: 1,
         CONFIDENCE_NONE: 1,
     }
+
+def test_summarize_pd_effect_claim_coverage_tracks_source_types(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "core.evidence.completeness.build_pd_effect_traces_for_drug_effect",
+        lambda drug_id, effect_id: [
+            _claim_trace(source_type="drug_label"),
+            _claim_trace(source_type="clinical_guideline"),
+        ],
+    )
+
+    summary = summarize_pd_effect_claim_coverage(
+        "test_drug",
+        "nausea",
+    )
+
+    assert summary["source_types"] == [
+        "clinical_guideline",
+        "drug_label",
+    ]
+
+
+def test_summarize_pd_effect_claim_coverage_marks_missing_source_type(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "core.evidence.completeness.build_pd_effect_traces_for_drug_effect",
+        lambda drug_id, effect_id: [],
+    )
+
+    summary = summarize_pd_effect_claim_coverage(
+        "test_drug",
+        "nausea",
+    )
+
+    assert summary["source_types"] == [SOURCE_TYPE_NONE]
+
+
+def test_group_evidence_gaps_groups_by_effect_drug_and_source_type():
+    report = {
+        "items": [
+            {
+                "drug_id": "drug_a",
+                "effect_id": "nausea",
+                "classification": COVERAGE_MISSING,
+                "coverage_status": COVERAGE_MISSING,
+                "confidence_level": None,
+                "claim_count": 0,
+                "source_types": [SOURCE_TYPE_NONE],
+            },
+            {
+                "drug_id": "drug_b",
+                "effect_id": "sedation",
+                "classification": CONFIDENCE_LOW,
+                "coverage_status": COVERAGE_COMPLETE,
+                "confidence_level": "low",
+                "claim_count": 1,
+                "source_types": ["drug_label"],
+            },
+            {
+                "drug_id": "drug_c",
+                "effect_id": "nausea",
+                "classification": CONFIDENCE_HIGH,
+                "coverage_status": COVERAGE_COMPLETE,
+                "confidence_level": "high",
+                "claim_count": 1,
+                "source_types": ["clinical_guideline"],
+            },
+        ],
+    }
+
+    grouped = group_evidence_gaps(report)
+
+    assert list(grouped["by_pd_effect"]) == ["nausea", "sedation"]
+    assert list(grouped["by_drug"]) == ["drug_a", "drug_b"]
+    assert list(grouped["by_source_type"]) == [
+        "drug_label",
+        SOURCE_TYPE_NONE,
+    ]
+
+    assert grouped["by_pd_effect"]["nausea"][0]["drug_id"] == "drug_a"
+    assert grouped["by_pd_effect"]["sedation"][0]["drug_id"] == "drug_b"
+    assert grouped["by_drug"]["drug_a"][0]["effect_id"] == "nausea"
+    assert grouped["by_source_type"]["drug_label"][0]["effect_id"] == "sedation"
