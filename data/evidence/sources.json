@@ -35,7 +35,7 @@
   {
     "source_id": "source_drugbank_amitriptyline",
     "title": "Amitriptyline: Uses, Interactions, Mechanism of Action",
-    "source_type": "drug_database",
+    "source_type": "review_article",
     "publisher": "DrugBank",
     "url": "https://go.drugbank.com/drugs/DB00321",
     "published_at": null,
@@ -57,7 +57,7 @@
   {
     "source_id": "source_drugbank_hydroxyzine",
     "title": "Hydroxyzine: Uses, Interactions, Mechanism of Action",
-    "source_type": "drug_database",
+    "source_type": "review_article",
     "publisher": "DrugBank",
     "url": "https://go.drugbank.com/drugs/DB00557",
     "published_at": null,

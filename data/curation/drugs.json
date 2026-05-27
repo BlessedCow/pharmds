@@ -175,7 +175,7 @@
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
         },
         {
-          "effect_id": "H1_antagonism",
+          "effect_id": "h1_antagonism",
           "direction": "decrease",
           "magnitude": "medium",
           "mechanism_note": "H1 histamine receptor antagonism; contributes to sedation and somnolence."
@@ -831,7 +831,7 @@
           "mechanism_note": "Muscarinic antagonism; dry mouth, constipation, urinary retention, delirium risk."
         },
         {
-          "effect_id": "H1_antagonism",
+          "effect_id": "h1_antagonism",
           "direction": "decrease",
           "magnitude": "high",
           "mechanism_note": "H1 histamine receptor antagonism; antihistaminic sedation."
@@ -1024,7 +1024,7 @@
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
         },
         {
-          "effect_id": "H1_antagonism",
+          "effect_id": "h1_antagonism",
           "direction": "decrease",
           "magnitude": "high",
           "mechanism_note": "H1 histamine receptor antagonism; contributes to sedation and somnolence."
@@ -1969,8 +1969,7 @@
         }
       ],
       "transporters": [],
-      "pd_effects": [
-]
+      "pd_effects": []
     },
     {
       "id": "ibuprofen",
@@ -2227,7 +2226,7 @@
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and falls risk."
         },
         {
-          "effect_id": "H1_antagonism",
+          "effect_id": "h1_antagonism",
           "direction": "decrease",
           "magnitude": "high",
           "mechanism_note": "H1 histamine receptor antagonism; contributes substantially to sedation and somnolence."
@@ -2338,7 +2337,7 @@
           "mechanism_note": "NET inhibition increases norepinephrine signaling; may contribute to HR/BP changes and stimulation in some patients."
         },
         {
-          "effect_id": "H1_antagonism",
+          "effect_id": "h1_antagonism",
           "direction": "decrease",
           "magnitude": "high",
           "mechanism_note": "H1 histamine receptor antagonism; antihistaminic sedation."
@@ -2383,7 +2382,7 @@
           "mechanism_note": "Strong H1 histamine receptor antagonism with central sedative effects; additive psychomotor impairment with other CNS depressants."
         },
         {
-          "effect_id": "H1_antagonism",
+          "effect_id": "h1_antagonism",
           "direction": "decrease",
           "magnitude": "high",
           "mechanism_note": "H1 histamine receptor antagonism; antihistaminic sedation."
@@ -2420,10 +2419,10 @@
         }
       ],
       "parameters": {
-      "prodrug": false,
-      "active_metabolite": true,
-      "renal_clearance_flag": true,
-      "half_life_bucket": "long"
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "long"
       }
     },
     {
@@ -2688,7 +2687,7 @@
       "drug_class": "monoclonal_antibody",
       "therapeutic_index": "wide",
       "aliases": [
-        "aimovig", 
+        "aimovig",
         "erenumab-aooe"
       ],
       "notes": "CGRP receptor antagonist monoclonal antibody. Minimal classic CYP/transporter DDI relevance. Main clinically relevant modeled risks are constipation, hypertension, and hypersensitivity.",
@@ -3327,7 +3326,7 @@
           "mechanism_note": "antipsychotic dopamine receptor blockade"
         },
         {
-          "effect_id": "H1_antagonism",
+          "effect_id": "h1_antagonism",
           "direction": "increase",
           "magnitude": "high",
           "mechanism_note": "strong antihistaminic sedation burden"
@@ -4047,7 +4046,11 @@
       "generic_name": "alcohol",
       "drug_class": "CNS depressant",
       "therapeutic_index": "wide",
-      "aliases": ["ethanol", "etoh", "alcoholic beverage"],
+      "aliases": [
+        "ethanol",
+        "etoh",
+        "alcoholic beverage"
+      ],
       "notes": "Modeled educationally as a CNS depressant with additive sedation, CNS depression, respiratory depression, and withdrawal risk.",
       "enzymes": [],
       "transporters": [],
@@ -4089,7 +4092,9 @@
       "generic_name": "heroin",
       "drug_class": "opioid",
       "therapeutic_index": "narrow",
-      "aliases": ["diacetylmorphine"],
+      "aliases": [
+        "diacetylmorphine"
+      ],
       "notes": "Modeled educationally as a high-risk opioid with strong CNS and respiratory depressant effects and withdrawal risk.",
       "enzymes": [],
       "transporters": [],
@@ -4137,7 +4142,11 @@
       "generic_name": "oxycodone",
       "drug_class": "opioid",
       "therapeutic_index": "moderate",
-      "aliases": ["roxicodone", "oxycontin", "roxybond"],
+      "aliases": [
+        "roxicodone",
+        "oxycontin",
+        "roxybond"
+      ],
       "notes": "Opioid analgesic with important PK via CYP3A4 and CYP2D6 and major PD overlap with other CNS depressants.",
       "enzymes": [
         {
@@ -4196,7 +4205,11 @@
       "generic_name": "fentanyl",
       "drug_class": "opioid",
       "therapeutic_index": "narrow",
-      "aliases": ["duragesic", "sublimaze", "fentanyl citrate"],
+      "aliases": [
+        "duragesic",
+        "sublimaze",
+        "fentanyl citrate"
+      ],
       "notes": "High-potency opioid with major respiratory depression risk and CYP3A4 PK relevance.",
       "enzymes": [
         {
@@ -4250,7 +4263,11 @@
       "generic_name": "cannabis",
       "drug_class": "cannabinoid",
       "therapeutic_index": "wide",
-      "aliases": ["marijuana", "thc", "weed"],
+      "aliases": [
+        "marijuana",
+        "thc",
+        "weed"
+      ],
       "notes": "Modeled conservatively for sedation, CNS depression, tachycardia, and modest withdrawal risk.",
       "enzymes": [],
       "transporters": [],
@@ -4298,7 +4315,11 @@
       "generic_name": "cocaine",
       "drug_class": "stimulant",
       "therapeutic_index": "narrow",
-      "aliases": ["coke", "crack cocaine", "crack"],
+      "aliases": [
+        "coke",
+        "crack cocaine",
+        "crack"
+      ],
       "notes": "Potent sympathomimetic stimulant with major cardiovascular stimulation and seizure risk.",
       "enzymes": [],
       "transporters": [],
@@ -4352,7 +4373,11 @@
       "generic_name": "methamphetamine",
       "drug_class": "stimulant",
       "therapeutic_index": "narrow",
-      "aliases": ["meth", "crystal meth", "ice"],
+      "aliases": [
+        "meth",
+        "crystal meth",
+        "ice"
+      ],
       "notes": "Potent stimulant with strong CNS and sympathetic activation plus seizure liability.",
       "enzymes": [],
       "transporters": [],
@@ -4406,7 +4431,11 @@
       "generic_name": "3,4-methylenedioxymethamphetamine",
       "drug_class": "stimulant / empathogen",
       "therapeutic_index": "narrow",
-      "aliases": ["mdma", "ecstasy", "molly"],
+      "aliases": [
+        "mdma",
+        "ecstasy",
+        "molly"
+      ],
       "notes": "Modeled as both stimulant and serotonergic, with serotonin syndrome risk.",
       "enzymes": [],
       "transporters": [],
@@ -4460,7 +4489,10 @@
       "generic_name": "lysergic acid diethylamide",
       "drug_class": "psychedelic",
       "therapeutic_index": "wide",
-      "aliases": ["acid", "lsd"],
+      "aliases": [
+        "acid",
+        "lsd"
+      ],
       "notes": "Modeled conservatively for CNS activation and sympathetic effects rather than as a major serotonergic-toxicity driver.",
       "enzymes": [],
       "transporters": [],
@@ -4508,7 +4540,10 @@
       "generic_name": "nicotine",
       "drug_class": "stimulant",
       "therapeutic_index": "wide",
-      "aliases": ["nicotine", "tobacco nicotine"],
+      "aliases": [
+        "nicotine",
+        "tobacco nicotine"
+      ],
       "notes": "Modeled for dependence, withdrawal, and mild sympathetic stimulation.",
       "enzymes": [],
       "transporters": [],
@@ -4556,7 +4591,10 @@
       "generic_name": "kratom",
       "drug_class": "opioid-like botanical",
       "therapeutic_index": "moderate",
-      "aliases": ["mitragyna speciosa", "kratom"],
+      "aliases": [
+        "mitragyna speciosa",
+        "kratom"
+      ],
       "notes": "Modeled conservatively with opioid-like CNS depression and withdrawal risk; effects may vary by product and dose.",
       "enzymes": [],
       "transporters": [],
@@ -4598,7 +4636,11 @@
       "generic_name": "7-hydroxymitragynine",
       "drug_class": "opioid-like alkaloid",
       "therapeutic_index": "narrow",
-      "aliases": ["7-oh", "7oh", "7-hydroxymitragynine"],
+      "aliases": [
+        "7-oh",
+        "7oh",
+        "7-hydroxymitragynine"
+      ],
       "notes": "Modeled conservatively as a stronger opioid-like kratom alkaloid with higher concern for abuse, dependence, and respiratory depression.",
       "enzymes": [],
       "transporters": [],
@@ -4640,7 +4682,10 @@
       "generic_name": "ketamine",
       "drug_class": "dissociative anesthetic",
       "therapeutic_index": "moderate",
-      "aliases": ["ketalar", "special k"],
+      "aliases": [
+        "ketalar",
+        "special k"
+      ],
       "notes": "Modeled conservatively for sedation/CNS depression plus BP/HR elevation.",
       "enzymes": [],
       "transporters": [],
@@ -4688,39 +4733,42 @@
       "generic_name": "vortioxetine",
       "drug_class": "serotonin modulator and stimulator",
       "therapeutic_index": "moderate",
-      "aliases": ["trintellix", "brintellix"],
+      "aliases": [
+        "trintellix",
+        "brintellix"
+      ],
       "notes": "Multimodal serotonergic antidepressant (SERT inhibition + 5-HT receptor modulation). Primarily metabolized by CYP2D6.",
       "enzymes": [
         {
-    "enzyme_id": "CYP2D6",
-    "role": "substrate",
-    "fraction_metabolized": 0.6
-  },
-  {
-    "enzyme_id": "CYP3A4",
-    "role": "substrate",
-    "fraction_metabolized": 0.15
-  },
-  {
-    "enzyme_id": "CYP2C19",
-    "role": "substrate",
-    "fraction_metabolized": 0.1
-  },
-  {
-    "enzyme_id": "CYP2C9",
-    "role": "substrate",
-    "fraction_metabolized": 0.05
-  },
-  {
-    "enzyme_id": "CYP2A6",
-    "role": "substrate",
-    "fraction_metabolized": 0.05
-  },
-  {
-    "enzyme_id": "CYP2B6",
-    "role": "substrate",
-    "fraction_metabolized": 0.05
-  }  
+          "enzyme_id": "CYP2D6",
+          "role": "substrate",
+          "fraction_metabolized": 0.6
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate",
+          "fraction_metabolized": 0.15
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate",
+          "fraction_metabolized": 0.1
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "substrate",
+          "fraction_metabolized": 0.05
+        },
+        {
+          "enzyme_id": "CYP2A6",
+          "role": "substrate",
+          "fraction_metabolized": 0.05
+        },
+        {
+          "enzyme_id": "CYP2B6",
+          "role": "substrate",
+          "fraction_metabolized": 0.05
+        }
       ],
       "transporters": [],
       "pd_effects": [
@@ -4779,7 +4827,9 @@
       "generic_name": "varenicline",
       "drug_class": "nicotinic receptor partial agonist",
       "therapeutic_index": "moderate",
-      "aliases": ["chantix"],
+      "aliases": [
+        "chantix"
+      ],
       "notes": "Partial agonist at alpha4beta2 nicotinic acetylcholine receptors used for smoking cessation.",
       "enzymes": [],
       "transporters": [],
@@ -4875,7 +4925,10 @@
       "generic_name": "turmeric",
       "drug_class": "herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["curcuma longa", "curcumin"],
+      "aliases": [
+        "curcuma longa",
+        "curcumin"
+      ],
       "notes": "Herbal supplement containing curcuminoids with anti-inflammatory and antioxidant properties. Curcumin may inhibit multiple CYP enzymes and P-gp in vitro, though clinical interaction magnitude is variable.",
       "enzymes": [
         {
@@ -4923,7 +4976,9 @@
       "generic_name": "ginkgo biloba",
       "drug_class": "herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["ginkgo"],
+      "aliases": [
+        "ginkgo"
+      ],
       "notes": "Herbal supplement used for cognitive and circulatory support. Contains flavonoids and terpene lactones with potential platelet and CYP effects.",
       "enzymes": [
         {
@@ -4972,7 +5027,10 @@
       "generic_name": "milk thistle",
       "drug_class": "herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["silymarin", "silybum marianum"],
+      "aliases": [
+        "silymarin",
+        "silybum marianum"
+      ],
       "notes": "Herbal supplement commonly used for hepatoprotective purposes. Silymarin components may inhibit CYP3A4 and P-gp activity.",
       "enzymes": [
         {
@@ -5020,7 +5078,11 @@
       "generic_name": "rhodiola rosea",
       "drug_class": "adaptogenic herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["rhodiola", "golden root", "arctic root"],
+      "aliases": [
+        "rhodiola",
+        "golden root",
+        "arctic root"
+      ],
       "notes": "Adaptogenic herbal supplement with possible monoaminergic and stimulating effects. Limited evidence suggests CYP modulation potential.",
       "enzymes": [
         {
@@ -5071,7 +5133,11 @@
       "generic_name": "holy basil",
       "drug_class": "herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["tulsi", "ocimum sanctum", "ocimum tenuiflorum"],
+      "aliases": [
+        "tulsi",
+        "ocimum sanctum",
+        "ocimum tenuiflorum"
+      ],
       "notes": "Adaptogenic herbal supplement traditionally used for stress and metabolic support. May have mild antiplatelet and sedative effects.",
       "enzymes": [
         {
@@ -5116,7 +5182,9 @@
       "generic_name": "aloe vera",
       "drug_class": "herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["aloe"],
+      "aliases": [
+        "aloe"
+      ],
       "notes": "Botanical supplement used topically and orally. Oral aloe latex has stimulant laxative properties and may affect electrolyte balance.",
       "enzymes": [],
       "transporters": [],
@@ -5146,7 +5214,10 @@
       "generic_name": "lion's mane mushroom",
       "drug_class": "medicinal mushroom supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["hericium erinaceus", "lion's mane"],
+      "aliases": [
+        "hericium erinaceus",
+        "lion's mane"
+      ],
       "notes": "Medicinal mushroom supplement investigated for neurocognitive and neurotrophic effects. Clinically significant CYP interactions are not well established.",
       "enzymes": [],
       "transporters": [],
@@ -5176,7 +5247,10 @@
       "generic_name": "cordyceps",
       "drug_class": "medicinal mushroom supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["cordyceps sinensis", "cordyceps militaris"],
+      "aliases": [
+        "cordyceps sinensis",
+        "cordyceps militaris"
+      ],
       "notes": "Medicinal mushroom supplement used for energy and endurance support. Limited evidence suggests possible immunologic and platelet effects.",
       "enzymes": [
         {
@@ -5217,7 +5291,9 @@
       "generic_name": "motherwort",
       "drug_class": "herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["leonurus cardiaca"],
+      "aliases": [
+        "leonurus cardiaca"
+      ],
       "notes": "Traditional herbal supplement used for anxiety and cardiovascular symptoms. Limited clinical interaction data available.",
       "enzymes": [],
       "transporters": [],
@@ -5259,7 +5335,10 @@
       "generic_name": "ashwagandha",
       "drug_class": "adaptogenic herbal supplement",
       "therapeutic_index": "moderate",
-      "aliases": ["withania somnifera", "indian ginseng"],
+      "aliases": [
+        "withania somnifera",
+        "indian ginseng"
+      ],
       "notes": "Adaptogenic herbal supplement with anxiolytic and sedative properties. May have GABAergic and thyroid-modulating effects.",
       "enzymes": [
         {
