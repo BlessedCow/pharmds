@@ -23,7 +23,7 @@ def test_default_plain_output_includes_public_result_summaries(
 
     assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" in out
     assert "Key Interaction Summaries" in out
-    assert "Shared QT_prolongation concern" in out
+    assert "Shared QT prolongation concern" in out
     assert "Shared nausea concern" in out
     assert "concern_type:" in out
     assert "severity:" in out
