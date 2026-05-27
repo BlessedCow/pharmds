@@ -1,0 +1,112 @@
+[
+    {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "title": "Internal curated pharmacodynamic effects dataset",
+        "source_type": "internal_curated_entry",
+        "publisher": "PharmDS",
+        "url": null,
+        "published_at": null,
+        "accessed_at": null,
+        "version": "1.0",
+        "reliability_tier": "curated"
+    },
+    {
+        "source_id": "source_dailymed_clarithromycin_label",
+        "title": "Clarithromycin Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=clarithromycin",
+        "published_at": null,
+        "accessed_at": "2026-05-15",
+        "version": null,
+        "reliability_tier": "authoritative"
+    },
+    {
+        "source_id": "source_dailymed_fluconazole_label",
+        "title": "Fluconazole Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=fluconazole",
+        "published_at": null,
+        "accessed_at": "2026-05-15",
+        "version": null,
+        "reliability_tier": "authoritative"
+    },
+    {
+        "source_id": "source_drugbank_amitriptyline",
+        "title": "Amitriptyline: Uses, Interactions, Mechanism of Action",
+        "source_type": "drug_database",
+        "publisher": "DrugBank",
+        "url": "https://go.drugbank.com/drugs/DB00321",
+        "published_at": null,
+        "accessed_at": "2026-05-26",
+        "version": null,
+        "reliability_tier": "curated"
+    },
+    {
+        "source_id": "source_dailymed_doxepin_label",
+        "title": "Doxepin Hydrochloride Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=bc3b0401-df4a-46a2-a29b-3d70e72aa88b",
+        "published_at": null,
+        "accessed_at": "2026-05-26",
+        "version": null,
+        "reliability_tier": "authoritative"
+    },
+    {
+        "source_id": "source_drugbank_hydroxyzine",
+        "title": "Hydroxyzine: Uses, Interactions, Mechanism of Action",
+        "source_type": "drug_database",
+        "publisher": "DrugBank",
+        "url": "https://go.drugbank.com/drugs/DB00557",
+        "published_at": null,
+        "accessed_at": "2026-05-26",
+        "version": null,
+        "reliability_tier": "curated"
+    },
+    {
+        "source_id": "source_dailymed_olanzapine_label",
+        "title": "Zyprexa Olanzapine Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=71c6577c-ffea-4934-bc10-2d35942f8a16",
+        "published_at": null,
+        "accessed_at": "2026-05-26",
+        "version": null,
+        "reliability_tier": "authoritative"
+    },
+    {
+        "source_id": "source_dailymed_quetiapine_label",
+        "title": "Seroquel Quetiapine Fumarate Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=39f4fcea-a586-4c79-a47e-d38c10601fd7",
+        "published_at": null,
+        "accessed_at": "2026-05-26",
+        "version": null,
+        "reliability_tier": "authoritative"
+    },
+    {
+        "source_id": "source_dailymed_risperidone_label",
+        "title": "Risperidone Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dce4437a-bf43-483c-8db2-5eb58fa8a559",
+        "published_at": null,
+        "accessed_at": "2026-05-26",
+        "version": null,
+        "reliability_tier": "authoritative"
+    },
+    {
+        "source_id": "source_dailymed_clozapine_label",
+        "title": "Clozapine Prescribing Information",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=clozapine",
+        "published_at": null,
+        "accessed_at": "2026-05-26",
+        "version": null,
+        "reliability_tier": "authoritative"
+    }
+]

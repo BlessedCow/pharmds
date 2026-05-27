@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 SOURCES_PATH = ROOT / "data" / "evidence" / "sources.json"
 PD_EFFECT_CLAIMS_PATH = ROOT / "data" / "evidence" / "pd_effect_claims.json"
+PD_EFFECT_CLAIMS_DIR = ROOT / "data" / "evidence" / "pd_effect_claims"
 
 
 def _load_json(path: Path) -> Any:
@@ -16,14 +17,38 @@ def _load_json(path: Path) -> Any:
         return json.load(f)
 
 
+def _load_json_list(path: Path) -> list[dict[str, Any]]:
+    data = _load_json(path)
+
+    if not isinstance(data, list):
+        raise ValueError(f"Expected JSON list in {path}")
+
+    return data
+
+
+def _load_segmented_pd_effect_claims() -> list[dict[str, Any]]:
+    if not PD_EFFECT_CLAIMS_DIR.exists():
+        return []
+
+    claims: list[dict[str, Any]] = []
+
+    for path in sorted(PD_EFFECT_CLAIMS_DIR.rglob("*.json")):
+        claims.extend(_load_json_list(path))
+
+    return claims
+
+
 @lru_cache(maxsize=1)
 def load_sources() -> list[dict[str, Any]]:
-    return _load_json(SOURCES_PATH)
+    return _load_json_list(SOURCES_PATH)
 
 
 @lru_cache(maxsize=1)
 def load_pd_effect_claims() -> list[dict[str, Any]]:
-    return _load_json(PD_EFFECT_CLAIMS_PATH)
+    claims = _load_json_list(PD_EFFECT_CLAIMS_PATH)
+    claims.extend(_load_segmented_pd_effect_claims())
+
+    return claims
 
 
 def get_source_by_id(source_id: str) -> dict[str, Any] | None:

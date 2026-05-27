@@ -1,0 +1,275 @@
+[
+  {
+    "claim_id": "claim_amitriptyline_pd_effect_h1_antagonism_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "amitriptyline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "h1_antagonism"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_drugbank_amitriptyline",
+        "evidence_type": "drug_database",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DrugBank describes amitriptyline as having sedative properties consistent with H1 antagonism in the curated PD ontology."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-26"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-26"
+    }
+  },
+  {
+    "claim_id": "claim_clozapine_pd_effect_h1_antagonism_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "clozapine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "h1_antagonism"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_clozapine_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed labeling supports clozapine histamine H1 receptor antagonism/high-affinity binding relevant to this curated PD effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-26"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-26"
+    }
+  },
+  {
+    "claim_id": "claim_doxepin_pd_effect_h1_antagonism_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "doxepin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "h1_antagonism"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_doxepin_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed labeling describes doxepin as an antagonist of the histamine H1 receptor."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-26"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-26"
+    }
+  },
+  {
+    "claim_id": "claim_hydroxyzine_pd_effect_h1_antagonism_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "hydroxyzine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "h1_antagonism"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_drugbank_hydroxyzine",
+        "evidence_type": "drug_database",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DrugBank identifies hydroxyzine as a first-generation H1 receptor antagonist."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-26"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-26"
+    }
+  },
+  {
+    "claim_id": "claim_olanzapine_pd_effect_h1_antagonism_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "olanzapine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "h1_antagonism"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_olanzapine_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed labeling reports olanzapine binding affinity at histamine H1 receptors."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-26"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-26"
+    }
+  },
+  {
+    "claim_id": "claim_quetiapine_pd_effect_h1_antagonism_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "quetiapine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "h1_antagonism"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_quetiapine_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed labeling reports quetiapine antagonism at histamine H1 receptors."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-26"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-26"
+    }
+  },
+  {
+    "claim_id": "claim_risperidone_pd_effect_h1_antagonism_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "risperidone"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "h1_antagonism"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_risperidone_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed labeling reports risperidone binding affinity at histamine H1 receptors."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-26"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-26"
+    }
+  }
+]
