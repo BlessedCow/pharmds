@@ -89,8 +89,10 @@ def aggregate_summary_to_result_summary(
         concern_type=aggregate.policy_concern,
         severity_label=_aggregate_severity_label(summary),
         evidence_label=_aggregate_evidence_label(summary),
-        explanation=summary.narrative
-        or _aggregate_fallback_explanation(summary),
+        explanation=_public_explanation(
+            summary.narrative
+            or _aggregate_fallback_explanation(summary),
+        ),
     )
 
 
@@ -197,6 +199,15 @@ def _effect_display_label(effect_id: str | None) -> str:
         return "unspecified effect"
 
     return PUBLIC_EFFECT_LABELS.get(effect_id, effect_id.replace("_", " "))
+
+
+def _public_explanation(explanation: str) -> str:
+    out = explanation
+
+    for effect_id in sorted(PUBLIC_EFFECT_LABELS, key=len, reverse=True):
+        out = out.replace(effect_id, _effect_display_label(effect_id))
+
+    return out
 
 
 def _aggregate_severity_label(summary: AggregateConcernSummary) -> str:
