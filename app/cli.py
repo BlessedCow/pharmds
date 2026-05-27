@@ -389,6 +389,42 @@ def _is_gap_classification(classification: str) -> bool:
     return classification in GAP_CLASSIFICATIONS
 
 
+PUBLIC_EFFECT_LABELS = {
+    "QT_prolongation": "QT prolongation",
+    "h1_antagonism": "antihistamine/sedation-related effect",
+    "tachycardia_risk": "increased heart-rate risk",
+    "hypertension_risk": "blood-pressure elevation risk",
+    "intracranial_hypertension_risk": "intracranial hypertension risk",
+    "CNS_depression": "CNS depression",
+    "serotonin_syndrome": "serotonin syndrome",
+    "seizure_risk": "seizure risk",
+    "orthostatic_hypotension": "orthostatic hypotension",
+    "anticholinergic_effects": "anticholinergic effects",
+    "activation_agitation_risk": "activation/agitation risk",
+    "insomnia_risk": "insomnia risk",
+    "nausea": "nausea",
+    "bleeding": "bleeding risk",
+}
+
+
+def _effect_display_label(effect_id: str | None) -> str:
+    if not effect_id:
+        return "unspecified effect"
+
+    return PUBLIC_EFFECT_LABELS.get(effect_id, effect_id.replace("_", " "))
+
+
+def _format_effect_label_line(effect_id: str | None) -> str | None:
+    if not effect_id:
+        return None
+
+    label = _effect_display_label(effect_id)
+    if label == effect_id:
+        return None
+
+    return f"  effect_label: {label}"
+
+
 def _format_evidence_gap_item(item: dict) -> str:
     source_types = ", ".join(item.get("source_types") or ["no_source"])
     confidence = item.get("confidence_level") or "none"
@@ -519,6 +555,7 @@ def render_aggregate_evidence_summary(pipeline):
         aggregate = summary.aggregate
         drugs = ", ".join(aggregate.drugs)
         effect_id = aggregate.effect_id or aggregate.anchor
+        effect_label_line = _format_effect_label_line(effect_id)
 
         lines.append("")
         lines.append(
@@ -527,6 +564,8 @@ def render_aggregate_evidence_summary(pipeline):
             f" | drugs={drugs}"
             f" | effect={effect_id}"
         )
+        if effect_label_line:
+            lines.append(effect_label_line)
         lines.append(
             "  overall_evidence_status: "
             + str(summary.overall_evidence_status)
@@ -609,11 +648,14 @@ def render_aggregate_concern_summaries(
         drugs = ", ".join(aggregate.drugs) if aggregate.drugs else "none"
         targets = ", ".join(aggregate.targets) if aggregate.targets else "none"
         effect_id = aggregate.effect_id or aggregate.anchor
+        effect_label_line = _format_effect_label_line(effect_id)
 
         lines.append("")
         lines.append(f"- {aggregate.aggregate_type}: {aggregate.anchor}")
         lines.append(f"  drugs: {drugs}")
         lines.append(f"  effect: {effect_id}")
+        if effect_label_line:
+            lines.append(effect_label_line)
         lines.append(f"  targets: {targets}")
         lines.append(f"  policy_concern: {aggregate.policy_concern}")
 
@@ -741,6 +783,7 @@ def render_severity_comparison(pipeline):
         aggregate = annotation.aggregate
         drugs = ", ".join(aggregate.drugs)
         effect_id = aggregate.effect_id or aggregate.anchor
+        effect_label_line = _format_effect_label_line(effect_id)
 
         lines.append("")
         lines.append(
@@ -749,6 +792,8 @@ def render_severity_comparison(pipeline):
             f" | drugs={drugs}"
             f" | effect={effect_id}"
         )
+        if effect_label_line:
+            lines.append(effect_label_line)
         lines.append(
             "  strongest_preliminary_severity: "
             + str(annotation.strongest_preliminary_severity)
