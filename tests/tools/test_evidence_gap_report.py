@@ -221,3 +221,42 @@ def test_format_report_text_includes_backfill_plan():
     assert BACKFILL_PRIORITY_MISSING in text
     assert "drug_a -> nausea" in text
     assert "missing_sources=drug_label" in text
+    
+def _format_current_gap_report_failure(report: dict) -> str:
+    tasks = report.get("backfill_plan", {}).get("tasks", [])
+
+    if not tasks:
+        return (
+            "Expected current PD effect evidence gap report to have zero "
+            "missing/partial rows, but gap_count was nonzero."
+        )
+
+    lines = [
+        "Expected current PD effect evidence gap report to have zero "
+        "missing/partial rows.",
+        "",
+        "Remaining gaps:",
+    ]
+
+    for task in tasks:
+        lines.append(
+            "- "
+            f"{task['drug_id']} -> {task['effect_id']}: "
+            f"{task['classification']} "
+            f"(coverage={task['coverage_status']}, "
+            f"confidence={task['confidence_status']}, "
+            f"claims={task['claim_count']})"
+        )
+
+    return "\n".join(lines)
+
+
+def test_current_pd_effect_evidence_gap_report_has_zero_gaps():
+    with evidence_gap_report.connect(evidence_gap_report.DB_PATH) as conn:
+        drug_ids = evidence_gap_report._all_drug_ids(conn)
+        facts = evidence_gap_report.load_facts(conn, drug_ids, {})
+
+    report = evidence_gap_report.build_pd_effect_evidence_gap_report(facts)
+
+    assert report["gap_count"] == 0, _format_current_gap_report_failure(report)
+    assert report["backfill_plan"]["total_tasks"] == 0
