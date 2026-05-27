@@ -274,3 +274,42 @@ def test_result_summaries_to_json_dicts_returns_public_list():
     assert payload == [
         result_summary_to_json_dict(result),
     ]
+    
+def test_public_result_summary_smooths_known_pd_effect_label_wording():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="QT_prolongation",
+        policy_concern="safety_concern",
+        drugs=("clarithromycin", "quetiapine"),
+        effect_id="QT_prolongation",
+    )
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [],
+    )
+
+    result = aggregate_summary_to_result_summary(summaries[0])
+
+    assert "QT prolongation pharmacodynamic effect" in result.explanation
+    assert "QT prolongation-related pharmacodynamic effect" not in result.explanation
+    assert "QT_prolongation" not in result.explanation
+
+
+def test_public_result_summary_keeps_unknown_pd_effect_related_wording():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="sedation",
+        policy_concern="tolerability_concern",
+        drugs=("alcohol", "clonazepam"),
+        effect_id="sedation",
+    )
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [],
+    )
+
+    result = aggregate_summary_to_result_summary(summaries[0])
+
+    assert "sedation-related pharmacodynamic effect" in result.explanation

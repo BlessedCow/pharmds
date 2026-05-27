@@ -36,6 +36,7 @@ from core.mechanisms.aggregation_debug import format_aggregate_concerns
 from core.mechanisms.arbitration_debug import format_arbitration_results
 from core.mechanisms.candidate_debug import format_interaction_candidates
 from core.mechanisms.debug import format_mechanism_effects
+from core.mechanisms.effect_labels import effect_display_label
 from core.mechanisms.policy_debug import format_policy_results
 from core.mechanisms.result_summary import (
     ResultSummary,
@@ -389,36 +390,12 @@ def _is_gap_classification(classification: str) -> bool:
     return classification in GAP_CLASSIFICATIONS
 
 
-PUBLIC_EFFECT_LABELS = {
-    "QT_prolongation": "QT prolongation",
-    "h1_antagonism": "antihistamine/sedation-related effect",
-    "tachycardia_risk": "increased heart-rate risk",
-    "hypertension_risk": "blood-pressure elevation risk",
-    "intracranial_hypertension_risk": "intracranial hypertension risk",
-    "CNS_depression": "CNS depression",
-    "serotonin_syndrome": "serotonin syndrome",
-    "seizure_risk": "seizure risk",
-    "orthostatic_hypotension": "orthostatic hypotension",
-    "anticholinergic_effects": "anticholinergic effects",
-    "activation_agitation_risk": "activation/agitation risk",
-    "insomnia_risk": "insomnia risk",
-    "nausea": "nausea",
-    "bleeding": "bleeding risk",
-}
-
-
-def _effect_display_label(effect_id: str | None) -> str:
-    if not effect_id:
-        return "unspecified effect"
-
-    return PUBLIC_EFFECT_LABELS.get(effect_id, effect_id.replace("_", " "))
-
 
 def _format_effect_label_line(effect_id: str | None) -> str | None:
     if not effect_id:
         return None
 
-    label = _effect_display_label(effect_id)
+    label = effect_display_label(effect_id)
     if label == effect_id:
         return None
 

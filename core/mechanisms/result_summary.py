@@ -18,6 +18,10 @@ from core.mechanisms.aggregation import (
     AGGREGATE_OBJECT_EXPOSURE_INCREASE,
     AGGREGATE_SHARED_PD_EFFECT,
 )
+from core.mechanisms.effect_labels import (
+    PUBLIC_EFFECT_LABELS,
+    effect_display_label,
+)
 from core.mechanisms.pipeline import MechanismPipelineResult
 from core.models import PairReport, RuleHit
 
@@ -26,23 +30,6 @@ RESULT_SOURCE_RULE = "legacy_rule_hit"
 
 EVIDENCE_LABEL_NOT_AVAILABLE = "not_available"
 EVIDENCE_LABEL_LEGACY_RULE = "legacy_rule"
-
-PUBLIC_EFFECT_LABELS = {
-    "QT_prolongation": "QT prolongation",
-    "h1_antagonism": "antihistamine/sedation-related effect",
-    "tachycardia_risk": "increased heart-rate risk",
-    "hypertension_risk": "blood-pressure elevation risk",
-    "intracranial_hypertension_risk": "intracranial hypertension risk",
-    "CNS_depression": "CNS depression",
-    "serotonin_syndrome": "serotonin syndrome",
-    "seizure_risk": "seizure risk",
-    "orthostatic_hypotension": "orthostatic hypotension",
-    "anticholinergic_effects": "anticholinergic effects",
-    "activation_agitation_risk": "activation/agitation risk",
-    "insomnia_risk": "insomnia risk",
-    "nausea": "nausea",
-    "bleeding": "bleeding risk",
-}
 
 
 @dataclass(frozen=True)
@@ -195,19 +182,27 @@ def _aggregate_summary_title(summary: AggregateConcernSummary) -> str:
 
 
 def _effect_display_label(effect_id: str | None) -> str:
-    if not effect_id:
-        return "unspecified effect"
-
-    return PUBLIC_EFFECT_LABELS.get(effect_id, effect_id.replace("_", " "))
-
+    return effect_display_label(effect_id)
 
 def _public_explanation(explanation: str) -> str:
     out = explanation
 
     for effect_id in sorted(PUBLIC_EFFECT_LABELS, key=len, reverse=True):
-        out = out.replace(effect_id, _effect_display_label(effect_id))
+        effect_label = _effect_display_label(effect_id)
+        out = out.replace(
+            f"{effect_id}-related pharmacodynamic effect",
+            _public_pd_effect_phrase(effect_id, effect_label),
+        )
+        out = out.replace(effect_id, effect_label)
 
     return out
+
+
+def _public_pd_effect_phrase(effect_id: str, effect_label: str) -> str:
+    if effect_label == effect_id:
+        return f"{effect_label}-related pharmacodynamic effect"
+
+    return f"{effect_label} pharmacodynamic effect"
 
 
 def _aggregate_severity_label(summary: AggregateConcernSummary) -> str:
