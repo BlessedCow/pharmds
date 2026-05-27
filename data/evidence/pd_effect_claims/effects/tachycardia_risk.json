@@ -1,0 +1,353 @@
+[
+  {
+    "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "amphetamine_dextroamphetamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_amphetamine_mixed_salts_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed mixed amphetamine salts labeling warns that CNS stimulants can increase heart rate and recommends monitoring for tachycardia."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_cannabis_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "cannabis"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_nida_cannabis_marijuana",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "NIDA describes cannabis as capable of increasing heart rate shortly after use, supporting the curated tachycardia risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_cocaine_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "cocaine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_nida_cocaine",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "NIDA lists increased heart rate among the short-term physiological effects of cocaine, supporting the curated tachycardia risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_ketamine_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ketamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_ketalar_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed Ketalar labeling describes transient increases in heart rate as frequently observed after administration, supporting the curated tachycardia risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_lsd_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "lsd"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_nida_hallucinogens_lsd_research_report",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "NIDA hallucinogen materials describe autonomic cardiovascular effects of LSD, supporting the curated tachycardia risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_mdma_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "mdma"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_pmc_mdma_mda_mdea_blood_pressure_2006",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "The cited MDMA/MDA/MDEA cardiovascular study evaluates heart rate effects, supporting the curated tachycardia risk effect for MDMA."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_methamphetamine_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "methamphetamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_pmc_methamphetamine_cardiovascular_disease_2019",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "The cited methamphetamine cardiovascular review discusses stimulant cardiovascular effects relevant to tachycardia risk."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_nicotine_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "nicotine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_nicotine_transdermal_system_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed nicotine transdermal labeling describes nicotine-related cardiovascular stimulation relevant to heart rate and tachycardia risk."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_pseudoephedrine_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "pseudoephedrine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_ncbi_pseudoephedrine_blood_pressure_heart_rate_review",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "The NCBI Bookshelf review describes oral pseudoephedrine as increasing heart rate, supporting the curated tachycardia risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  }
+]

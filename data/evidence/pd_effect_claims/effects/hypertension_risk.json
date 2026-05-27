@@ -1,0 +1,353 @@
+[
+  {
+    "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "amphetamine_dextroamphetamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_amphetamine_mixed_salts_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed mixed amphetamine salts labeling warns that CNS stimulants can increase blood pressure and recommends monitoring for hypertension."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_cannabis_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "cannabis"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_nida_cannabis_marijuana",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "NIDA describes cannabis as capable of increasing blood pressure shortly after use, supporting the curated hypertension risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_cocaine_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "cocaine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_nida_cocaine",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "NIDA lists increased blood pressure among the short-term physiological effects of cocaine, supporting the curated hypertension risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_ketamine_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ketamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_pubmed_ketamine_blood_pressure_changes_2024",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "This PubMed-indexed study evaluates blood pressure changes during ketamine infusion, supporting the curated hypertension risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_lsd_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "lsd"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_nida_hallucinogens_lsd_research_report",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "NIDA hallucinogen research material describes blood pressure elevation among acute hallucinogen effects, supporting the curated LSD hypertension risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_mdma_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "mdma"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_pmc_mdma_mda_mdea_blood_pressure_2006",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "This PubMed Central article reports MDMA-related blood pressure effects, supporting the curated hypertension risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_methamphetamine_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "methamphetamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_pmc_methamphetamine_cardiovascular_disease_2019",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "This PubMed Central review describes cardiovascular effects of methamphetamine use, including hypertension-related concerns."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_nicotine_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "nicotine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_nicotine_transdermal_system_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed nicotine transdermal labeling states that nicotine can increase blood pressure and includes high blood pressure warnings."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  },
+  {
+    "claim_id": "claim_pseudoephedrine_pd_effect_hypertension_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "pseudoephedrine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "hypertension_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_internal_curated_pd_effects_v1",
+        "evidence_type": "internal_curated_entry",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+      },
+      {
+        "source_id": "source_dailymed_pseudoephedrine_hcl_label",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "DailyMed pseudoephedrine labeling includes high blood pressure warnings, supporting the curated hypertension risk effect."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "maintainer",
+      "reviewed_at": "2026-05-27"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "project_maintainer",
+      "role": "maintainer",
+      "submitted_at": "2026-05-27"
+    }
+  }
+]

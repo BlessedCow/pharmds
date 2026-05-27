@@ -384,38 +384,6 @@
     }
   },
   {
-    "claim_id": "claim_amitriptyline_pd_effect_H1_antagonism_001",
-    "claim_type": "pd_effect",
-    "subject": {
-      "entity_type": "drug",
-      "id": "amitriptyline"
-    },
-    "predicate": "has_pd_effect",
-    "object": {
-      "effect_id": "h1_antagonism"
-    },
-    "evidence": [
-      {
-        "source_id": "source_internal_curated_pd_effects_v1",
-        "evidence_type": "internal_curated_entry",
-        "supports_claim": true,
-        "confidence": "moderate",
-        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
-      }
-    ],
-    "review": {
-      "status": "approved",
-      "reviewed_by": "maintainer",
-      "reviewed_at": "2026-05-13"
-    },
-    "claim_status": "active",
-    "contributor": {
-      "id": "project_maintainer",
-      "role": "maintainer",
-      "submitted_at": "2026-05-13"
-    }
-  },
-  {
     "claim_id": "claim_amitriptyline_pd_effect_QT_prolongation_001",
     "claim_type": "pd_effect",
     "subject": {
@@ -2798,38 +2766,6 @@
     }
   },
   {
-    "claim_id": "claim_clozapine_pd_effect_H1_antagonism_001",
-    "claim_type": "pd_effect",
-    "subject": {
-      "entity_type": "drug",
-      "id": "clozapine"
-    },
-    "predicate": "has_pd_effect",
-    "object": {
-      "effect_id": "h1_antagonism"
-    },
-    "evidence": [
-      {
-        "source_id": "source_internal_curated_pd_effects_v1",
-        "evidence_type": "internal_curated_entry",
-        "supports_claim": true,
-        "confidence": "moderate",
-        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
-      }
-    ],
-    "review": {
-      "status": "approved",
-      "reviewed_by": "maintainer",
-      "reviewed_at": "2026-05-13"
-    },
-    "claim_status": "active",
-    "contributor": {
-      "id": "project_maintainer",
-      "role": "maintainer",
-      "submitted_at": "2026-05-13"
-    }
-  },
-  {
     "claim_id": "claim_clozapine_pd_effect_anticholinergic_effects_001",
     "claim_type": "pd_effect",
     "subject": {
@@ -3895,38 +3831,6 @@
     "predicate": "has_pd_effect",
     "object": {
       "effect_id": "CNS_depression"
-    },
-    "evidence": [
-      {
-        "source_id": "source_internal_curated_pd_effects_v1",
-        "evidence_type": "internal_curated_entry",
-        "supports_claim": true,
-        "confidence": "moderate",
-        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
-      }
-    ],
-    "review": {
-      "status": "approved",
-      "reviewed_by": "maintainer",
-      "reviewed_at": "2026-05-13"
-    },
-    "claim_status": "active",
-    "contributor": {
-      "id": "project_maintainer",
-      "role": "maintainer",
-      "submitted_at": "2026-05-13"
-    }
-  },
-  {
-    "claim_id": "claim_doxepin_pd_effect_H1_antagonism_001",
-    "claim_type": "pd_effect",
-    "subject": {
-      "entity_type": "drug",
-      "id": "doxepin"
-    },
-    "predicate": "has_pd_effect",
-    "object": {
-      "effect_id": "h1_antagonism"
     },
     "evidence": [
       {
@@ -6021,38 +5925,6 @@
     "predicate": "has_pd_effect",
     "object": {
       "effect_id": "CNS_depression"
-    },
-    "evidence": [
-      {
-        "source_id": "source_internal_curated_pd_effects_v1",
-        "evidence_type": "internal_curated_entry",
-        "supports_claim": true,
-        "confidence": "moderate",
-        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
-      }
-    ],
-    "review": {
-      "status": "approved",
-      "reviewed_by": "maintainer",
-      "reviewed_at": "2026-05-13"
-    },
-    "claim_status": "active",
-    "contributor": {
-      "id": "project_maintainer",
-      "role": "maintainer",
-      "submitted_at": "2026-05-13"
-    }
-  },
-  {
-    "claim_id": "claim_hydroxyzine_pd_effect_H1_antagonism_001",
-    "claim_type": "pd_effect",
-    "subject": {
-      "entity_type": "drug",
-      "id": "hydroxyzine"
-    },
-    "predicate": "has_pd_effect",
-    "object": {
-      "effect_id": "h1_antagonism"
     },
     "evidence": [
       {
@@ -9084,38 +8956,6 @@
     }
   },
   {
-    "claim_id": "claim_olanzapine_pd_effect_H1_antagonism_001",
-    "claim_type": "pd_effect",
-    "subject": {
-      "entity_type": "drug",
-      "id": "olanzapine"
-    },
-    "predicate": "has_pd_effect",
-    "object": {
-      "effect_id": "h1_antagonism"
-    },
-    "evidence": [
-      {
-        "source_id": "source_internal_curated_pd_effects_v1",
-        "evidence_type": "internal_curated_entry",
-        "supports_claim": true,
-        "confidence": "moderate",
-        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
-      }
-    ],
-    "review": {
-      "status": "approved",
-      "reviewed_by": "maintainer",
-      "reviewed_at": "2026-05-13"
-    },
-    "claim_status": "active",
-    "contributor": {
-      "id": "project_maintainer",
-      "role": "maintainer",
-      "submitted_at": "2026-05-13"
-    }
-  },
-  {
     "claim_id": "claim_olanzapine_pd_effect_QT_prolongation_001",
     "claim_type": "pd_effect",
     "subject": {
@@ -10300,38 +10140,6 @@
     }
   },
   {
-    "claim_id": "claim_quetiapine_pd_effect_H1_antagonism_001",
-    "claim_type": "pd_effect",
-    "subject": {
-      "entity_type": "drug",
-      "id": "quetiapine"
-    },
-    "predicate": "has_pd_effect",
-    "object": {
-      "effect_id": "h1_antagonism"
-    },
-    "evidence": [
-      {
-        "source_id": "source_internal_curated_pd_effects_v1",
-        "evidence_type": "internal_curated_entry",
-        "supports_claim": true,
-        "confidence": "moderate",
-        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
-      }
-    ],
-    "review": {
-      "status": "approved",
-      "reviewed_by": "maintainer",
-      "reviewed_at": "2026-05-13"
-    },
-    "claim_status": "active",
-    "contributor": {
-      "id": "project_maintainer",
-      "role": "maintainer",
-      "submitted_at": "2026-05-13"
-    }
-  },
-  {
     "claim_id": "claim_quetiapine_pd_effect_QT_prolongation_001",
     "claim_type": "pd_effect",
     "subject": {
@@ -10693,38 +10501,6 @@
     "predicate": "has_pd_effect",
     "object": {
       "effect_id": "EPS_risk"
-    },
-    "evidence": [
-      {
-        "source_id": "source_internal_curated_pd_effects_v1",
-        "evidence_type": "internal_curated_entry",
-        "supports_claim": true,
-        "confidence": "moderate",
-        "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
-      }
-    ],
-    "review": {
-      "status": "approved",
-      "reviewed_by": "maintainer",
-      "reviewed_at": "2026-05-13"
-    },
-    "claim_status": "active",
-    "contributor": {
-      "id": "project_maintainer",
-      "role": "maintainer",
-      "submitted_at": "2026-05-13"
-    }
-  },
-  {
-    "claim_id": "claim_risperidone_pd_effect_H1_antagonism_001",
-    "claim_type": "pd_effect",
-    "subject": {
-      "entity_type": "drug",
-      "id": "risperidone"
-    },
-    "predicate": "has_pd_effect",
-    "object": {
-      "effect_id": "h1_antagonism"
     },
     "evidence": [
       {

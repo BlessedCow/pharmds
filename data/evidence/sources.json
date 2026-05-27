@@ -108,5 +108,126 @@
     "accessed_at": "2026-05-26",
     "version": null,
     "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_dailymed_amphetamine_mixed_salts_label",
+    "title": "Dextroamphetamine Saccharate, Amphetamine Aspartate, Dextroamphetamine Sulfate, and Amphetamine Sulfate Prescribing Information",
+    "source_type": "drug_label",
+    "publisher": "DailyMed",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=dff1a614-2b4b-4d09-804f-2f182ceec6b9",
+    "published_at": null,
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_nida_cannabis_marijuana",
+    "title": "Cannabis (Marijuana)",
+    "source_type": "review_article",
+    "publisher": "National Institute on Drug Abuse",
+    "url": "https://nida.nih.gov/research-topics/cannabis-marijuana",
+    "published_at": "2024-09-24",
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_nida_cocaine",
+    "title": "Cocaine",
+    "source_type": "review_article",
+    "publisher": "National Institute on Drug Abuse",
+    "url": "https://nida.nih.gov/research-topics/cocaine",
+    "published_at": null,
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_pubmed_ketamine_blood_pressure_changes_2024",
+    "title": "Blood pressure changes during ketamine infusion for the treatment of depression",
+    "source_type": "primary_literature",
+    "publisher": "PubMed",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/38991311/",
+    "published_at": "2024",
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "high"
+  },
+  {
+    "source_id": "source_nida_hallucinogens_lsd_research_report",
+    "title": "Hallucinogens and Dissociative Drugs Research Report",
+    "source_type": "review_article",
+    "publisher": "National Institute on Drug Abuse",
+    "url": "https://nida.nih.gov/sites/default/files/rrhalluc.pdf",
+    "published_at": null,
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_pmc_mdma_mda_mdea_blood_pressure_2006",
+    "title": "Effects of MDMA, MDA and MDEA on blood pressure, heart rate, locomotor activity and body temperature in the rat",
+    "source_type": "primary_literature",
+    "publisher": "PubMed Central",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2189797/",
+    "published_at": "2006",
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "high"
+  },
+  {
+    "source_id": "source_pmc_methamphetamine_cardiovascular_disease_2019",
+    "title": "Methamphetamine Use and Cardiovascular Disease",
+    "source_type": "review_article",
+    "publisher": "PubMed Central",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6709697/",
+    "published_at": "2019",
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "high"
+  },
+  {
+    "source_id": "source_dailymed_nicotine_transdermal_system_label",
+    "title": "Nicotine Transdermal System Label",
+    "source_type": "drug_label",
+    "publisher": "DailyMed",
+    "url": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=professional&setid=55442645-fa9b-4a9b-81e2-345ad062a124",
+    "published_at": null,
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_dailymed_pseudoephedrine_hcl_label",
+    "title": "Pseudoephedrine HCl Tablet Label",
+    "source_type": "drug_label",
+    "publisher": "DailyMed",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=458594e1-8d99-4de3-8923-2fd8ce2fc406",
+    "published_at": null,
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_dailymed_ketalar_label",
+    "title": "Ketalar Ketamine Hydrochloride Injection Prescribing Information",
+    "source_type": "drug_label",
+    "publisher": "DailyMed",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=14e8f864-8b8a-4e7e-8439-e510d3107063",
+    "published_at": null,
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "authoritative"
+  },
+  {
+    "source_id": "source_ncbi_pseudoephedrine_blood_pressure_heart_rate_review",
+    "title": "Effect of Oral Pseudoephedrine on Blood Pressure and Heart Rate",
+    "source_type": "review_article",
+    "publisher": "NCBI Bookshelf",
+    "url": "https://www.ncbi.nlm.nih.gov/books/NBK72027/",
+    "published_at": "2005",
+    "accessed_at": "2026-05-27",
+    "version": null,
+    "reliability_tier": "high"
   }
 ]

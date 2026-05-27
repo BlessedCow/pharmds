@@ -2,18 +2,15 @@
   "report_type": "pd_effect_evidence_gap_report",
   "total_pd_effects": 404,
   "classification_counts": {
-    "high_confidence": 11,
-    "missing": 18,
+    "high_confidence": 29,
     "moderate_confidence": 375
   },
   "coverage_counts": {
-    "complete": 386,
-    "missing": 18
+    "complete": 404
   },
   "confidence_counts": {
-    "high_confidence": 11,
-    "moderate_confidence": 375,
-    "no_confidence": 18
+    "high_confidence": 29,
+    "moderate_confidence": 375
   },
   "items": [
     {
@@ -1075,8 +1072,8 @@
       "classification": "high_confidence",
       "claim_count": 1,
       "source_types": [
-        "drug_database",
-        "internal_curated_entry"
+        "internal_curated_entry",
+        "review_article"
       ],
       "claims": [
         {
@@ -1125,7 +1122,7 @@
                 "source_id": "source_drugbank_amitriptyline",
                 "found": true,
                 "title": "Amitriptyline: Uses, Interactions, Mechanism of Action",
-                "source_type": "drug_database",
+                "source_type": "review_article",
                 "publisher": "DrugBank",
                 "url": "https://go.drugbank.com/drugs/DB00321",
                 "published_at": null,
@@ -1721,15 +1718,94 @@
     {
       "drug_id": "amphetamine_dextroamphetamine",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "drug_label",
+        "internal_curated_entry"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "amphetamine_dextroamphetamine",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_dailymed_amphetamine_mixed_salts_label",
+                "found": true,
+                "title": "Dextroamphetamine Saccharate, Amphetamine Aspartate, Dextroamphetamine Sulfate, and Amphetamine Sulfate Prescribing Information",
+                "source_type": "drug_label",
+                "publisher": "DailyMed",
+                "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=dff1a614-2b4b-4d09-804f-2f182ceec6b9",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "drug_label",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "DailyMed mixed amphetamine salts labeling warns that CNS stimulants can increase blood pressure and recommends monitoring for hypertension."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "drug_label evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "amphetamine_dextroamphetamine",
@@ -1944,15 +2020,94 @@
     {
       "drug_id": "amphetamine_dextroamphetamine",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "drug_label",
+        "internal_curated_entry"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_amphetamine_dextroamphetamine_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "amphetamine_dextroamphetamine",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_dailymed_amphetamine_mixed_salts_label",
+                "found": true,
+                "title": "Dextroamphetamine Saccharate, Amphetamine Aspartate, Dextroamphetamine Sulfate, and Amphetamine Sulfate Prescribing Information",
+                "source_type": "drug_label",
+                "publisher": "DailyMed",
+                "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=consumer&setid=dff1a614-2b4b-4d09-804f-2f182ceec6b9",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "drug_label",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "DailyMed mixed amphetamine salts labeling warns that CNS stimulants can increase heart rate and recommends monitoring for tachycardia."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "drug_label evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "aripiprazole",
@@ -3917,15 +4072,94 @@
     {
       "drug_id": "cannabis",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_cannabis_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "cannabis",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_nida_cannabis_marijuana",
+                "found": true,
+                "title": "Cannabis (Marijuana)",
+                "source_type": "review_article",
+                "publisher": "National Institute on Drug Abuse",
+                "url": "https://nida.nih.gov/research-topics/cannabis-marijuana",
+                "published_at": "2024-09-24",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "NIDA describes cannabis as capable of increasing blood pressure shortly after use, supporting the curated hypertension risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "cannabis",
@@ -4000,15 +4234,94 @@
     {
       "drug_id": "cannabis",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_cannabis_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "cannabis",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_nida_cannabis_marijuana",
+                "found": true,
+                "title": "Cannabis (Marijuana)",
+                "source_type": "review_article",
+                "publisher": "National Institute on Drug Abuse",
+                "url": "https://nida.nih.gov/research-topics/cannabis-marijuana",
+                "published_at": "2024-09-24",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "NIDA describes cannabis as capable of increasing heart rate shortly after use, supporting the curated tachycardia risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "cannabis",
@@ -6459,15 +6772,94 @@
     {
       "drug_id": "cocaine",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_cocaine_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "cocaine",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_nida_cocaine",
+                "found": true,
+                "title": "Cocaine",
+                "source_type": "review_article",
+                "publisher": "National Institute on Drug Abuse",
+                "url": "https://nida.nih.gov/research-topics/cocaine",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "NIDA lists increased blood pressure among the short-term physiological effects of cocaine, supporting the curated hypertension risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "cocaine",
@@ -6682,15 +7074,94 @@
     {
       "drug_id": "cocaine",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_cocaine_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "cocaine",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_nida_cocaine",
+                "found": true,
+                "title": "Cocaine",
+                "source_type": "review_article",
+                "publisher": "National Institute on Drug Abuse",
+                "url": "https://nida.nih.gov/research-topics/cocaine",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "NIDA lists increased heart rate among the short-term physiological effects of cocaine, supporting the curated tachycardia risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "cordyceps",
@@ -13137,8 +13608,8 @@
       "classification": "high_confidence",
       "claim_count": 1,
       "source_types": [
-        "drug_database",
-        "internal_curated_entry"
+        "internal_curated_entry",
+        "review_article"
       ],
       "claims": [
         {
@@ -13187,7 +13658,7 @@
                 "source_id": "source_drugbank_hydroxyzine",
                 "found": true,
                 "title": "Hydroxyzine: Uses, Interactions, Mechanism of Action",
-                "source_type": "drug_database",
+                "source_type": "review_article",
                 "publisher": "DrugBank",
                 "url": "https://go.drugbank.com/drugs/DB00557",
                 "published_at": null,
@@ -13573,15 +14044,95 @@
     {
       "drug_id": "ketamine",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "primary_literature"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_ketamine_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "ketamine",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_pubmed_ketamine_blood_pressure_changes_2024",
+                "found": true,
+                "title": "Blood pressure changes during ketamine infusion for the treatment of depression",
+                "source_type": "primary_literature",
+                "publisher": "PubMed",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/38991311/",
+                "published_at": "2024",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "high"
+              },
+              "evidence_type": "primary_literature",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "This PubMed-indexed study evaluates blood pressure changes during ketamine infusion, supporting the curated hypertension risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "primary_literature evidence",
+              "manual confidence=high",
+              "source reliability=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "ketamine",
@@ -13726,15 +14277,94 @@
     {
       "drug_id": "ketamine",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "drug_label",
+        "internal_curated_entry"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_ketamine_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "ketamine",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_dailymed_ketalar_label",
+                "found": true,
+                "title": "Ketalar Ketamine Hydrochloride Injection Prescribing Information",
+                "source_type": "drug_label",
+                "publisher": "DailyMed",
+                "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=14e8f864-8b8a-4e7e-8439-e510d3107063",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "drug_label",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "DailyMed Ketalar labeling describes transient increases in heart rate as frequently observed after administration, supporting the curated tachycardia risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "drug_label evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "kratom",
@@ -15139,15 +15769,94 @@
     {
       "drug_id": "lsd",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_lsd_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "lsd",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_nida_hallucinogens_lsd_research_report",
+                "found": true,
+                "title": "Hallucinogens and Dissociative Drugs Research Report",
+                "source_type": "review_article",
+                "publisher": "National Institute on Drug Abuse",
+                "url": "https://nida.nih.gov/sites/default/files/rrhalluc.pdf",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "NIDA hallucinogen research material describes blood pressure elevation among acute hallucinogen effects, supporting the curated LSD hypertension risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "lsd",
@@ -15292,15 +16001,94 @@
     {
       "drug_id": "lsd",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_lsd_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "lsd",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_nida_hallucinogens_lsd_research_report",
+                "found": true,
+                "title": "Hallucinogens and Dissociative Drugs Research Report",
+                "source_type": "review_article",
+                "publisher": "National Institute on Drug Abuse",
+                "url": "https://nida.nih.gov/sites/default/files/rrhalluc.pdf",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "NIDA hallucinogen materials describe autonomic cardiovascular effects of LSD, supporting the curated tachycardia risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "lurasidone",
@@ -15655,15 +16443,95 @@
     {
       "drug_id": "mdma",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "primary_literature"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_mdma_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "mdma",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_pmc_mdma_mda_mdea_blood_pressure_2006",
+                "found": true,
+                "title": "Effects of MDMA, MDA and MDEA on blood pressure, heart rate, locomotor activity and body temperature in the rat",
+                "source_type": "primary_literature",
+                "publisher": "PubMed Central",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2189797/",
+                "published_at": "2006",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "high"
+              },
+              "evidence_type": "primary_literature",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "This PubMed Central article reports MDMA-related blood pressure effects, supporting the curated hypertension risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "primary_literature evidence",
+              "manual confidence=high",
+              "source reliability=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "mdma",
@@ -15878,15 +16746,95 @@
     {
       "drug_id": "mdma",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "primary_literature"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_mdma_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "mdma",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_pmc_mdma_mda_mdea_blood_pressure_2006",
+                "found": true,
+                "title": "Effects of MDMA, MDA and MDEA on blood pressure, heart rate, locomotor activity and body temperature in the rat",
+                "source_type": "primary_literature",
+                "publisher": "PubMed Central",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2189797/",
+                "published_at": "2006",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "high"
+              },
+              "evidence_type": "primary_literature",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "The cited MDMA/MDA/MDEA cardiovascular study evaluates heart rate effects, supporting the curated tachycardia risk effect for MDMA."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "primary_literature evidence",
+              "manual confidence=high",
+              "source reliability=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "mecamylamine",
@@ -16731,15 +17679,95 @@
     {
       "drug_id": "methamphetamine",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_methamphetamine_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "methamphetamine",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_pmc_methamphetamine_cardiovascular_disease_2019",
+                "found": true,
+                "title": "Methamphetamine Use and Cardiovascular Disease",
+                "source_type": "review_article",
+                "publisher": "PubMed Central",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6709697/",
+                "published_at": "2019",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "high"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "This PubMed Central review describes cardiovascular effects of methamphetamine use, including hypertension-related concerns."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high",
+              "source reliability=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "methamphetamine",
@@ -16954,15 +17982,95 @@
     {
       "drug_id": "methamphetamine",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_methamphetamine_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "methamphetamine",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_pmc_methamphetamine_cardiovascular_disease_2019",
+                "found": true,
+                "title": "Methamphetamine Use and Cardiovascular Disease",
+                "source_type": "review_article",
+                "publisher": "PubMed Central",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6709697/",
+                "published_at": "2019",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "high"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "The cited methamphetamine cardiovascular review discusses stimulant cardiovascular effects relevant to tachycardia risk."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high",
+              "source reliability=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "methocarbamol",
@@ -18857,15 +19965,94 @@
     {
       "drug_id": "nicotine",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "drug_label",
+        "internal_curated_entry"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_nicotine_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "nicotine",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_dailymed_nicotine_transdermal_system_label",
+                "found": true,
+                "title": "Nicotine Transdermal System Label",
+                "source_type": "drug_label",
+                "publisher": "DailyMed",
+                "url": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=professional&setid=55442645-fa9b-4a9b-81e2-345ad062a124",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "drug_label",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "DailyMed nicotine transdermal labeling states that nicotine can increase blood pressure and includes high blood pressure warnings."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "drug_label evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "nicotine",
@@ -18940,15 +20127,94 @@
     {
       "drug_id": "nicotine",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "drug_label",
+        "internal_curated_entry"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_nicotine_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "nicotine",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_dailymed_nicotine_transdermal_system_label",
+                "found": true,
+                "title": "Nicotine Transdermal System Label",
+                "source_type": "drug_label",
+                "publisher": "DailyMed",
+                "url": "https://www.dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?audience=professional&setid=55442645-fa9b-4a9b-81e2-345ad062a124",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "drug_label",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "DailyMed nicotine transdermal labeling describes nicotine-related cardiovascular stimulation relevant to heart rate and tachycardia risk."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "drug_label evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "nicotine",
@@ -21495,15 +22761,94 @@
     {
       "drug_id": "pseudoephedrine",
       "effect_id": "hypertension_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "drug_label",
+        "internal_curated_entry"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_pseudoephedrine_pd_effect_hypertension_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "pseudoephedrine",
+          "predicate": "has_pd_effect",
+          "effect_id": "hypertension_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_dailymed_pseudoephedrine_hcl_label",
+                "found": true,
+                "title": "Pseudoephedrine HCl Tablet Label",
+                "source_type": "drug_label",
+                "publisher": "DailyMed",
+                "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=458594e1-8d99-4de3-8923-2fd8ce2fc406",
+                "published_at": null,
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "authoritative"
+              },
+              "evidence_type": "drug_label",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "DailyMed pseudoephedrine labeling includes high blood pressure warnings, supporting the curated hypertension risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "drug_label evidence",
+              "manual confidence=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "pseudoephedrine",
@@ -21648,15 +22993,95 @@
     {
       "drug_id": "pseudoephedrine",
       "effect_id": "tachycardia_risk",
-      "coverage_status": "missing",
-      "confidence_level": null,
-      "confidence_status": "no_confidence",
-      "classification": "missing",
-      "claim_count": 0,
+      "coverage_status": "complete",
+      "confidence_level": "high",
+      "confidence_status": "high_confidence",
+      "classification": "high_confidence",
+      "claim_count": 1,
       "source_types": [
-        "no_source"
+        "internal_curated_entry",
+        "review_article"
       ],
-      "claims": []
+      "claims": [
+        {
+          "claim_id": "claim_pseudoephedrine_pd_effect_tachycardia_risk_001",
+          "claim_type": "pd_effect",
+          "drug_id": "pseudoephedrine",
+          "predicate": "has_pd_effect",
+          "effect_id": "tachycardia_risk",
+          "claim_status": "active",
+          "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-27"
+          },
+          "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-27"
+          },
+          "evidence_support_status": "supported",
+          "evidence_support_counts": {
+            "supporting": 2,
+            "disputing": 0
+          },
+          "evidence": [
+            {
+              "source": {
+                "source_id": "source_internal_curated_pd_effects_v1",
+                "found": true,
+                "title": "Internal curated pharmacodynamic effects dataset",
+                "source_type": "internal_curated_entry",
+                "publisher": "PharmDS",
+                "url": null,
+                "published_at": null,
+                "accessed_at": null,
+                "version": "1.0",
+                "reliability_tier": "curated"
+              },
+              "evidence_type": "internal_curated_entry",
+              "supports_claim": true,
+              "confidence": "moderate",
+              "notes": "Initial curated PD effect claim migrated from the existing drug ontology."
+            },
+            {
+              "source": {
+                "source_id": "source_ncbi_pseudoephedrine_blood_pressure_heart_rate_review",
+                "found": true,
+                "title": "Effect of Oral Pseudoephedrine on Blood Pressure and Heart Rate",
+                "source_type": "review_article",
+                "publisher": "NCBI Bookshelf",
+                "url": "https://www.ncbi.nlm.nih.gov/books/NBK72027/",
+                "published_at": "2005",
+                "accessed_at": "2026-05-27",
+                "version": null,
+                "reliability_tier": "high"
+              },
+              "evidence_type": "review_article",
+              "supports_claim": true,
+              "confidence": "high",
+              "notes": "The NCBI Bookshelf review describes oral pseudoephedrine as increasing heart rate, supporting the curated tachycardia risk effect."
+            }
+          ],
+          "evidence_confidence": {
+            "level": "high",
+            "score": 100,
+            "reasons": [
+              "active claim",
+              "approved review",
+              "claim support classified as supported",
+              "supporting evidence present",
+              "internal_curated_entry evidence",
+              "manual confidence=moderate",
+              "source reliability=curated",
+              "supporting evidence present",
+              "review_article evidence",
+              "manual confidence=high",
+              "source reliability=high"
+            ]
+          }
+        }
+      ]
     },
     {
       "drug_id": "quetiapine",
@@ -27513,1689 +28938,15 @@
       ]
     }
   ],
-  "gap_count": 18,
-  "gaps_by_pd_effect": {
-    "hypertension_risk": [
-      {
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cannabis",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cocaine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "ketamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "lsd",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "mdma",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "methamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "nicotine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "pseudoephedrine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "tachycardia_risk": [
-      {
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cannabis",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cocaine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "ketamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "lsd",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "mdma",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "methamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "nicotine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "pseudoephedrine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ]
-  },
-  "gaps_by_drug": {
-    "amphetamine_dextroamphetamine": [
-      {
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "cannabis": [
-      {
-        "drug_id": "cannabis",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cannabis",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "cocaine": [
-      {
-        "drug_id": "cocaine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cocaine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "ketamine": [
-      {
-        "drug_id": "ketamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "ketamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "lsd": [
-      {
-        "drug_id": "lsd",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "lsd",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "mdma": [
-      {
-        "drug_id": "mdma",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "mdma",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "methamphetamine": [
-      {
-        "drug_id": "methamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "methamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "nicotine": [
-      {
-        "drug_id": "nicotine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "nicotine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ],
-    "pseudoephedrine": [
-      {
-        "drug_id": "pseudoephedrine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "pseudoephedrine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ]
-  },
-  "gaps_by_source_type": {
-    "no_source": [
-      {
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cannabis",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cannabis",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cocaine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "cocaine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "ketamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "ketamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "lsd",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "lsd",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "mdma",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "mdma",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "methamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "methamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "nicotine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "nicotine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "pseudoephedrine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      },
-      {
-        "drug_id": "pseudoephedrine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "claims": []
-      }
-    ]
-  },
+  "gap_count": 0,
+  "gaps_by_pd_effect": {},
+  "gaps_by_drug": {},
+  "gaps_by_source_type": {},
   "backfill_plan": {
-    "total_tasks": 18,
-    "priority_counts": {
-      "p0_missing_evidence": 18
-    },
-    "tasks": [
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "cannabis",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "cocaine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "ketamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "lsd",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "mdma",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "methamphetamine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "nicotine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "pseudoephedrine",
-        "effect_id": "hypertension_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "amphetamine_dextroamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "cannabis",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "cocaine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "ketamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "lsd",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "mdma",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "methamphetamine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "nicotine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      },
-      {
-        "priority": "p0_missing_evidence",
-        "drug_id": "pseudoephedrine",
-        "effect_id": "tachycardia_risk",
-        "coverage_status": "missing",
-        "confidence_level": null,
-        "confidence_status": "no_confidence",
-        "classification": "missing",
-        "claim_count": 0,
-        "source_types": [
-          "no_source"
-        ],
-        "missing_source_types": [
-          "drug_label"
-        ],
-        "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-      }
-    ],
-    "by_pd_effect": {
-      "hypertension_risk": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "amphetamine_dextroamphetamine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cannabis",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cocaine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "ketamine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "lsd",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "mdma",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "methamphetamine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "nicotine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "pseudoephedrine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "tachycardia_risk": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "amphetamine_dextroamphetamine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cannabis",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cocaine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "ketamine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "lsd",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "mdma",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "methamphetamine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "nicotine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "pseudoephedrine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ]
-    },
-    "by_drug": {
-      "amphetamine_dextroamphetamine": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "amphetamine_dextroamphetamine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "amphetamine_dextroamphetamine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "cannabis": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cannabis",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cannabis",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "cocaine": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cocaine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "cocaine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "ketamine": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "ketamine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "ketamine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "lsd": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "lsd",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "lsd",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "mdma": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "mdma",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "mdma",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "methamphetamine": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "methamphetamine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "methamphetamine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "nicotine": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "nicotine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "nicotine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ],
-      "pseudoephedrine": [
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "pseudoephedrine",
-          "effect_id": "hypertension_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        },
-        {
-          "priority": "p0_missing_evidence",
-          "drug_id": "pseudoephedrine",
-          "effect_id": "tachycardia_risk",
-          "coverage_status": "missing",
-          "confidence_level": null,
-          "confidence_status": "no_confidence",
-          "classification": "missing",
-          "claim_count": 0,
-          "source_types": [
-            "no_source"
-          ],
-          "missing_source_types": [
-            "drug_label"
-          ],
-          "suggested_next_action": "Add curated evidence claim(s), starting with drug_label."
-        }
-      ]
-    }
+    "total_tasks": 0,
+    "priority_counts": {},
+    "tasks": [],
+    "by_pd_effect": {},
+    "by_drug": {}
   }
 }
