@@ -19,7 +19,11 @@ from app.json_output import build_json_payload
 from core.exceptions import UnknownDrugError
 from core.mechanisms.pipeline import run_mechanism_pipeline
 from core.mechanisms.pipeline_json import mechanism_pipeline_to_json_dict
-from core.mechanisms.result_summary import build_public_result_summaries
+from core.mechanisms.result_summary import (
+    ResultSummary,
+    build_public_result_summaries,
+    result_summaries_to_json_dicts,
+)
 from reasoning.combine import build_regimen_summary
 from rules.engine import evaluate_all, load_rules
 
@@ -37,6 +41,74 @@ class AnalyzeResult:
 
     ok: bool
     payload: dict[str, Any]
+
+
+def _build_json_analyze_payload(
+    *,
+    facts: Any,
+    pair_reports: list[Any],
+    templates: dict[str, str],
+    selected_domains: list[str],
+    input_drug_names: list[str],
+    patient_flags: dict[str, bool],
+    regimen_summary: dict[str, Any] | None,
+    mechanism_pipeline_json: dict[str, Any],
+    public_result_summaries: list[ResultSummary],
+    input_drug_text: str | None,
+) -> dict[str, Any]:
+    """Build the JSON/API-oriented success payload."""
+    payload = build_json_payload(
+        facts=facts,
+        reports=pair_reports,
+        templates=templates,
+        selected_domains=selected_domains,
+        input_drug_names=input_drug_names,
+        patient_flags=patient_flags,
+        regimen_summary=regimen_summary,
+    )
+
+    payload["mechanism_pipeline"] = mechanism_pipeline_json
+    payload["public_result_summaries"] = result_summaries_to_json_dicts(
+        public_result_summaries,
+    )
+
+    if input_drug_text is not None:
+        payload["input_drug_text"] = input_drug_text
+
+    return payload
+
+
+def _build_streamlit_analyze_payload(
+    *,
+    facts: Any,
+    drug_ids: list[str],
+    pair_reports: list[Any],
+    templates: dict[str, str],
+    selected_domains: list[str],
+    patient_flags: dict[str, bool],
+    input_drug_names: list[str],
+    regimen_summary: dict[str, Any] | None,
+    mechanism_pipeline: Any,
+    mechanism_pipeline_json: dict[str, Any],
+    public_result_summaries: list[ResultSummary],
+) -> dict[str, Any]:
+    """Build the Streamlit-oriented success payload."""
+    return {
+        "facts": facts,
+        "drug_ids": drug_ids,
+        "pair_reports": pair_reports,
+        "templates": templates,
+        "selected_domains": selected_domains,
+        "patient_flags": patient_flags,
+        "input_drug_names": input_drug_names,
+        "regimen_summary": regimen_summary,
+        "mechanism_pipeline": mechanism_pipeline,
+        "mechanism_pipeline_json": mechanism_pipeline_json,
+        "public_result_summaries": public_result_summaries,
+        "aggregate_concern_summaries": tuple(
+            mechanism_pipeline.aggregate_concern_summaries
+        ),
+    }
 
 
 def analyze_text(
@@ -140,52 +212,35 @@ def analyze_names(
     )
 
     if as_json_payload:
-        payload = build_json_payload(
-            facts=facts,
-            reports=pair_reports,
-            templates=templates,
-            selected_domains=selected,
-            input_drug_names=drug_names,
-            patient_flags=patient_flags,
-            regimen_summary=regimen_summary,
+        return AnalyzeResult(
+            ok=True,
+            payload=_build_json_analyze_payload(
+                facts=facts,
+                pair_reports=pair_reports,
+                templates=templates,
+                selected_domains=selected,
+                input_drug_names=drug_names,
+                patient_flags=patient_flags,
+                regimen_summary=regimen_summary,
+                mechanism_pipeline_json=mechanism_pipeline_json,
+                public_result_summaries=public_result_summaries,
+                input_drug_text=input_drug_text,
+            ),
         )
-
-        payload["mechanism_pipeline"] = mechanism_pipeline_json
-        payload["public_result_summaries"] = [
-            {
-                "source": summary.source,
-                "title": summary.title,
-                "drugs": list(summary.drugs),
-                "concern_type": summary.concern_type,
-                "severity_label": summary.severity_label,
-                "evidence_label": summary.evidence_label,
-                "explanation": summary.explanation,
-            }
-            for summary in public_result_summaries
-        ]
-
-        if input_drug_text is not None:
-            payload["input_drug_text"] = input_drug_text
-
-        return AnalyzeResult(ok=True, payload=payload)
 
     return AnalyzeResult(
         ok=True,
-        payload={
-            "facts": facts,
-            "drug_ids": drug_ids,
-            "pair_reports": pair_reports,
-            "templates": templates,
-            "selected_domains": selected,
-            "patient_flags": patient_flags,
-            "input_drug_names": drug_names,
-            "regimen_summary": regimen_summary,
-            "mechanism_pipeline": mechanism_pipeline,
-            "mechanism_pipeline_json": mechanism_pipeline_json,
-            "public_result_summaries": public_result_summaries,
-            "aggregate_concern_summaries": tuple(
-                mechanism_pipeline.aggregate_concern_summaries
-            ),
-        },
+        payload=_build_streamlit_analyze_payload(
+            facts=facts,
+            drug_ids=drug_ids,
+            pair_reports=pair_reports,
+            templates=templates,
+            selected_domains=selected,
+            patient_flags=patient_flags,
+            input_drug_names=drug_names,
+            regimen_summary=regimen_summary,
+            mechanism_pipeline=mechanism_pipeline,
+            mechanism_pipeline_json=mechanism_pipeline_json,
+            public_result_summaries=public_result_summaries,
+        ),
     )
-    

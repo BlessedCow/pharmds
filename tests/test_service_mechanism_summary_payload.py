@@ -1,4 +1,37 @@
-from app.service import analyze_text
+from types import SimpleNamespace
+
+from app.service import (
+    _build_json_analyze_payload,
+    _build_streamlit_analyze_payload,
+    analyze_text,
+)
+from core.mechanisms.result_summary import ResultSummary
+
+
+def test_analyze_text_streamlit_payload_includes_stable_top_level_keys():
+    result = analyze_text(
+        "clarithromycin fluconazole",
+        as_json_payload=False,
+    )
+
+    assert result.ok
+
+    payload = result.payload
+
+    assert set(payload) == {
+        "facts",
+        "drug_ids",
+        "pair_reports",
+        "templates",
+        "selected_domains",
+        "patient_flags",
+        "input_drug_names",
+        "regimen_summary",
+        "mechanism_pipeline",
+        "mechanism_pipeline_json",
+        "public_result_summaries",
+        "aggregate_concern_summaries",
+    }
 
 
 def test_analyze_text_streamlit_payload_includes_mechanism_summaries():
@@ -11,16 +44,29 @@ def test_analyze_text_streamlit_payload_includes_mechanism_summaries():
 
     payload = result.payload
 
-    assert "mechanism_pipeline" in payload
-    assert "mechanism_pipeline_json" in payload
-    assert "public_result_summaries" in payload
-    assert "aggregate_concern_summaries" in payload
-
     assert payload["mechanism_pipeline"].aggregate_concern_summaries
     assert payload["mechanism_pipeline_json"]["aggregate_concern_summaries"]
     assert payload["public_result_summaries"]
     assert payload["aggregate_concern_summaries"]
 
+def test_analyze_text_json_payload_includes_stable_top_level_keys():
+    result = analyze_text(
+        "clarithromycin fluconazole",
+        as_json_payload=True,
+    )
+
+    assert result.ok
+
+    payload = result.payload
+
+    assert set(payload) == {
+        "schema_version",
+        "input",
+        "input_drug_text",
+        "pairs",
+        "mechanism_pipeline",
+        "public_result_summaries",
+    }
 
 def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline():
     result = analyze_text(
@@ -31,9 +77,6 @@ def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline(
     assert result.ok
 
     payload = result.payload
-
-    assert "mechanism_pipeline" in payload
-    assert "public_result_summaries" in payload
 
     assert payload["mechanism_pipeline"]["aggregate_concern_summaries"]
     assert payload["public_result_summaries"]
@@ -48,4 +91,87 @@ def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline(
         "severity_label",
         "evidence_label",
         "explanation",
+    }
+    
+def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
+    public_summary = ResultSummary(
+        source="aggregate_summary",
+        title="Shared QT prolongation concern",
+        drugs=("clarithromycin", "fluconazole"),
+        concern_type="cardiac_rhythm",
+        severity_label="moderate",
+        evidence_label="complete",
+        explanation="Both drugs are associated with QT prolongation.",
+    )
+
+    payload = _build_json_analyze_payload(
+        facts=object(),
+        pair_reports=[],
+        templates={},
+        selected_domains=["all"],
+        input_drug_names=["clarithromycin", "fluconazole"],
+        patient_flags={"qt_risk": False, "bleeding_risk": False},
+        regimen_summary=None,
+        mechanism_pipeline_json={"aggregate_concern_summaries": []},
+        public_result_summaries=[public_summary],
+        input_drug_text="clarithromycin fluconazole",
+    )
+
+    assert payload["schema_version"] == "1.0"
+    assert payload["input_drug_text"] == "clarithromycin fluconazole"
+    assert payload["mechanism_pipeline"] == {
+        "aggregate_concern_summaries": []
+    }
+    assert payload["public_result_summaries"] == [
+        {
+            "source": "aggregate_summary",
+            "title": "Shared QT prolongation concern",
+            "drugs": ["clarithromycin", "fluconazole"],
+            "concern_type": "cardiac_rhythm",
+            "severity_label": "moderate",
+            "evidence_label": "complete",
+            "explanation": (
+                "Both drugs are associated with QT prolongation."
+            ),
+        }
+    ]
+
+
+def test_build_streamlit_analyze_payload_preserves_ui_objects():
+    facts = object()
+    pair_report = object()
+    public_summary = object()
+    aggregate_summary = object()
+    mechanism_pipeline = SimpleNamespace(
+        aggregate_concern_summaries=(aggregate_summary,),
+    )
+    mechanism_pipeline_json = {"aggregate_concern_summaries": [{}]}
+
+    payload = _build_streamlit_analyze_payload(
+        facts=facts,
+        drug_ids=["clarithromycin", "fluconazole"],
+        pair_reports=[pair_report],
+        templates={"rule": "template"},
+        selected_domains=["all"],
+        patient_flags={"qt_risk": False, "bleeding_risk": False},
+        input_drug_names=["clarithromycin", "fluconazole"],
+        regimen_summary=None,
+        mechanism_pipeline=mechanism_pipeline,
+        mechanism_pipeline_json=mechanism_pipeline_json,
+        public_result_summaries=[public_summary],
+    )
+
+    assert payload == {
+        "facts": facts,
+        "drug_ids": ["clarithromycin", "fluconazole"],
+        "pair_reports": [pair_report],
+        "templates": {"rule": "template"},
+        "selected_domains": ["all"],
+        "patient_flags": {"qt_risk": False, "bleeding_risk": False},
+        "input_drug_names": ["clarithromycin", "fluconazole"],
+        "regimen_summary": None,
+        "mechanism_pipeline": mechanism_pipeline,
+        "mechanism_pipeline_json": mechanism_pipeline_json,
+        "public_result_summaries": [public_summary],
+        "aggregate_concern_summaries": (aggregate_summary,),
     }
