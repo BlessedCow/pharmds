@@ -30,9 +30,13 @@ def test_cli_show_aggregate_summaries_outputs_pd_summary(
     assert "strongest_preliminary_severity: informational" in out
     assert "evidence_status: complete" in out
     assert "evidence_claim_count: 2" in out
-    assert "evidence_source_count:" in out
-    assert "evidence_sources: none" in out
-    assert "evidence_source_count:" in out
+    assert "evidence_source_count: 3" in out
+    assert (
+        "evidence_sources: 3 sources: Clarithromycin Prescribing "
+        "Information (drug_label), Fluconazole Prescribing Information "
+        "(drug_label), Internal curated pharmacodynamic effects dataset "
+        "(internal_curated_entry)"
+    ) in out
 
     assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" not in out
     assert "Overall: severity=" not in out

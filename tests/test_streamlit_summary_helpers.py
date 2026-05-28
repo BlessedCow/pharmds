@@ -185,3 +185,63 @@ def test_aggregate_summary_debug_lines_show_readable_effect_label():
     lines = aggregate_summary_debug_lines(aggregate_summary)
 
     assert "Effect: QT_prolongation (QT prolongation)" in lines
+    
+def test_aggregate_summary_debug_lines_show_readable_evidence_sources():
+    aggregate_summary = {
+        "aggregate": {
+            "aggregate_type": "shared_pd_effect_cluster",
+            "policy_concern": "safety_concern",
+            "anchor": "QT_prolongation",
+            "effect_id": "QT_prolongation",
+            "targets": [],
+        },
+        "severity_annotation": {
+            "strongest_preliminary_severity": "high_caution",
+        },
+        "evidence_summary": {
+            "overall_evidence_status": "complete",
+            "evidence_claim_count": 2,
+            "evidence_gap_count": 0,
+            "evidence_trace_count": 2,
+            "evidence_source_ids": [
+                "source_dailymed_clarithromycin_label",
+            ],
+        },
+        "patient_risk_modifiers": [],
+        "risk_context": None,
+        "evidence_conflict_message": None,
+    }
+
+    lines = aggregate_summary_debug_lines(aggregate_summary)
+
+    assert (
+        "Evidence sources: 1 source: Clarithromycin Prescribing "
+        "Information (drug_label)"
+    ) in lines
+
+
+def test_aggregate_summary_debug_lines_show_none_for_missing_sources():
+    aggregate_summary = {
+        "aggregate": {
+            "aggregate_type": "shared_pd_effect_cluster",
+            "policy_concern": "tolerability_concern",
+            "anchor": "nausea",
+            "effect_id": "nausea",
+            "targets": [],
+        },
+        "severity_annotation": None,
+        "evidence_summary": {
+            "overall_evidence_status": "missing",
+            "evidence_claim_count": 0,
+            "evidence_gap_count": 2,
+            "evidence_trace_count": 1,
+            "evidence_source_ids": [],
+        },
+        "patient_risk_modifiers": [],
+        "risk_context": None,
+        "evidence_conflict_message": None,
+    }
+
+    lines = aggregate_summary_debug_lines(aggregate_summary)
+
+    assert "Evidence sources: none" in lines

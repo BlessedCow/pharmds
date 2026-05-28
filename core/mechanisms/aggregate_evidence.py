@@ -223,12 +223,24 @@ def _evidence_source_ids(
                     if not isinstance(evidence, dict):
                         continue
 
-                    source_id = evidence.get("source_id")
-                    if isinstance(source_id, str) and source_id:
+                    source_id = _evidence_source_id(evidence)
+                    if source_id:
                         source_ids.add(source_id)
 
     return tuple(sorted(source_ids))
 
+def _evidence_source_id(evidence: dict[str, Any]) -> str | None:
+    source_id = evidence.get("source_id")
+    if isinstance(source_id, str) and source_id:
+        return source_id
+
+    source = evidence.get("source")
+    if isinstance(source, dict):
+        nested_source_id = source.get("source_id")
+        if isinstance(nested_source_id, str) and nested_source_id:
+            return nested_source_id
+
+    return None
 
 def _string_value(
     item: dict[str, Any],

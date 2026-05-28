@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from core.evidence.loader import get_source_by_id
 from core.mechanisms.effect_labels import effect_display_label
 from core.mechanisms.result_summary import ResultSummary
 
@@ -51,6 +52,33 @@ def _format_effect_value(effect_id: Any) -> str:
         return effect
 
     return f"{effect} ({label})"
+
+def _format_evidence_source_label(source_id: str) -> str:
+    source = get_source_by_id(source_id)
+
+    if not source:
+        return source_id
+
+    title = source.get("title") or source_id
+    source_type = source.get("source_type")
+
+    if source_type:
+        return f"{title} ({source_type})"
+
+    return str(title)
+
+
+def _format_evidence_sources(source_ids: list[str]) -> str:
+    if not source_ids:
+        return "none"
+
+    noun = "source" if len(source_ids) == 1 else "sources"
+    labels = [
+        _format_evidence_source_label(source_id)
+        for source_id in source_ids
+    ]
+
+    return f"{len(source_ids)} {noun}: " + ", ".join(labels)
 
 def result_summary_to_streamlit_card(
     summary: ResultSummary,
@@ -145,6 +173,14 @@ def aggregate_summary_debug_fields(
             "evidence_trace_count",
             0,
         ),
+        "evidence_source_ids": list(
+            _summary_value(
+                evidence,
+                "evidence_source_ids",
+                (),
+            )
+            or []
+        ),
         "patient_risk_modifiers": list(
             _summary_value(
                 aggregate_summary,
@@ -181,6 +217,8 @@ def aggregate_summary_debug_lines(
         f"Evidence claims: {fields['evidence_claim_count']}",
         f"Evidence gaps: {fields['evidence_gap_count']}",
         f"Evidence traces: {fields['evidence_trace_count']}",
+        "Evidence sources: "
+        + _format_evidence_sources(fields["evidence_source_ids"]),
     ]
 
     if fields["targets"]:

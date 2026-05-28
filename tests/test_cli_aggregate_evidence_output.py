@@ -31,7 +31,12 @@ def test_cli_show_aggregate_evidence_outputs_summary_section(
     assert "evidence_statuses:" in out
     assert "evidence_gap_count:" in out
     assert "evidence_claim_count:" in out
-    assert "evidence_sources: none" in out
+    assert (
+        "evidence_sources: 3 sources: Clarithromycin Prescribing "
+        "Information (drug_label), Fluconazole Prescribing Information "
+        "(drug_label), Internal curated pharmacodynamic effects dataset "
+        "(internal_curated_entry)"
+    ) in out
     assert "evidence_source_ids:" not in out
     assert "member_without_evidence_trace_count:" in out
 
@@ -97,4 +102,9 @@ def test_cli_show_aggregate_evidence_outputs_readable_effect_labels(
     assert "evidence_trace_types: additive_pd_effect" in out
     assert "evidence_statuses: complete" in out
     assert "evidence_sources: none" in out
+    assert (
+        "evidence_sources: 2 sources: Clarithromycin Prescribing "
+        "Information (drug_label), Internal curated pharmacodynamic "
+        "effects dataset (internal_curated_entry)"
+    ) in out
     assert "evidence_source_ids:" not in out

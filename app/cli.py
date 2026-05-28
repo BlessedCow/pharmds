@@ -27,6 +27,7 @@ from core.evidence.gating import (
 from core.evidence.human_rendering import (
     build_human_evidence_lines_for_rule_hit,
 )
+from core.evidence.loader import get_source_by_id
 from core.exceptions import UnknownDrugError
 from core.mechanisms import (
     mechanism_pipeline_to_json_dict,
@@ -427,13 +428,32 @@ def _format_text_values(values: tuple[str, ...]) -> str:
     return ", ".join(values)
 
 
+def _format_evidence_source_label(source_id: str) -> str:
+    source = get_source_by_id(source_id)
+
+    if not source:
+        return source_id
+
+    title = source.get("title") or source_id
+    source_type = source.get("source_type")
+
+    if source_type:
+        return f"{title} ({source_type})"
+
+    return str(title)
+
+
 def _format_source_ids(source_ids: tuple[str, ...]) -> str:
     if not source_ids:
         return "none"
 
     noun = "source" if len(source_ids) == 1 else "sources"
-    return f"{len(source_ids)} {noun}: " + ", ".join(source_ids)
+    labels = [
+        _format_evidence_source_label(source_id)
+        for source_id in source_ids
+    ]
 
+    return f"{len(source_ids)} {noun}: " + ", ".join(labels)
 
 def _format_public_effect_text(text: str) -> str:
     out = text

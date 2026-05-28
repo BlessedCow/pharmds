@@ -114,6 +114,40 @@ def test_aggregate_to_evidence_summary_summarizes_complete_trace():
     assert summary.member_without_evidence_trace_count == 0
 
 
+def test_aggregate_to_evidence_summary_extracts_nested_source_ids():
+    trace = _trace(EVIDENCE_STATUS_COMPLETE)
+    trace["drugs"][0]["claims"][0]["evidence"] = [
+        {
+            "source": {
+                "source_id": "source_nested_clarithromycin_label",
+                "title": "Clarithromycin Prescribing Information",
+                "source_type": "drug_label",
+            },
+        }
+    ]
+
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="nausea",
+        policy_concern=POLICY_TOLERABILITY_CONCERN,
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="nausea",
+        members=(
+            _pd_member(
+                "clarithromycin",
+                "fluconazole",
+                evidence_trace=trace,
+            ),
+        ),
+    )
+
+    summary = aggregate_to_evidence_summary(aggregate)
+
+    assert summary.evidence_source_ids == (
+        "source_fluconazole_label",
+        "source_nested_clarithromycin_label",
+    )
+
 def test_aggregate_to_evidence_summary_counts_partial_evidence_gap():
     trace = _trace(EVIDENCE_STATUS_PARTIAL)
     trace["drugs"][1]["evidence_status"] = "missing"
