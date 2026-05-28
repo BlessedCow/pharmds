@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from core.mechanisms.effect_labels import effect_display_label
 from core.mechanisms.result_summary import ResultSummary
 
 MISSING_LABEL = "not_available"
@@ -39,6 +40,17 @@ def _clean_label(value: Any, *, fallback: str = MISSING_LABEL) -> str:
 
     return text
 
+def _format_effect_value(effect_id: Any) -> str:
+    effect = _clean_label(effect_id)
+
+    if effect == MISSING_LABEL:
+        return effect
+
+    label = effect_display_label(effect)
+    if label == effect:
+        return effect
+
+    return f"{effect} ({label})"
 
 def result_summary_to_streamlit_card(
     summary: ResultSummary,
@@ -107,6 +119,10 @@ def aggregate_summary_debug_fields(
         ),
         "anchor": _clean_label(_summary_value(aggregate, "anchor")),
         "effect_id": _clean_label(_summary_value(aggregate, "effect_id")),
+        "effect_label": _format_effect_value(
+            _summary_value(aggregate, "effect_id")
+            or _summary_value(aggregate, "anchor")
+        ),
         "targets": list(_summary_value(aggregate, "targets", ()) or []),
         "severity": _clean_label(
             _summary_value(severity, "strongest_preliminary_severity"),
@@ -159,7 +175,7 @@ def aggregate_summary_debug_lines(
         f"Aggregate type: {fields['aggregate_type']}",
         f"Concern: {fields['policy_concern']}",
         f"Anchor: {fields['anchor']}",
-        f"Effect: {fields['effect_id']}",
+        f"Effect: {fields['effect_label']}",
         f"Severity: {fields['severity']}",
         f"Evidence status: {fields['evidence_status']}",
         f"Evidence claims: {fields['evidence_claim_count']}",

@@ -1,0 +1,44 @@
+"""Streamlit rendering for aggregate/public result summaries."""
+
+from __future__ import annotations
+
+from typing import Any
+
+import streamlit as st
+
+from app.streamlit_ui.summary_helpers import (
+    aggregate_summary_debug_lines,
+    result_summaries_to_streamlit_cards,
+)
+
+
+def render_public_result_summaries(
+    public_result_summaries: list[Any],
+    aggregate_concern_summaries: list[Any],
+) -> None:
+    """Render public aggregate summaries and compact evidence details."""
+    cards = result_summaries_to_streamlit_cards(public_result_summaries)
+
+    if not cards:
+        return
+
+    st.subheader("Aggregate Summary")
+
+    for index, card in enumerate(cards):
+        with st.container(border=True):
+            st.markdown(f"### {card['title']}")
+            st.write(card["explanation"])
+
+            col_a, col_b, col_c = st.columns(3)
+            col_a.metric("Concern", card["concern_type"])
+            col_b.metric("Severity", card["severity_label"])
+            col_c.metric("Evidence", card["evidence_label"])
+
+            st.caption(f"Drugs: {card['drugs']}")
+
+            if index < len(aggregate_concern_summaries):
+                with st.expander("Evidence and mechanism details"):
+                    for line in aggregate_summary_debug_lines(
+                        aggregate_concern_summaries[index]
+                    ):
+                        st.write(line)

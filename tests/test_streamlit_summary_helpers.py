@@ -80,6 +80,7 @@ def test_aggregate_summary_debug_fields_extracts_compact_details():
     assert fields["policy_concern"] == "tolerability_concern"
     assert fields["anchor"] == "nausea"
     assert fields["effect_id"] == "nausea"
+    assert fields["effect_label"] == "nausea"
     assert fields["severity"] == "caution"
     assert fields["evidence_status"] == "complete"
     assert fields["evidence_claim_count"] == 2
@@ -151,8 +152,36 @@ def test_aggregate_summary_debug_fields_accepts_dataclass_summary():
     assert fields["policy_concern"] == "safety_concern"
     assert fields["anchor"] == "QT_prolongation"
     assert fields["effect_id"] == "QT_prolongation"
+    assert fields["effect_label"] == "QT_prolongation (QT prolongation)"
     assert fields["severity"] == "high_caution"
     assert fields["evidence_status"] == "complete"
     assert fields["evidence_claim_count"] == 2
     assert fields["evidence_trace_count"] == 2
     assert fields["patient_risk_modifiers"] == ["qt_risk"]
+    
+def test_aggregate_summary_debug_lines_show_readable_effect_label():
+    aggregate_summary = {
+        "aggregate": {
+            "aggregate_type": "shared_pd_effect_cluster",
+            "policy_concern": "safety_concern",
+            "anchor": "QT_prolongation",
+            "effect_id": "QT_prolongation",
+            "targets": [],
+        },
+        "severity_annotation": {
+            "strongest_preliminary_severity": "high_caution",
+        },
+        "evidence_summary": {
+            "overall_evidence_status": "complete",
+            "evidence_claim_count": 2,
+            "evidence_gap_count": 0,
+            "evidence_trace_count": 2,
+        },
+        "patient_risk_modifiers": [],
+        "risk_context": None,
+        "evidence_conflict_message": None,
+    }
+
+    lines = aggregate_summary_debug_lines(aggregate_summary)
+
+    assert "Effect: QT_prolongation (QT prolongation)" in lines

@@ -1,87 +1,19 @@
 import streamlit as st
 
 from app.service import analyze_text
-from app.streamlit_ui.summary_helpers import (
-    aggregate_summary_debug_lines,
-    result_summaries_to_streamlit_cards,
-)
+from app.streamlit_ui.aggregate_summary import render_public_result_summaries
+from app.streamlit_ui.controls import render_analysis_controls
+from app.streamlit_ui.pair_summary import render_pair_summary
+from app.streamlit_ui.regimen_summary import render_regimen_summary
 
-
-def render_public_result_summaries(
-    public_result_summaries,
-    aggregate_concern_summaries,
-):
-    """Render public aggregate summaries and compact evidence details."""
-    cards = result_summaries_to_streamlit_cards(public_result_summaries)
-
-    if not cards:
-        return
-
-    st.subheader("Aggregate Summary")
-
-    for index, card in enumerate(cards):
-        with st.container(border=True):
-            st.markdown(f"### {card['title']}")
-            st.write(card["explanation"])
-
-            col_a, col_b, col_c = st.columns(3)
-            col_a.metric("Concern", card["concern_type"])
-            col_b.metric("Severity", card["severity_label"])
-            col_c.metric("Evidence", card["evidence_label"])
-
-            st.caption(f"Drugs: {card['drugs']}")
-
-            if index < len(aggregate_concern_summaries):
-                with st.expander("Evidence and mechanism details"):
-                    for line in aggregate_summary_debug_lines(
-                        aggregate_concern_summaries[index]
-                    ):
-                        st.write(line)
-                        
 st.set_page_config(page_title="PharmDS (Educational)", layout="wide")
 st.title("PharmDS")
 st.caption("EDUCATIONAL ONLY. NOT FOR DIAGNOSTIC OR CLINICAL USE.")
 
-
-def reset_analysis_state():
-    """Clear user inputs and cached analysis output."""
-    st.session_state["drug_text"] = ""
-    st.session_state["qt_risk"] = False
-    st.session_state["bleeding_risk"] = False
-    st.session_state["domain"] = "all"
-    st.session_state["debug_mechanism_json"] = False
-    st.session_state["analysis_result"] = None
-
-
 if "analysis_result" not in st.session_state:
     st.session_state["analysis_result"] = None
 
-st.button("Reset", on_click=reset_analysis_state)
-
-drug_text = st.text_area(
-    "Drugs (one per line, or comma/space separated)",
-    height=140,
-    placeholder="quetiapine\nclarithromycin",
-    key="drug_text",
-)
-
-col1, col2, col3 = st.columns(3)
-with col1:
-    qt_risk = st.checkbox("QT risk factors", value=False, key="qt_risk")
-with col2:
-    bleeding_risk = st.checkbox(
-        "Bleeding risk factors",
-        value=False,
-        key="bleeding_risk",
-    )
-with col3:
-    domain = st.text_input(
-        "Domains (e.g. all, pk, pd, cyp, ugt, pgp, bcrp, oatp)",
-        value="all",
-        key="domain",
-    )
-
-run = st.button("Analyze", type="primary")
+drug_text, qt_risk, bleeding_risk, domain, run = render_analysis_controls()
 
 if run:
     st.session_state["analysis_result"] = analyze_text(
@@ -136,141 +68,7 @@ if res is not None:
         key="debug_mechanism_json",
     ):
         st.json(payload.get("mechanism_pipeline_json", {}))
-    # Regimen summary (only for 3+ drugs)
-    if regimen_summary:
-        st.subheader("Regimen Summary (all drugs)")
+    
+    render_regimen_summary(regimen_summary)
 
-        st.write(
-            f"Overall: severity={regimen_summary['overall_severity'].value} | "
-            f"class={regimen_summary['overall_rule_class'].value}"
-        )
-
-        hit_counts = regimen_summary.get("hit_counts", {})
-        col_a, col_b, col_c = st.columns(3)
-        col_a.metric("Drugs", regimen_summary.get("n_drugs", 0))
-        col_b.metric("Pairs with hits", regimen_summary.get("pair_count_with_hits", 0))
-        col_c.metric("Pairwise hits", hit_counts.get("total", 0))
-
-        st.caption(
-            f"PK hits: {hit_counts.get('pk', 0)} | "
-            f"PD hits: {hit_counts.get('pd', 0)}"
-        )
-
-        flags = regimen_summary.get("regimen_flags", [])
-        if flags:
-            st.warning("Regimen-level flags")
-            for flag in flags:
-                st.write(f"- {flag.get('message', '')}")
-
-        pd_stacks = regimen_summary.get("pd_stacks", [])
-        if pd_stacks:
-            st.markdown("### Repeated PD risk domains")
-            for stack in pd_stacks[:5]:
-                drug_names = ", ".join(
-                    d["drug_name"] for d in stack.get("drugs", [])
-                )
-                st.write(
-                    f"- **{stack['label']}**: {stack['count']} drugs "
-                    f"(max={stack['max_magnitude']}) - {drug_names}"
-                )
-
-        top_pairs = regimen_summary.get("top_pairs", [])
-        if top_pairs:
-            st.markdown("### Top interaction pairs")
-            for pair in top_pairs[:3]:
-                st.write(
-                    f"- **{pair['drug_1']['name']} + {pair['drug_2']['name']}**: "
-                    f"{pair['severity']} | {pair['class']} "
-                    f"({pair['total_hits']} hits)"
-                )
-
-    # Quick, simple pair list (sanity output)
-    st.subheader("Pair Summary")
-    if not pair_reports:
-        st.info(
-            "No rule-based interactions detected in selected domains "
-            "(educational scope)."
-        )
-        st.stop()
-
-    for rep in pair_reports:
-        d1 = facts.drugs[rep.drug_1].generic_name
-        d2 = facts.drugs[rep.drug_2].generic_name
-        title = (
-            f"{d1} + {d2} | "
-            f"severity={rep.overall_severity.value} | "
-            f"class={rep.overall_rule_class.value}"
-        )
-
-        with st.expander(title, expanded=False):
-            if rep.pk_hits:
-                st.markdown("### PK section (directional)")
-                if rep.pk_summary:
-                    st.write(f"PK summary: {rep.pk_summary}")
-
-                for h in rep.pk_hits:
-                    st.write(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
-
-                    A = facts.drugs[h.inputs["A"]].generic_name
-                    B = facts.drugs[h.inputs["B"]].generic_name
-                    st.write(f"  Affected: {A} | Interacting: {B}")
-
-                    tmpl = templates.get(h.rule_id, "")
-                    if tmpl:
-                        from reasoning.explain import render_explanation
-
-                        st.write("  Explanation:")
-                        st.write(render_explanation(tmpl, facts, h))
-
-                    from reasoning.explain import render_rationale
-
-                    rat = render_rationale(facts, h)
-                    if rat:
-                        st.write("  Rationale:")
-                        st.code(rat)
-
-                    if h.actions:
-                        st.write("  Suggested actions:")
-                        for a in h.actions:
-                            st.write(f"  - {a}")
-
-            if rep.pd_hits:
-                st.markdown("### PD section (shared domain)")
-                for h in rep.pd_hits:
-                    st.write(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
-
-                    tmpl = templates.get(h.rule_id, "")
-                    if tmpl:
-                        from reasoning.explain import render_explanation
-
-                        st.write("  Explanation:")
-                        st.write(render_explanation(tmpl, facts, h))
-
-                    from reasoning.explain import render_rationale
-
-                    rat = render_rationale(facts, h)
-                    if rat:
-                        st.write("  Rationale:")
-                        st.code(rat)
-
-                    if h.actions:
-                        st.write("  Suggested actions:")
-                        for a in h.actions:
-                            st.write(f"  - {a}")
-
-            # References (rule-level)
-            refs = []
-            for h in (rep.pk_hits or []) + (rep.pd_hits or []):
-                refs.extend(h.references or [])
-
-            uniq = {
-                (r.get("source", ""), 
-                 r.get("citation", ""), 
-                 r.get("url", "")) for r in refs}
-            if uniq:
-                st.markdown("### References (rule-level)")
-                for source, citation, url in sorted(uniq):
-                    if url:
-                        st.write(f"- {source}: {citation} ({url})")
-                    else:
-                        st.write(f"- {source}: {citation}")
+    render_pair_summary(facts, pair_reports, templates)
