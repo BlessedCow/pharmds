@@ -6,6 +6,7 @@ from app.streamlit_ui.controls import render_analysis_controls
 from app.streamlit_ui.debug import render_mechanism_debug_json
 from app.streamlit_ui.pair_summary import render_pair_summary
 from app.streamlit_ui.regimen_summary import render_regimen_summary
+from app.streamlit_ui.result_state import analysis_state_from_payload
 
 st.set_page_config(page_title="PharmDS (Educational)", layout="wide")
 st.title("PharmDS")
@@ -43,28 +44,25 @@ if res is not None:
         st.error(payload.get("error", "Unknown error"))
         st.stop()
 
-    payload = res.payload
-    facts = payload["facts"]
-    pair_reports = payload["pair_reports"]
-    templates = payload["templates"]
-    selected_domains = payload["selected_domains"]
-    regimen_summary = payload.get("regimen_summary")
-    public_result_summaries = payload.get("public_result_summaries", [])
-    aggregate_concern_summaries = payload.get("aggregate_concern_summaries", [])
+    analysis_state = analysis_state_from_payload(res.payload)
 
     st.success(
-        f"Drugs: {len(payload['drug_ids'])} | "
-        f"Pairs: {len(pair_reports)} | "
-        f"Domains: {', '.join(selected_domains)}"
+        f"Drugs: {len(analysis_state.drug_ids)} | "
+        f"Pairs: {len(analysis_state.pair_reports)} | "
+        f"Domains: {', '.join(analysis_state.selected_domains)}"
     )
 
     render_public_result_summaries(
-        public_result_summaries,
-        aggregate_concern_summaries,
+        analysis_state.public_result_summaries,
+        analysis_state.aggregate_concern_summaries,
     )
 
-    render_mechanism_debug_json(payload)
+    render_mechanism_debug_json(analysis_state.payload)
 
-    render_regimen_summary(regimen_summary)
+    render_regimen_summary(analysis_state.regimen_summary)
 
-    render_pair_summary(facts, pair_reports, templates)
+    render_pair_summary(
+        analysis_state.facts,
+        analysis_state.pair_reports,
+        analysis_state.templates,
+    )
