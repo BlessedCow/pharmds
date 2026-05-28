@@ -76,6 +76,11 @@ _CLASS_STYLE = {
     "caution": "yellow",
     "info": "dim",
 }
+_RICH_EMPTY_SUMMARY_MESSAGE = "No pairwise rule-based rows to display."
+_RICH_EMPTY_DETAILS_MESSAGE = "No pairwise detail panels to display."
+_RICH_AGGREGATE_HINT_MESSAGE = (
+    "Use --show-aggregate-summaries to inspect mechanism-level aggregate concerns."
+)
 
 _EFFECT_TOKEN_RE = re.compile(r"\b[A-Za-z][A-Za-z0-9_]+\b")
 _LABEL_PREFIX_RE = re.compile(
@@ -303,6 +308,18 @@ def render_rich_summary(rows: list[SummaryRow], top: int = 0) -> None:
     from rich.table import Table
 
     console = _mk_console()
+
+    if not rows:
+        console.print(
+            Panel(
+                _RICH_EMPTY_SUMMARY_MESSAGE,
+                title="Interaction Summary (pairwise)",
+                border_style="dim",
+                expand=True,
+            )
+        )
+        return
+
     table = Table(title="Interaction Summary (pairwise)", show_lines=False)
 
     # Let Pair wrap
@@ -348,6 +365,22 @@ def render_rich_details(
     Important: build the panel body as Rich Text so we can colorize effect IDs.
     """
     console = _mk_console()
+    reports = list(reports)
+
+    if not reports:
+        body = Text(_RICH_EMPTY_DETAILS_MESSAGE, style="dim")
+        body.append("\n")
+        body.append(_RICH_AGGREGATE_HINT_MESSAGE, style="dim")
+
+        console.print(
+            Panel(
+                body,
+                title="Pairwise Details",
+                border_style="dim",
+                expand=False,
+            )
+        )
+        return
 
     for rep in reports:
         d1 = facts.drugs[rep.drug_1].generic_name
