@@ -29,8 +29,9 @@ def test_cli_show_aggregate_summaries_outputs_pd_summary(
     assert "policy_concern: tolerability_concern" in out
     assert "strongest_preliminary_severity: informational" in out
     assert "evidence_status: complete" in out
-    assert "evidence_gap_count: 0" in out
     assert "evidence_claim_count: 2" in out
+    assert "evidence_source_count:" in out
+    assert "evidence_sources: none" in out
     assert "evidence_source_count:" in out
 
     assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" not in out
@@ -67,6 +68,7 @@ def test_cli_show_aggregate_summaries_outputs_pk_summary(
     assert "evidence_gap_count: 0" in out
     assert "evidence_claim_count: 0" in out
     assert "evidence_source_count: 0" in out
+    assert "evidence_sources: none" in out
 
     assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" not in out
     assert "Overall: severity=" not in out
@@ -151,7 +153,10 @@ def test_cli_show_aggregate_summaries_outputs_patient_risk_context(
 
     assert "Aggregate Concern Summaries" in out
     assert "shared_pd_effect_cluster: QT_prolongation" in out
-    assert "patient_risk_modifiers: qt_risk" in out
+    assert "effect: QT_prolongation (QT prolongation)" in out
+    assert "effect_label: QT prolongation" not in out
+    assert "QT prolongation pharmacodynamic effect" in out
+    assert "QT_prolongation-related pharmacodynamic effect" not in out
     assert (
         "risk_context: QT-related concern may be more important when QT risk "
         "flag is present."

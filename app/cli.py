@@ -36,7 +36,10 @@ from core.mechanisms.aggregation_debug import format_aggregate_concerns
 from core.mechanisms.arbitration_debug import format_arbitration_results
 from core.mechanisms.candidate_debug import format_interaction_candidates
 from core.mechanisms.debug import format_mechanism_effects
-from core.mechanisms.effect_labels import effect_display_label
+from core.mechanisms.effect_labels import (
+    PUBLIC_EFFECT_LABELS,
+    effect_display_label,
+)
 from core.mechanisms.policy_debug import format_policy_results
 from core.mechanisms.result_summary import (
     ResultSummary,
@@ -401,6 +404,56 @@ def _format_effect_label_line(effect_id: str | None) -> str | None:
 
     return f"  effect_label: {label}"
 
+def _format_effect_value(effect_id: str | None) -> str:
+    if not effect_id:
+        return "unspecified effect"
+
+    label = effect_display_label(effect_id)
+    if label == effect_id:
+        return effect_id
+
+    return f"{effect_id} ({label})"
+
+def _format_effect_values(effect_ids: tuple[str, ...]) -> str:
+    if not effect_ids:
+        return "none"
+
+    return ", ".join(_format_effect_value(effect_id) for effect_id in effect_ids)
+
+def _format_text_values(values: tuple[str, ...]) -> str:
+    if not values:
+        return "none"
+
+    return ", ".join(values)
+
+
+def _format_source_ids(source_ids: tuple[str, ...]) -> str:
+    if not source_ids:
+        return "none"
+
+    noun = "source" if len(source_ids) == 1 else "sources"
+    return f"{len(source_ids)} {noun}: " + ", ".join(source_ids)
+
+
+def _format_public_effect_text(text: str) -> str:
+    out = text
+
+    for effect_id in sorted(PUBLIC_EFFECT_LABELS, key=len, reverse=True):
+        effect_label = effect_display_label(effect_id)
+        out = out.replace(
+            f"{effect_id}-related pharmacodynamic effect",
+            _public_pd_effect_phrase(effect_id, effect_label),
+        )
+        out = out.replace(effect_id, effect_label)
+
+    return out
+
+
+def _public_pd_effect_phrase(effect_id: str, effect_label: str) -> str:
+    if effect_label == effect_id:
+        return f"{effect_label}-related pharmacodynamic effect"
+
+    return f"{effect_label} pharmacodynamic effect"
 
 def _format_evidence_gap_item(item: dict) -> str:
     source_types = ", ".join(item.get("source_types") or ["no_source"])
@@ -532,17 +585,14 @@ def render_aggregate_evidence_summary(pipeline):
         aggregate = summary.aggregate
         drugs = ", ".join(aggregate.drugs)
         effect_id = aggregate.effect_id or aggregate.anchor
-        effect_label_line = _format_effect_label_line(effect_id)
 
         lines.append("")
         lines.append(
             f"- {aggregate.aggregate_type}: {aggregate.anchor}"
             f" | policy_concern={aggregate.policy_concern}"
             f" | drugs={drugs}"
-            f" | effect={effect_id}"
+            f" | effect={_format_effect_value(effect_id)}"
         )
-        if effect_label_line:
-            lines.append(effect_label_line)
         lines.append(
             "  overall_evidence_status: "
             + str(summary.overall_evidence_status)
@@ -552,29 +602,19 @@ def render_aggregate_evidence_summary(pipeline):
             + str(summary.evidence_trace_count)
         )
 
-        if summary.evidence_trace_types:
-            lines.append(
-                "  evidence_trace_types: "
-                + ", ".join(summary.evidence_trace_types)
-            )
-        else:
-            lines.append("  evidence_trace_types: none")
+        lines.append(
+            "  evidence_trace_types: "
+            + _format_text_values(summary.evidence_trace_types)
+        )
+        lines.append(
+            "  evidence_effect_ids: "
+            + _format_effect_values(summary.evidence_effect_ids)
+        )
 
-        if summary.evidence_effect_ids:
-            lines.append(
-                "  evidence_effect_ids: "
-                + ", ".join(summary.evidence_effect_ids)
-            )
-        else:
-            lines.append("  evidence_effect_ids: none")
-
-        if summary.evidence_statuses:
-            lines.append(
-                "  evidence_statuses: "
-                + ", ".join(summary.evidence_statuses)
-            )
-        else:
-            lines.append("  evidence_statuses: none")
+        lines.append(
+            "  evidence_statuses: "
+            + _format_text_values(summary.evidence_statuses)
+        )
 
         lines.append(
             "  evidence_gap_count: "
@@ -585,14 +625,10 @@ def render_aggregate_evidence_summary(pipeline):
             + str(summary.evidence_claim_count)
         )
 
-        if summary.evidence_source_ids:
-            lines.append(
-                "  evidence_source_ids: "
-                + ", ".join(summary.evidence_source_ids)
-            )
-        else:
-            lines.append("  evidence_source_ids: none")
-
+        lines.append(
+            "  evidence_sources: "
+            + _format_source_ids(summary.evidence_source_ids)
+        )
         lines.append(
             "  member_without_evidence_trace_count: "
             + str(summary.member_without_evidence_trace_count)
@@ -615,7 +651,6 @@ def render_aggregate_concern_summaries(
     else:
         visible_summaries = summaries
 
-    hidden_count = len(summaries) - len(visible_summaries)
     lines = []
 
     for summary in visible_summaries:
@@ -625,14 +660,11 @@ def render_aggregate_concern_summaries(
         drugs = ", ".join(aggregate.drugs) if aggregate.drugs else "none"
         targets = ", ".join(aggregate.targets) if aggregate.targets else "none"
         effect_id = aggregate.effect_id or aggregate.anchor
-        effect_label_line = _format_effect_label_line(effect_id)
 
         lines.append("")
         lines.append(f"- {aggregate.aggregate_type}: {aggregate.anchor}")
         lines.append(f"  drugs: {drugs}")
-        lines.append(f"  effect: {effect_id}")
-        if effect_label_line:
-            lines.append(effect_label_line)
+        lines.append(f"  effect: {_format_effect_value(effect_id)}")
         lines.append(f"  targets: {targets}")
         lines.append(f"  policy_concern: {aggregate.policy_concern}")
 
@@ -645,27 +677,27 @@ def render_aggregate_concern_summaries(
             lines.append("  strongest_preliminary_severity: none")
 
         if evidence:
-            lines.append(
-                "  evidence_status: "
-                + str(evidence.overall_evidence_status)
-            )
-            lines.append(
-                "  evidence_gap_count: "
-                + str(evidence.evidence_gap_count)
-            )
-            lines.append(
-                "  evidence_claim_count: "
-                + str(evidence.evidence_claim_count)
-            )
-            lines.append(
-                "  evidence_source_count: "
-                + str(len(evidence.evidence_source_ids))
-            )
+            evidence_status = evidence.overall_evidence_status
+            evidence_gap_count = evidence.evidence_gap_count
+            evidence_claim_count = evidence.evidence_claim_count
+            evidence_source_ids = evidence.evidence_source_ids
         else:
-            lines.append("  evidence_status: none")
-            lines.append("  evidence_gap_count: 0")
-            lines.append("  evidence_claim_count: 0")
-            lines.append("  evidence_source_count: 0")
+            evidence_status = "none"
+            evidence_gap_count = 0
+            evidence_claim_count = 0
+            evidence_source_ids = ()
+
+        lines.append(f"  evidence_status: {evidence_status}")
+        lines.append(f"  evidence_gap_count: {evidence_gap_count}")
+        lines.append(f"  evidence_claim_count: {evidence_claim_count}")
+        lines.append(
+            "  evidence_source_count: "
+            + str(len(evidence_source_ids))
+        )
+        lines.append(
+            "  evidence_sources: "
+            + _format_source_ids(evidence_source_ids)
+        )
 
         if summary.patient_risk_modifiers:
             lines.append(
@@ -702,7 +734,12 @@ def render_aggregate_concern_summaries(
             )
 
         if summary.narrative:
-            lines.append("  narrative: " + summary.narrative)   
+            lines.append(
+                "  narrative: "
+                + _format_public_effect_text(summary.narrative)
+            )
+
+    hidden_count = len(summaries) - len(visible_summaries)
     if hidden_count > 0:
         noun = "summary" if hidden_count == 1 else "summaries"
         lines.append("")
