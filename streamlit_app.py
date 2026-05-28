@@ -3,6 +3,7 @@ import streamlit as st
 from app.service import analyze_text
 from app.streamlit_ui.aggregate_summary import render_public_result_summaries
 from app.streamlit_ui.controls import render_analysis_controls
+from app.streamlit_ui.debug import render_mechanism_debug_json
 from app.streamlit_ui.pair_summary import render_pair_summary
 from app.streamlit_ui.regimen_summary import render_regimen_summary
 
@@ -62,13 +63,8 @@ if res is not None:
         aggregate_concern_summaries,
     )
 
-    if st.checkbox(
-        "Debug: full mechanism JSON",
-        value=False,
-        key="debug_mechanism_json",
-    ):
-        st.json(payload.get("mechanism_pipeline_json", {}))
-    
+    render_mechanism_debug_json(payload)
+
     render_regimen_summary(regimen_summary)
 
     render_pair_summary(facts, pair_reports, templates)
