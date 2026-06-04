@@ -12,9 +12,13 @@ from core.evidence.loader import (
     get_pd_effect_claims_for_drug_effect,
     get_pd_effect_claims_for_effect,
     get_source_by_id,
+    load_curated_drug_ids,
+    load_curated_pd_effect_ids,
     load_pd_effect_claims,
     load_source_index,
     load_sources,
+    validate_claim_domain_references,
+    validate_claim_records,
     validate_claim_source_references,
     validate_evidence_source_registry,
     validate_source_records,
@@ -68,7 +72,11 @@ def test_load_pd_effect_claims_returns_claims():
         for claim in claims
     )
 
+def test_load_pd_effect_claims_validates_current_claim_data():
+    claims = load_pd_effect_claims()
 
+    assert claims
+    
 def test_get_source_by_id_returns_matching_source():
     source = get_source_by_id("source_internal_curated_pd_effects_v1")
 
@@ -124,6 +132,64 @@ def test_load_source_index_returns_real_source_lookup():
         source_index["source_internal_curated_pd_effects_v1"]["title"]
         == "Internal curated pharmacodynamic effects dataset"
     )
+
+def test_load_curated_drug_ids_returns_known_drugs():
+    drug_ids = load_curated_drug_ids()
+
+    assert "amitriptyline" in drug_ids
+    assert "hydroxyzine" in drug_ids
+
+
+def test_load_curated_pd_effect_ids_returns_known_effects():
+    effect_ids = load_curated_pd_effect_ids()
+
+    assert "h1_antagonism" in effect_ids
+    assert "sedation" in effect_ids
+
+
+def test_validate_claim_domain_references_accepts_current_claims():
+    validate_claim_domain_references(
+        load_pd_effect_claims(),
+        known_drug_ids=load_curated_drug_ids(),
+        known_effect_ids=load_curated_pd_effect_ids(),
+    )
+
+
+def test_validate_claim_domain_references_rejects_unknown_drug_id():
+    claims = [
+        _claim_record(
+            "claim_unknown_drug",
+            subject={
+                "entity_type": "drug",
+                "id": "not_a_real_drug",
+            },
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="unknown drug_id: not_a_real_drug"):
+        validate_claim_domain_references(
+            claims,
+            known_drug_ids={"test_drug"},
+            known_effect_ids={"sedation"},
+        )
+
+
+def test_validate_claim_domain_references_rejects_unknown_effect_id():
+    claims = [
+        _claim_record(
+            "claim_unknown_effect",
+            object={
+                "effect_id": "not_a_real_effect",
+            },
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="unknown effect_id: not_a_real_effect"):
+        validate_claim_domain_references(
+            claims,
+            known_drug_ids={"test_drug"},
+            known_effect_ids={"sedation"},
+        )
 
 def test_get_pd_effect_claims_for_drug_returns_matching_claims():
     claims = get_pd_effect_claims_for_drug("clarithromycin")
@@ -420,7 +486,44 @@ def test_selected_pd_effect_claims_include_real_source_evidence():
 
     assert "source_internal_curated_pd_effects_v1" in source_ids
     assert "source_dailymed_fluconazole_label" in source_ids
-    
+
+def _claim_record(claim_id: str, **overrides):
+    claim = {
+        "claim_id": claim_id,
+        "claim_type": "pd_effect",
+        "subject": {
+            "entity_type": "drug",
+            "id": "test_drug",
+        },
+        "predicate": "has_pd_effect",
+        "object": {
+            "effect_id": "sedation",
+        },
+        "evidence": [
+            {
+                "source_id": "source_known",
+                "evidence_type": "drug_label",
+                "supports_claim": True,
+                "confidence": "high",
+                "notes": "Test evidence.",
+            }
+        ],
+        "review": {
+            "status": "approved",
+            "reviewed_by": "maintainer",
+            "reviewed_at": "2026-05-26",
+        },
+        "claim_status": "active",
+        "contributor": {
+            "id": "project_maintainer",
+            "role": "maintainer",
+            "submitted_at": "2026-05-26",
+        },
+    }
+    claim.update(overrides)
+
+    return claim
+
 def _source_record(source_id: str, **overrides):
     source = {
         "source_id": source_id,
@@ -475,6 +578,185 @@ def test_validate_source_records_rejects_unknown_reliability_tier():
 
 def test_validate_evidence_source_registry_accepts_current_data():
     validate_evidence_source_registry()
+
+def test_validate_claim_records_accepts_current_claims():
+    validate_claim_records(load_pd_effect_claims())
+
+
+def test_validate_claim_records_rejects_missing_required_fields():
+    claim = _claim_record("claim_missing_subject")
+    del claim["subject"]
+
+    with pytest.raises(ValueError, match="missing required fields: subject"):
+        validate_claim_records([claim])
+
+
+def test_validate_claim_records_rejects_duplicate_claim_ids():
+    claims = [
+        _claim_record("claim_duplicate"),
+        _claim_record("claim_duplicate"),
+    ]
+
+    with pytest.raises(ValueError, match="Duplicate evidence claim_id"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_blank_claim_id():
+    claims = [
+        _claim_record(""),
+    ]
+
+    with pytest.raises(ValueError, match="must include non-empty 'claim_id'"):
+        validate_claim_records(claims)
+
+def test_validate_claim_records_rejects_unknown_claim_type():
+    claims = [
+        _claim_record("claim_bad_type", claim_type="pk_effect"),
+    ]
+
+    with pytest.raises(ValueError, match="unknown claim_type: pk_effect"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_unknown_predicate():
+    claims = [
+        _claim_record("claim_bad_predicate", predicate="causes_effect"),
+    ]
+
+    with pytest.raises(ValueError, match="unknown predicate: causes_effect"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_non_object_subject():
+    claims = [
+        _claim_record("claim_bad_subject", subject="drug"),
+    ]
+
+    with pytest.raises(ValueError, match="subject must be an object"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_unknown_subject_entity_type():
+    claims = [
+        _claim_record(
+            "claim_bad_subject_entity",
+            subject={
+                "entity_type": "food",
+                "id": "grapefruit",
+            },
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="unknown subject entity_type: food"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_blank_effect_id():
+    claims = [
+        _claim_record(
+            "claim_blank_effect",
+            object={
+                "effect_id": "",
+            },
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="must include non-empty 'effect_id'"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_empty_evidence_list():
+    claims = [
+        _claim_record("claim_empty_evidence", evidence=[]),
+    ]
+
+    with pytest.raises(ValueError, match="evidence must be a non-empty list"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_non_boolean_supports_claim():
+    claims = [
+        _claim_record(
+            "claim_bad_supports_claim",
+            evidence=[
+                {
+                    "source_id": "source_known",
+                    "evidence_type": "drug_label",
+                    "supports_claim": "yes",
+                    "confidence": "high",
+                    "notes": "Test evidence.",
+                }
+            ],
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="supports_claim must be a boolean"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_unknown_evidence_type():
+    claims = [
+        _claim_record(
+            "claim_bad_evidence_type",
+            evidence=[
+                {
+                    "source_id": "source_known",
+                    "evidence_type": "blog_post",
+                    "supports_claim": True,
+                    "confidence": "high",
+                    "notes": "Test evidence.",
+                }
+            ],
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="unknown evidence_type: blog_post"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_unknown_confidence():
+    claims = [
+        _claim_record(
+            "claim_bad_confidence",
+            evidence=[
+                {
+                    "source_id": "source_known",
+                    "evidence_type": "drug_label",
+                    "supports_claim": True,
+                    "confidence": "certain",
+                    "notes": "Test evidence.",
+                }
+            ],
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="unknown confidence: certain"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_unknown_review_status():
+    claims = [
+        _claim_record(
+            "claim_bad_review_status",
+            review={
+                "status": "pending",
+                "reviewed_by": "maintainer",
+                "reviewed_at": "2026-05-26",
+            },
+        ),
+    ]
+
+    with pytest.raises(ValueError, match="unknown review status: pending"):
+        validate_claim_records(claims)
+
+
+def test_validate_claim_records_rejects_non_object_contributor():
+    claims = [
+        _claim_record("claim_bad_contributor", contributor="maintainer"),
+    ]
+
+    with pytest.raises(ValueError, match="contributor must be an object"):
+        validate_claim_records(claims)
 
 def test_validate_claim_source_references_rejects_unknown_source_id():
     claims = [
