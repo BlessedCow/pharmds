@@ -80,6 +80,24 @@ def _format_evidence_sources(source_ids: list[str]) -> str:
 
     return f"{len(source_ids)} {noun}: " + ", ".join(labels)
 
+def _format_evidence_conflict_reasons(
+    reasons: list[str] | tuple[str, ...],
+) -> str:
+    if not reasons:
+        return "none"
+
+    labels = {
+        "claim_disagreement": "claim disagreement",
+        "confidence": "confidence limitations",
+        "coverage": "coverage gaps",
+        "source_mismatch": "mixed source types",
+    }
+
+    return ", ".join(
+        labels.get(str(reason), str(reason).replace("_", " "))
+        for reason in reasons
+    )
+
 def result_summary_to_streamlit_card(
     summary: ResultSummary,
 ) -> dict[str, Any]:
@@ -198,6 +216,18 @@ def aggregate_summary_debug_fields(
             aggregate_summary,
             "evidence_conflict_message",
         ),
+        "evidence_conflict_reasons": list(
+            _summary_value(
+                aggregate_summary,
+                "evidence_conflict_reasons",
+                _summary_value(
+                    evidence,
+                    "evidence_conflict_reasons",
+                    (),
+                ),
+            )
+            or []
+        ),
     }
 
 
@@ -235,6 +265,13 @@ def aggregate_summary_debug_lines(
         lines.append(
             "Evidence conflict: "
             f"{fields['evidence_conflict_message']}"
+        )
+    if fields["evidence_conflict_reasons"]:
+        lines.append(
+            "Evidence conflict reasons: "
+            + _format_evidence_conflict_reasons(
+                fields["evidence_conflict_reasons"]
+            )
         )
 
     return lines

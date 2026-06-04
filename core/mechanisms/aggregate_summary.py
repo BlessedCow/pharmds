@@ -12,6 +12,10 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 
 from core.mechanisms.aggregate_evidence import (
+    EVIDENCE_CONFLICT_REASON_CLAIM_DISAGREEMENT,
+    EVIDENCE_CONFLICT_REASON_CONFIDENCE,
+    EVIDENCE_CONFLICT_REASON_COVERAGE,
+    EVIDENCE_CONFLICT_REASON_SOURCE_MISMATCH,
     EVIDENCE_STATUS_COMPLETE,
     EVIDENCE_STATUS_CONFLICTING,
     EVIDENCE_STATUS_DISPUTED,
@@ -64,6 +68,12 @@ PATIENT_RISK_CONTEXT = {
 EVIDENCE_CONFLICT_LEVEL_NONE = "none"
 EVIDENCE_CONFLICT_LEVEL_DISPUTED = "disputed"
 EVIDENCE_CONFLICT_LEVEL_CONFLICTING = "conflicting"
+EVIDENCE_CONFLICT_REASON_LABELS = {
+    EVIDENCE_CONFLICT_REASON_CLAIM_DISAGREEMENT: "claim disagreement",
+    EVIDENCE_CONFLICT_REASON_CONFIDENCE: "confidence limitations",
+    EVIDENCE_CONFLICT_REASON_COVERAGE: "coverage gaps",
+    EVIDENCE_CONFLICT_REASON_SOURCE_MISMATCH: "mixed source types",
+}
 
 @dataclass(frozen=True)
 class AggregateConcernSummary:
@@ -78,6 +88,7 @@ class AggregateConcernSummary:
     evidence_conflict_message: str | None = None
     evidence_conflict_source_ids: tuple[str, ...] = ()
     evidence_conflict_trace_types: tuple[str, ...] = ()
+    evidence_conflict_reasons: tuple[str, ...] = ()
     narrative: str = ""
 
     @property
@@ -115,6 +126,7 @@ def build_aggregate_concern_summaries(
             conflict_message,
             conflict_source_ids,
             conflict_trace_types,
+            conflict_reasons,
         ) = summarize_evidence_conflict_surface(evidence_summary)
 
         summary = AggregateConcernSummary(
@@ -127,6 +139,7 @@ def build_aggregate_concern_summaries(
             evidence_conflict_message=conflict_message,
             evidence_conflict_source_ids=conflict_source_ids,
             evidence_conflict_trace_types=conflict_trace_types,
+            evidence_conflict_reasons=conflict_reasons,
         )
         summaries.append(
             replace(
@@ -227,10 +240,16 @@ def summarize_patient_risk_modifiers(
 
 def summarize_evidence_conflict_surface(
     evidence: AggregateEvidenceSummary | None,
-) -> tuple[str, str | None, tuple[str, ...], tuple[str, ...]]:
+) -> tuple[
+    str,
+    str | None,
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+]:
     """Return human-readable conflict/dispute context for aggregate evidence."""
     if not evidence:
-        return EVIDENCE_CONFLICT_LEVEL_NONE, None, (), ()
+        return EVIDENCE_CONFLICT_LEVEL_NONE, None, (), (), ()
 
     if evidence.overall_evidence_status == EVIDENCE_STATUS_CONFLICTING:
         return (
@@ -239,9 +258,14 @@ def summarize_evidence_conflict_surface(
                 "Conflicting curated evidence is attached to this aggregate "
                 "concern and should be reviewed separately instead of being "
                 "treated as complete support."
+                + _evidence_reason_sentence(
+                    evidence.evidence_conflict_reasons,
+                    prefix="Conflict indicator(s)",
+                )
             ),
             evidence.evidence_source_ids,
             evidence.evidence_trace_types,
+            evidence.evidence_conflict_reasons,
         )
 
     if evidence.overall_evidence_status == EVIDENCE_STATUS_DISPUTED:
@@ -250,12 +274,23 @@ def summarize_evidence_conflict_surface(
             (
                 "Disputed curated evidence is attached to this aggregate "
                 "concern and should be reviewed separately."
+                + _evidence_reason_sentence(
+                    evidence.evidence_conflict_reasons,
+                    prefix="Dispute indicator(s)",
+                )
             ),
             evidence.evidence_source_ids,
             evidence.evidence_trace_types,
+            evidence.evidence_conflict_reasons,
         )
 
-    return EVIDENCE_CONFLICT_LEVEL_NONE, None, (), ()
+    return (
+        EVIDENCE_CONFLICT_LEVEL_NONE,
+        None,
+        (),
+        (),
+        evidence.evidence_conflict_reasons,
+    )
 
 def build_aggregate_summary_narrative(
     summary: AggregateConcernSummary,
@@ -348,7 +383,18 @@ def _aggregate_evidence_narrative(
         evidence.overall_evidence_status,
     )
 
-    return f"This grouped concern has {evidence_label}."
+    limitation_text = ""
+
+    if (
+        evidence.evidence_conflict_reasons
+        and summary.evidence_conflict_level == EVIDENCE_CONFLICT_LEVEL_NONE
+    ):
+        limitation_text = _evidence_reason_sentence(
+            evidence.evidence_conflict_reasons,
+            prefix="Evidence limitation indicator(s)",
+        )
+
+    return f"This grouped concern has {evidence_label}.{limitation_text}"
 
 
 def _aggregate_severity_narrative(
@@ -379,6 +425,27 @@ def _aggregate_patient_risk_narrative(
 
     return f"Patient risk modifier(s) present: {modifiers}."
 
+def _evidence_reason_sentence(
+    reasons: tuple[str, ...],
+    *,
+    prefix: str,
+) -> str:
+    if not reasons:
+        return ""
+
+    labels = tuple(
+        _evidence_reason_label(reason)
+        for reason in reasons
+    )
+
+    return f" {prefix}: {_human_join(labels)}."
+
+
+def _evidence_reason_label(reason: str) -> str:
+    return EVIDENCE_CONFLICT_REASON_LABELS.get(
+        reason,
+        reason.replace("_", " "),
+    )
 
 def _evidence_status_label(status: str) -> str:
     labels = {

@@ -325,3 +325,64 @@ def test_aggregate_evidence_missing_status_is_not_complete():
 
     assert summary.overall_evidence_status == EVIDENCE_STATUS_MISSING
     assert summary.evidence_statuses == (EVIDENCE_STATUS_MISSING,)
+    
+def test_aggregate_evidence_classifies_conflict_reasons():
+    trace = _trace(EVIDENCE_STATUS_CONFLICTING)
+    trace["drugs"][0]["evidence_status"] = EVIDENCE_STATUS_CONFLICTING
+    trace["drugs"][0]["claims"][0].update(
+        {
+            "evidence_support_status": EVIDENCE_STATUS_CONFLICTING,
+            "evidence_support_counts": {
+                "supporting": 1,
+                "disputing": 1,
+            },
+            "evidence_confidence": {
+                "level": "low",
+                "reasons": ["conflicting evidence"],
+            },
+        }
+    )
+    trace["drugs"][0]["claims"][0]["evidence"] = [
+        {
+            "source": {
+                "source_id": "source_clarithromycin_label",
+                "source_type": "drug_label",
+            },
+        },
+        {
+            "source": {
+                "source_id": "source_internal_curated",
+                "source_type": "internal_curated_entry",
+            },
+        },
+    ]
+    trace["drugs"][1]["evidence_status"] = "missing"
+    trace["drugs"][1]["claims"] = []
+
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="nausea",
+        policy_concern=POLICY_TOLERABILITY_CONCERN,
+        drugs=("clarithromycin", "fluconazole"),
+        effect_id="nausea",
+        members=(
+            _pd_member(
+                "clarithromycin",
+                "fluconazole",
+                evidence_trace=trace,
+            ),
+        ),
+    )
+
+    summary = aggregate_to_evidence_summary(aggregate)
+
+    assert summary.evidence_source_types == (
+        "drug_label",
+        "internal_curated_entry",
+    )
+    assert summary.evidence_conflict_reasons == (
+        "claim_disagreement",
+        "confidence",
+        "coverage",
+        "source_mismatch",
+    )

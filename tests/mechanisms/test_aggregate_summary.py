@@ -400,8 +400,11 @@ def test_build_aggregate_concern_summaries_surfaces_conflicting_evidence():
             "source_a",
             "source_b",
         ),
+        evidence_conflict_reasons=(
+            "claim_disagreement",
+            "confidence",
+        ),
     )
-
     summaries = build_aggregate_concern_summaries(
         [aggregate],
         [],
@@ -414,12 +417,40 @@ def test_build_aggregate_concern_summaries_surfaces_conflicting_evidence():
     assert summary.evidence_conflict_message == (
         "Conflicting curated evidence is attached to this aggregate concern "
         "and should be reviewed separately instead of being treated as "
-        "complete support."
+        "complete support. Conflict indicator(s): claim disagreement and "
+        "confidence limitations."
     )
     assert summary.evidence_conflict_source_ids == ("source_a", "source_b")
     assert summary.evidence_conflict_trace_types == ("additive_pd_effect",)
+    assert summary.evidence_conflict_reasons == (
+        "claim_disagreement",
+        "confidence",
+    )
     assert "Conflicting curated evidence" in summary.narrative
 
+def test_aggregate_summary_narrative_explains_partial_evidence_reason():
+    aggregate = _pd_aggregate()
+    evidence = AggregateEvidenceSummary(
+        aggregate=aggregate,
+        overall_evidence_status=EVIDENCE_STATUS_PARTIAL,
+        evidence_conflict_reasons=("coverage",),
+    )
+
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [evidence],
+    )
+
+    summary = summaries[0]
+
+    assert summary.evidence_conflict_level == "none"
+    assert summary.evidence_conflict_message is None
+    assert summary.evidence_conflict_reasons == ("coverage",)
+    assert (
+        "Evidence limitation indicator(s): coverage gaps."
+        in summary.narrative
+    )
 
 def test_build_aggregate_concern_summaries_surfaces_disputed_evidence():
     aggregate = _pd_aggregate()
@@ -428,6 +459,7 @@ def test_build_aggregate_concern_summaries_surfaces_disputed_evidence():
         overall_evidence_status=EVIDENCE_STATUS_DISPUTED,
         evidence_trace_types=("additive_pd_effect",),
         evidence_source_ids=("source_a",),
+        evidence_conflict_reasons=("source_mismatch",),
     )
 
     summaries = build_aggregate_concern_summaries(
@@ -441,10 +473,12 @@ def test_build_aggregate_concern_summaries_surfaces_disputed_evidence():
     assert summary.evidence_conflict_level == "disputed"
     assert summary.evidence_conflict_message == (
         "Disputed curated evidence is attached to this aggregate concern "
-        "and should be reviewed separately."
+        "and should be reviewed separately. Dispute indicator(s): mixed "
+        "source types."
     )
     assert summary.evidence_conflict_source_ids == ("source_a",)
     assert summary.evidence_conflict_trace_types == ("additive_pd_effect",)
+    assert summary.evidence_conflict_reasons == ("source_mismatch",)
     assert "Disputed curated evidence" in summary.narrative
 
 

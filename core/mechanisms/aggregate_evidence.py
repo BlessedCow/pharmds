@@ -20,6 +20,21 @@ EVIDENCE_STATUS_UNDETERMINED = "undetermined"
 EVIDENCE_STATUS_NOT_APPLICABLE = "not_applicable"
 
 DRUG_EVIDENCE_STATUS_PRESENT = "present"
+EVIDENCE_CONFLICT_REASON_CLAIM_DISAGREEMENT = "claim_disagreement"
+EVIDENCE_CONFLICT_REASON_CONFIDENCE = "confidence"
+EVIDENCE_CONFLICT_REASON_COVERAGE = "coverage"
+EVIDENCE_CONFLICT_REASON_SOURCE_MISMATCH = "source_mismatch"
+
+LOW_CONFIDENCE_LEVELS = {"low", "uncertain"}
+CONFLICTING_CLAIM_STATUSES = {
+    EVIDENCE_STATUS_CONFLICTING,
+    EVIDENCE_STATUS_DISPUTED,
+}
+LIMITED_COVERAGE_STATUSES = {
+    EVIDENCE_STATUS_PARTIAL,
+    EVIDENCE_STATUS_MISSING,
+    EVIDENCE_STATUS_UNDETERMINED,
+}
 
 
 @dataclass(frozen=True)
@@ -35,6 +50,8 @@ class AggregateEvidenceSummary:
     evidence_gap_count: int = 0
     evidence_claim_count: int = 0
     evidence_source_ids: tuple[str, ...] = ()
+    evidence_source_types: tuple[str, ...] = ()
+    evidence_conflict_reasons: tuple[str, ...] = ()
     member_without_evidence_trace_count: int = 0
 
     @property
@@ -104,6 +121,12 @@ def aggregate_to_evidence_summary(
         evidence_gap_count=_evidence_gap_count(traces),
         evidence_claim_count=_evidence_claim_count(traces),
         evidence_source_ids=_evidence_source_ids(traces),
+        evidence_source_types=_evidence_source_types(traces),
+        evidence_conflict_reasons=_evidence_conflict_reasons(
+            traces,
+            aggregate,
+            trace_statuses,
+        ),
         member_without_evidence_trace_count=(
             _member_without_evidence_trace_count(aggregate)
         ),
@@ -228,6 +251,120 @@ def _evidence_source_ids(
                         source_ids.add(source_id)
 
     return tuple(sorted(source_ids))
+def _evidence_source_types(
+    traces: list[dict[str, Any]],
+) -> tuple[str, ...]:
+    source_types = set()
+
+    for evidence in _iter_evidence_items(traces):
+        source_type = evidence.get("source_type")
+
+        if isinstance(source_type, str) and source_type:
+            source_types.add(source_type)
+
+        source = evidence.get("source")
+        if isinstance(source, dict):
+            nested_source_type = source.get("source_type")
+            if isinstance(nested_source_type, str) and nested_source_type:
+                source_types.add(nested_source_type)
+
+    return tuple(sorted(source_types))
+
+
+def _evidence_conflict_reasons(
+    traces: list[dict[str, Any]],
+    aggregate: AggregateConcern,
+    trace_statuses: tuple[str, ...],
+) -> tuple[str, ...]:
+    reasons = set()
+
+    if _has_claim_disagreement(traces):
+        reasons.add(EVIDENCE_CONFLICT_REASON_CLAIM_DISAGREEMENT)
+
+    if _has_confidence_limitation(traces):
+        reasons.add(EVIDENCE_CONFLICT_REASON_CONFIDENCE)
+
+    if _has_coverage_limitation(aggregate, trace_statuses, traces):
+        reasons.add(EVIDENCE_CONFLICT_REASON_COVERAGE)
+
+    if len(_evidence_source_types(traces)) > 1:
+        reasons.add(EVIDENCE_CONFLICT_REASON_SOURCE_MISMATCH)
+
+    return tuple(sorted(reasons))
+
+
+def _has_claim_disagreement(traces: list[dict[str, Any]]) -> bool:
+    for drug in _iter_drug_items(traces):
+        if drug.get("evidence_status") in CONFLICTING_CLAIM_STATUSES:
+            return True
+
+    for claim in _iter_claim_items(traces):
+        if claim.get("evidence_support_status") in CONFLICTING_CLAIM_STATUSES:
+            return True
+
+        counts = claim.get("evidence_support_counts")
+        if not isinstance(counts, dict):
+            continue
+
+        supporting = counts.get("supporting", 0) or 0
+        disputing = counts.get("disputing", 0) or 0
+
+        if supporting > 0 and disputing > 0:
+            return True
+
+    return False
+
+
+def _has_confidence_limitation(traces: list[dict[str, Any]]) -> bool:
+    for claim in _iter_claim_items(traces):
+        confidence = claim.get("evidence_confidence")
+        if not isinstance(confidence, dict):
+            continue
+
+        level = confidence.get("level")
+        if isinstance(level, str) and level in LOW_CONFIDENCE_LEVELS:
+            return True
+
+    return False
+
+
+def _has_coverage_limitation(
+    aggregate: AggregateConcern,
+    trace_statuses: tuple[str, ...],
+    traces: list[dict[str, Any]],
+) -> bool:
+    if _member_without_evidence_trace_count(aggregate):
+        return True
+
+    if set(trace_statuses).intersection(LIMITED_COVERAGE_STATUSES):
+        return True
+
+    for drug in _iter_drug_items(traces):
+        if drug.get("evidence_status") != DRUG_EVIDENCE_STATUS_PRESENT:
+            return True
+
+    return False
+
+
+def _iter_drug_items(traces: list[dict[str, Any]]):
+    for trace in traces:
+        for item in trace.get("drugs", []) or []:
+            if isinstance(item, dict):
+                yield item
+
+
+def _iter_claim_items(traces: list[dict[str, Any]]):
+    for drug in _iter_drug_items(traces):
+        for claim in drug.get("claims", []) or []:
+            if isinstance(claim, dict):
+                yield claim
+
+
+def _iter_evidence_items(traces: list[dict[str, Any]]):
+    for claim in _iter_claim_items(traces):
+        for evidence in claim.get("evidence", []) or []:
+            if isinstance(evidence, dict):
+                yield evidence
 
 def _evidence_source_id(evidence: dict[str, Any]) -> str | None:
     source_id = evidence.get("source_id")

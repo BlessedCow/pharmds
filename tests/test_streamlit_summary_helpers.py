@@ -105,6 +105,10 @@ def test_aggregate_summary_debug_lines_include_optional_context():
             "evidence_claim_count": 0,
             "evidence_gap_count": 0,
             "evidence_trace_count": 0,
+            "evidence_conflict_reasons": [
+                "claim_disagreement",
+                "source_mismatch",
+            ],
         },
         "patient_risk_modifiers": [],
         "risk_context": None,
@@ -116,6 +120,10 @@ def test_aggregate_summary_debug_lines_include_optional_context():
     assert "Aggregate type: object_exposure_increase" in lines
     assert "Targets: CYP2D6" in lines
     assert "Evidence conflict: Conflicting evidence was found." in lines
+    assert (
+        "Evidence conflict reasons: claim disagreement, mixed source types"
+        in lines
+    )
     
 def test_aggregate_summary_debug_fields_accepts_dataclass_summary():
     from core.mechanisms.aggregate_evidence import AggregateEvidenceSummary

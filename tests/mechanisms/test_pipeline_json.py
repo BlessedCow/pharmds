@@ -139,6 +139,9 @@ def test_mechanism_pipeline_to_json_dict_includes_patient_risk_context():
     "narrative"
     ]
     assert "educational and not diagnostic" in aggregate_summary["narrative"]
+    assert aggregate_summary["evidence_conflict_reasons"] == [
+        "source_mismatch"
+    ]
 
     json.dumps(payload)
 
@@ -190,6 +193,19 @@ def test_mechanism_pipeline_to_json_dict_includes_evidence_trace_metadata():
         if concern["effect_id"] == "nausea"
     )
     trace = concern["metadata"]["evidence_trace"]
+    aggregate_evidence_summary = next(
+        summary
+        for summary in payload["aggregate_evidence_summaries"]
+        if summary["aggregate"]["effect_id"] == "nausea"
+    )
+
+    assert aggregate_evidence_summary["evidence_source_types"] == [
+        "drug_label",
+        "internal_curated_entry",
+    ]
+    assert aggregate_evidence_summary["evidence_conflict_reasons"] == [
+        "source_mismatch"
+    ]
 
     assert trace["trace_type"] == "additive_pd_effect"
     assert trace["effect_id"] == "nausea"

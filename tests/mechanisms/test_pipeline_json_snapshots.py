@@ -49,6 +49,7 @@ def _assert_aggregate_summary_json_shape(summary: dict):
         "evidence_conflict_message",
         "evidence_conflict_source_ids",
         "evidence_conflict_trace_types",
+        "evidence_conflict_reasons",
         "narrative",
     }
 
@@ -73,6 +74,7 @@ def _assert_aggregate_summary_json_shape(summary: dict):
     )
     assert isinstance(summary["evidence_conflict_source_ids"], list)
     assert isinstance(summary["evidence_conflict_trace_types"], list)
+    assert isinstance(summary["evidence_conflict_reasons"], list)
     assert isinstance(summary["narrative"], str)
     
 def test_bupropion_vortioxetine_fluconazole_json_snapshot():

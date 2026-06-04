@@ -94,6 +94,9 @@ def _aggregate_concern_summary_to_json_dict(item) -> dict[str, Any]:
         "evidence_conflict_trace_types": list(
             item.evidence_conflict_trace_types
         ),
+        "evidence_conflict_reasons": list(
+            item.evidence_conflict_reasons
+        ),
         "narrative": item.narrative,
     }
 

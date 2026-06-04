@@ -192,3 +192,4 @@ def test_cli_show_aggregate_summaries_outputs_narrative(
     assert "educational and not diagnostic" in out
     assert "evidence_conflict_level: none" in out
     assert "evidence_conflict_message:" not in out
+    assert "evidence_conflict_reasons: mixed source types" in out

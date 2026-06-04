@@ -431,6 +431,21 @@ def _format_text_values(values: tuple[str, ...]) -> str:
 
     return ", ".join(values)
 
+def _format_evidence_conflict_reasons(values: tuple[str, ...]) -> str:
+    if not values:
+        return "none"
+
+    labels = {
+        "claim_disagreement": "claim disagreement",
+        "confidence": "confidence limitations",
+        "coverage": "coverage gaps",
+        "source_mismatch": "mixed source types",
+    }
+
+    return ", ".join(
+        labels.get(value, value.replace("_", " "))
+        for value in values
+    )
 
 def _format_evidence_source_label(source_id: str) -> str:
     source = get_source_by_id(source_id)
@@ -760,6 +775,16 @@ def render_aggregate_evidence_summary(pipeline):
             + _format_source_ids(summary.evidence_source_ids)
         )
         lines.append(
+            "  evidence_source_types: "
+            + _format_text_values(summary.evidence_source_types)
+        )
+        lines.append(
+            "  evidence_conflict_reasons: "
+            + _format_evidence_conflict_reasons(
+                summary.evidence_conflict_reasons
+            )
+        )
+        lines.append(
             "  member_without_evidence_trace_count: "
             + str(summary.member_without_evidence_trace_count)
         )
@@ -863,6 +888,14 @@ def render_aggregate_concern_summaries(
                 + ", ".join(summary.evidence_conflict_trace_types)
             )
 
+        if summary.evidence_conflict_reasons:
+            lines.append(
+                "  evidence_conflict_reasons: "
+                + _format_evidence_conflict_reasons(
+                    summary.evidence_conflict_reasons
+                )
+            )
+        
         if summary.narrative:
             lines.append(
                 "  narrative: "
