@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from core.evidence.loader import (
+    build_source_index,
     get_approved_active_pd_effect_claims,
     get_approved_active_pd_effect_claims_for_drug,
     get_approved_active_pd_effect_claims_for_drug_effect,
@@ -12,7 +13,11 @@ from core.evidence.loader import (
     get_pd_effect_claims_for_effect,
     get_source_by_id,
     load_pd_effect_claims,
+    load_source_index,
     load_sources,
+    validate_claim_source_references,
+    validate_evidence_source_registry,
+    validate_source_records,
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -98,6 +103,27 @@ def test_get_source_by_id_returns_none_for_unknown_source():
 
     assert source is None
 
+def test_build_source_index_returns_source_id_keyed_lookup():
+    sources = [
+        _source_record("source_one"),
+        _source_record("source_two"),
+    ]
+
+    source_index = build_source_index(sources)
+
+    assert set(source_index) == {"source_one", "source_two"}
+    assert source_index["source_one"]["source_id"] == "source_one"
+    assert source_index["source_two"]["source_id"] == "source_two"
+
+
+def test_load_source_index_returns_real_source_lookup():
+    source_index = load_source_index()
+
+    assert "source_internal_curated_pd_effects_v1" in source_index
+    assert (
+        source_index["source_internal_curated_pd_effects_v1"]["title"]
+        == "Internal curated pharmacodynamic effects dataset"
+    )
 
 def test_get_pd_effect_claims_for_drug_returns_matching_claims():
     claims = get_pd_effect_claims_for_drug("clarithromycin")
@@ -395,3 +421,82 @@ def test_selected_pd_effect_claims_include_real_source_evidence():
     assert "source_internal_curated_pd_effects_v1" in source_ids
     assert "source_dailymed_fluconazole_label" in source_ids
     
+def _source_record(source_id: str, **overrides):
+    source = {
+        "source_id": source_id,
+        "title": f"Title for {source_id}",
+        "source_type": "drug_label",
+        "publisher": "DailyMed",
+        "url": "https://example.com/source",
+        "published_at": None,
+        "accessed_at": "2026-05-26",
+        "version": None,
+        "reliability_tier": "authoritative",
+    }
+    source.update(overrides)
+
+    return source
+
+
+def test_validate_source_records_rejects_duplicate_source_ids():
+    sources = [
+        _source_record("source_duplicate"),
+        _source_record("source_duplicate"),
+    ]
+
+    with pytest.raises(ValueError, match="Duplicate evidence source_id"):
+        validate_source_records(sources)
+
+
+def test_validate_source_records_rejects_missing_required_fields():
+    source = _source_record("source_missing_title")
+    del source["title"]
+
+    with pytest.raises(ValueError, match="missing required fields: title"):
+        validate_source_records([source])
+
+
+def test_validate_source_records_rejects_unknown_source_type():
+    sources = [
+        _source_record("source_bad_type", source_type="blog_post"),
+    ]
+
+    with pytest.raises(ValueError, match="unknown source_type: blog_post"):
+        validate_source_records(sources)
+
+
+def test_validate_source_records_rejects_unknown_reliability_tier():
+    sources = [
+        _source_record("source_bad_tier", reliability_tier="excellent"),
+    ]
+
+    with pytest.raises(ValueError, match="unknown reliability_tier: excellent"):
+        validate_source_records(sources)
+
+def test_validate_evidence_source_registry_accepts_current_data():
+    validate_evidence_source_registry()
+
+def test_validate_claim_source_references_rejects_unknown_source_id():
+    claims = [
+        {
+            "claim_id": "claim_test_drug_pd_effect_sedation_001",
+            "evidence": [
+                {
+                    "source_id": "source_missing",
+                }
+            ],
+        }
+    ]
+    sources = [
+        _source_record("source_known"),
+    ]
+
+    with pytest.raises(
+        ValueError,
+        match=(
+            "Evidence claim claim_test_drug_pd_effect_sedation_001 "
+            "references unknown source_id: source_missing"
+        ),
+    ):
+        validate_claim_source_references(claims, sources)
+        
