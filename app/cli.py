@@ -949,6 +949,84 @@ def render_public_result_summaries(
 
     return "\n".join(lines).rstrip()
 
+def _enum_value(value: object) -> str:
+    return str(getattr(value, "value", value))
+
+
+def render_plain_regimen_summary(regimen_summary: dict) -> str:
+    """Render regimen-level summary for default plain CLI output."""
+    if not regimen_summary:
+        return ""
+
+    hit_counts = regimen_summary.get("hit_counts", {})
+    flags = regimen_summary.get("regimen_flags", [])
+    pd_stacks = regimen_summary.get("pd_stacks", [])
+    top_pairs = regimen_summary.get("top_pairs", [])
+
+    lines = [
+        "Regimen Summary",
+        f"overall_severity: {_enum_value(regimen_summary.get('overall_severity'))}",
+        f"overall_class: {_enum_value(regimen_summary.get('overall_rule_class'))}",
+    ]
+
+    overview = regimen_summary.get("overview")
+    if overview:
+        lines.append(f"overview: {overview}")
+
+    pairwise_summary = regimen_summary.get("pairwise_summary")
+    if pairwise_summary:
+        lines.append(f"pairwise_section: {pairwise_summary}")
+
+    cumulative_summary = regimen_summary.get("cumulative_concern_summary")
+    if cumulative_summary:
+        lines.append(f"regimen_wide_section: {cumulative_summary}")
+
+    lines.extend(
+        [
+            f"drugs: {regimen_summary.get('n_drugs', 0)}",
+            (
+                "pairs_with_pairwise_hits: "
+                f"{regimen_summary.get('pair_count_with_hits', 0)}"
+            ),
+            (
+                "pairwise_hits: "
+                f"{hit_counts.get('total', 0)} "
+                f"(PK={hit_counts.get('pk', 0)}, PD={hit_counts.get('pd', 0)})"
+            ),
+            f"regimen_wide_flags: {len(flags)}",
+        ]
+    )
+
+    if flags:
+        lines.append("")
+        lines.append("Regimen-wide educational flags:")
+        for flag in flags[:5]:
+            lines.append(f"- {flag.get('message', '')}")
+
+    if pd_stacks:
+        lines.append("")
+        lines.append("Regimen-wide repeated PD concern domains:")
+        for stack in pd_stacks[:5]:
+            drug_names = ", ".join(
+                drug["drug_name"] for drug in stack.get("drugs", [])
+            )
+            lines.append(
+                f"- {stack['label']}: {stack['count']} drugs "
+                f"(max={stack['max_magnitude']}) - {drug_names}"
+            )
+
+    if top_pairs:
+        lines.append("")
+        lines.append("Pairwise concern highlights:")
+        for pair in top_pairs[:3]:
+            lines.append(
+                f"- {pair['drug_1']['name']} + {pair['drug_2']['name']}: "
+                f"{pair['severity']} | {pair['class']} "
+                f"({pair['total_hits']} hits)"
+            )
+
+    return "\n".join(lines)
+
 def render_severity_comparison(pipeline):
     """Render comparison between aggregate concerns and aggregate severity."""
     if not pipeline.aggregate_severity_annotations:
@@ -1373,7 +1451,7 @@ def main() -> None:
         print(json.dumps(payload, indent=2, ensure_ascii=False))
         return
 
-    if not pair_reports and not public_result_summaries:
+    if not pair_reports and not public_result_summaries and not regimen_summary:
         domains = ", ".join(selected)
         print(
             "No rule-based interactions detected in selected domains: "
@@ -1403,9 +1481,14 @@ def main() -> None:
 
             lines = [
                 f"Overall (regimen): severity={sev} | class={cls}",
+                regimen_summary.get("overview", ""),
+                "",
+                regimen_summary.get("pairwise_summary", ""),
+                regimen_summary.get("cumulative_concern_summary", ""),
+                "",
                 f"Drugs: {regimen_summary.get('n_drugs', 0)}",
                 (
-                    "Pairs with hits: "
+                    "Pairs with pairwise hits: "
                     f"{regimen_summary.get('pair_count_with_hits', 0)}"
                 ),
                 (
@@ -1413,12 +1496,12 @@ def main() -> None:
                     f"{hit_counts.get('total', 0)} "
                     f"(PK={hit_counts.get('pk', 0)}, PD={hit_counts.get('pd', 0)})"
                 ),
-                f"Regimen flags: {len(flags)}",
+                f"Regimen-wide flags: {len(flags)}",
             ]
 
             if pd_stacks:
                 lines.append("")
-                lines.append("Repeated PD risk domains:")
+                lines.append("Regimen-wide repeated PD concern domains:")
                 for stack in pd_stacks[:5]:
                     drug_names = ", ".join(
                         d["drug_name"] for d in stack.get("drugs", [])
@@ -1429,9 +1512,15 @@ def main() -> None:
                         f" - {drug_names}"
                     )
 
+            if flags:
+                lines.append("")
+                lines.append("Regimen-wide educational flags:")
+                for flag in flags[:5]:
+                    lines.append(f"- {flag.get('message', '')}")
+
             if top_pairs:
                 lines.append("")
-                lines.append("Top interaction pairs:")
+                lines.append("Pairwise concern highlights:")
                 for pair in top_pairs[:3]:
                     lines.append(
                         f"- {pair['drug_1']['name']} + {pair['drug_2']['name']}: "
@@ -1446,9 +1535,6 @@ def main() -> None:
                     expand=True,
                 )
             )
-
-            for flag in flags:
-                console.print(f"- {flag['message']}")
 
             print()
 
@@ -1469,6 +1555,10 @@ def main() -> None:
 
     # PLAIN MODE
     print("\nEDUCATIONAL ONLY - NOT DIAGNOSTIC\n")
+
+    if regimen_summary:
+        print(render_plain_regimen_summary(regimen_summary))
+        print()
 
     if public_result_summaries:
         print("Key Interaction Summaries")

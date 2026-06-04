@@ -83,6 +83,101 @@ def _value(x: object) -> str:
     """Return enum.value when present, otherwise a string."""
     return str(getattr(x, "value", x))
 
+def _format_count_label(count: int, singular: str, plural: str | None = None) -> str:
+    label = singular if count == 1 else (plural or f"{singular}s")
+    return f"{count} {label}"
+
+
+def _regimen_overview_text(
+    *,
+    n_drugs: int,
+    pair_count_with_hits: int,
+    pairwise_hit_count: int,
+    pd_stack_count: int,
+    flag_count: int,
+) -> str:
+    pieces = [
+        f"Regimen-level review covers {_format_count_label(n_drugs, 'drug')}",
+        (
+            f"{_format_count_label(pair_count_with_hits, 'pair')} "
+            "with rule-based pairwise concerns"
+        ),
+        f"{_format_count_label(pairwise_hit_count, 'pairwise hit')}",
+    ]
+
+    if pd_stack_count:
+        pieces.append(
+            f"{_format_count_label(pd_stack_count, 'repeated PD concern')}"
+        )
+
+    if flag_count:
+        pieces.append(
+            f"{_format_count_label(flag_count, 'regimen-wide flag')}"
+        )
+
+    return (
+        "; ".join(pieces)
+        + ". This is an educational summary, not a diagnosis or treatment "
+        "instruction."
+    )
+
+
+def _pairwise_summary_text(
+    pair_count_with_hits: int,
+    pairwise_hit_count: int,
+    hit_counts: dict,
+) -> str:
+    return (
+        "Pairwise section: "
+        f"{_format_count_label(pair_count_with_hits, 'pair')} had "
+        "rule-based concerns, with "
+        f"{_format_count_label(pairwise_hit_count, 'total hit')} "
+        f"(PK={hit_counts.get('pk', 0)}, PD={hit_counts.get('pd', 0)})."
+    )
+
+
+def _cumulative_concern_summary_text(
+    pd_stacks: list[dict],
+    regimen_flags: list[dict],
+) -> str:
+    if not pd_stacks and not regimen_flags:
+        return (
+            "Regimen-wide section: no repeated medium-or-higher PD concern "
+            "domains were identified from the current curated data."
+        )
+
+    stack_bits = [
+        f"{stack['label']} ({stack['count']} drugs)"
+        for stack in pd_stacks[:3]
+    ]
+
+    if stack_bits and regimen_flags:
+        return (
+            "Regimen-wide section: repeated PD concern domains include "
+            f"{_human_join(stack_bits)}. Some are flagged for careful review "
+            "because multiple drugs contribute to the same concern domain."
+        )
+
+    if stack_bits:
+        return (
+            "Regimen-wide section: repeated PD concern domains include "
+            f"{_human_join(stack_bits)}."
+        )
+
+    return (
+        "Regimen-wide section: regimen flags were identified for careful "
+        "educational review."
+    )
+
+
+def _human_join(items: list[str]) -> str:
+    if not items:
+        return ""
+    if len(items) == 1:
+        return items[0]
+    if len(items) == 2:
+        return f"{items[0]} and {items[1]}"
+    return ", ".join(items[:-1]) + f", and {items[-1]}"
 
 def _magnitude_rank(magnitude: str | None) -> int:
     return {"low": 0, "medium": 1, "high": 2}.get(str(magnitude or ""), -1)
@@ -252,12 +347,16 @@ def build_regimen_summary(facts: Facts, pair_reports: list[PairReport]) -> dict:
 
     high_priority_stack_messages = {
         "CNS_depression": (
-            "3+ drugs in the regimen contribute to CNS depression (medium+). "
-            "Consider avoiding the combination or using intensive monitoring."
+            "Regimen-wide CNS depression concern: 3 or more drugs have "
+            "medium-or-higher CNS depression effects in the curated data. "
+            "This is an educational flag for careful review, not a diagnosis "
+            "or treatment instruction."
         ),
         "QT_prolongation": (
-            "3+ drugs in the regimen contribute to QT prolongation risk (medium+). "
-            "Consider avoiding or use ECG monitoring and risk mitigation."
+            "Regimen-wide QT prolongation concern: 3 or more drugs have "
+            "medium-or-higher QT prolongation effects in the curated data. "
+            "This is an educational flag for careful review, not a diagnosis "
+            "or treatment instruction."
         ),
     }
 
@@ -280,14 +379,33 @@ def build_regimen_summary(facts: Facts, pair_reports: list[PairReport]) -> dict:
             overall_cls = RuleClass.avoid
             overall_sev = Severity.contraindicated
 
+    pair_count_with_hits = len(pair_reports)
+    pairwise_hit_count = len(all_hits)
+
     return {
         "n_drugs": len(facts.drugs),
         "overall_severity": overall_sev,
         "overall_rule_class": overall_cls,
+        "overview": _regimen_overview_text(
+            n_drugs=len(facts.drugs),
+            pair_count_with_hits=pair_count_with_hits,
+            pairwise_hit_count=pairwise_hit_count,
+            pd_stack_count=len(pd_stacks),
+            flag_count=len(regimen_flags),
+        ),
+        "pairwise_summary": _pairwise_summary_text(
+            pair_count_with_hits,
+            pairwise_hit_count,
+            hit_counts,
+        ),
+        "cumulative_concern_summary": _cumulative_concern_summary_text(
+            pd_stacks,
+            regimen_flags,
+        ),
         "regimen_flags": regimen_flags,
         "pd_stacks": pd_stacks,
-        "pair_count_with_hits": len(pair_reports),
-        "pairwise_hit_count": len(all_hits),
+        "pair_count_with_hits": pair_count_with_hits,
+        "pairwise_hit_count": pairwise_hit_count,
         "hit_counts": hit_counts,
         "top_pairs": _summarize_top_pairs(facts, pair_reports),
     }

@@ -71,7 +71,7 @@ def test_aggregate_summary_to_result_summary_uses_public_shape():
     assert result.concern_type == "tolerability_concern"
     assert result.severity_label == "informational"
     assert result.evidence_label == "complete"
-    assert "nausea-related pharmacodynamic effect" in result.explanation
+    assert "nausea-related pharmacodynamic concern" in result.explanation
     assert "educational and not diagnostic" in result.explanation
 
 
@@ -291,7 +291,7 @@ def test_public_result_summary_smooths_known_pd_effect_label_wording():
 
     result = aggregate_summary_to_result_summary(summaries[0])
 
-    assert "QT prolongation pharmacodynamic effect" in result.explanation
+    assert "QT prolongation-related pharmacodynamic concern" in result.explanation    
     assert "QT prolongation-related pharmacodynamic effect" not in result.explanation
     assert "QT_prolongation" not in result.explanation
 
@@ -312,4 +312,4 @@ def test_public_result_summary_keeps_unknown_pd_effect_related_wording():
 
     result = aggregate_summary_to_result_summary(summaries[0])
 
-    assert "sedation-related pharmacodynamic effect" in result.explanation
+    assert "sedation-related pharmacodynamic concern" in result.explanation

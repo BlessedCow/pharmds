@@ -32,7 +32,14 @@ def test_regimen_summary_detects_repeated_pd_stack() -> None:
     assert nausea_stack["count"] == 2
     assert nausea_stack["max_magnitude"] == "high"
     assert [d["drug_name"] for d in nausea_stack["drugs"]] == ["Drug B", "Drug A"]
-
+    assert (
+        summary["cumulative_concern_summary"]
+        == "Regimen-wide section: repeated PD concern domains include "
+        "nausea/GI intolerance (2 drugs)."
+    )
+    assert "educational summary" in summary["overview"]
+    assert "not a diagnosis or treatment instruction" in summary["overview"]
+    
 
 def test_regimen_summary_escalates_three_drug_cns_stack() -> None:
     facts = Facts(
@@ -58,6 +65,10 @@ def test_regimen_summary_escalates_three_drug_cns_stack() -> None:
     assert flag["type"] == "PD_STACK"
     assert flag["effect_id"] == "CNS_depression"
     assert flag["count"] == 3
+    assert "Regimen-wide CNS depression concern" in flag["message"]
+    assert "not a diagnosis or treatment instruction" in flag["message"]
+    assert "Consider avoiding" not in flag["message"]
+    assert "monitoring" not in flag["message"]
 
 
 def test_regimen_summary_includes_hit_counts_and_top_pairs() -> None:
@@ -98,6 +109,10 @@ def test_regimen_summary_includes_hit_counts_and_top_pairs() -> None:
     assert summary["hit_counts"]["pd"] == 1
     assert summary["hit_counts"]["by_severity"] == {"major": 1}
     assert summary["hit_counts"]["by_class"] == {"adjust_monitor": 1}
+    assert summary["pairwise_summary"] == (
+        "Pairwise section: 1 pair had rule-based concerns, with "
+        "1 total hit (PK=0, PD=1)."
+    )
 
     assert summary["top_pairs"][0]["drug_1"]["name"] == "Drug A"
     assert summary["top_pairs"][0]["drug_2"]["name"] == "Drug B"

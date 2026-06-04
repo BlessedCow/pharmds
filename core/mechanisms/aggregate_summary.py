@@ -30,6 +30,7 @@ from core.mechanisms.aggregation import (
     AGGREGATE_SHARED_PD_EFFECT,
     AggregateConcern,
 )
+from core.mechanisms.effect_labels import effect_display_label
 from core.mechanisms.policy import POLICY_MECHANISTIC_CONCERN
 from core.mechanisms.severity import (
     PRELIMINARY_SEVERITY_CAUTION,
@@ -324,6 +325,8 @@ def build_aggregate_summary_narrative(
 
     return " ".join(part for part in parts if part)
 
+def _aggregate_effect_text(effect_id: str | None) -> str:
+    return effect_display_label(effect_id)
 
 def _aggregate_mechanism_narrative(
     aggregate: AggregateConcern,
@@ -332,8 +335,10 @@ def _aggregate_mechanism_narrative(
 
     if aggregate.aggregate_type == AGGREGATE_SHARED_PD_EFFECT:
         effect_id = aggregate.effect_id or aggregate.anchor
+        effect_text = _aggregate_effect_text(effect_id)
         return (
-            f"{drugs} share a {effect_id}-related pharmacodynamic effect."
+            f"{drugs} share a regimen-wide {effect_text}-related "
+            "pharmacodynamic concern."
         )
 
     if aggregate.aggregate_type == AGGREGATE_OBJECT_EXPOSURE_INCREASE:
@@ -344,7 +349,7 @@ def _aggregate_mechanism_narrative(
             else ""
         )
         return (
-            f"{drugs} include mechanism(s) that may increase "
+            f"{drugs} include regimen-wide mechanism(s) that may increase "
             f"{aggregate.anchor} exposure{target_text}."
         )
 
@@ -356,18 +361,19 @@ def _aggregate_mechanism_narrative(
             else ""
         )
         return (
-            f"{drugs} include mechanism(s) that may decrease "
+            f"{drugs} include regimen-wide mechanism(s) that may decrease "
             f"{aggregate.anchor} exposure{target_text}."
         )
 
     if aggregate.effect_id:
+        effect_text = _aggregate_effect_text(aggregate.effect_id)
         return (
-            f"{drugs} are grouped around {aggregate.effect_id} "
-            f"as a {aggregate.policy_concern}."
+            f"{drugs} are grouped around a regimen-wide {effect_text} "
+            f"concern as a {aggregate.policy_concern}."
         )
 
     return (
-        f"{drugs} are grouped as a {aggregate.policy_concern}."
+        f"{drugs} are grouped as a regimen-wide {aggregate.policy_concern}."
     )
 
 
@@ -403,11 +409,11 @@ def _aggregate_severity_narrative(
     severity = summary.severity_annotation
 
     if not severity or not severity.strongest_preliminary_severity:
-        return "It does not have a preliminary severity classification."
+        return "It does not have a preliminary educational severity label."
 
     return (
-        "It is preliminarily classified as "
-        f"{severity.strongest_preliminary_severity}-level."
+        "Its preliminary educational severity label is "
+        f"{severity.strongest_preliminary_severity}."
     )
 
 

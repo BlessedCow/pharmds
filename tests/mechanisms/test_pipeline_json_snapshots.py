@@ -265,11 +265,15 @@ def test_clarithromycin_fluconazole_aggregate_summary_json_snapshot():
     assert qt_summary["evidence_conflict_message"] is None
     assert qt_summary["evidence_conflict_source_ids"] == []
     assert qt_summary["evidence_conflict_trace_types"] == []
-    assert "QT_prolongation-related pharmacodynamic effect" in (
-        qt_summary["narrative"]
+    assert (
+        "QT prolongation-related pharmacodynamic concern"
+        in qt_summary["narrative"]
     )
     assert "complete curated evidence support" in qt_summary["narrative"]
-    assert "high_caution-level" in qt_summary["narrative"]
+    assert (
+            "preliminary educational severity label is high_caution"
+            in qt_summary["narrative"]
+        )
     assert "educational and not diagnostic" in qt_summary["narrative"]
 
     nausea_summary = _aggregate_summary_by(
@@ -295,8 +299,9 @@ def test_clarithromycin_fluconazole_aggregate_summary_json_snapshot():
         == "complete"
     )
     assert nausea_summary["evidence_conflict_level"] == "none"
-    assert "nausea-related pharmacodynamic effect" in (
-        nausea_summary["narrative"]
+    assert (
+        "nausea-related pharmacodynamic concern"
+        in nausea_summary["narrative"]
     )
 
 
@@ -341,13 +346,16 @@ def test_bupropion_vortioxetine_aggregate_summary_json_snapshot():
     assert summary["evidence_conflict_trace_types"] == []
 
     assert (
-        "bupropion and vortioxetine include mechanism(s) that may increase "
-        "vortioxetine exposure through CYP2D6-related mechanism(s)."
+        "bupropion and vortioxetine include regimen-wide mechanism(s) that may "
+        "increase vortioxetine exposure through CYP2D6-related mechanism(s)."
     ) in summary["narrative"]
     assert "no aggregate-level curated evidence requirement" in (
         summary["narrative"]
     )
-    assert "informational-level" in summary["narrative"]
+    assert (
+        "preliminary educational severity label is informational"
+        in summary["narrative"]
+    )
     assert "educational and not diagnostic" in summary["narrative"]
 
 
@@ -386,8 +394,9 @@ def test_alcohol_clonazepam_aggregate_summary_json_snapshot():
         == "complete"
     )
     assert respiratory_summary["evidence_conflict_level"] == "none"
-    assert "respiratory_depression-related pharmacodynamic effect" in (
-        respiratory_summary["narrative"]
+    assert (
+        "respiratory depression-related pharmacodynamic concern"
+        in respiratory_summary["narrative"]
     )
 
     cns_summary = _aggregate_summary_by(
@@ -405,8 +414,9 @@ def test_alcohol_clonazepam_aggregate_summary_json_snapshot():
         == "caution"
     )
     assert cns_summary["evidence_conflict_level"] == "none"
-    assert "CNS_depression-related pharmacodynamic effect" in (
-        cns_summary["narrative"]
+    assert (
+        "CNS depression-related pharmacodynamic concern"
+        in cns_summary["narrative"]
     )
 
     sedation_summary = _aggregate_summary_by(
@@ -426,8 +436,9 @@ def test_alcohol_clonazepam_aggregate_summary_json_snapshot():
         == "caution"
     )
     assert sedation_summary["evidence_conflict_level"] == "none"
-    assert "sedation-related pharmacodynamic effect" in (
-        sedation_summary["narrative"]
+    assert (
+        "sedation-related pharmacodynamic concern"
+        in sedation_summary["narrative"]
     )
 
 

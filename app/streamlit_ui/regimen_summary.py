@@ -19,6 +19,18 @@ def render_regimen_summary(regimen_summary: dict[str, Any] | None) -> None:
         f"class={regimen_summary['overall_rule_class'].value}"
     )
 
+    overview = regimen_summary.get("overview")
+    if overview:
+        st.caption(overview)
+
+    pairwise_summary = regimen_summary.get("pairwise_summary")
+    if pairwise_summary:
+        st.write(pairwise_summary)
+
+    cumulative_summary = regimen_summary.get("cumulative_concern_summary")
+    if cumulative_summary:
+        st.write(cumulative_summary)
+
     hit_counts = regimen_summary.get("hit_counts", {})
     col_a, col_b, col_c = st.columns(3)
     col_a.metric("Drugs", regimen_summary.get("n_drugs", 0))
@@ -32,13 +44,13 @@ def render_regimen_summary(regimen_summary: dict[str, Any] | None) -> None:
 
     flags = regimen_summary.get("regimen_flags", [])
     if flags:
-        st.warning("Regimen-level flags")
+        st.warning("Regimen-wide educational flags")
         for flag in flags:
             st.write(f"- {flag.get('message', '')}")
 
     pd_stacks = regimen_summary.get("pd_stacks", [])
     if pd_stacks:
-        st.markdown("### Repeated PD risk domains")
+        st.markdown("### Regimen-wide repeated PD concern domains")
         for stack in pd_stacks[:5]:
             drug_names = ", ".join(
                 drug["drug_name"] for drug in stack.get("drugs", [])
@@ -50,7 +62,7 @@ def render_regimen_summary(regimen_summary: dict[str, Any] | None) -> None:
 
     top_pairs = regimen_summary.get("top_pairs", [])
     if top_pairs:
-        st.markdown("### Top interaction pairs")
+        st.markdown("### Pairwise concern highlights")
         for pair in top_pairs[:3]:
             st.write(
                 f"- **{pair['drug_1']['name']} + {pair['drug_2']['name']}**: "

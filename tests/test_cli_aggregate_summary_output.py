@@ -159,7 +159,7 @@ def test_cli_show_aggregate_summaries_outputs_patient_risk_context(
     assert "shared_pd_effect_cluster: QT_prolongation" in out
     assert "effect: QT_prolongation (QT prolongation)" in out
     assert "effect_label: QT prolongation" not in out
-    assert "QT prolongation pharmacodynamic effect" in out
+    assert "QT prolongation-related pharmacodynamic concern" in out
     assert "QT_prolongation-related pharmacodynamic effect" not in out
     assert (
         "risk_context: QT-related concern may be more important when QT risk "
@@ -188,7 +188,10 @@ def test_cli_show_aggregate_summaries_outputs_narrative(
     out = capsys.readouterr().out
 
     assert "narrative:" in out
-    assert "clarithromycin and fluconazole share a nausea-related" in out
+    assert (
+        "clarithromycin and fluconazole share a regimen-wide nausea-related"
+        in out
+    )
     assert "educational and not diagnostic" in out
     assert "evidence_conflict_level: none" in out
     assert "evidence_conflict_message:" not in out

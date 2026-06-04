@@ -77,11 +77,13 @@ def test_build_aggregate_concern_summaries_joins_matching_layers():
     assert summary.patient_risk_modifiers == ()
     assert summary.risk_context is None
     assert summary.narrative
-    assert "clarithromycin and fluconazole share a nausea-related" in (
-        summary.narrative
+    assert (
+        "clarithromycin and fluconazole share a regimen-wide nausea-related "
+        "pharmacodynamic concern."
+    ) in (        summary.narrative
     )
     assert "complete curated evidence support" in summary.narrative
-    assert "caution-level" in summary.narrative
+    assert "preliminary educational severity label is caution" in summary.narrative
     assert "educational and not diagnostic" in summary.narrative
 
 
@@ -328,11 +330,10 @@ def test_build_aggregate_concern_summaries_adds_pd_narrative():
     )
 
     assert summaries[0].narrative == (
-        "clarithromycin and fluconazole share a nausea-related "
-        "pharmacodynamic effect. This grouped concern has complete curated "
-        "evidence support. It is preliminarily classified as "
-        "informational-level. This explanation is educational and not "
-        "diagnostic."
+        "clarithromycin and fluconazole share a regimen-wide nausea-related "
+        "pharmacodynamic concern. This grouped concern has complete curated "
+        "evidence support. Its preliminary educational severity label is "
+        "informational. This explanation is educational and not diagnostic."
     )
 
 
@@ -356,13 +357,12 @@ def test_build_aggregate_concern_summaries_adds_pk_narrative():
     )
 
     assert summaries[0].narrative == (
-        "bupropion and vortioxetine include mechanism(s) that may increase "
-        "vortioxetine exposure through CYP2D6-related mechanism(s). This "
-        "grouped concern has no aggregate-level curated evidence requirement. "
-        "It is preliminarily classified as caution-level. This explanation is "
-        "educational and not diagnostic."
+        "bupropion and vortioxetine include regimen-wide mechanism(s) that may "
+        "increase vortioxetine exposure through CYP2D6-related mechanism(s). "
+        "This grouped concern has no aggregate-level curated evidence "
+        "requirement. Its preliminary educational severity label is caution. "
+        "This explanation is educational and not diagnostic."
     )
-
 
 def test_build_aggregate_concern_summaries_adds_patient_risk_to_narrative():
     aggregate = AggregateConcern(
