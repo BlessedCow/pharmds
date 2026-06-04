@@ -2,6 +2,7 @@ from core.evidence.completeness import (
     BACKFILL_PRIORITY_CONFIDENCE,
     BACKFILL_PRIORITY_CONFLICT,
     BACKFILL_PRIORITY_MISSING,
+    BACKFILL_PRIORITY_UNDETERMINED,
     CONFIDENCE_HIGH,
     CONFIDENCE_LOW,
     CONFIDENCE_MODERATE,
@@ -10,6 +11,7 @@ from core.evidence.completeness import (
     COVERAGE_CONFLICTING,
     COVERAGE_DISPUTED,
     COVERAGE_MISSING,
+    COVERAGE_UNDETERMINED,
     SOURCE_TYPE_NONE,
     build_evidence_gap_backfill_plan,
     build_pd_effect_evidence_gap_report,
@@ -25,6 +27,7 @@ def _claim_trace(
     confidence_level="moderate",
     source_type=None,
 ):
+    
     evidence = []
 
     if source_type is not None:
@@ -332,6 +335,16 @@ def test_build_evidence_gap_backfill_plan_prioritizes_missing_first():
                 "source_types": [SOURCE_TYPE_NONE],
             },
             {
+                "drug_id": "drug_d",
+                "effect_id": "akathisia",
+                "classification": COVERAGE_MISSING,
+                "coverage_status": COVERAGE_MISSING,
+                "confidence_status": CONFIDENCE_NONE,
+                "confidence_level": None,
+                "claim_count": 0,
+                "source_types": [SOURCE_TYPE_NONE],
+            },
+            {
                 "drug_id": "drug_c",
                 "effect_id": "tachycardia",
                 "classification": COVERAGE_CONFLICTING,
@@ -346,19 +359,99 @@ def test_build_evidence_gap_backfill_plan_prioritizes_missing_first():
 
     plan = build_evidence_gap_backfill_plan(report)
 
-    assert plan["total_tasks"] == 3
+    assert plan["total_tasks"] == 4
     assert [task["priority"] for task in plan["tasks"]] == [
+        BACKFILL_PRIORITY_MISSING,
         BACKFILL_PRIORITY_MISSING,
         BACKFILL_PRIORITY_CONFLICT,
         BACKFILL_PRIORITY_CONFIDENCE,
     ]
-    assert plan["tasks"][0]["drug_id"] == "drug_a"
-    assert plan["tasks"][0]["effect_id"] == "nausea"
-    assert plan["tasks"][0]["missing_source_types"] == ["drug_label"]
-    assert "evidence" in plan["tasks"][0]["suggested_next_action"]
+    assert plan["tasks"][0]["drug_id"] == "drug_d"
+    assert plan["tasks"][0]["effect_id"] == "akathisia"
+    assert plan["tasks"][1]["drug_id"] == "drug_a"
+    assert plan["tasks"][1]["effect_id"] == "nausea"
+    assert plan["tasks"][1]["missing_source_types"] == ["drug_label"]
+    assert "evidence" in plan["tasks"][1]["suggested_next_action"]
+
+    assert list(plan["by_priority"]) == [
+        BACKFILL_PRIORITY_MISSING,
+        BACKFILL_PRIORITY_CONFLICT,
+        BACKFILL_PRIORITY_CONFIDENCE,
+    ]
+    assert [
+        task["effect_id"]
+        for task in plan["by_priority"][BACKFILL_PRIORITY_MISSING]
+    ] == ["akathisia", "nausea"]
+
+    assert list(plan["by_pd_effect"]) == [
+        "akathisia",
+        "nausea",
+        "sedation",
+        "tachycardia",
+    ]
     assert plan["by_pd_effect"]["nausea"][0]["drug_id"] == "drug_a"
     assert plan["by_drug"]["drug_c"][0]["effect_id"] == "tachycardia"
 
+    assert list(plan["by_source_type"]) == [
+        "drug_label",
+        SOURCE_TYPE_NONE,
+    ]
+    assert [
+        task["effect_id"]
+        for task in plan["by_source_type"]["drug_label"]
+    ] == [
+        "akathisia",
+        "nausea",
+        "tachycardia",
+    ]
+
+    assert [
+        task["effect_id"]
+        for task in plan["by_source_type"][SOURCE_TYPE_NONE]
+    ] == [
+        "sedation",
+    ]
+    assert plan["by_pd_effect"]["nausea"][0]["drug_id"] == "drug_a"
+    assert plan["by_drug"]["drug_c"][0]["effect_id"] == "tachycardia"
+
+    assert list(plan["by_source_type"]) == [
+        "drug_label",
+        SOURCE_TYPE_NONE,
+    ]
+def test_build_evidence_gap_backfill_plan_prioritizes_undetermined_before_confidence():
+    report = {
+        "items": [
+            {
+                "drug_id": "drug_b",
+                "effect_id": "sedation",
+                "classification": CONFIDENCE_LOW,
+                "coverage_status": COVERAGE_COMPLETE,
+                "confidence_status": CONFIDENCE_LOW,
+                "confidence_level": "low",
+                "claim_count": 1,
+                "source_types": ["drug_label"],
+            },
+            {
+                "drug_id": "drug_a",
+                "effect_id": "nausea",
+                "classification": COVERAGE_UNDETERMINED,
+                "coverage_status": COVERAGE_UNDETERMINED,
+                "confidence_status": CONFIDENCE_NONE,
+                "confidence_level": None,
+                "claim_count": 1,
+                "source_types": ["clinical_reference"],
+            },
+        ],
+    }
+
+    plan = build_evidence_gap_backfill_plan(report)
+
+    assert [task["priority"] for task in plan["tasks"]] == [
+        BACKFILL_PRIORITY_UNDETERMINED,
+        BACKFILL_PRIORITY_CONFIDENCE,
+    ]
+    assert plan["tasks"][0]["effect_id"] == "nausea"
+    assert plan["tasks"][1]["effect_id"] == "sedation"
 
 def test_build_pd_effect_evidence_gap_report_includes_backfill_plan(
     monkeypatch,

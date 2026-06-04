@@ -15,6 +15,10 @@ from app.json_output import build_json_payload
 from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.evidence.completeness import (
+    BACKFILL_PRIORITY_CONFIDENCE,
+    BACKFILL_PRIORITY_CONFLICT,
+    BACKFILL_PRIORITY_MISSING,
+    BACKFILL_PRIORITY_UNDETERMINED,
     GAP_CLASSIFICATIONS,
     build_pd_effect_evidence_gap_report,
 )
@@ -488,6 +492,110 @@ def _format_evidence_gap_item(item: dict) -> str:
         f"source_types={source_types})"
     )
 
+def _format_evidence_backfill_task(task: dict[str, object]) -> str:
+    missing_source_types = task.get("missing_source_types") or []
+    if not isinstance(missing_source_types, list):
+        missing_source_types = []
+
+    missing_sources = ", ".join(str(source) for source in missing_source_types)
+    missing_sources = missing_sources or "none"
+    confidence = task.get("confidence_level") or task.get("confidence_status")
+
+    return (
+        "- "
+        f"[{task.get('priority')}] "
+        f"{task.get('drug_id')} -> {task.get('effect_id')}: "
+        f"{task.get('classification')} "
+        f"(coverage={task.get('coverage_status')}, "
+        f"confidence={confidence or 'none'}, "
+        f"claims={task.get('claim_count')}, "
+        f"missing_sources={missing_sources}). "
+        f"{task.get('suggested_next_action')}"
+    )
+
+
+def _append_evidence_backfill_task_group(
+    lines: list[str],
+    title: str,
+    grouped_tasks: object,
+) -> None:
+    lines.extend(["", title])
+
+    if not isinstance(grouped_tasks, dict) or not grouped_tasks:
+        lines.append("  none")
+        return
+
+    for key, tasks in sorted(grouped_tasks.items()):
+        lines.append(f"  {key}:")
+
+        if not isinstance(tasks, list):
+            continue
+
+        for task in tasks:
+            if isinstance(task, dict):
+                lines.append(f"    {_format_evidence_backfill_task(task)}")
+
+
+def _append_evidence_backfill_plan(
+    lines: list[str],
+    report: dict,
+) -> None:
+    backfill_plan = report.get("backfill_plan") or {}
+    if not isinstance(backfill_plan, dict):
+        return
+
+    tasks = backfill_plan.get("tasks") or []
+    lines.extend(["", "Backfill planning report:"])
+
+    if not tasks:
+        lines.append("  No backfill tasks found.")
+        return
+
+    priority_counts = backfill_plan.get("priority_counts") or {}
+    if not isinstance(priority_counts, dict):
+        priority_counts = {}
+
+    priority_order = (
+        BACKFILL_PRIORITY_MISSING,
+        BACKFILL_PRIORITY_CONFLICT,
+        BACKFILL_PRIORITY_UNDETERMINED,
+        BACKFILL_PRIORITY_CONFIDENCE,
+    )
+
+    lines.append(f"  Total backfill tasks: {backfill_plan.get('total_tasks', 0)}")
+    lines.extend(["", "Priority counts:"])
+
+    for priority in priority_order:
+        count = priority_counts.get(priority, 0)
+        if count:
+            lines.append(f"  {priority}: {count}")
+
+    lines.extend(["", "Prioritized tasks:"])
+
+    for task in tasks:
+        if isinstance(task, dict):
+            lines.append(f"  {_format_evidence_backfill_task(task)}")
+
+    _append_evidence_backfill_task_group(
+        lines,
+        "Backfill tasks by priority:",
+        backfill_plan.get("by_priority"),
+    )
+    _append_evidence_backfill_task_group(
+        lines,
+        "Backfill tasks by PD effect:",
+        backfill_plan.get("by_pd_effect"),
+    )
+    _append_evidence_backfill_task_group(
+        lines,
+        "Backfill tasks by drug:",
+        backfill_plan.get("by_drug"),
+    )
+    _append_evidence_backfill_task_group(
+        lines,
+        "Backfill tasks by missing source type:",
+        backfill_plan.get("by_source_type"),
+    )
 
 def render_evidence_gap_report(
     report: dict,
@@ -546,6 +654,8 @@ def render_evidence_gap_report(
             lines.append("  none")
         for item in complete_items:
             lines.append(f"  - {_format_evidence_gap_item(item)}")
+
+    _append_evidence_backfill_plan(lines, report)
 
     return "\n".join(lines)
 

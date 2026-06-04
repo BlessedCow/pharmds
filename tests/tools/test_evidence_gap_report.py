@@ -88,7 +88,8 @@ def test_format_report_text_hides_complete_items_by_default():
     assert "Grouped by source type:" in text
     assert "drug_b -> sedation: missing" in text
     assert "drug_a -> nausea" not in text
-
+    assert "Backfill planning report:" in text
+    assert "No backfill tasks found." in text
 
 def test_format_report_text_can_show_complete_items():
     report = {
@@ -206,8 +207,86 @@ def test_format_report_text_includes_backfill_plan():
                     ),
                 }
             ],
-            "by_pd_effect": {},
-            "by_drug": {},
+            "by_priority": {
+                BACKFILL_PRIORITY_MISSING: [
+                    {
+                        "priority": BACKFILL_PRIORITY_MISSING,
+                        "drug_id": "drug_a",
+                        "effect_id": "nausea",
+                        "coverage_status": "missing",
+                        "confidence_level": None,
+                        "confidence_status": "none",
+                        "classification": "missing",
+                        "claim_count": 0,
+                        "source_types": ["no_source"],
+                        "missing_source_types": ["drug_label"],
+                        "suggested_next_action": (
+                            "Add curated evidence claim(s), starting with "
+                            "drug_label."
+                        ),
+                    }
+                ]
+            },
+            "by_pd_effect": {
+                "nausea": [
+                    {
+                        "priority": BACKFILL_PRIORITY_MISSING,
+                        "drug_id": "drug_a",
+                        "effect_id": "nausea",
+                        "coverage_status": "missing",
+                        "confidence_level": None,
+                        "confidence_status": "none",
+                        "classification": "missing",
+                        "claim_count": 0,
+                        "source_types": ["no_source"],
+                        "missing_source_types": ["drug_label"],
+                        "suggested_next_action": (
+                            "Add curated evidence claim(s), starting with "
+                            "drug_label."
+                        ),
+                    }
+                ]
+            },
+            "by_drug": {
+                "drug_a": [
+                    {
+                        "priority": BACKFILL_PRIORITY_MISSING,
+                        "drug_id": "drug_a",
+                        "effect_id": "nausea",
+                        "coverage_status": "missing",
+                        "confidence_level": None,
+                        "confidence_status": "none",
+                        "classification": "missing",
+                        "claim_count": 0,
+                        "source_types": ["no_source"],
+                        "missing_source_types": ["drug_label"],
+                        "suggested_next_action": (
+                            "Add curated evidence claim(s), starting with "
+                            "drug_label."
+                        ),
+                    }
+                ]
+            },
+            "by_source_type": {
+                "drug_label": [
+                    {
+                        "priority": BACKFILL_PRIORITY_MISSING,
+                        "drug_id": "drug_a",
+                        "effect_id": "nausea",
+                        "coverage_status": "missing",
+                        "confidence_level": None,
+                        "confidence_status": "none",
+                        "classification": "missing",
+                        "claim_count": 0,
+                        "source_types": ["no_source"],
+                        "missing_source_types": ["drug_label"],
+                        "suggested_next_action": (
+                            "Add curated evidence claim(s), starting with "
+                            "drug_label."
+                        ),
+                    }
+                ]
+            },
         },
     }
 

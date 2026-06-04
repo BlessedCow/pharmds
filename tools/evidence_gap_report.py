@@ -171,6 +171,53 @@ def _format_report_text(
 
     return "\n".join(lines)
 
+def _format_backfill_task(task: dict[str, object]) -> str:
+    """Format one prioritized evidence backfill task."""
+    missing_source_types = task.get("missing_source_types") or []
+    if not isinstance(missing_source_types, list):
+        missing_source_types = []
+
+    missing_sources = ", ".join(str(source) for source in missing_source_types)
+    missing_sources = missing_sources or "none"
+    confidence = task.get("confidence_level") or task.get("confidence_status")
+
+    return (
+        "- "
+        f"[{task.get('priority')}] "
+        f"{task.get('drug_id')} -> {task.get('effect_id')}: "
+        f"{task.get('classification')} "
+        f"(coverage={task.get('coverage_status')}, "
+        f"confidence={confidence or 'none'}, "
+        f"claims={task.get('claim_count')}, "
+        f"missing_sources={missing_sources}). "
+        f"{task.get('suggested_next_action')}"
+    )
+
+
+def _format_backfill_task_group(
+    title: str,
+    grouped_tasks: object,
+) -> list[str]:
+    """Format one grouped backfill task section."""
+    lines = [title]
+
+    if not isinstance(grouped_tasks, dict) or not grouped_tasks:
+        lines.append("  none")
+        return lines
+
+    for key, tasks in sorted(grouped_tasks.items()):
+        lines.append(f"  {key}:")
+
+        if not isinstance(tasks, list):
+            continue
+
+        for task in tasks:
+            if isinstance(task, dict):
+                lines.append(f"    {_format_backfill_task(task)}")
+
+    return lines
+
+
 def _format_backfill_plan(report: dict[str, object]) -> list[str]:
     """Format prioritized evidence backfill tasks for maintainers."""
     backfill_plan = report.get("backfill_plan") or {}
@@ -182,6 +229,9 @@ def _format_backfill_plan(report: dict[str, object]) -> list[str]:
         return ["Backfill planning report:", "  No backfill tasks found."]
 
     priority_counts = backfill_plan.get("priority_counts") or {}
+    if not isinstance(priority_counts, dict):
+        priority_counts = {}
+
     priority_order = (
         BACKFILL_PRIORITY_MISSING,
         BACKFILL_PRIORITY_CONFLICT,
@@ -192,6 +242,8 @@ def _format_backfill_plan(report: dict[str, object]) -> list[str]:
     lines = [
         "Backfill planning report:",
         f"  Total backfill tasks: {backfill_plan.get('total_tasks', 0)}",
+        "",
+        "Priority counts:",
     ]
 
     for priority in priority_order:
@@ -199,25 +251,40 @@ def _format_backfill_plan(report: dict[str, object]) -> list[str]:
         if count:
             lines.append(f"  {priority}: {count}")
 
-    lines.append("  Prioritized tasks:")
+    lines.extend(["", "Prioritized tasks:"])
 
     for task in tasks:
-        if not isinstance(task, dict):
-            continue
+        if isinstance(task, dict):
+            lines.append(f"  {_format_backfill_task(task)}")
 
-        missing_source_types = task.get("missing_source_types") or []
-        missing_sources = ", ".join(missing_source_types) or "none"
-        lines.append(
-            "    - "
-            f"[{task.get('priority')}] "
-            f"{task.get('drug')} -> {task.get('pd_effect')}: "
-            f"{task.get('coverage_status')} evidence, "
-            f"confidence={task.get('confidence')}, "
-            f"conflict={task.get('conflict_status')}, "
-            f"claims={task.get('claim_count')}, "
-            f"missing_sources={missing_sources}. "
-            f"{task.get('suggested_next_action')}"
+    lines.append("")
+    lines.extend(
+        _format_backfill_task_group(
+            "Backfill tasks by priority:",
+            backfill_plan.get("by_priority"),
         )
+    )
+    lines.append("")
+    lines.extend(
+        _format_backfill_task_group(
+            "Backfill tasks by PD effect:",
+            backfill_plan.get("by_pd_effect"),
+        )
+    )
+    lines.append("")
+    lines.extend(
+        _format_backfill_task_group(
+            "Backfill tasks by drug:",
+            backfill_plan.get("by_drug"),
+        )
+    )
+    lines.append("")
+    lines.extend(
+        _format_backfill_task_group(
+            "Backfill tasks by missing source type:",
+            backfill_plan.get("by_source_type"),
+        )
+    )
 
     return lines
 

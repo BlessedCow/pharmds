@@ -25,7 +25,32 @@ def test_cli_show_evidence_gaps_outputs_grouped_report(capsys, monkeypatch):
     assert "Grouped by PD effect:" in out
     assert "Grouped by drug:" in out
     assert "Grouped by source type:" in out
+    assert "Backfill planning report:" in out
 
+def test_cli_show_evidence_gaps_outputs_backfill_plan_sections(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "fluconazole",
+            "--show-evidence-gaps",
+        ],
+    )
+
+    main()
+
+    out = capsys.readouterr().out
+
+    assert "Backfill planning report:" in out
+    assert (
+        "No backfill tasks found." in out
+        or "Prioritized tasks:" in out
+    )
 
 def test_cli_show_evidence_gaps_can_include_complete_rows(capsys, monkeypatch):
     monkeypatch.setattr(

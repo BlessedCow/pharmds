@@ -400,11 +400,19 @@ def build_evidence_gap_backfill_plan(
 
     by_pd_effect: dict[str, list[dict[str, Any]]] = {}
     by_drug: dict[str, list[dict[str, Any]]] = {}
+    by_priority: dict[str, list[dict[str, Any]]] = {}
+    by_source_type: dict[str, list[dict[str, Any]]] = {}
     priority_counts: dict[str, int] = {}
 
     for task in tasks:
         by_pd_effect.setdefault(task["effect_id"], []).append(task)
         by_drug.setdefault(task["drug_id"], []).append(task)
+        by_priority.setdefault(task["priority"], []).append(task)
+
+        source_types = task.get("missing_source_types") or [SOURCE_TYPE_NONE]
+        for source_type in source_types:
+            by_source_type.setdefault(source_type, []).append(task)
+
         priority_counts[task["priority"]] = (
             priority_counts.get(task["priority"], 0) + 1
         )
@@ -413,8 +421,27 @@ def build_evidence_gap_backfill_plan(
         "total_tasks": len(tasks),
         "priority_counts": dict(sorted(priority_counts.items())),
         "tasks": tasks,
-        "by_pd_effect": by_pd_effect,
-        "by_drug": by_drug,
+        "by_priority": _sort_backfill_task_groups(by_priority),
+        "by_pd_effect": _sort_backfill_task_groups(by_pd_effect),
+        "by_drug": _sort_backfill_task_groups(by_drug),
+        "by_source_type": _sort_backfill_task_groups(by_source_type),
+    }
+
+def _sort_backfill_task_groups(
+    grouped_tasks: dict[str, list[dict[str, Any]]],
+) -> dict[str, list[dict[str, Any]]]:
+    """Return grouped backfill tasks with stable group and task ordering."""
+    return {
+        key: sorted(
+            values,
+            key=lambda task: (
+                _BACKFILL_PRIORITY_RANK[task["priority"]],
+                task["effect_id"],
+                task["drug_id"],
+                task["classification"],
+            ),
+        )
+        for key, values in sorted(grouped_tasks.items())
     }
 
 def add_grouped_evidence_gaps(
