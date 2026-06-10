@@ -57,12 +57,18 @@ if res is not None:
         analysis_state.aggregate_concern_summaries,
     )
 
-    render_mechanism_debug_json(analysis_state.payload)
+    st.divider()
 
     render_regimen_summary(analysis_state.regimen_summary)
+
+    st.divider()
 
     render_pair_summary(
         analysis_state.facts,
         analysis_state.pair_reports,
         analysis_state.templates,
     )
+
+    st.divider()
+
+    render_mechanism_debug_json(analysis_state.payload)

@@ -22,23 +22,34 @@ def render_public_result_summaries(
     if not cards:
         return
 
-    st.subheader("Aggregate Summary")
+    st.subheader("Key Interaction Summaries")
+    st.caption(
+        "Public educational summaries are shown first. "
+        "Evidence and mechanism details are available in each expander."
+    )
 
-    for index, card in enumerate(cards):
+    for card in cards:
         with st.container(border=True):
             st.markdown(f"### {card['title']}")
             st.write(card["explanation"])
 
             col_a, col_b, col_c = st.columns(3)
-            col_a.metric("Concern", card["concern_type"])
-            col_b.metric("Severity", card["severity_label"])
-            col_c.metric("Evidence", card["evidence_label"])
+            col_a.metric("Concern", card["concern_type_label"])
+            col_b.metric("Severity", card["severity_display"])
+            col_c.metric("Evidence", card["evidence_display"])
 
             st.caption(f"Drugs: {card['drugs']}")
 
-            if index < len(aggregate_concern_summaries):
-                with st.expander("Evidence and mechanism details"):
+            summary_index = card.get("summary_index")
+            has_aggregate_details = (
+                card.get("source") == "aggregate_summary"
+                and isinstance(summary_index, int)
+                and summary_index < len(aggregate_concern_summaries)
+            )
+
+            if has_aggregate_details:
+                with st.expander("Show evidence and mechanism details"):
                     for line in aggregate_summary_debug_lines(
-                        aggregate_concern_summaries[index]
+                        aggregate_concern_summaries[summary_index]
                     ):
                         st.write(line)

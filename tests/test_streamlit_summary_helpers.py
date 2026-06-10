@@ -1,6 +1,7 @@
 from app.streamlit_ui.summary_helpers import (
     aggregate_summary_debug_fields,
     aggregate_summary_debug_lines,
+    result_summaries_to_streamlit_cards,
     result_summary_to_streamlit_card,
 )
 from core.mechanisms.result_summary import ResultSummary
@@ -24,11 +25,41 @@ def test_result_summary_to_streamlit_card_formats_public_summary():
         "title": "Shared nausea concern",
         "drugs": "clarithromycin and fluconazole",
         "concern_type": "tolerability_concern",
+        "concern_type_label": "Tolerability concern",
         "severity_label": "caution",
+        "severity_display": "Caution",
         "evidence_label": "complete",
+        "evidence_display": "Complete",
         "explanation": "These drugs share a nausea-related concern.",
     }
 
+def test_result_summaries_to_streamlit_cards_dedupes_shared_display_variants():
+    summaries = [
+        ResultSummary(
+            source="aggregate_summary",
+            title="Shared QT prolongation concern",
+            drugs=("clarithromycin", "fluconazole"),
+            concern_type="safety_concern",
+            severity_label="high_caution",
+            evidence_label="complete",
+            explanation="Shared QT concern.",
+        ),
+        ResultSummary(
+            source="aggregate_summary",
+            title="QT prolongation concern",
+            drugs=("clarithromycin", "fluconazole"),
+            concern_type="safety_concern",
+            severity_label="high_caution",
+            evidence_label="complete",
+            explanation="Grouped QT concern.",
+        ),
+    ]
+
+    cards = result_summaries_to_streamlit_cards(summaries)
+
+    assert len(cards) == 1
+    assert cards[0]["title"] == "Shared QT prolongation concern"
+    assert cards[0]["summary_index"] == 0
 
 def test_result_summary_to_streamlit_card_handles_missing_text():
     summary = ResultSummary(
@@ -46,8 +77,11 @@ def test_result_summary_to_streamlit_card_handles_missing_text():
     assert card["title"] == "Summary"
     assert card["drugs"] == "No drugs listed"
     assert card["concern_type"] == "not_available"
+    assert card["concern_type_label"] == "not_available"
     assert card["severity_label"] == "not_available"
+    assert card["severity_display"] == "not_available"
     assert card["evidence_label"] == "not_available"
+    assert card["evidence_display"] == "not_available"
     assert card["explanation"] == "No explanation available."
 
 

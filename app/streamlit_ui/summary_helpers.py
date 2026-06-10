@@ -41,6 +41,14 @@ def _clean_label(value: Any, *, fallback: str = MISSING_LABEL) -> str:
 
     return text
 
+def _display_label(value: Any, *, fallback: str = MISSING_LABEL) -> str:
+    text = _clean_label(value, fallback=fallback)
+
+    if text == MISSING_LABEL:
+        return text
+
+    return text.replace("_", " ").capitalize()
+
 def _format_effect_value(effect_id: Any) -> str:
     effect = _clean_label(effect_id)
 
@@ -107,14 +115,53 @@ def result_summary_to_streamlit_card(
         "title": _clean_label(summary.title, fallback="Summary"),
         "drugs": _human_join(summary.drugs),
         "concern_type": _clean_label(summary.concern_type),
+        "concern_type_label": _display_label(summary.concern_type),
         "severity_label": _clean_label(summary.severity_label),
+        "severity_display": _display_label(summary.severity_label),
         "evidence_label": _clean_label(summary.evidence_label),
+        "evidence_display": _display_label(summary.evidence_label),
         "explanation": _clean_label(
             summary.explanation,
             fallback="No explanation available.",
         ),
     }
 
+def _normalized_streamlit_card_title(card: dict[str, Any]) -> str:
+    title = _clean_label(card.get("title"), fallback="").lower()
+
+    if title.startswith("shared "):
+        return title.removeprefix("shared ")
+
+    return title
+
+
+def _streamlit_card_display_key(card: dict[str, Any]) -> tuple[Any, ...]:
+    return (
+        card.get("source"),
+        card.get("drugs"),
+        card.get("concern_type"),
+        card.get("severity_label"),
+        card.get("evidence_label"),
+        _normalized_streamlit_card_title(card),
+    )
+
+
+def _dedupe_streamlit_cards(
+    cards: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    seen: set[tuple[Any, ...]] = set()
+    out = []
+
+    for card in cards:
+        key = _streamlit_card_display_key(card)
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        out.append(card)
+
+    return out
 
 def result_summaries_to_streamlit_cards(
     summaries: list[ResultSummary],
@@ -122,10 +169,14 @@ def result_summaries_to_streamlit_cards(
     limit: int | None = None,
 ) -> list[dict[str, Any]]:
     """Convert public result summaries into display-ready card payloads."""
-    cards = [
-        result_summary_to_streamlit_card(summary)
-        for summary in summaries
-    ]
+    cards = []
+
+    for index, summary in enumerate(summaries):
+        card = result_summary_to_streamlit_card(summary)
+        card["summary_index"] = index
+        cards.append(card)
+
+    cards = _dedupe_streamlit_cards(cards)
 
     if limit is None:
         return cards
