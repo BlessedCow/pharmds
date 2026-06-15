@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sys
 
 import app.cli as cli_mod
 from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
@@ -93,3 +94,90 @@ def test_json_hits_include_normalized_rationales():
     assert all("action_rationale" in h for h in hits)
     assert any("Caution because" in h["severity_rationale"] for h in hits)
     assert any("Adjust/monitor action" in h["action_rationale"] for h in hits)
+
+def test_cli_format_json_show_evidence_gaps_outputs_json(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "fluconazole",
+            "--format",
+            "json",
+            "--show-evidence-gaps",
+        ],
+    )
+
+    cli_mod.main()
+
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert "total_pd_effects" in payload
+    assert "gap_count" in payload
+    assert "coverage_counts" in payload
+    assert "confidence_counts" in payload
+    assert "gaps_by_pd_effect" in payload
+    assert "gaps_by_drug" in payload
+    assert "gaps_by_source_type" in payload
+    assert "items" in payload
+    assert "backfill_plan" in payload
+
+    assert "PD Effect Evidence Gaps" not in out
+    
+def test_cli_format_json_show_aggregate_evidence_outputs_json(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "fluconazole",
+            "--format",
+            "json",
+            "--show-aggregate-evidence",
+        ],
+    )
+
+    cli_mod.main()
+
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert set(payload) == {"aggregate_evidence_summaries"}
+    assert payload["aggregate_evidence_summaries"]
+    assert "Aggregate Evidence Summary" not in out
+
+
+def test_cli_format_json_show_aggregate_summaries_outputs_json(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "fluconazole",
+            "--format",
+            "json",
+            "--show-aggregate-summaries",
+        ],
+    )
+
+    cli_mod.main()
+
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert set(payload) == {"aggregate_concern_summaries"}
+    assert payload["aggregate_concern_summaries"]
+    assert "Aggregate Concern Summaries" not in out

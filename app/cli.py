@@ -12,7 +12,6 @@ from rich.console import Console
 from rich.panel import Panel
 
 from app.json_output import build_json_payload
-from app.render import colorize_effect_tokens, join_effects
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.evidence.completeness import (
     BACKFILL_PRIORITY_CONFIDENCE,
@@ -65,6 +64,10 @@ RULE_DIR = BASE_DIR / "rules" / "rule_defs"
 
 DEFAULT_AGGREGATE_SUMMARY_LIMIT = 5
 DEFAULT_PUBLIC_RESULT_SUMMARY_LIMIT = 5
+PLAIN_EMPTY_DETAILS_MESSAGE = "No pairwise detail rows to display."
+PLAIN_AGGREGATE_HINT_MESSAGE = (
+    "Use --show-aggregate-summaries to inspect mechanism-level aggregate concerns."
+)
 
 def _parse_drug_tokens(text: str) -> list[str]:
     """Parse drug tokens from free-form text.
@@ -1027,6 +1030,139 @@ def render_plain_regimen_summary(regimen_summary: dict) -> str:
 
     return "\n".join(lines)
 
+def render_plain_pairwise_details(
+    facts: Facts,
+    pair_reports,
+    templates: dict[str, str],
+    *,
+    show_evidence: bool = False,
+) -> str:
+    """Render full pairwise details for plain CLI output."""
+    reports = list(pair_reports)
+    lines: list[str] = ["Pairwise Details"]
+
+    if not reports:
+        lines.append(PLAIN_EMPTY_DETAILS_MESSAGE)
+        lines.append(PLAIN_AGGREGATE_HINT_MESSAGE)
+        return "\n".join(lines)
+
+    for rep in reports:
+        d1 = facts.drugs[rep.drug_1].generic_name
+        d2 = facts.drugs[rep.drug_2].generic_name
+
+        lines.append("=" * 80)
+        lines.append(f"{d1} + {d2}")
+        lines.append(
+            f"Overall: severity={rep.overall_severity.value} | "
+            f"class={rep.overall_rule_class.value}"
+        )
+        lines.append("")
+
+        if rep.pk_hits:
+            lines.append("PK section (directional):")
+            if rep.pk_summary:
+                lines.append(f"PK summary: {rep.pk_summary}")
+            for h in rep.pk_hits:
+                a_drug = facts.drugs[h.inputs["A"]].generic_name
+                b_drug = facts.drugs[h.inputs["B"]].generic_name
+                lines.append(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
+                lines.append(f"  Affected: {a_drug} | Interacting: {b_drug}")
+
+                tmpl = templates.get(h.rule_id, "")
+                if tmpl:
+                    ex = render_explanation(tmpl, facts, h)
+                    lines.append(f"  Explanation: {ex}")
+
+                rat = render_rationale(facts, h)
+                if rat:
+                    lines.append("  Rationale:")
+                    for line in rat.splitlines():
+                        lines.append(f"   {line}")
+
+                lines.append("  Severity rationale:")
+                lines.append(f"   {severity_rationale(h.severity)}")
+
+                lines.append("  Action rationale:")
+                lines.append(f"   {action_rationale(h.rule_class)}")
+
+                if h.actions:
+                    lines.append("  Suggested actions:")
+                    for action in h.actions:
+                        lines.append(f"   - {action}")
+
+                lines.append("")
+
+        if facts.pd_effects:
+            lines.append("PD effects (by drug):")
+            for drug_id, effects in facts.pd_effects.items():
+                effect_ids = sorted({effect.effect_id for effect in effects})
+                lines.append(f"- {drug_id}: {', '.join(effect_ids)}")
+            lines.append("")
+
+        if rep.pd_hits:
+            lines.append("PD section (shared domain):")
+            for h in rep.pd_hits:
+                lines.append(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
+
+                tmpl = templates.get(h.rule_id, "")
+                if tmpl:
+                    ex = render_explanation(tmpl, facts, h)
+                    lines.append(f"  Explanation: {ex}")
+
+                rat = render_rationale(facts, h)
+                if rat:
+                    lines.append("  Rationale:")
+                    for line in rat.splitlines():
+                        lines.append(f"   {line}")
+
+                lines.append("  Severity rationale:")
+                lines.append(f"   {severity_rationale(h.severity)}")
+
+                lines.append("  Action rationale:")
+                lines.append(f"   {action_rationale(h.rule_class)}")
+
+                if h.actions:
+                    lines.append("  Suggested actions:")
+                    for action in h.actions:
+                        lines.append(f"   - {action}")
+
+                if show_evidence:
+                    evidence_lines = build_human_evidence_lines_for_rule_hit(
+                        facts,
+                        h,
+                    )
+                    if evidence_lines:
+                        lines.append("  Evidence:")
+                        for line in evidence_lines:
+                            lines.append(f"   {line}")
+
+                lines.append("")
+
+        refs: list[dict[str, str]] = []
+        for h in (rep.pk_hits or []) + (rep.pd_hits or []):
+            refs.extend(h.references)
+
+        uniq = {
+            (r.get("source", ""), r.get("citation", ""), r.get("url", ""))
+            for r in refs
+        }
+        if uniq:
+            lines.append("References (rule-level):")
+            for source, citation, url in sorted(uniq):
+                if url:
+                    lines.append(f"- {source}: {citation} ({url})")
+                else:
+                    lines.append(f"- {source}: {citation}")
+            lines.append("")
+
+    lines.append("=" * 80)
+    lines.append(
+        "Footer: This output is an educational mechanistic explanation. "
+        "Verify with primary sources."
+    )
+
+    return "\n".join(lines).rstrip()
+
 def render_severity_comparison(pipeline):
     """Render comparison between aggregate concerns and aggregate severity."""
     if not pipeline.aggregate_severity_annotations:
@@ -1110,7 +1246,10 @@ def main() -> None:
     p.add_argument(
         "--details",
         action="store_true",
-        help=("In rich mode, print full per-pair details after the summary."),
+        help=(
+            "Print full per-pair details after the summary in plain "
+            "or rich output."
+        ),
     )
     p.add_argument(
         "--show-evidence",
@@ -1122,6 +1261,8 @@ def main() -> None:
     )
     p.add_argument(
         "--show-mechanism-json",
+        "--show-mechanism-pipeline",
+        dest="show_mechanism_json",
         action="store_true",
         help=(
             "Print the full read-only mechanism pipeline as JSON "
@@ -1307,6 +1448,11 @@ def main() -> None:
 
     if args.show_evidence_gaps:
         report = build_pd_effect_evidence_gap_report(facts)
+
+        if args.format == "json":
+            print(json.dumps(report, indent=2, sort_keys=True))
+            return
+
         print(
             render_evidence_gap_report(
                 report,
@@ -1388,12 +1534,45 @@ def main() -> None:
             return
         
         if args.show_aggregate_evidence:
+            if args.format == "json":
+                payload = mechanism_pipeline_to_json_dict(pipeline)
+                print(
+                    json.dumps(
+                        {
+                            "aggregate_evidence_summaries": payload[
+                                "aggregate_evidence_summaries"
+                            ],
+                        },
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return
+
             print("\nAggregate Evidence Summary")
             print(render_aggregate_evidence_summary(pipeline))
 
             return
         
         if args.show_aggregate_summaries:
+            if args.format == "json":
+                payload = mechanism_pipeline_to_json_dict(pipeline)
+                summaries = payload["aggregate_concern_summaries"]
+
+                if args.top and args.top > 0:
+                    summaries = summaries[: args.top]
+
+                print(
+                    json.dumps(
+                        {
+                            "aggregate_concern_summaries": summaries,
+                        },
+                        indent=2,
+                        sort_keys=True,
+                    )
+                )
+                return
+
             print("\nAggregate Concern Summaries")
             print(
                 render_aggregate_concern_summaries(
@@ -1545,7 +1724,7 @@ def main() -> None:
             pair_reports[: args.top] if args.top and args.top > 0 else pair_reports
         )
         if args.details:
-           render_rich_details(
+            render_rich_details(
                 facts,
                 detail_reports,
                 templates,
@@ -1565,123 +1744,21 @@ def main() -> None:
         print(render_public_result_summaries(public_result_summaries, top=args.top))
         print()
 
-    for rep in pair_reports:
-        d1 = facts.drugs[rep.drug_1].generic_name
-        d2 = facts.drugs[rep.drug_2].generic_name
-
-        print("=" * 80)
-        print(f"{d1} + {d2}")
+    if args.details:
+        detail_reports = (
+            pair_reports[: args.top]
+            if args.top and args.top > 0
+            else pair_reports
+        )
         print(
-            f"Overall: severity={rep.overall_severity.value} | "
-            f"class={rep.overall_rule_class.value}"
+            render_plain_pairwise_details(
+                facts,
+                detail_reports,
+                templates,
+                show_evidence=args.show_evidence,
+            )
         )
         print()
-
-        if rep.pk_hits:
-            print("PK section (directional):")
-            if rep.pk_summary:
-                print(f"PK summary: {rep.pk_summary}")
-            for h in rep.pk_hits:
-                A = facts.drugs[h.inputs["A"]].generic_name
-                B = facts.drugs[h.inputs["B"]].generic_name
-                print(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
-                print(f"  Affected: {A} | Interacting: {B}")
-
-                tmpl = templates.get(h.rule_id, "")
-                if tmpl:
-                    console.print("  Explanation: ", end="")
-                    ex = render_explanation(tmpl, facts, h)
-                    console.print(colorize_effect_tokens(ex))
-
-                rat = render_rationale(facts, h)
-                if rat:
-                    console.print("  Rationale:")
-                    for line in rat.splitlines():
-                        console.print("   ", colorize_effect_tokens(line))
-
-                print("  Severity rationale:")
-                print(f"   {severity_rationale(h.severity)}")
-
-                print("  Action rationale:")
-                print(f"   {action_rationale(h.rule_class)}")
-
-                if h.actions:
-                    print("  Suggested actions:")
-                    for a in h.actions:
-                        print(f"   - {a}")
-
-                print()
-
-        console.print("\nPD effects (by drug):")
-
-        for drug_id, effects in facts.pd_effects.items():
-            effect_ids = [e.effect_id for e in effects]
-            console.print(f"- {drug_id}: ", end="")
-            console.print(join_effects(sorted(set(effect_ids))))
-        
-        if rep.pd_hits:
-            print("PD section (shared domain):")
-            for h in rep.pd_hits:
-                A = facts.drugs[h.inputs["A"]].generic_name
-                B = facts.drugs[h.inputs["B"]].generic_name
-                print(f"- [{h.severity.value} | {h.rule_class.value}] {h.name}")
-
-                tmpl = templates.get(h.rule_id, "")
-                if tmpl:
-                    console.print("  Explanation: ", end="")
-                    ex = render_explanation(tmpl, facts, h)
-                    console.print(colorize_effect_tokens(ex))
-
-                rat = render_rationale(facts, h)
-                if rat:
-                    console.print("  Rationale:")
-                    for line in rat.splitlines():
-                        console.print("   ", colorize_effect_tokens(line))
-
-                print("  Severity rationale:")
-                print(f"   {severity_rationale(h.severity)}")
-
-                print("  Action rationale:")
-                print(f"   {action_rationale(h.rule_class)}")
-
-                if h.actions:
-                    print("  Suggested actions:")
-                    for a in h.actions:
-                        print(f"   - {a}")
-
-                if args.show_evidence:
-                    evidence_lines = build_human_evidence_lines_for_rule_hit(
-                        facts,
-                        h,
-                    )
-                    if evidence_lines:
-                        print("  Evidence:")
-                        for line in evidence_lines:
-                            print(f"   {line}")
-
-                print()
-
-        refs: list[dict[str, str]] = []
-        for h in (rep.pk_hits or []) + (rep.pd_hits or []):
-            refs.extend(h.references)
-
-        uniq = {
-            (r.get("source", ""), r.get("citation", ""), r.get("url", "")) for r in refs
-        }
-        if uniq:
-            print("References (rule-level):")
-            for source, citation, url in sorted(uniq):
-                if url:
-                    print(f"- {source}: {citation} ({url})")
-                else:
-                    print(f"- {source}: {citation}")
-        print()
-
-    print("=" * 80)
-    print(
-        "Footer: This output is an educational mechanistic explanation. "
-        "Verify with primary sources.\n"
-    )
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+import json
 import sys
 
 from app.cli import main
@@ -135,3 +136,86 @@ def test_default_plain_output_includes_regimen_summary_for_three_drugs(
     assert "not a diagnosis or treatment instruction" in out
     assert "Consider avoiding" not in out
     assert "intensive monitoring" not in out
+    
+def test_default_plain_output_keeps_pairwise_details_behind_details_flag(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "warfarin",
+            "fluconazole",
+        ],
+    )
+
+    main()
+
+    out = capsys.readouterr().out
+
+    assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" in out
+    assert "Key Interaction Summaries" in out
+    assert "Pairwise Details" not in out
+    assert "PK section (directional):" not in out
+    assert "PD effects (by drug):" not in out
+    assert "References (rule-level):" not in out
+
+
+def test_plain_details_outputs_pairwise_details_when_requested(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "warfarin",
+            "fluconazole",
+            "--details",
+        ],
+    )
+
+    main()
+
+    out = capsys.readouterr().out
+
+    assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" in out
+    assert "Key Interaction Summaries" in out
+    assert "Pairwise Details" in out
+    assert "PK section (directional):" in out
+    assert "PD effects (by drug):" in out
+    assert "References (rule-level):" in out
+    
+def test_cli_show_mechanism_pipeline_alias_outputs_pipeline_json(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "fluconazole",
+            "--show-mechanism-pipeline",
+        ],
+    )
+
+    main()
+
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert "effects" in payload
+    assert "candidates" in payload
+    assert "arbitration_results" in payload
+    assert "policy_results" in payload
+    assert "scored_concerns" in payload
+    assert "severity_annotations" in payload
+    assert "aggregate_concerns" in payload
+    assert "aggregate_severity_annotations" in payload
+    assert "aggregate_evidence_summaries" in payload
+    assert "aggregate_concern_summaries" in payload
