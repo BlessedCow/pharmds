@@ -7,7 +7,7 @@
 
   
 
-PharmDS is a Python-based, rule-driven pharmacology decision-support system that provides mechanistic, explainable analysis of drug-drug interactions.
+PharmDS is a Python-based pharmacology decision-support system that combines a tested rule engine with a newer mechanism pipeline for mechanistic, explainable analysis of drug-drug interactions.
 
  
 The project prioritizes clarity, traceability, determinism, and conservatism over prediction. It is intended for education, internal discussion, learning, and software experimentation. It is not intended for prescribing, diagnosis, treatment, or real-world clinical decision making.
@@ -99,11 +99,26 @@ Regimen summaries include:
 
 This helps distinguish isolated pairwise interactions from broader patterns such as repeated sedation, QT burden, or CNS depression.
 
-  
-
 ---
 
-  
+### Mechanism Pipeline and Aggregate Summaries
+
+PharmDS also includes a newer mechanism pipeline that normalizes drug facts into mechanism effects, interaction candidates, concern policy results, aggregate concerns, preliminary educational severity annotations, and evidence summaries.
+
+This pipeline currently supports:
+
+- Mechanism pipeline JSON output
+- Aggregate concern summaries
+- Aggregate severity annotations
+- Aggregate evidence summaries
+- Public educational summaries shown before legacy rule summaries
+- Debug output for inspecting pipeline stages
+
+The older rule engine still owns established pairwise rule behavior, detailed CLI output, and regimen summaries. The two paths are intentionally kept together while migration happens incrementally.
+
+See `ARCHITECTURE.md` for the current ownership note.
+
+---
 
 ## Expanded PD Ontology
 
@@ -679,7 +694,7 @@ The Streamlit interface provides:
 
   
 
-PharmDS includes validation and test coverage for the rule/data layer.
+PharmDS includes validation and test coverage for the rule engine, curated data, service payloads, mechanism pipeline, CLI output, and Streamlit helpers.
 
   
 
@@ -729,12 +744,9 @@ python  -m  rules.validate_rules
 
 ```
 
-  
-
 The project includes tests for:
 
   
-
 - Rule evaluation
 
 - Golden interaction scenarios
@@ -745,13 +757,19 @@ The project includes tests for:
 
 - Regimen summary behavior
 
+- Mechanism pipeline stages
+
+- Aggregate concern summaries
+
+- Evidence completeness and evidence trace behavior
+
 - JSON output structure
 
 - Normalized severity/action rationale helpers
 
 - CLI/API-style payload generation
 
-  
+- Streamlit summary helpers  
 
 These tests are intended to protect against silent rule drift, noisy alerting, and accidental output schema regressions.
 
@@ -873,6 +891,7 @@ pharmds/
 ├── tests/ Unit tests, golden scenarios, and negative/no-hit baselines
 ├── streamlit_app.py Streamlit web interface
 ├── README.md
+├── ARCHITECTURE.md
 ├── ROADMAP.md
 ├── LICENSE
 └── DISCLAIMER.txt
