@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from core.evidence.formatting import display_value
 from core.evidence.pd_interaction_traces import (
     build_additive_pd_effect_evidence_trace,
 )
@@ -22,21 +23,9 @@ _EVIDENCE_TYPE_LABELS = {
     "mechanistic_inference": "mechanistic inference",
 }
 
-
-def _display_value(value: object, fallback: str = "unknown") -> str:
-    """Return a readable display value for human output."""
-    if value is None:
-        return fallback
-
-    if value == "":
-        return fallback
-
-    return str(value)
-
-
 def _evidence_type_label(evidence_type: object) -> str:
     """Return a compact label for an evidence type."""
-    raw = _display_value(evidence_type)
+    raw = display_value(evidence_type)
 
     return _EVIDENCE_TYPE_LABELS.get(raw, raw.replace("_", " "))
 
@@ -59,9 +48,9 @@ def _format_drug_evidence_line(
     drug_names: dict[str, str] | None = None,
 ) -> str:
     """Return one concise human-facing evidence line for a drug trace."""
-    drug_id = _display_value(drug_trace.get("drug_id"), "unknown_drug")
+    drug_id = display_value(drug_trace.get("drug_id"), "unknown_drug")
     display_name = (drug_names or {}).get(drug_id, drug_id)
-    evidence_status = _display_value(drug_trace.get("evidence_status"))
+    evidence_status = display_value(drug_trace.get("evidence_status"))
     claims = drug_trace.get("claims", [])
 
     if evidence_status != "present" or not claims:
@@ -81,7 +70,7 @@ def _format_drug_evidence_line(
         return f"{display_name}: approved claim present, evidence details unavailable"
 
     evidence_label = _evidence_type_label(evidence.get("evidence_type"))
-    confidence = _display_value(evidence.get("confidence"))
+    confidence = display_value(evidence.get("confidence"))
 
     return f"{display_name}: supported by {evidence_label}, {confidence} confidence"
 
@@ -92,7 +81,7 @@ def format_human_evidence_trace(
     drug_names: dict[str, str] | None = None,
 ) -> list[str]:
     """Return compact human-facing lines for an additive PD evidence trace."""
-    overall_status = _display_value(
+    overall_status = display_value(
         trace.get("overall_evidence_status"),
         "unknown",
     )

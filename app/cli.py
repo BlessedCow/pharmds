@@ -1265,6 +1265,13 @@ def main() -> None:
         ),
     )
     p.add_argument(
+        "--json",
+        dest="format",
+        action="store_const",
+        const="json",
+        help="Shortcut for --format json.",
+    )
+    p.add_argument(
         "--details",
         action="store_true",
         help=(

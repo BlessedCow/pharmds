@@ -95,6 +95,26 @@ def test_json_hits_include_normalized_rationales():
     assert any("Caution because" in h["severity_rationale"] for h in hits)
     assert any("Adjust/monitor action" in h["action_rationale"] for h in hits)
 
+def test_cli_json_shortcut_outputs_json(capsys, monkeypatch):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "fluconazole",
+            "--json",
+        ],
+    )
+
+    cli_mod.main()
+
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert payload["schema_version"] == "1.0"
+    assert payload["input"]["drug_names"] == ["clarithromycin", "fluconazole"]
+
 def test_cli_format_json_show_evidence_gaps_outputs_json(
     capsys,
     monkeypatch,

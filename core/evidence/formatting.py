@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 
-def _display_value(value: object, fallback: str = "unknown") -> str:
+def display_value(value: object, fallback: str = "unknown") -> str:
     """Return a readable display value."""
     if value is None:
         return fallback
@@ -19,12 +19,12 @@ def _display_value(value: object, fallback: str = "unknown") -> str:
 def format_source_trace(source: dict[str, Any]) -> str:
     """Return a display-ready source trace summary."""
     if not source.get("found", False):
-        source_id = _display_value(source.get("source_id"), "unknown_source")
+        source_id = display_value(source.get("source_id"), "unknown_source")
         return f"{source_id} (source not found)"
 
-    title = _display_value(source.get("title"), "Unknown source")
-    publisher = _display_value(source.get("publisher"))
-    reliability_tier = _display_value(source.get("reliability_tier"))
+    title = display_value(source.get("title"), "Unknown source")
+    publisher = display_value(source.get("publisher"))
+    reliability_tier = display_value(source.get("reliability_tier"))
     accessed_at = source.get("accessed_at")
 
     if accessed_at:
@@ -38,8 +38,8 @@ def format_source_trace(source: dict[str, Any]) -> str:
 
 def format_evidence_item_trace(evidence: dict[str, Any]) -> str:
     """Return a display-ready evidence item summary."""
-    evidence_type = _display_value(evidence.get("evidence_type"))
-    confidence = _display_value(evidence.get("confidence"))
+    evidence_type = display_value(evidence.get("evidence_type"))
+    confidence = display_value(evidence.get("confidence"))
     supports_claim = evidence.get("supports_claim")
     support_label = "supports_claim=unknown"
 
@@ -63,19 +63,19 @@ def format_evidence_item_trace(evidence: dict[str, Any]) -> str:
 
 def format_claim_trace(claim: dict[str, Any]) -> str:
     """Return a display-ready claim trace summary."""
-    drug_id = _display_value(claim.get("drug_id"), "unknown_drug")
-    effect_id = _display_value(claim.get("effect_id"), "unknown_effect")
-    claim_type = _display_value(claim.get("claim_type"), "unknown_claim_type")
-    claim_status = _display_value(claim.get("claim_status"))
+    drug_id = display_value(claim.get("drug_id"), "unknown_drug")
+    effect_id = display_value(claim.get("effect_id"), "unknown_effect")
+    claim_type = display_value(claim.get("claim_type"), "unknown_claim_type")
+    claim_status = display_value(claim.get("claim_status"))
 
     review = claim.get("review", {})
 
     if not isinstance(review, dict):
         review = {}
 
-    review_status = _display_value(review.get("status"))
+    review_status = display_value(review.get("status"))
 
-    evidence_support_status = _display_value(
+    evidence_support_status = display_value(
         claim.get("evidence_support_status"),
         "unknown",
     )
@@ -107,16 +107,16 @@ def format_evidence_confidence(confidence: dict[str, Any] | None) -> str:
     if not isinstance(confidence, dict):
         return "unknown"
 
-    level = _display_value(confidence.get("level"))
-    score = _display_value(confidence.get("score"))
+    level = display_value(confidence.get("level"))
+    score = display_value(confidence.get("score"))
 
     return f"{level}({score})"
 
 
 def format_evidence_trace(trace: dict[str, Any]) -> list[str]:
     """Return display-ready lines for an evidence trace."""
-    effect_id = _display_value(trace.get("effect_id"), "unknown_effect")
-    overall_status = _display_value(
+    effect_id = display_value(trace.get("effect_id"), "unknown_effect")
+    overall_status = display_value(
         trace.get("overall_evidence_status"),
         "unknown",
     )
@@ -128,8 +128,8 @@ def format_evidence_trace(trace: dict[str, Any]) -> list[str]:
         if not isinstance(drug_trace, dict):
             continue
 
-        drug_id = _display_value(drug_trace.get("drug_id"), "unknown_drug")
-        evidence_status = _display_value(
+        drug_id = display_value(drug_trace.get("drug_id"), "unknown_drug")
+        evidence_status = display_value(
             drug_trace.get("evidence_status"),
             "unknown",
         )
