@@ -133,10 +133,10 @@ def test_mechanism_pipeline_to_json_dict_includes_patient_risk_context():
     assert aggregate_summary["aggregate"]["effect_id"] == "QT_prolongation"
     assert aggregate_summary["patient_risk_modifiers"] == ["qt_risk"]
     assert aggregate_summary["risk_context"] == (
-        "QT-related concern may be more important when QT risk flag is present."
+        "QT-related concerns may be more relevant when a QT risk flag is present."
     )
-    assert "Patient risk modifier(s) present: qt_risk." in aggregate_summary[
-    "narrative"
+    assert "Patient risk flag present: QT risk." in aggregate_summary[
+        "narrative"
     ]
     assert "educational and not diagnostic" in aggregate_summary["narrative"]
     assert aggregate_summary["evidence_conflict_reasons"] == [

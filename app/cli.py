@@ -916,6 +916,21 @@ def render_aggregate_concern_summaries(
 
     return "\n".join(lines)
 
+def _format_public_summary_label(value: object) -> str:
+    text = str(value or "").strip()
+
+    if not text:
+        return "Not available"
+
+    labels = {
+        "high_caution": "High caution",
+        "not_available": "Not available",
+        "legacy_rule": "Legacy rule",
+        "not_applicable": "Not applicable",
+    }
+
+    return labels.get(text, text.replace("_", " ").capitalize())
+
 def render_public_result_summaries(
     summaries: list[ResultSummary],
     top: int | None = DEFAULT_PUBLIC_RESULT_SUMMARY_LIMIT,
@@ -937,9 +952,15 @@ def render_public_result_summaries(
 
         lines.append(f"- {summary.title}")
         lines.append(f"  drugs: {drugs}")
-        lines.append(f"  concern_type: {summary.concern_type}")
-        lines.append(f"  severity: {summary.severity_label}")
-        lines.append(f"  evidence: {summary.evidence_label}")
+        lines.append(
+            f"  concern_type: {_format_public_summary_label(summary.concern_type)}"
+        )
+        lines.append(
+            f"  severity: {_format_public_summary_label(summary.severity_label)}"
+        )
+        lines.append(
+            f"  evidence: {_format_public_summary_label(summary.evidence_label)}"
+        )
         lines.append(f"  explanation: {summary.explanation}")
         lines.append("")
 

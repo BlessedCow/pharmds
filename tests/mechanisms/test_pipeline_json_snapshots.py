@@ -266,14 +266,17 @@ def test_clarithromycin_fluconazole_aggregate_summary_json_snapshot():
     assert qt_summary["evidence_conflict_source_ids"] == []
     assert qt_summary["evidence_conflict_trace_types"] == []
     assert (
-        "QT prolongation-related pharmacodynamic concern"
+        "QT prolongation-related pharmacodynamic concerns"
         in qt_summary["narrative"]
     )
-    assert "complete curated evidence support" in qt_summary["narrative"]
     assert (
-            "preliminary educational severity label is high_caution"
-            in qt_summary["narrative"]
-        )
+        "Curated evidence support for this grouped concern is complete"
+        in qt_summary["narrative"]
+    )
+    assert (
+        "Preliminary educational severity: High caution"
+        in qt_summary["narrative"]
+    )
     assert "educational and not diagnostic" in qt_summary["narrative"]
 
     nausea_summary = _aggregate_summary_by(
@@ -346,14 +349,12 @@ def test_bupropion_vortioxetine_aggregate_summary_json_snapshot():
     assert summary["evidence_conflict_trace_types"] == []
 
     assert (
-        "bupropion and vortioxetine include regimen-wide mechanism(s) that may "
+        "This regimen includes bupropion and vortioxetine, with mechanism(s) that may "
         "increase vortioxetine exposure through CYP2D6-related mechanism(s)."
     ) in summary["narrative"]
-    assert "no aggregate-level curated evidence requirement" in (
-        summary["narrative"]
-    )
+    assert "not required at the aggregate level" in summary["narrative"]
     assert (
-        "preliminary educational severity label is informational"
+        "Preliminary educational severity: Informational"
         in summary["narrative"]
     )
     assert "educational and not diagnostic" in summary["narrative"]
@@ -461,11 +462,7 @@ def test_qt_risk_aggregate_summary_json_snapshot():
 
     assert qt_summary["patient_risk_modifiers"] == ["qt_risk"]
     assert qt_summary["risk_context"] == (
-        "QT-related concern may be more important when QT risk flag is present."
+        "QT-related concerns may be more relevant when a QT risk flag is present."
     )
-    assert "Patient risk modifier(s) present: qt_risk." in (
-        qt_summary["narrative"]
-    )
-    assert "QT-related concern may be more important" in (
-        qt_summary["narrative"]
-    )
+    assert "Patient risk flag present: QT risk." in qt_summary["narrative"]
+    assert "QT-related concerns may be more relevant" in qt_summary["narrative"]

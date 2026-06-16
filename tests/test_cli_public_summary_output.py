@@ -29,6 +29,9 @@ def test_default_plain_output_includes_public_result_summaries(
     assert "concern_type:" in out
     assert "severity:" in out
     assert "evidence:" in out
+    assert "severity: High caution" in out
+    assert "evidence: Complete" in out
+    assert "severity: high_caution" not in out
     assert "explanation:" in out
 
     assert "No rule-based interactions detected" not in out

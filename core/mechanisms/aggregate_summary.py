@@ -59,12 +59,17 @@ PATIENT_RISK_EFFECT_MAP = {
 
 PATIENT_RISK_CONTEXT = {
     "qt_risk": (
-        "QT-related concern may be more important when QT risk flag is present."
+        "QT-related concerns may be more relevant when a QT risk flag is "
+        "present."
     ),
     "bleeding_risk": (
-        "Bleeding-related concern may be more important when bleeding risk flag "
-        "is present."
+        "Bleeding-related concerns may be more relevant when a bleeding risk "
+        "flag is present."
     ),
+}
+PATIENT_RISK_MODIFIER_LABELS = {
+    "qt_risk": "QT risk",
+    "bleeding_risk": "bleeding risk",
 }
 EVIDENCE_CONFLICT_LEVEL_NONE = "none"
 EVIDENCE_CONFLICT_LEVEL_DISPUTED = "disputed"
@@ -256,8 +261,8 @@ def summarize_evidence_conflict_surface(
         return (
             EVIDENCE_CONFLICT_LEVEL_CONFLICTING,
             (
-                "Conflicting curated evidence is attached to this aggregate "
-                "concern and should be reviewed separately instead of being "
+                "Curated evidence attached to this grouped concern is "
+                "conflicting, so it should be reviewed separately and not "
                 "treated as complete support."
                 + _evidence_reason_sentence(
                     evidence.evidence_conflict_reasons,
@@ -273,8 +278,8 @@ def summarize_evidence_conflict_surface(
         return (
             EVIDENCE_CONFLICT_LEVEL_DISPUTED,
             (
-                "Disputed curated evidence is attached to this aggregate "
-                "concern and should be reviewed separately."
+                "Curated evidence attached to this grouped concern is "
+                "disputed and should be reviewed separately."
                 + _evidence_reason_sentence(
                     evidence.evidence_conflict_reasons,
                     prefix="Dispute indicator(s)",
@@ -337,8 +342,8 @@ def _aggregate_mechanism_narrative(
         effect_id = aggregate.effect_id or aggregate.anchor
         effect_text = _aggregate_effect_text(effect_id)
         return (
-            f"{drugs} share a regimen-wide {effect_text}-related "
-            "pharmacodynamic concern."
+            f"{drugs} have overlapping {effect_text}-related "
+            "pharmacodynamic concerns in this regimen."
         )
 
     if aggregate.aggregate_type == AGGREGATE_OBJECT_EXPOSURE_INCREASE:
@@ -349,8 +354,8 @@ def _aggregate_mechanism_narrative(
             else ""
         )
         return (
-            f"{drugs} include regimen-wide mechanism(s) that may increase "
-            f"{aggregate.anchor} exposure{target_text}."
+            f"This regimen includes {drugs}, with mechanism(s) that may "
+            f"increase {aggregate.anchor} exposure{target_text}."
         )
 
     if aggregate.aggregate_type == AGGREGATE_OBJECT_EXPOSURE_DECREASE:
@@ -361,21 +366,21 @@ def _aggregate_mechanism_narrative(
             else ""
         )
         return (
-            f"{drugs} include regimen-wide mechanism(s) that may decrease "
-            f"{aggregate.anchor} exposure{target_text}."
+            f"This regimen includes {drugs}, with mechanism(s) that may "
+            f"decrease {aggregate.anchor} exposure{target_text}."
         )
 
     if aggregate.effect_id:
         effect_text = _aggregate_effect_text(aggregate.effect_id)
         return (
-            f"{drugs} are grouped around a regimen-wide {effect_text} "
-            f"concern as a {aggregate.policy_concern}."
+            f"{drugs} are grouped around an overlapping {effect_text} "
+            f"concern categorized as {aggregate.policy_concern}."
         )
 
     return (
-        f"{drugs} are grouped as a regimen-wide {aggregate.policy_concern}."
+        f"{drugs} are grouped under {aggregate.policy_concern} for this "
+        "regimen."
     )
-
 
 def _aggregate_evidence_narrative(
     summary: AggregateConcernSummary,
@@ -400,7 +405,10 @@ def _aggregate_evidence_narrative(
             prefix="Evidence limitation indicator(s)",
         )
 
-    return f"This grouped concern has {evidence_label}.{limitation_text}"
+    return (
+        "Curated evidence support for this grouped concern is "
+        f"{evidence_label}.{limitation_text}"
+    )
 
 
 def _aggregate_severity_narrative(
@@ -409,12 +417,12 @@ def _aggregate_severity_narrative(
     severity = summary.severity_annotation
 
     if not severity or not severity.strongest_preliminary_severity:
-        return "It does not have a preliminary educational severity label."
+        return "No preliminary educational severity label is attached."
 
-    return (
-        "Its preliminary educational severity label is "
-        f"{severity.strongest_preliminary_severity}."
+    severity_label = _severity_status_label(
+        severity.strongest_preliminary_severity,
     )
+    return f"Preliminary educational severity: {severity_label}."
 
 
 def _aggregate_patient_risk_narrative(
@@ -423,13 +431,18 @@ def _aggregate_patient_risk_narrative(
     if not summary.patient_risk_modifiers:
         return ""
 
-    modifiers = _human_join(summary.patient_risk_modifiers)
+    modifiers = _human_join(
+        tuple(
+            PATIENT_RISK_MODIFIER_LABELS.get(modifier, modifier)
+            for modifier in summary.patient_risk_modifiers
+        )
+    )
     context = summary.risk_context or ""
 
     if context:
-        return f"Patient risk modifier(s) present: {modifiers}. {context}"
+        return f"Patient risk flag present: {modifiers}. {context}"
 
-    return f"Patient risk modifier(s) present: {modifiers}."
+    return f"Patient risk flag present: {modifiers}."
 
 def _evidence_reason_sentence(
     reasons: tuple[str, ...],
@@ -453,19 +466,23 @@ def _evidence_reason_label(reason: str) -> str:
         reason.replace("_", " "),
     )
 
+
 def _evidence_status_label(status: str) -> str:
     labels = {
-        EVIDENCE_STATUS_COMPLETE: "complete curated evidence support",
-        EVIDENCE_STATUS_PARTIAL: "partial curated evidence support",
-        EVIDENCE_STATUS_MISSING: "missing curated evidence support",
-        EVIDENCE_STATUS_DISPUTED: "disputed curated evidence context",
-        EVIDENCE_STATUS_CONFLICTING: "conflicting curated evidence context",
-        "not_applicable": "no aggregate-level curated evidence requirement",
-        "undetermined": "undetermined curated evidence support",
+        EVIDENCE_STATUS_COMPLETE: "complete",
+        EVIDENCE_STATUS_PARTIAL: "partial",
+        EVIDENCE_STATUS_MISSING: "missing",
+        EVIDENCE_STATUS_DISPUTED: "disputed",
+        EVIDENCE_STATUS_CONFLICTING: "conflicting",
+        "not_applicable": "not required at the aggregate level",
+        "undetermined": "undetermined",
     }
 
     return labels.get(status, f"{status} evidence status")
 
+
+def _severity_status_label(status: str) -> str:
+    return status.replace("_", " ").capitalize()
 
 def _human_join(items: tuple[str, ...]) -> str:
     if not items:

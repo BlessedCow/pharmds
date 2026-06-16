@@ -44,8 +44,15 @@ def _clean_label(value: Any, *, fallback: str = MISSING_LABEL) -> str:
 def _display_label(value: Any, *, fallback: str = MISSING_LABEL) -> str:
     text = _clean_label(value, fallback=fallback)
 
-    if text == MISSING_LABEL:
-        return text
+    labels = {
+        MISSING_LABEL: "Not available",
+        "high_caution": "High caution",
+        "not_applicable": "Not applicable",
+        "legacy_rule": "Legacy rule",
+    }
+
+    if text in labels:
+        return labels[text]
 
     return text.replace("_", " ").capitalize()
 

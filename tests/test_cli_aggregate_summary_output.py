@@ -162,7 +162,7 @@ def test_cli_show_aggregate_summaries_outputs_patient_risk_context(
     assert "QT prolongation-related pharmacodynamic concern" in out
     assert "QT_prolongation-related pharmacodynamic effect" not in out
     assert (
-        "risk_context: QT-related concern may be more important when QT risk "
+        "risk_context: QT-related concerns may be more relevant when a QT risk "
         "flag is present."
     ) in out
     
@@ -189,7 +189,7 @@ def test_cli_show_aggregate_summaries_outputs_narrative(
 
     assert "narrative:" in out
     assert (
-        "clarithromycin and fluconazole share a regimen-wide nausea-related"
+        "clarithromycin and fluconazole have overlapping nausea-related"
         in out
     )
     assert "educational and not diagnostic" in out

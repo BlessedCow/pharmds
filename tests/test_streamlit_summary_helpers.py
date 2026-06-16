@@ -60,6 +60,7 @@ def test_result_summaries_to_streamlit_cards_dedupes_shared_display_variants():
     assert len(cards) == 1
     assert cards[0]["title"] == "Shared QT prolongation concern"
     assert cards[0]["summary_index"] == 0
+    assert cards[0]["severity_display"] == "High caution"
 
 def test_result_summary_to_streamlit_card_handles_missing_text():
     summary = ResultSummary(
@@ -77,11 +78,11 @@ def test_result_summary_to_streamlit_card_handles_missing_text():
     assert card["title"] == "Summary"
     assert card["drugs"] == "No drugs listed"
     assert card["concern_type"] == "not_available"
-    assert card["concern_type_label"] == "not_available"
     assert card["severity_label"] == "not_available"
-    assert card["severity_display"] == "not_available"
     assert card["evidence_label"] == "not_available"
-    assert card["evidence_display"] == "not_available"
+    assert card["concern_type_label"] == "Not available"
+    assert card["severity_display"] == "Not available"
+    assert card["evidence_display"] == "Not available"
     assert card["explanation"] == "No explanation available."
 
 
