@@ -1350,7 +1350,9 @@
       "drug_class": "opioid antagonist",
       "therapeutic_index": "wide",
       "aliases": [
-        "narcan"
+        "narcan",
+        "kloxxado",
+        "zimhi"
       ],
       "notes": "Educational anchor: opioid receptor antagonist used for reversal of opioid overdose. May precipitate acute withdrawal in opioid dependent patients.",
       "enzymes": [],
@@ -1389,6 +1391,7 @@
       "drug_class": "opioid antagonist",
       "therapeutic_index": "wide",
       "aliases": [
+        "depade",
         "revia",
         "vivitrol"
       ],
@@ -1429,9 +1432,13 @@
       "drug_class": "opioid (partial agonist)",
       "therapeutic_index": "moderate",
       "aliases": [
+        "belbuca",
+        "brixadi",
+        "sublocade",
         "suboxone",
         "subutex",
-        "butrans"
+        "butrans",
+        "zubsolv"
       ],
       "notes": "Educational anchor: CYP3A4 substrate for PK inhibitor and inducer rules. PD: additive CNS and respiratory depression with other CNS depressants. QT effect is product and dose dependent (notably described for transdermal buprenorphine).",
       "enzymes": [
@@ -4877,7 +4884,9 @@
       "generic_name": "mecamylamine",
       "drug_class": "nicotinic receptor antagonist",
       "therapeutic_index": "narrow",
-      "aliases": [],
+      "aliases": [
+        "inversine"
+      ],
       "notes": "Nonselective nicotinic acetylcholine receptor antagonist affecting autonomic ganglia.",
       "enzymes": [],
       "transporters": [],

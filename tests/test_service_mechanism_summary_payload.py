@@ -3,6 +3,7 @@ from types import SimpleNamespace
 from app.service import (
     _build_json_analyze_payload,
     _build_streamlit_analyze_payload,
+    analyze_names,
     analyze_text,
 )
 from core.mechanisms.result_summary import ResultSummary
@@ -92,6 +93,40 @@ def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline(
         "evidence_label",
         "explanation",
     }
+
+def test_analyze_names_unknown_drug_payload_includes_actionable_message():
+    result = analyze_names(["quetiaipne", "fluconazole"])
+
+    assert not result.ok
+
+    payload = result.payload
+    assert payload["error"] == "unknown_drug"
+    assert payload["unknown"] == ["quetiaipne"]
+    assert "quetiapine" in payload["suggestions"]["quetiaipne"]
+    assert "Drug 'quetiaipne' was not found. Did you mean: quetiapine" in (
+        payload["message"]
+    )
+    assert "Common separators" in payload["tip"]
+    assert payload["input_drug_names"] == ["quetiaipne", "fluconazole"]
+
+
+def test_analyze_text_resolves_aliases_with_common_separator_variants():
+    result = analyze_text("wellbutrin-xl\namphetamine/dextroamphetamine")
+
+    assert result.ok
+    assert result.payload["drug_ids"] == [
+        "bupropion",
+        "amphetamine_dextroamphetamine",
+    ]
+    
+def test_analyze_names_deduplicates_canonical_drug_ids_after_alias_resolution():
+    result = analyze_names(["wellbutrin-xl", "bupropion", "diflucan"])
+
+    assert result.ok
+    assert result.payload["drug_ids"] == [
+        "bupropion",
+        "fluconazole",
+    ]
     
 def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
     public_summary = ResultSummary(

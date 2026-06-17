@@ -29,3 +29,11 @@ def test_unknown_drug_may_have_no_suggestions_for_gibberish():
     assert "xqznotadrug" in err.unknown
     assert err.suggestions.get("xqznotadrug", ()) == ()
 
+def test_unknown_drug_suggestions_normalize_common_separators():
+    conn = connect(DB_PATH)
+
+    with pytest.raises(UnknownDrugError) as exc:
+        resolve_drug_ids(conn, ["wellbutrinn-xl"])
+
+    err = exc.value
+    assert "wellbutrin xl" in err.suggestions.get("wellbutrinn-xl", ())

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import difflib
 import json
+import re
 import sqlite3
 import sys
 from itertools import combinations
@@ -68,6 +69,10 @@ PLAIN_EMPTY_DETAILS_MESSAGE = "No pairwise detail rows to display."
 PLAIN_AGGREGATE_HINT_MESSAGE = (
     "Use --show-aggregate-summaries to inspect mechanism-level aggregate concerns."
 )
+def _normalize_drug_lookup_term(value: str) -> str:
+    term = (value or "").strip().lower()
+    term = re.sub(r"[\s_/\-]+", " ", term)
+    return term.strip()
 
 def _parse_drug_tokens(text: str) -> list[str]:
     """Parse drug tokens from free-form text.
@@ -158,22 +163,17 @@ def connect(db_path: Path) -> sqlite3.Connection:
 def resolve_drug_ids(conn: sqlite3.Connection, names: list[str]) -> list[str]:
     out: list[str] = []
     unknown: list[str] = []
-
+    lookup = _fetch_drug_lookup(conn)
+    seen_drug_ids: set[str] = set()
+    
     for raw in names:
-        q = raw.strip().lower()
-
-        row = conn.execute(
-            "SELECT id FROM drug WHERE lower(generic_name)=?", (q,)
-        ).fetchone()
-        if row:
-            out.append(row["id"])
-            continue
-
-        row = conn.execute(
-            "SELECT drug_id FROM drug_alias WHERE alias=?", (q,)
-        ).fetchone()
-        if row:
-            out.append(row["drug_id"])
+        q = _normalize_drug_lookup_term(raw)
+        drug_id = lookup.get(q)
+        if drug_id:
+            if drug_id in seen_drug_ids:
+                continue
+            seen_drug_ids.add(drug_id)
+            out.append(drug_id)
             continue
 
         unknown.append(raw)
@@ -294,6 +294,25 @@ def _fetch_known_drug_terms(conn: sqlite3.Connection) -> list[str]:
             out.append(t)
     return out
 
+def _fetch_drug_lookup(conn: sqlite3.Connection) -> dict[str, str]:
+    lookup: dict[str, str] = {}
+
+    rows = conn.execute("SELECT id, generic_name FROM drug ORDER BY id").fetchall()
+    for r in rows:
+        for term in (r["id"], r["generic_name"]):
+            key = _normalize_drug_lookup_term(term)
+            if key:
+                lookup.setdefault(key, r["id"])
+
+    rows = conn.execute(
+        "SELECT drug_id, alias FROM drug_alias ORDER BY drug_id, alias"
+    ).fetchall()
+    for r in rows:
+        key = _normalize_drug_lookup_term(r["alias"])
+        if key:
+            lookup.setdefault(key, r["drug_id"])
+
+    return lookup
 
 def _suggest_drug_terms(
     token: str, known_terms: list[str], limit: int = 5
@@ -303,13 +322,28 @@ def _suggest_drug_terms(
 
     Uses difflib to keep it local and dependency-free.
     """
-    q = (token or "").strip().lower()
+    q = _normalize_drug_lookup_term(token)
     if not q:
         return tuple()
 
-    matches = difflib.get_close_matches(q, known_terms, n=limit, cutoff=0.6)
-    return tuple(matches)
+    display_by_normalized: dict[str, str] = {}
+    for term in known_terms:
+        key = _normalize_drug_lookup_term(term)
+        if key:
+            display_by_normalized.setdefault(key, term)
 
+    matches = difflib.get_close_matches(
+        q, list(display_by_normalized), n=limit, cutoff=0.6
+    )
+    return tuple(display_by_normalized[m] for m in matches)
+
+def _format_unknown_drug_message(token: str, suggestions: tuple[str, ...]) -> str:
+    if suggestions:
+        return f"Drug '{token}' was not found. Did you mean: {', '.join(suggestions)}?"
+    return (
+        f"Drug '{token}' was not found. Check the spelling, or try a generic "
+        "name or known brand name."
+    )
 
 def _sev_rank(sev: str) -> int:
     # Match Severity values: info/caution/major/contraindicated
@@ -1454,16 +1488,11 @@ def main() -> None:
     except UnknownDrugError as e:
         for tok in e.unknown:
             opts = e.suggestions.get(tok, ())
-            if opts:
-                print(
-                    f"Drug '{tok}' not found. Did you mean: {', '.join(opts)}?",
-                    file=sys.stderr,
-                )
-            else:
-                print(f"Drug '{tok}' not found.", file=sys.stderr)
+            print(_format_unknown_drug_message(tok, opts), file=sys.stderr)
 
         print(
-            "Tip: use generic names or add aliases in the local database.",
+            "Tip: common separators such as spaces, hyphens, slashes, and "
+            "underscores are treated the same.",
             file=sys.stderr,
         )
         raise SystemExit(2) from e

@@ -8,6 +8,7 @@ from app.cli import (
     RULE_DIR,
     _build_reports_for_all_pairs,
     _collect_drug_inputs,
+    _format_unknown_drug_message,
     _parse_domain_selection,
     _parse_drug_tokens,
     connect,
@@ -169,16 +170,24 @@ def analyze_names(
     try:
         drug_ids = resolve_drug_ids(conn, drug_names)
     except UnknownDrugError as e:
+        messages = [
+            _format_unknown_drug_message(tok, e.suggestions.get(tok, ()))
+            for tok in e.unknown
+        ]
         return AnalyzeResult(
             ok=False,
             payload={
                 "error": "unknown_drug",
                 "unknown": list(e.unknown),
                 "suggestions": dict(e.suggestions or {}),
+                "message": " ".join(messages),
+                "tip": (
+                    "Common separators such as spaces, hyphens, slashes, and "
+                    "underscores are treated the same."
+                ),
                 "input_drug_names": drug_names,
             },
         )
-
     facts = load_facts(conn, drug_ids, patient_flags)
 
     selected = _parse_domain_selection(domain)
