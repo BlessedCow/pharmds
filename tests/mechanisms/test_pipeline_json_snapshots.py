@@ -466,3 +466,148 @@ def test_qt_risk_aggregate_summary_json_snapshot():
     )
     assert "Patient risk flag present: QT risk." in qt_summary["narrative"]
     assert "QT-related concerns may be more relevant" in qt_summary["narrative"]
+    
+def test_mechanism_pipeline_json_top_level_contract():
+    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+
+    assert set(payload) == {
+        "effects",
+        "candidates",
+        "arbitration_results",
+        "policy_results",
+        "scored_concerns",
+        "severity_annotations",
+        "aggregate_concerns",
+        "aggregate_severity_annotations",
+        "aggregate_evidence_summaries",
+        "aggregate_concern_summaries",
+    }
+
+    for value in payload.values():
+        assert isinstance(value, list)
+
+
+def test_mechanism_pipeline_json_nested_contracts():
+    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+
+    assert payload["effects"]
+    assert set(payload["effects"][0]) == {
+        "mechanism",
+        "source_drug",
+        "target",
+        "effect_id",
+        "role",
+        "strength",
+        "direction",
+        "magnitude",
+        "fraction_metabolized",
+        "mechanism_note",
+        "evidence_refs",
+        "metadata",
+    }
+
+    assert payload["candidates"]
+    assert set(payload["candidates"][0]) == {
+        "candidate_type",
+        "precipitant_drug",
+        "object_drug",
+        "target",
+        "effect_id",
+        "mechanism",
+        "object_mechanism",
+        "explanation",
+        "metadata",
+    }
+
+    assert payload["aggregate_concerns"]
+    assert set(payload["aggregate_concerns"][0]) == {
+        "aggregate_type",
+        "anchor",
+        "policy_concern",
+        "drugs",
+        "targets",
+        "effect_id",
+        "members",
+        "explanation",
+    }
+
+    assert payload["aggregate_evidence_summaries"]
+    assert set(payload["aggregate_evidence_summaries"][0]) == {
+        "aggregate",
+        "overall_evidence_status",
+        "evidence_trace_count",
+        "evidence_trace_types",
+        "evidence_effect_ids",
+        "evidence_statuses",
+        "evidence_gap_count",
+        "evidence_claim_count",
+        "evidence_source_ids",
+        "evidence_source_types",
+        "evidence_conflict_reasons",
+        "member_without_evidence_trace_count",
+    }    
+    
+def test_mechanism_pipeline_json_scored_and_annotation_contracts():
+    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+
+    assert payload["arbitration_results"]
+    assert set(payload["arbitration_results"][0]) == {
+        "candidate_type",
+        "concern",
+        "precipitant_drug",
+        "object_drug",
+        "target",
+        "effect_id",
+        "confidence",
+        "severity",
+        "explanation",
+        "metadata",
+    }
+
+    assert payload["policy_results"]
+    assert set(payload["policy_results"][0]) == {
+        "policy_concern",
+        "source_concern",
+        "precipitant_drug",
+        "object_drug",
+        "target",
+        "effect_id",
+        "candidate_type",
+        "confidence",
+        "severity",
+        "explanation",
+        "metadata",
+    }
+
+    assert payload["scored_concerns"]
+    assert set(payload["scored_concerns"][0]) == {
+        "policy_concern",
+        "source_concern",
+        "precipitant_drug",
+        "object_drug",
+        "target",
+        "effect_id",
+        "candidate_type",
+        "confidence",
+        "severity",
+        "aggregate_member_count",
+        "related_targets",
+        "related_effects",
+        "explanation",
+        "metadata",
+    }
+
+    assert payload["severity_annotations"]
+    assert set(payload["severity_annotations"][0]) == {
+        "scored",
+        "preliminary_severity",
+        "severity_reason",
+    }
+
+    assert payload["aggregate_severity_annotations"]
+    assert set(payload["aggregate_severity_annotations"][0]) == {
+        "aggregate",
+        "strongest_preliminary_severity",
+        "contributing_preliminary_severities",
+        "severity_reasons",
+    }

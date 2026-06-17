@@ -41,6 +41,113 @@ def _build_payload(drugs: list[str], domain: str = "all"):
     )
     return payload
 
+def _assert_pair_json_contract(pair: dict):
+    assert set(pair) == {
+        "drug_1",
+        "drug_2",
+        "overall",
+        "pk",
+        "pd",
+    }
+    assert set(pair["drug_1"]) == {"id", "name"}
+    assert set(pair["drug_2"]) == {"id", "name"}
+    assert set(pair["overall"]) == {"severity", "class"}
+    assert set(pair["pk"]) == {"summary", "hits"}
+    assert set(pair["pd"]) == {"hits"}
+    assert isinstance(pair["pk"]["hits"], list)
+    assert isinstance(pair["pd"]["hits"], list)
+
+
+def _assert_hit_json_contract(hit: dict):
+    assert set(hit) == {
+        "rule_id",
+        "name",
+        "domain",
+        "severity",
+        "class",
+        "severity_rationale",
+        "action_rationale",
+        "inputs",
+        "tags",
+        "explanation",
+        "rationale",
+        "actions",
+        "references",
+        "A",
+        "B",
+    }
+    assert set(hit["A"]) == {"id", "name"}
+    assert set(hit["B"]) == {"id", "name"}
+    assert isinstance(hit["inputs"], dict)
+    assert isinstance(hit["tags"], list)
+    assert isinstance(hit["rationale"], list)
+    assert isinstance(hit["actions"], list)
+    assert isinstance(hit["references"], list)
+
+
+def test_cli_json_payload_contract_for_two_drug_pair():
+    payload = _build_payload(["quetiapine", "clarithromycin"], domain="cyp")
+
+    assert set(payload) == {
+        "schema_version",
+        "input",
+        "pairs",
+    }
+    assert set(payload["input"]) == {
+        "drug_names",
+        "selected_domains",
+        "patient_flags",
+    }
+    assert isinstance(payload["pairs"], list)
+    assert payload["pairs"]
+
+    pair = payload["pairs"][0]
+    _assert_pair_json_contract(pair)
+
+    assert pair["pk"]["hits"]
+    _assert_hit_json_contract(pair["pk"]["hits"][0])
+
+
+def test_cli_json_regimen_summary_contract_for_three_drugs():
+    payload = _build_payload(
+        ["quetiapine", "hydroxyzine", "trazodone"],
+        domain="all",
+    )
+
+    assert set(payload) == {
+        "schema_version",
+        "input",
+        "pairs",
+        "regimen_summary",
+    }
+
+    summary = payload["regimen_summary"]
+
+    assert set(summary) == {
+        "n_drugs",
+        "overall_severity",
+        "overall_rule_class",
+        "overview",
+        "pairwise_summary",
+        "cumulative_concern_summary",
+        "regimen_flags",
+        "pd_stacks",
+        "pair_count_with_hits",
+        "pairwise_hit_count",
+        "hit_counts",
+        "top_pairs",
+    }
+
+    assert set(summary["hit_counts"]) == {
+        "total",
+        "pk",
+        "pd",
+        "by_severity",
+        "by_class",
+    }
+    assert isinstance(summary["regimen_flags"], list)
+    assert isinstance(summary["pd_stacks"], list)
+    assert isinstance(summary["top_pairs"], list)
 
 def test_json_payload_includes_regimen_summary_for_three_drugs():
     payload = _build_payload(
@@ -114,6 +221,89 @@ def test_cli_json_shortcut_outputs_json(capsys, monkeypatch):
 
     assert payload["schema_version"] == "1.0"
     assert payload["input"]["drug_names"] == ["clarithromycin", "fluconazole"]
+
+def test_cli_format_json_outputs_public_pair_contract(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "quetiapine",
+            "clarithromycin",
+            "--format",
+            "json",
+            "--domain",
+            "cyp",
+        ],
+    )
+
+    cli_mod.main()
+
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert set(payload) == {
+        "schema_version",
+        "input",
+        "pairs",
+    }
+    assert payload["schema_version"] == "1.0"
+    assert payload["input"]["drug_names"] == [
+        "quetiapine",
+        "clarithromycin",
+    ]
+    assert payload["input"]["selected_domains"] == ["cyp"]
+    assert payload["pairs"]
+
+    pair = payload["pairs"][0]
+    _assert_pair_json_contract(pair)
+
+
+def test_cli_format_json_outputs_regimen_summary_contract(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "quetiapine",
+            "hydroxyzine",
+            "trazodone",
+            "--format",
+            "json",
+        ],
+    )
+
+    cli_mod.main()
+
+    out = capsys.readouterr().out
+    payload = json.loads(out)
+
+    assert set(payload) == {
+        "schema_version",
+        "input",
+        "pairs",
+        "regimen_summary",
+    }
+    assert set(payload["regimen_summary"]) == {
+        "n_drugs",
+        "overall_severity",
+        "overall_rule_class",
+        "overview",
+        "pairwise_summary",
+        "cumulative_concern_summary",
+        "regimen_flags",
+        "pd_stacks",
+        "pair_count_with_hits",
+        "pairwise_hit_count",
+        "hit_counts",
+        "top_pairs",
+    }
 
 def test_cli_format_json_show_evidence_gaps_outputs_json(
     capsys,

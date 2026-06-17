@@ -1,3 +1,4 @@
+import json
 from types import SimpleNamespace
 
 from app.service import (
@@ -69,6 +70,42 @@ def test_analyze_text_json_payload_includes_stable_top_level_keys():
         "public_result_summaries",
     }
 
+def test_analyze_text_json_payload_with_regimen_summary_contract():
+    result = analyze_text(
+        "quetiapine hydroxyzine trazodone",
+        as_json_payload=True,
+    )
+
+    assert result.ok
+
+    payload = result.payload
+    json.dumps(payload)
+
+    assert set(payload) == {
+        "schema_version",
+        "input",
+        "input_drug_text",
+        "pairs",
+        "regimen_summary",
+        "mechanism_pipeline",
+        "public_result_summaries",
+    }
+
+    assert set(payload["regimen_summary"]) == {
+        "n_drugs",
+        "overall_severity",
+        "overall_rule_class",
+        "overview",
+        "pairwise_summary",
+        "cumulative_concern_summary",
+        "regimen_flags",
+        "pd_stacks",
+        "pair_count_with_hits",
+        "pairwise_hit_count",
+        "hit_counts",
+        "top_pairs",
+    }
+
 def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline():
     result = analyze_text(
         "clarithromycin fluconazole",
@@ -93,6 +130,67 @@ def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline(
         "evidence_label",
         "explanation",
     }
+
+def test_analyze_text_json_payload_public_summary_contract():
+    result = analyze_text(
+        "clarithromycin fluconazole",
+        as_json_payload=True,
+    )
+
+    assert result.ok
+
+    payload = result.payload
+    summaries = payload["public_result_summaries"]
+
+    assert summaries
+    assert all(
+        set(summary) == {
+            "source",
+            "title",
+            "drugs",
+            "concern_type",
+            "severity_label",
+            "evidence_label",
+            "explanation",
+        }
+        for summary in summaries
+    )
+
+    for summary in summaries:
+        assert isinstance(summary["source"], str)
+        assert isinstance(summary["title"], str)
+        assert isinstance(summary["drugs"], list)
+        assert isinstance(summary["concern_type"], str)
+        assert isinstance(summary["severity_label"], str)
+        assert isinstance(summary["evidence_label"], str)
+        assert isinstance(summary["explanation"], str)
+
+
+def test_analyze_text_json_payload_mechanism_pipeline_contract():
+    result = analyze_text(
+        "clarithromycin fluconazole",
+        as_json_payload=True,
+    )
+
+    assert result.ok
+
+    pipeline = result.payload["mechanism_pipeline"]
+
+    assert set(pipeline) == {
+        "effects",
+        "candidates",
+        "arbitration_results",
+        "policy_results",
+        "scored_concerns",
+        "severity_annotations",
+        "aggregate_concerns",
+        "aggregate_severity_annotations",
+        "aggregate_evidence_summaries",
+        "aggregate_concern_summaries",
+    }
+
+    for value in pipeline.values():
+        assert isinstance(value, list)
 
 def test_analyze_names_unknown_drug_payload_includes_actionable_message():
     result = analyze_names(["quetiaipne", "fluconazole"])
