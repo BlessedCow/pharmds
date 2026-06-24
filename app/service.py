@@ -199,7 +199,11 @@ def analyze_names(
 
     from rules.composite_rules import apply_composites
 
-    hits = apply_composites(facts, hits)
+    hits = apply_composites(
+        facts,
+        hits,
+        include_pk_pd_composites="pd" in selected,
+    )
 
     templates = {r.id: r.explanation_template for r in rules}
     pair_reports = _build_reports_for_all_pairs(facts, hits, templates, drug_ids)

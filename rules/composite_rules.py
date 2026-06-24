@@ -235,59 +235,65 @@ def apply_pk_ugt_pgp(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     )
 
 
-def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
+def apply_composites(
+    facts: Facts,
+    hits: list[RuleHit],
+    *,
+    include_pk_pd_composites: bool = True,
+) -> list[RuleHit]:
     out = hits[:]
 
-    # PK -> PD composite (CNS depression amplification)
-    pk_up_pairs: list[tuple[str, str]] = []
-    for h in out:
-        if h.domain != Domain.PK:
-            continue
-        if "exposure_increase" not in (h.tags or []):
-            continue
-        key = _pair_key(h)
-        if key:
-            pk_up_pairs.append(key)
+    if include_pk_pd_composites:
+        # PK -> PD composite (CNS depression amplification)
+        pk_up_pairs: list[tuple[str, str]] = []
+        for h in out:
+            if h.domain != Domain.PK:
+                continue
+            if "exposure_increase" not in (h.tags or []):
+                continue
+            key = _pair_key(h)
+            if key:
+                pk_up_pairs.append(key)
 
-    seen: set[tuple[str, str]] = set()
-    for affected_a, interacting_b in pk_up_pairs:
-        key = (affected_a, interacting_b)
-        if key in seen:
-            continue
-        seen.add(key)
+        seen: set[tuple[str, str]] = set()
+        for affected_a, interacting_b in pk_up_pairs:
+            key = (affected_a, interacting_b)
+            if key in seen:
+                continue
+            seen.add(key)
 
-        has_cns = any(
-            e.effect_id == PD_EFFECT_CNS_DEP and e.magnitude in ("medium", "high")
-            for e in facts.pd_effects.get(affected_a, [])
-        )
-        if not has_cns:
-            continue
-
-        out.append(
-            RuleHit(
-                rule_id="COMP_PK_UP_CNS_DEP",
-                name="Increased exposure may amplify CNS depression effects",
-                domain=Domain.PD,
-                severity=Severity.major,
-                rule_class=RuleClass.adjust_monitor,
-                actions=[
-                    "Use caution with sedation and impairment risk.",
-                    "Consider reducing overlapping sedatives and monitoring for oversedation (educational).",
-                ],
-                inputs={"A": affected_a, "B": interacting_b},
-                rationale=[
-                    "{A_name} has CNS-depressant effects.",
-                    "Rules indicate increased exposure of {A_name}, which may amplify sedation-related adverse effects.",
-                ],
-                references=[
-                    {
-                        "source": "Educational note",
-                        "citation": "Composite: PK exposure increase can amplify PD effects.",
-                    }
-                ],
-                tags=["composite", "cns_depression_amplified"],
+            has_cns = any(
+                e.effect_id == PD_EFFECT_CNS_DEP and e.magnitude in ("medium", "high")
+                for e in facts.pd_effects.get(affected_a, [])
             )
-        )
+            if not has_cns:
+                continue
+
+            out.append(
+                RuleHit(
+                    rule_id="COMP_PK_UP_CNS_DEP",
+                    name="Increased exposure may amplify CNS depression effects",
+                    domain=Domain.PD,
+                    severity=Severity.major,
+                    rule_class=RuleClass.adjust_monitor,
+                    actions=[
+                        "Use caution with sedation and impairment risk.",
+                        "Consider reducing overlapping sedatives and monitoring for oversedation (educational).",
+                    ],
+                    inputs={"A": affected_a, "B": interacting_b},
+                    rationale=[
+                        "{A_name} has CNS-depressant effects.",
+                        "Rules indicate increased exposure of {A_name}, which may amplify sedation-related adverse effects.",
+                    ],
+                    references=[
+                        {
+                            "source": "Educational note",
+                            "citation": "Composite: PK exposure increase can amplify PD effects.",
+                        }
+                    ],
+                    tags=["composite", "cns_depression_amplified"],
+                )
+            )
 
     # Escalation OFF by default for stable output.
     out = apply_pk_multi_mechanism_exposure_increase(
@@ -298,4 +304,3 @@ def apply_composites(facts: Facts, hits: list[RuleHit]) -> list[RuleHit]:
     )
 
     return out
-
