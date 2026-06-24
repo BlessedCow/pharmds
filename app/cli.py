@@ -377,6 +377,7 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
             add("pgp")
             add("bcrp")
             add("oatp")
+            add("named_pair")
             add("pd")
         elif p == "pk":
             add("cyp")
@@ -384,6 +385,7 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
             add("pgp")
             add("bcrp")
             add("oatp")
+            add("named_pair")
         elif p == "pd":
             add("pd")
         elif p == "cyp":
@@ -406,7 +408,7 @@ def _parse_domain_selection(domain_arg: str) -> list[str]:
             )
 
     if not selected:
-        selected = ["cyp", "ugt", "pgp", "bcrp", "oatp", "pd"]
+        selected = ["cyp", "ugt", "pgp", "bcrp", "oatp", "named_pair" "pd"]
 
     return selected
 

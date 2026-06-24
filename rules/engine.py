@@ -75,6 +75,9 @@ def rule_mechanisms(rule: Rule) -> list[str]:
     if "pd_overlap" in L:
         out.append("pd")
 
+    if not out and rule.domain == Domain.PK and "drug_pair" in L:
+        out.append("named_pair")
+
     return out
 
 
