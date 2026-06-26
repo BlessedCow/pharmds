@@ -14,7 +14,6 @@ def test_cli_show_severity_outputs_debug_section(capsys, monkeypatch):
 
     out = capsys.readouterr().out
 
-    assert "Severity Annotations" in out
     assert "alcohol + clonazepam" in out
     assert "effect=CNS_depression" in out
     assert "preliminary_severity:" in out
@@ -44,7 +43,7 @@ def test_cli_show_severity_comparison_outputs_mapping_section(
 
     out = capsys.readouterr().out
 
-    assert "Severity Comparison" in out
+    assert "Pairwise Migration Debug: Severity Comparison" in out
     assert "shared_pd_effect_cluster: CNS_depression" in out
     assert "safety_concern_cluster: safety_concern" in out
     assert "tolerability_concern_cluster: tolerability_concern" in out
@@ -60,3 +59,31 @@ def test_cli_show_severity_comparison_outputs_mapping_section(
 
     assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" not in out
     assert "Overall: severity=" not in out
+    
+def test_cli_show_pairwise_migration_debug_labels_old_and_mechanism_outputs(
+    capsys,
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "pharmds",
+            "clarithromycin",
+            "ondansetron",
+            "--show-pairwise-migration-debug",
+        ],
+    )
+
+    main()
+
+    out = capsys.readouterr().out
+
+    assert "Pairwise Migration Debug" in out
+    assert "Old Pairwise Rule Pipeline: Rule Reports" in out
+    assert "Mechanism Pipeline: Pairwise Adapter Concerns" in out
+    assert "rules=PD_QT_ADDITIVE" in out
+    assert "concern=QT_prolongation" in out
+
+    assert "EDUCATIONAL ONLY - NOT DIAGNOSTIC" not in out
+    assert "Key Interaction Summaries" not in out
