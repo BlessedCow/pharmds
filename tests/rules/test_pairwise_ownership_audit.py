@@ -5,6 +5,10 @@ from pathlib import Path
 
 RULE_DIR = Path("rules/rule_defs")
 
+EXPLICIT_PAIR_GAP_AUDIT_DOC = Path(
+    "docs/audits/explicit_pair_rule_gap_audit.md",
+)
+
 EXPECTED_PK_RULE_IDS = {
     "PK_BCRP_INHIB_SUBSTRATE",
     "PK_CYP1A2_INHIB_SUBSTRATE",
@@ -26,6 +30,16 @@ EXPECTED_PK_RULE_IDS = {
     "PK_PGP_INHIB_DIGOXIN",
     "PK_UGT1A1_INHIB",
     "PK_VIBEGRON_DIGOXIN",
+}
+
+EXPECTED_EXPLICIT_PAIR_COVERAGE_CLASSES = {
+    "PK_DOXYCYCLINE_AMOXICILLIN": "pair_policy_only",
+    "PK_DOXYCYCLINE_CALCIUM_CARBONATE": "pair_policy_only",
+    "PK_DOXYCYCLINE_WARFARIN": "pair_policy_only",
+    "PK_LISDEXAMFETAMINE_FLUOXETINE": "generic_pd_partial",
+    "PK_METHADONE_CARBAMAZEPINE": "generic_pk_with_pair_policy",
+    "PK_METHADONE_FLUOXETINE": "generic_pk_with_pair_policy",
+    "PK_VIBEGRON_DIGOXIN": "pair_policy_only",
 }
 
 EXPECTED_PD_EFFECT_IDS = {
@@ -115,3 +129,14 @@ def test_pairwise_rule_inventory_has_migration_relevant_constraints() -> None:
         or "B_strength_in" in logic.get("transporter", {})
         for logic in logic_blocks
     )
+    
+def test_explicit_pair_gap_audit_doc_tracks_named_pair_rules() -> None:
+    audit_text = EXPLICIT_PAIR_GAP_AUDIT_DOC.read_text(encoding="utf-8")
+
+    assert "# Explicit pair rule gap audit" in audit_text
+
+    for rule_id, coverage_classification in (
+        EXPECTED_EXPLICIT_PAIR_COVERAGE_CLASSES.items()
+    ):
+        assert f"`{rule_id}`" in audit_text
+        assert f"`{coverage_classification}`" in audit_text
