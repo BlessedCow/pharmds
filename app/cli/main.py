@@ -8,15 +8,15 @@ from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 
-from app.cli.domains import (
-    _parse_domain_selection,
-    filter_rules_for_selected_domains,
-)
 from app.cli.facts import connect, load_facts
 from app.cli.inputs import (
     _collect_drug_inputs,
     _format_unknown_drug_message,
     resolve_drug_ids,
+)
+from app.cli.domains import (
+    _parse_domain_selection,
+    filter_rules_for_selected_domains,
 )
 from app.cli.pairwise import _build_reports_for_all_pairs
 from app.json_output import build_json_payload
@@ -67,10 +67,10 @@ from core.mechanisms.result_summary import (
 )
 from core.mechanisms.scoring_debug import format_scored_concerns
 from core.models import Facts
-from reasoning.combine import build_regimen_summary
+from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from reasoning.rationale import action_rationale, severity_rationale
-from rules.engine import evaluate_all, load_rules
+from rules.engine import evaluate_all, load_rules, rule_mechanisms
 
 console = Console()
 
@@ -94,7 +94,6 @@ def _sev_rank(sev: str) -> int:
 
 def _is_gap_classification(classification: str) -> bool:
     return classification in GAP_CLASSIFICATIONS
-
 
 
 def _format_effect_label_line(effect_id: str | None) -> str | None:
