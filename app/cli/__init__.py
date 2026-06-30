@@ -1,4 +1,10 @@
-﻿from app.cli.facts import connect as connect
+﻿from app.cli.domains import (
+    _parse_domain_selection as _parse_domain_selection,
+)
+from app.cli.domains import (
+    filter_rules_for_selected_domains as filter_rules_for_selected_domains,
+)
+from app.cli.facts import connect as connect
 from app.cli.facts import load_facts as load_facts
 from app.cli.inputs import (
     _collect_drug_inputs as _collect_drug_inputs,
@@ -43,16 +49,7 @@ from app.cli.main import (
     RULE_DIR as RULE_DIR,
 )
 from app.cli.main import (
-    _build_reports_for_all_pairs as _build_reports_for_all_pairs,
-)
-from app.cli.main import (
-    _parse_domain_selection as _parse_domain_selection,
-)
-from app.cli.main import (
     _sev_rank as _sev_rank,
-)
-from app.cli.main import (
-    filter_rules_for_selected_domains as filter_rules_for_selected_domains,
 )
 from app.cli.main import (
     main as main,
@@ -83,6 +80,9 @@ from app.cli.main import (
 )
 from app.cli.main import (
     render_severity_comparison as render_severity_comparison,
+)
+from app.cli.pairwise import (
+    _build_reports_for_all_pairs as _build_reports_for_all_pairs,
 )
 
 __all__ = [

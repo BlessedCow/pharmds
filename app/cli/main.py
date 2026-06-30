@@ -3,18 +3,22 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from itertools import combinations
 from pathlib import Path
 
 from rich.console import Console
 from rich.panel import Panel
 
+from app.cli.domains import (
+    _parse_domain_selection,
+    filter_rules_for_selected_domains,
+)
 from app.cli.facts import connect, load_facts
 from app.cli.inputs import (
     _collect_drug_inputs,
     _format_unknown_drug_message,
     resolve_drug_ids,
 )
+from app.cli.pairwise import _build_reports_for_all_pairs
 from app.json_output import build_json_payload
 from core.evidence.completeness import (
     BACKFILL_PRIORITY_CONFIDENCE,
@@ -63,10 +67,10 @@ from core.mechanisms.result_summary import (
 )
 from core.mechanisms.scoring_debug import format_scored_concerns
 from core.models import Facts
-from reasoning.combine import build_pair_reports, build_regimen_summary
+from reasoning.combine import build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from reasoning.rationale import action_rationale, severity_rationale
-from rules.engine import evaluate_all, load_rules, rule_mechanisms
+from rules.engine import evaluate_all, load_rules
 
 console = Console()
 
@@ -86,88 +90,6 @@ def _sev_rank(sev: str) -> int:
     # Match Severity values: info/caution/major/contraindicated
     order = {"info": 0, "caution": 1, "major": 2, "contraindicated": 3}
     return order.get(sev, 0)
-
-
-def _build_reports_for_all_pairs(facts, hits, templates, drug_ids):
-    pairs = list(combinations(drug_ids, 2))
-    return build_pair_reports(
-        facts=facts,
-        hits=hits,
-        rule_templates=templates,
-        pairs=pairs,
-    )
-
-
-def _parse_domain_selection(domain_arg: str) -> list[str]:
-    raw = (domain_arg or "all").strip().lower()
-    parts = [p.strip() for p in raw.split(",") if p.strip()]
-    selected: list[str] = []
-
-    def add(x: str) -> None:
-        if x not in selected:
-            selected.append(x)
-
-    for p in parts:
-        if p == "all":
-            add("cyp")
-            add("ugt")
-            add("pgp")
-            add("bcrp")
-            add("oatp")
-            add("named_pair")
-            add("pd")
-        elif p == "pk":
-            add("cyp")
-            add("ugt")
-            add("pgp")
-            add("bcrp")
-            add("oatp")
-            add("named_pair")
-        elif p == "pd":
-            add("pd")
-        elif p == "cyp":
-            add("cyp")
-        elif p == "pgp":
-            add("pgp")
-        elif p == "bcrp":
-            add("bcrp")
-        elif p == "oatp":
-            add("oatp")
-        elif p == "ugt":
-            add("ugt")
-        elif p == "SERT":
-            add("SERT")
-        elif p == "NET":
-            add("NET")
-        else:
-            raise SystemExit(
-                "Unknown --domain option. Use: all, pk, pd, cyp, ugt, pgp, bcrp, oatp"
-            )
-
-    if not selected:
-        selected = ["cyp", "ugt", "pgp", "bcrp", "oatp", "named_pair" "pd"]
-
-    return selected
-
-
-def filter_rules_for_selected_domains(rules_all, selected: list[str]):
-    """
-    Filter rules for the CLI-selected domains.
-
-    Here, 'domains' are user-facing slices based on rule mechanism tags:
-      - cyp: CYP-mediated PK rules
-      - pgp: P-gp transporter PK rules
-      - pd:  PD effect stacking rules
-    """
-    selected_set = set(selected)
-    out = []
-
-    for r in rules_all:
-        mechs = set(rule_mechanisms(r))
-        if mechs & selected_set:
-            out.append(r)
-
-    return out
 
 
 def _is_gap_classification(classification: str) -> bool:
