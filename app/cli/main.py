@@ -7,7 +7,10 @@ from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 
-from app.cli.commands import handle_evidence_gap_command
+from app.cli.commands import (
+    handle_evidence_gap_command,
+    handle_mechanism_debug_command,
+)
 from app.cli.domains import (
     _parse_domain_selection,
     filter_rules_for_selected_domains,
@@ -20,14 +23,7 @@ from app.cli.inputs import (
 )
 from app.cli.pairwise import _build_reports_for_all_pairs
 from app.cli.parser import build_parser
-from app.cli.render.debug import (
-    render_pairwise_migration_debug,
-    render_severity_annotations,
-    render_severity_comparison,
-)
 from app.cli.render.plain import (
-    render_aggregate_concern_summaries,
-    render_aggregate_evidence_summary,
     render_plain_pairwise_details,
     render_plain_regimen_summary,
     render_public_result_summaries,
@@ -42,28 +38,14 @@ from core.evidence.completeness import (
 )
 from core.evidence.loader import get_source_by_id
 from core.exceptions import UnknownDrugError
-from core.mechanisms import (
-    mechanism_pipeline_to_json_dict,
-    run_mechanism_pipeline,
-)
-from core.mechanisms.aggregation_debug import format_aggregate_concerns
-from core.mechanisms.arbitration_debug import format_arbitration_results
-from core.mechanisms.candidate_debug import format_interaction_candidates
-from core.mechanisms.debug import (
-    DEBUG_MECHANISM_PIPELINE_LABEL,
-    DEBUG_PAIRWISE_MIGRATION_LABEL,
-    format_debug_section_title,
-    format_mechanism_effects,
-)
+from core.mechanisms import run_mechanism_pipeline
 from core.mechanisms.effect_labels import (
     PUBLIC_EFFECT_LABELS,
     effect_display_label,
 )
-from core.mechanisms.policy_debug import format_policy_results
 from core.mechanisms.result_summary import (
     build_public_result_summaries,
 )
-from core.mechanisms.scoring_debug import format_scored_concerns
 from reasoning.combine import build_regimen_summary
 from rules.engine import evaluate_all, load_rules
 
@@ -356,255 +338,14 @@ def main() -> None:
     if handle_evidence_gap_command(args, facts):
         return 
     
-    if (
-        args.show_mechanisms
-        or args.show_candidates
-        or args.show_arbitration
-        or args.show_policy
-        or args.show_scored
-        
-        or args.show_aggregates
-        or args.show_mechanism_json
-        or args.show_severity
-        or args.show_severity_comparison
-        or args.show_aggregate_evidence
-        or args.show_aggregate_summaries
-        or args.show_pairwise_migration_debug
-    ):
-        pipeline = run_mechanism_pipeline(
-            drug_ids,
-            facts,
-            evidence_mode=args.evidence_mode,
-        )
-        if args.show_mechanism_json:
-            payload = mechanism_pipeline_to_json_dict(pipeline)
-            print(json.dumps(payload, indent=2, sort_keys=True))
-            return
-
-        if args.show_mechanisms:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Normalized MechanismEffect IR",
-                )
-                + "\n"
-            )
-            for line in format_mechanism_effects(list(pipeline.effects)):
-                print(f"- {line}")
-
-            return
-
-        if args.show_candidates:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Candidate Interaction Patterns",
-                )
-                + "\n"
-            )
-            for line in format_interaction_candidates(list(pipeline.candidates)):
-                print(f"- {line}")
-
-            return
-
-        if args.show_arbitration:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Arbitration Results",
-                )
-                + "\n"
-            )
-            for line in format_arbitration_results(
-                list(pipeline.arbitration_results)
-            ):
-                print(f"- {line}")
-
-            return
-
-        if args.show_policy:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Policy Results",
-                )
-                + "\n"
-            )
-            for line in format_policy_results(list(pipeline.policy_results)):
-                print(f"- {line}")
-
-            return
-        
-        if args.show_scored:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Scored Concerns",
-                )
-                + "\n"
-            )
-            for line in format_scored_concerns(list(pipeline.scored_concerns)):
-                print(f"- {line}")
-
-            return
-        
-        if args.show_severity:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Severity Annotations",
-                )
-                + "\n"
-            )             
-            print(render_severity_annotations(pipeline.severity_annotations))
-
-            return
-        
-        if args.show_severity_comparison:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_PAIRWISE_MIGRATION_LABEL,
-                    "Severity Comparison",
-                )
-            )
-            print(render_severity_comparison(pipeline))
-
-            return
-        
-        if args.show_aggregate_evidence:
-            if args.format == "json":
-                payload = mechanism_pipeline_to_json_dict(pipeline)
-                print(
-                    json.dumps(
-                        {
-                            "aggregate_evidence_summaries": payload[
-                                "aggregate_evidence_summaries"
-                            ],
-                        },
-                        indent=2,
-                        sort_keys=True,
-                    )
-                )
-                return
-
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Aggregate Evidence Summary",
-                )
-            )
-            print(render_aggregate_evidence_summary(pipeline))
-
-            return
-        
-        if args.show_aggregate_summaries:
-            if args.format == "json":
-                payload = mechanism_pipeline_to_json_dict(pipeline)
-                summaries = payload["aggregate_concern_summaries"]
-
-                if args.top and args.top > 0:
-                    summaries = summaries[: args.top]
-
-                print(
-                    json.dumps(
-                        {
-                            "aggregate_concern_summaries": summaries,
-                        },
-                        indent=2,
-                        sort_keys=True,
-                    )
-                )
-                return
-
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Aggregate Concern Summaries",
-                )
-            )
-            print(
-                render_aggregate_concern_summaries(
-                    pipeline,
-                    top=args.top,
-                )
-            )
-
-            return
-        
-            if args.show_pairwise_migration_debug:
-                rules_all = load_rules(RULE_DIR)
-                selected = _parse_domain_selection(args.domain)
-                rules = filter_rules_for_selected_domains(rules_all, selected)
-                hits = evaluate_all(rules, facts, drug_ids)
-
-                from rules.composite_rules import apply_composites
-
-                hits = apply_composites(
-                    facts,
-                    hits,
-                    include_pk_pd_composites="pd" in selected,
-                )
-                templates = {rule.id: rule.explanation_template for rule in rules}
-                pair_reports = _build_reports_for_all_pairs(
-                    facts,
-                    hits,
-                    templates,
-                    drug_ids,
-                )
-
-                print(render_pairwise_migration_debug(pair_reports, pipeline))
-
-                return
-        if args.show_pairwise_migration_debug:
-            rules_all = load_rules(RULE_DIR)
-            selected = _parse_domain_selection(args.domain)
-            rules = filter_rules_for_selected_domains(rules_all, selected)
-            hits = evaluate_all(rules, facts, drug_ids)
-
-            from rules.composite_rules import apply_composites
-
-            hits = apply_composites(
-                facts,
-                hits,
-                include_pk_pd_composites="pd" in selected,
-            )
-            templates = {rule.id: rule.explanation_template for rule in rules}
-            pair_reports = _build_reports_for_all_pairs(
-                facts,
-                hits,
-                templates,
-                drug_ids,
-            )
-
-            print(render_pairwise_migration_debug(pair_reports, pipeline))
-
-            return
-        
-        
-        if args.show_aggregates:
-            print(
-                "\n"
-                + format_debug_section_title(
-                    DEBUG_MECHANISM_PIPELINE_LABEL,
-                    "Aggregate Concern Clusters",
-                )
-                + "\n"
-            )
-            for line in format_aggregate_concerns(
-                list(pipeline.aggregate_concerns)
-            ):
-                print(f"- {line}")
-
-            return
+    if handle_mechanism_debug_command(
+    args,
+    facts,
+    drug_ids,
+    rule_dir=RULE_DIR,
+):
+        return
+    
     selected = _parse_domain_selection(args.domain)
 
     rules_all = load_rules(RULE_DIR)
