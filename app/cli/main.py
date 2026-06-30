@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 import argparse
-import difflib
 import json
-import re
-import sqlite3
 import sys
 from itertools import combinations
 from pathlib import Path
@@ -12,8 +9,13 @@ from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 
+from app.cli.facts import connect, load_facts
+from app.cli.inputs import (
+    _collect_drug_inputs,
+    _format_unknown_drug_message,
+    resolve_drug_ids,
+)
 from app.json_output import build_json_payload
-from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.evidence.completeness import (
     BACKFILL_PRIORITY_CONFIDENCE,
     BACKFILL_PRIORITY_CONFLICT,
@@ -60,7 +62,7 @@ from core.mechanisms.result_summary import (
     build_public_result_summaries,
 )
 from core.mechanisms.scoring_debug import format_scored_concerns
-from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
+from core.models import Facts
 from reasoning.combine import build_pair_reports, build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from reasoning.rationale import action_rationale, severity_rationale
@@ -78,281 +80,7 @@ PLAIN_EMPTY_DETAILS_MESSAGE = "No pairwise detail rows to display."
 PLAIN_AGGREGATE_HINT_MESSAGE = (
     "Use --show-aggregate-summaries to inspect mechanism-level aggregate concerns."
 )
-def _normalize_drug_lookup_term(value: str) -> str:
-    term = (value or "").strip().lower()
-    term = re.sub(r"[\s_/\-]+", " ", term)
-    return term.strip()
 
-def _parse_drug_tokens(text: str) -> list[str]:
-    """Parse drug tokens from free-form text.
-
-    Supports:
-    - one drug per line
-    - comma-separated lists
-    - whitespace-separated lists
-    - comments starting with '#'
-    """
-    out: list[str] = []
-    for raw_line in (text or "").splitlines():
-        line = raw_line.split("#", 1)[0].strip()
-        if not line:
-            continue
-
-        # Allow comma-separated values.
-        line = line.replace(",", " ")
-        out.extend([p for p in line.split() if p])
-
-    return out
-
-
-def _read_drug_tokens_from_file(path: str) -> list[str]:
-    p = Path(path)
-    try:
-        text = p.read_text(encoding="utf-8")
-    except FileNotFoundError as e:
-        raise SystemExit(f"--file not found: {p}") from e
-    return _parse_drug_tokens(text)
-
-
-def _read_drug_tokens_from_stdin() -> list[str]:
-    return _parse_drug_tokens(sys.stdin.read())
-
-
-def _collect_drug_inputs(
-    positional: list[str] | None,
-    file_paths: list[str] | None,
-) -> list[str]:
-    """Collect drug names from positional args, one/more files, and/or stdin.
-
-    Rules:
-    - If --file is provided, read each file ("-" means stdin).
-    - Positional args are appended after file inputs.
-    - If neither positional nor --file is given, and stdin is not a TTY,
-      read from stdin (pipe-friendly default).
-    """
-    drugs: list[str] = []
-
-    file_paths = file_paths or []
-    if file_paths:
-        for fp in file_paths:
-            if fp == "-":
-                drugs.extend(_read_drug_tokens_from_stdin())
-            else:
-                drugs.extend(_read_drug_tokens_from_file(fp))
-    else:
-        # No --file: if nothing positional and input is piped, read stdin.
-        if not (positional or []) and not sys.stdin.isatty():
-            drugs.extend(_read_drug_tokens_from_stdin())
-
-    drugs.extend(positional or [])
-
-    # De-duplicate while preserving order.
-    seen: set[str] = set()
-    out: list[str] = []
-    for d in drugs:
-        dd = d.strip()
-        if not dd:
-            continue
-        key = dd.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        out.append(dd)
-
-    return out
-
-
-def connect(db_path: Path) -> sqlite3.Connection:
-    conn = sqlite3.connect(str(db_path))
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON;")
-    return conn
-
-
-def resolve_drug_ids(conn: sqlite3.Connection, names: list[str]) -> list[str]:
-    out: list[str] = []
-    unknown: list[str] = []
-    lookup = _fetch_drug_lookup(conn)
-    seen_drug_ids: set[str] = set()
-    
-    for raw in names:
-        q = _normalize_drug_lookup_term(raw)
-        drug_id = lookup.get(q)
-        if drug_id:
-            if drug_id in seen_drug_ids:
-                continue
-            seen_drug_ids.add(drug_id)
-            out.append(drug_id)
-            continue
-
-        unknown.append(raw)
-
-    if unknown:
-        known_terms = _fetch_known_drug_terms(conn)
-        sug_map = {}
-        for tok in unknown:
-            sug = _suggest_drug_terms(tok, known_terms, limit=5)
-            if sug:
-                sug_map[tok] = sug
-        raise UnknownDrugError(unknown, suggestions=sug_map)
-
-    return out
-
-
-def load_facts(
-    conn: sqlite3.Connection, drug_ids: list[str], patient_flags: dict[str, bool]
-) -> Facts:
-    facts = Facts(patient_flags=patient_flags)
-
-    # Drugs
-    for did in drug_ids:
-        r = conn.execute("SELECT * FROM drug WHERE id=?", (did,)).fetchone()
-        facts.drugs[did] = Drug(
-            id=r["id"],
-            generic_name=r["generic_name"],
-            drug_class=r["drug_class"],
-            therapeutic_index=r["therapeutic_index"],
-            notes=r["notes"],
-        )
-
-    # Enzyme roles
-    rows = conn.execute(
-        """
-        SELECT * FROM drug_enzyme_role
-        WHERE drug_id IN ({})
-        """.format(",".join("?" * len(drug_ids))),
-        tuple(drug_ids),
-    ).fetchall()
-    for r in rows:
-        facts.enzyme_roles.setdefault(r["drug_id"], []).append(
-            EnzymeRole(
-                enzyme_id=r["enzyme_id"],
-                role=r["role"],
-                strength=r["strength"],
-                fraction_metabolized=r["fraction_metabolized"],
-                notes=r["notes"],
-            )
-        )
-
-    # Transporter roles
-    rows = conn.execute(
-        """
-        SELECT * FROM drug_transporter_role
-        WHERE drug_id IN ({})
-        """.format(",".join("?" * len(drug_ids))),
-        tuple(drug_ids),
-    ).fetchall()
-    for r in rows:
-        facts.transporter_roles.setdefault(r["drug_id"], []).append(
-            TransporterRole(
-                transporter_id=normalize_transporter_id(r["transporter_id"]),
-                role=r["role"],
-                strength=r["strength"],
-                notes=r["notes"],
-            )
-        )
-
-    # PD effects
-    rows = conn.execute(
-        """
-        SELECT * FROM drug_pd_effect
-        WHERE drug_id IN ({})
-        """.format(",".join("?" * len(drug_ids))),
-        tuple(drug_ids),
-    ).fetchall()
-    for r in rows:
-        facts.pd_effects.setdefault(r["drug_id"], []).append(
-            PDEffect(
-                effect_id=normalize_pd_effect_id(r["pd_effect_id"]),
-                direction=r["direction"],
-                magnitude=r["magnitude"],
-                mechanism_note=r["mechanism_note"],
-            )
-        )
-
-    return facts
-
-
-def _fetch_known_drug_terms(conn: sqlite3.Connection) -> list[str]:
-    """
-    Return a list of known drug terms users might type:
-    - generic names (lowercased)
-    - aliases (already stored lowercased in DB by your resolver expectations)
-    """
-    terms: list[str] = []
-
-    rows = conn.execute("SELECT generic_name FROM drug").fetchall()
-    for r in rows:
-        s = (r["generic_name"] or "").strip().lower()
-        if s:
-            terms.append(s)
-
-    # If your schema uses a different table/column name, adjust here.
-    rows = conn.execute("SELECT alias FROM drug_alias").fetchall()
-    for r in rows:
-        s = (r["alias"] or "").strip().lower()
-        if s:
-            terms.append(s)
-
-    # de-duplicate while keeping stable ordering
-    seen = set()
-    out = []
-    for t in terms:
-        if t not in seen:
-            seen.add(t)
-            out.append(t)
-    return out
-
-def _fetch_drug_lookup(conn: sqlite3.Connection) -> dict[str, str]:
-    lookup: dict[str, str] = {}
-
-    rows = conn.execute("SELECT id, generic_name FROM drug ORDER BY id").fetchall()
-    for r in rows:
-        for term in (r["id"], r["generic_name"]):
-            key = _normalize_drug_lookup_term(term)
-            if key:
-                lookup.setdefault(key, r["id"])
-
-    rows = conn.execute(
-        "SELECT drug_id, alias FROM drug_alias ORDER BY drug_id, alias"
-    ).fetchall()
-    for r in rows:
-        key = _normalize_drug_lookup_term(r["alias"])
-        if key:
-            lookup.setdefault(key, r["drug_id"])
-
-    return lookup
-
-def _suggest_drug_terms(
-    token: str, known_terms: list[str], limit: int = 5
-) -> tuple[str, ...]:
-    """
-    Suggest close matches for a token from known terms.
-
-    Uses difflib to keep it local and dependency-free.
-    """
-    q = _normalize_drug_lookup_term(token)
-    if not q:
-        return tuple()
-
-    display_by_normalized: dict[str, str] = {}
-    for term in known_terms:
-        key = _normalize_drug_lookup_term(term)
-        if key:
-            display_by_normalized.setdefault(key, term)
-
-    matches = difflib.get_close_matches(
-        q, list(display_by_normalized), n=limit, cutoff=0.6
-    )
-    return tuple(display_by_normalized[m] for m in matches)
-
-def _format_unknown_drug_message(token: str, suggestions: tuple[str, ...]) -> str:
-    if suggestions:
-        return f"Drug '{token}' was not found. Did you mean: {', '.join(suggestions)}?"
-    return (
-        f"Drug '{token}' was not found. Check the spelling, or try a generic "
-        "name or known brand name."
-    )
 
 def _sev_rank(sev: str) -> int:
     # Match Severity values: info/caution/major/contraindicated

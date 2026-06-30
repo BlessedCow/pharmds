@@ -1,4 +1,30 @@
-﻿from app.cli.main import (
+﻿from app.cli.facts import connect as connect
+from app.cli.facts import load_facts as load_facts
+from app.cli.inputs import (
+    _collect_drug_inputs as _collect_drug_inputs,
+)
+from app.cli.inputs import (
+    _format_unknown_drug_message as _format_unknown_drug_message,
+)
+from app.cli.inputs import (
+    _normalize_drug_lookup_term as _normalize_drug_lookup_term,
+)
+from app.cli.inputs import (
+    _parse_drug_tokens as _parse_drug_tokens,
+)
+from app.cli.inputs import (
+    _read_drug_tokens_from_file as _read_drug_tokens_from_file,
+)
+from app.cli.inputs import (
+    _read_drug_tokens_from_stdin as _read_drug_tokens_from_stdin,
+)
+from app.cli.inputs import (
+    _suggest_drug_terms as _suggest_drug_terms,
+)
+from app.cli.inputs import (
+    resolve_drug_ids as resolve_drug_ids,
+)
+from app.cli.main import (
     DB_PATH as DB_PATH,
 )
 from app.cli.main import (
@@ -20,40 +46,13 @@ from app.cli.main import (
     _build_reports_for_all_pairs as _build_reports_for_all_pairs,
 )
 from app.cli.main import (
-    _collect_drug_inputs as _collect_drug_inputs,
-)
-from app.cli.main import (
-    _format_unknown_drug_message as _format_unknown_drug_message,
-)
-from app.cli.main import (
-    _normalize_drug_lookup_term as _normalize_drug_lookup_term,
-)
-from app.cli.main import (
     _parse_domain_selection as _parse_domain_selection,
-)
-from app.cli.main import (
-    _parse_drug_tokens as _parse_drug_tokens,
-)
-from app.cli.main import (
-    _read_drug_tokens_from_file as _read_drug_tokens_from_file,
-)
-from app.cli.main import (
-    _read_drug_tokens_from_stdin as _read_drug_tokens_from_stdin,
 )
 from app.cli.main import (
     _sev_rank as _sev_rank,
 )
 from app.cli.main import (
-    _suggest_drug_terms as _suggest_drug_terms,
-)
-from app.cli.main import (
-    connect as connect,
-)
-from app.cli.main import (
     filter_rules_for_selected_domains as filter_rules_for_selected_domains,
-)
-from app.cli.main import (
-    load_facts as load_facts,
 )
 from app.cli.main import (
     main as main,
@@ -84,9 +83,6 @@ from app.cli.main import (
 )
 from app.cli.main import (
     render_severity_comparison as render_severity_comparison,
-)
-from app.cli.main import (
-    resolve_drug_ids as resolve_drug_ids,
 )
 
 __all__ = [
