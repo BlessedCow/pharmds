@@ -139,7 +139,7 @@ def render_severity_comparison(pipeline):
         if annotation.severity_reasons:
             lines.append(
                 "  severity_reason: " + " | ".join(annotation.severity_reasons)
-                )
+            )
         else:
             lines.append("  severity_reason: no matching severity annotation")
 
