@@ -890,7 +890,7 @@ def main() -> None:
     # RICH MODE
     if args.format == "rich":
 
-        from app.render import (
+        from app.cli.render.rich import (
             build_summary_rows,
             render_rich_details,
             render_rich_summary,
