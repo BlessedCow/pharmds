@@ -7,6 +7,7 @@ from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 
+from app.cli.commands import handle_evidence_gap_command
 from app.cli.domains import (
     _parse_domain_selection,
     filter_rules_for_selected_domains,
@@ -27,7 +28,6 @@ from app.cli.render.debug import (
 from app.cli.render.plain import (
     render_aggregate_concern_summaries,
     render_aggregate_evidence_summary,
-    render_evidence_gap_report,
     render_plain_pairwise_details,
     render_plain_regimen_summary,
     render_public_result_summaries,
@@ -39,7 +39,6 @@ from core.evidence.completeness import (
     BACKFILL_PRIORITY_MISSING,
     BACKFILL_PRIORITY_UNDETERMINED,
     GAP_CLASSIFICATIONS,
-    build_pd_effect_evidence_gap_report,
 )
 from core.evidence.loader import get_source_by_id
 from core.exceptions import UnknownDrugError
@@ -354,20 +353,8 @@ def main() -> None:
     }
     facts = load_facts(conn, drug_ids, patient_flags)
 
-    if args.show_evidence_gaps:
-        report = build_pd_effect_evidence_gap_report(facts)
-
-        if args.format == "json":
-            print(json.dumps(report, indent=2, sort_keys=True))
-            return
-
-        print(
-            render_evidence_gap_report(
-                report,
-                show_complete=args.show_complete_evidence_coverage,
-            )
-        )
-        return
+    if handle_evidence_gap_command(args, facts):
+        return 
     
     if (
         args.show_mechanisms
