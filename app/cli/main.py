@@ -8,17 +8,22 @@ from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 
+from app.cli.domains import (
+    _parse_domain_selection,
+    filter_rules_for_selected_domains,
+)
 from app.cli.facts import connect, load_facts
 from app.cli.inputs import (
     _collect_drug_inputs,
     _format_unknown_drug_message,
     resolve_drug_ids,
 )
-from app.cli.domains import (
-    _parse_domain_selection,
-    filter_rules_for_selected_domains,
-)
 from app.cli.pairwise import _build_reports_for_all_pairs
+from app.cli.render_debug import (
+    render_pairwise_migration_debug,
+    render_severity_annotations,
+    render_severity_comparison,
+)
 from app.json_output import build_json_payload
 from core.evidence.completeness import (
     BACKFILL_PRIORITY_CONFIDENCE,
@@ -48,18 +53,14 @@ from core.mechanisms.arbitration_debug import format_arbitration_results
 from core.mechanisms.candidate_debug import format_interaction_candidates
 from core.mechanisms.debug import (
     DEBUG_MECHANISM_PIPELINE_LABEL,
-    DEBUG_OLD_PAIRWISE_LABEL,
     DEBUG_PAIRWISE_MIGRATION_LABEL,
     format_debug_section_title,
     format_mechanism_effects,
-    format_old_pairwise_rule_reports,
-    format_pairwise_mechanism_concerns,
 )
 from core.mechanisms.effect_labels import (
     PUBLIC_EFFECT_LABELS,
     effect_display_label,
 )
-from core.mechanisms.pairwise_adapter import adapt_mechanism_pipeline_to_pairwise
 from core.mechanisms.policy_debug import format_policy_results
 from core.mechanisms.result_summary import (
     ResultSummary,
@@ -67,10 +68,10 @@ from core.mechanisms.result_summary import (
 )
 from core.mechanisms.scoring_debug import format_scored_concerns
 from core.models import Facts
-from reasoning.combine import build_pair_reports, build_regimen_summary
+from reasoning.combine import build_regimen_summary
 from reasoning.explain import render_explanation, render_rationale
 from reasoning.rationale import action_rationale, severity_rationale
-from rules.engine import evaluate_all, load_rules, rule_mechanisms
+from rules.engine import evaluate_all, load_rules
 
 console = Console()
 
@@ -371,50 +372,7 @@ def render_evidence_gap_report(
 
     return "\n".join(lines)
 
-def render_severity_annotations(severity_annotations):
-    """Render mechanism severity annotations for CLI debug output."""
-    if not severity_annotations:
-        return "No severity annotations."
 
-    lines = []
-
-    for annotation in severity_annotations:
-        scored = annotation.scored
-
-        lines.append(
-            f"- {scored.precipitant_drug} + {scored.object_drug}"
-            f" | effect={scored.effect_id}"
-            f" | concern={scored.policy_concern}"
-        )
-        lines.append(f"  candidate_type: {scored.candidate_type}")
-        lines.append(f"  confidence: {scored.confidence}")
-        lines.append(f"  preliminary_severity: {annotation.preliminary_severity}")
-        lines.append(f"  severity_reason: {annotation.severity_reason}")
-        lines.append(f"  explanation: {scored.explanation}")
-
-        if scored.related_effects:
-            related_effects = sorted(
-                {
-                    effect.strip()
-                    for effect_group in scored.related_effects
-                    for effect in effect_group.split(",")
-                    if effect.strip()
-                }
-            )
-            lines.append(
-                "  related_effects: "
-                + ", ".join(related_effects)
-            )
-
-        if scored.related_targets:
-            lines.append(
-                "  related_targets: "
-                + ", ".join(scored.related_targets)
-            )
-
-        lines.append("")
-
-    return "\n".join(lines).rstrip()
 
 def render_aggregate_evidence_summary(pipeline):
     """Render aggregate evidence summaries for CLI debug output."""
@@ -610,42 +568,7 @@ def render_aggregate_concern_summaries(
 
     return "\n".join(lines)
 
-def render_pairwise_migration_debug(pair_reports, pipeline) -> str:
-    """Render old pairwise output beside pairwise-shaped mechanism output."""
-    mechanism_concerns = adapt_mechanism_pipeline_to_pairwise(pipeline)
 
-    lines = [
-        DEBUG_PAIRWISE_MIGRATION_LABEL,
-        "",
-        format_debug_section_title(
-            DEBUG_OLD_PAIRWISE_LABEL,
-            "Rule Reports",
-        ),
-    ]
-
-    old_lines = format_old_pairwise_rule_reports(list(pair_reports))
-    if old_lines:
-        lines.extend(f"- {line}" for line in old_lines)
-    else:
-        lines.append("- none")
-
-    lines.extend(
-        [
-            "",
-            format_debug_section_title(
-                DEBUG_MECHANISM_PIPELINE_LABEL,
-                "Pairwise Adapter Concerns",
-            ),
-        ]
-    )
-
-    mechanism_lines = format_pairwise_mechanism_concerns(mechanism_concerns)
-    if mechanism_lines:
-        lines.extend(f"- {line}" for line in mechanism_lines)
-    else:
-        lines.append("- none")
-
-    return "\n".join(lines)
 
 def _format_public_summary_label(value: object) -> str:
     text = str(value or "").strip()
@@ -915,50 +838,7 @@ def render_plain_pairwise_details(
 
     return "\n".join(lines).rstrip()
 
-def render_severity_comparison(pipeline):
-    """Render comparison between aggregate concerns and aggregate severity."""
-    if not pipeline.aggregate_severity_annotations:
-        return "No aggregate severity annotations."
 
-    lines = []
-
-    for annotation in pipeline.aggregate_severity_annotations:
-        aggregate = annotation.aggregate
-        drugs = ", ".join(aggregate.drugs)
-        effect_id = aggregate.effect_id or aggregate.anchor
-        effect_label_line = _format_effect_label_line(effect_id)
-
-        lines.append("")
-        lines.append(
-            f"- {aggregate.aggregate_type}: {aggregate.anchor}"
-            f" | policy_concern={aggregate.policy_concern}"
-            f" | drugs={drugs}"
-            f" | effect={effect_id}"
-        )
-        if effect_label_line:
-            lines.append(effect_label_line)
-        lines.append(
-            "  strongest_preliminary_severity: "
-            + str(annotation.strongest_preliminary_severity)
-        )
-
-        if annotation.contributing_preliminary_severities:
-            lines.append(
-                "  contributing_preliminary_severities: "
-                + ", ".join(annotation.contributing_preliminary_severities)
-            )
-        else:
-            lines.append("  contributing_preliminary_severities: none")
-
-        if annotation.severity_reasons:
-            lines.append(
-                "  severity_reason: "
-                + " | ".join(annotation.severity_reasons)
-            )
-        else:
-            lines.append("  severity_reason: no matching severity annotation")
-
-    return "\n".join(lines)
 
 def main() -> None:
     p = argparse.ArgumentParser(

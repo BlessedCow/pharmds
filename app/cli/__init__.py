@@ -64,9 +64,6 @@ from app.cli.main import (
     render_evidence_gap_report as render_evidence_gap_report,
 )
 from app.cli.main import (
-    render_pairwise_migration_debug as render_pairwise_migration_debug,
-)
-from app.cli.main import (
     render_plain_pairwise_details as render_plain_pairwise_details,
 )
 from app.cli.main import (
@@ -75,14 +72,17 @@ from app.cli.main import (
 from app.cli.main import (
     render_public_result_summaries as render_public_result_summaries,
 )
-from app.cli.main import (
-    render_severity_annotations as render_severity_annotations,
-)
-from app.cli.main import (
-    render_severity_comparison as render_severity_comparison,
-)
 from app.cli.pairwise import (
     _build_reports_for_all_pairs as _build_reports_for_all_pairs,
+)
+from app.cli.render_debug import (
+    render_pairwise_migration_debug as render_pairwise_migration_debug,
+)
+from app.cli.render_debug import (
+    render_severity_annotations as render_severity_annotations,
+)
+from app.cli.render_debug import (
+    render_severity_comparison as render_severity_comparison,
 )
 
 __all__ = [
