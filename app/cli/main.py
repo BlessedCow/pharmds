@@ -68,7 +68,7 @@ from rules.engine import evaluate_all, load_rules, rule_mechanisms
 
 console = Console()
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(__file__).resolve().parents[2]
 DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
 RULE_DIR = BASE_DIR / "rules" / "rule_defs"
 
