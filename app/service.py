@@ -3,19 +3,19 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from app.cli import (
-    DB_PATH,
-    RULE_DIR,
-    _build_reports_for_all_pairs,
+from app.cli import DB_PATH, RULE_DIR
+from app.cli.domains import (
+    _parse_domain_selection,
+    filter_rules_for_selected_domains,
+)
+from app.cli.facts import connect, load_facts
+from app.cli.inputs import (
     _collect_drug_inputs,
     _format_unknown_drug_message,
-    _parse_domain_selection,
     _parse_drug_tokens,
-    connect,
-    filter_rules_for_selected_domains,
-    load_facts,
     resolve_drug_ids,
 )
+from app.cli.pairwise import _build_reports_for_all_pairs
 from app.json_output import build_json_payload
 from core.exceptions import UnknownDrugError
 from core.mechanisms.pipeline import run_mechanism_pipeline

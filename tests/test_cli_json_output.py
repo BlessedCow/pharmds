@@ -5,6 +5,7 @@ import sys
 
 import app.cli as cli_mod
 from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
+from app.cli.pairwise import _build_reports_for_all_pairs
 from app.json_output import build_json_payload
 from reasoning.combine import build_regimen_summary
 from rules.composite_rules import apply_composites
@@ -24,8 +25,7 @@ def _build_payload(drugs: list[str], domain: str = "all"):
     hits = apply_composites(facts, hits)
 
     templates = {r.id: r.explanation_template for r in rules}
-    reports = cli_mod._build_reports_for_all_pairs(facts, hits, templates, drug_ids)
-
+    reports = _build_reports_for_all_pairs(facts, hits, templates, drug_ids)
     regimen_summary = None
     if len(drug_ids) >= 3:
         regimen_summary = build_regimen_summary(facts, reports)
