@@ -92,6 +92,7 @@ def handle_output_command(
     patient_flags,
     regimen_summary,
     public_result_summaries,
+    aggregate_summary_limit,
     console,
 ) -> None:
     if args.format == "json":

@@ -22,6 +22,10 @@ from app.cli.inputs import (
 )
 from app.cli.pairwise import _build_reports_for_all_pairs
 from app.cli.parser import build_parser
+from app.cli.runtime import (
+    build_patient_flags,
+    resolve_aggregate_summary_limit,
+)
 from core.evidence.completeness import (
     BACKFILL_PRIORITY_CONFIDENCE,
     BACKFILL_PRIORITY_CONFLICT,
@@ -48,7 +52,6 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 DB_PATH = BASE_DIR / "data" / "pharmds.sqlite3"
 RULE_DIR = BASE_DIR / "rules" / "rule_defs"
 
-DEFAULT_AGGREGATE_SUMMARY_LIMIT = 5
 DEFAULT_PUBLIC_RESULT_SUMMARY_LIMIT = 5
 
 
@@ -72,6 +75,7 @@ def _format_effect_label_line(effect_id: str | None) -> str | None:
 
     return f"  effect_label: {label}"
 
+
 def _format_effect_value(effect_id: str | None) -> str:
     if not effect_id:
         return "unspecified effect"
@@ -82,17 +86,20 @@ def _format_effect_value(effect_id: str | None) -> str:
 
     return f"{effect_id} ({label})"
 
+
 def _format_effect_values(effect_ids: tuple[str, ...]) -> str:
     if not effect_ids:
         return "none"
 
     return ", ".join(_format_effect_value(effect_id) for effect_id in effect_ids)
 
+
 def _format_text_values(values: tuple[str, ...]) -> str:
     if not values:
         return "none"
 
     return ", ".join(values)
+
 
 def _format_evidence_conflict_reasons(values: tuple[str, ...]) -> str:
     if not values:
@@ -105,10 +112,8 @@ def _format_evidence_conflict_reasons(values: tuple[str, ...]) -> str:
         "source_mismatch": "mixed source types",
     }
 
-    return ", ".join(
-        labels.get(value, value.replace("_", " "))
-        for value in values
-    )
+    return ", ".join(labels.get(value, value.replace("_", " ")) for value in values)
+
 
 def _format_evidence_source_label(source_id: str) -> str:
     source = get_source_by_id(source_id)
@@ -130,12 +135,10 @@ def _format_source_ids(source_ids: tuple[str, ...]) -> str:
         return "none"
 
     noun = "source" if len(source_ids) == 1 else "sources"
-    labels = [
-        _format_evidence_source_label(source_id)
-        for source_id in source_ids
-    ]
+    labels = [_format_evidence_source_label(source_id) for source_id in source_ids]
 
     return f"{len(source_ids)} {noun}: " + ", ".join(labels)
+
 
 def _format_public_effect_text(text: str) -> str:
     out = text
@@ -157,6 +160,7 @@ def _public_pd_effect_phrase(effect_id: str, effect_label: str) -> str:
 
     return f"{effect_label} pharmacodynamic effect"
 
+
 def _format_evidence_gap_item(item: dict) -> str:
     source_types = ", ".join(item.get("source_types") or ["no_source"])
     confidence = item.get("confidence_level") or "none"
@@ -169,6 +173,7 @@ def _format_evidence_gap_item(item: dict) -> str:
         f"claims={item['claim_count']}, "
         f"source_types={source_types})"
     )
+
 
 def _format_evidence_backfill_task(task: dict[str, object]) -> str:
     missing_source_types = task.get("missing_source_types") or []
@@ -322,30 +327,26 @@ def main() -> None:
         )
         raise SystemExit(2) from e
 
-    patient_flags = {
-        "qt_risk": bool(args.qt_risk),
-        "bleeding_risk": bool(args.bleeding_risk),
-    }
+    patient_flags = build_patient_flags(args)
     facts = load_facts(conn, drug_ids, patient_flags)
 
     if handle_evidence_gap_command(args, facts):
-        return 
-    
-    if handle_mechanism_debug_command(
-    args,
-    facts,
-    drug_ids,
-    rule_dir=RULE_DIR,
-):
         return
-    
+
+    if handle_mechanism_debug_command(
+        args,
+        facts,
+        drug_ids,
+        rule_dir=RULE_DIR,
+    ):
+        return
+
     selected = _parse_domain_selection(args.domain)
 
     rules_all = load_rules(RULE_DIR)
     rules = filter_rules_for_selected_domains(rules_all, selected)
 
     hits = evaluate_all(rules, facts, drug_ids)
-    
 
     from rules.composite_rules import apply_composites
 
@@ -363,7 +364,7 @@ def main() -> None:
         evidence_mode=args.evidence_mode,
     )
     public_result_summaries = build_public_result_summaries(pipeline)
-        
+    aggregate_summary_limit = resolve_aggregate_summary_limit(args)
 
     handle_output_command(
         args,
@@ -376,9 +377,9 @@ def main() -> None:
         regimen_summary=regimen_summary,
         public_result_summaries=public_result_summaries,
         console=console,
+        aggregate_summary_limit=aggregate_summary_limit,
     )
 
 
 if __name__ == "__main__":
     main()
-

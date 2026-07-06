@@ -15,7 +15,6 @@ from app.cli.inputs import (
 )
 from app.cli.main import (
     DB_PATH,
-    DEFAULT_AGGREGATE_SUMMARY_LIMIT,
     DEFAULT_PUBLIC_RESULT_SUMMARY_LIMIT,
     RULE_DIR,
     _sev_rank,
@@ -37,6 +36,7 @@ from app.cli.render.plain import (
     render_plain_regimen_summary,
     render_public_result_summaries,
 )
+from app.cli.runtime import DEFAULT_AGGREGATE_SUMMARY_LIMIT
 
 __all__ = [
     "DB_PATH",
