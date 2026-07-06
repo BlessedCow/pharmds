@@ -26,7 +26,11 @@ def build_cli_pair_reports(
 
     from rules.composite_rules import apply_composites
 
-    hits = apply_composites(facts, hits)
+    hits = apply_composites(
+        facts,
+        hits,
+        include_pk_pd_composites="pd" in selected,
+    )
 
     templates = {rule.id: rule.explanation_template for rule in rules}
     pair_reports = _build_reports_for_all_pairs(

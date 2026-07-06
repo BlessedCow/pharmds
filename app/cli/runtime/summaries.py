@@ -21,6 +21,9 @@ def build_cli_summaries(
         facts,
         evidence_mode=args.evidence_mode,
     )
-    public_result_summaries = build_public_result_summaries(mechanism_pipeline)
+    public_result_summaries = build_public_result_summaries(
+        mechanism_pipeline,
+        pair_reports,
+    )
 
     return regimen_summary, mechanism_pipeline, public_result_summaries
