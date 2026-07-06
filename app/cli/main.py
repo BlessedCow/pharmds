@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 from rich.console import Console
@@ -10,16 +9,11 @@ from app.cli.commands import (
     handle_mechanism_debug_command,
     handle_output_command,
 )
-from app.cli.facts import connect, load_facts
-from app.cli.inputs import (
-    _collect_drug_inputs,
-    _format_unknown_drug_message,
-    resolve_drug_ids,
-)
 from app.cli.parser import build_parser
 from app.cli.runtime import (
     build_cli_pair_reports,
-    build_patient_flags,
+    build_cli_session,
+    build_cli_summaries,
     resolve_aggregate_summary_limit,
 )
 from core.evidence.completeness import (
@@ -30,16 +24,10 @@ from core.evidence.completeness import (
     GAP_CLASSIFICATIONS,
 )
 from core.evidence.loader import get_source_by_id
-from core.exceptions import UnknownDrugError
-from core.mechanisms import run_mechanism_pipeline
 from core.mechanisms.effect_labels import (
     PUBLIC_EFFECT_LABELS,
     effect_display_label,
 )
-from core.mechanisms.result_summary import (
-    build_public_result_summaries,
-)
-from reasoning.combine import build_regimen_summary
 
 console = Console()
 
@@ -300,30 +288,12 @@ def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
 
-    drug_names = _collect_drug_inputs(args.drugs, args.file)
-    if len(drug_names) < 2:
-        raise SystemExit(
-            "Provide at least two drugs, or use --file / stdin for a list."
-        )
+    session = build_cli_session(args, db_path=DB_PATH)
 
-    conn = connect(DB_PATH)
-
-    try:
-        drug_ids = resolve_drug_ids(conn, drug_names)
-    except UnknownDrugError as e:
-        for tok in e.unknown:
-            opts = e.suggestions.get(tok, ())
-            print(_format_unknown_drug_message(tok, opts), file=sys.stderr)
-
-        print(
-            "Tip: common separators such as spaces, hyphens, slashes, and "
-            "underscores are treated the same.",
-            file=sys.stderr,
-        )
-        raise SystemExit(2) from e
-
-    patient_flags = build_patient_flags(args)
-    facts = load_facts(conn, drug_ids, patient_flags)
+    drug_names = session.drug_names
+    drug_ids = session.drug_ids
+    patient_flags = session.patient_flags
+    facts = session.facts
 
     if handle_evidence_gap_command(args, facts):
         return
@@ -343,16 +313,12 @@ def main() -> None:
         rule_dir=RULE_DIR,
     )
     
-    regimen_summary = None
-    if len(drug_ids) >= 3:
-        regimen_summary = build_regimen_summary(facts, pair_reports)
-
-    pipeline = run_mechanism_pipeline(
-        drug_ids,
-        facts,
-        evidence_mode=args.evidence_mode,
+    regimen_summary, pipeline, public_result_summaries = build_cli_summaries(
+        args,
+        facts=facts,
+        drug_ids=drug_ids,
+        pair_reports=pair_reports,
     )
-    public_result_summaries = build_public_result_summaries(pipeline)
     aggregate_summary_limit = resolve_aggregate_summary_limit(args)
 
     handle_output_command(
