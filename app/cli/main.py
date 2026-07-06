@@ -10,19 +10,15 @@ from app.cli.commands import (
     handle_mechanism_debug_command,
     handle_output_command,
 )
-from app.cli.domains import (
-    _parse_domain_selection,
-    filter_rules_for_selected_domains,
-)
 from app.cli.facts import connect, load_facts
 from app.cli.inputs import (
     _collect_drug_inputs,
     _format_unknown_drug_message,
     resolve_drug_ids,
 )
-from app.cli.pairwise import _build_reports_for_all_pairs
 from app.cli.parser import build_parser
 from app.cli.runtime import (
+    build_cli_pair_reports,
     build_patient_flags,
     resolve_aggregate_summary_limit,
 )
@@ -44,7 +40,6 @@ from core.mechanisms.result_summary import (
     build_public_result_summaries,
 )
 from reasoning.combine import build_regimen_summary
-from rules.engine import evaluate_all, load_rules
 
 console = Console()
 
@@ -341,19 +336,13 @@ def main() -> None:
     ):
         return
 
-    selected = _parse_domain_selection(args.domain)
-
-    rules_all = load_rules(RULE_DIR)
-    rules = filter_rules_for_selected_domains(rules_all, selected)
-
-    hits = evaluate_all(rules, facts, drug_ids)
-
-    from rules.composite_rules import apply_composites
-
-    hits = apply_composites(facts, hits)
-
-    templates = {r.id: r.explanation_template for r in rules}
-    pair_reports = _build_reports_for_all_pairs(facts, hits, templates, drug_ids)
+    selected, templates, pair_reports = build_cli_pair_reports(
+        args,
+        facts=facts,
+        drug_ids=drug_ids,
+        rule_dir=RULE_DIR,
+    )
+    
     regimen_summary = None
     if len(drug_ids) >= 3:
         regimen_summary = build_regimen_summary(facts, pair_reports)
