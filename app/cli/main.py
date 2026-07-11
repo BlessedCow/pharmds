@@ -11,9 +11,9 @@ from app.cli.commands import (
 )
 from app.cli.parser import build_parser
 from app.cli.runtime import (
-    build_cli_pair_reports,
     build_cli_session,
-    build_cli_summaries,
+    build_runtime_pair_reports,
+    build_runtime_summaries,
     resolve_aggregate_summary_limit,
 )
 
@@ -47,14 +47,13 @@ def main() -> None:
     ):
         return
 
-    selected, templates, pair_reports = build_cli_pair_reports(
+    selected, templates, pair_reports = build_runtime_pair_reports(
         args,
         facts=facts,
         drug_ids=drug_ids,
         rule_dir=RULE_DIR,
     )
-    
-    regimen_summary, pipeline, public_result_summaries = build_cli_summaries(
+    regimen_summary, pipeline, public_result_summaries = build_runtime_summaries(
         args,
         facts=facts,
         drug_ids=drug_ids,

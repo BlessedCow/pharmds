@@ -10,7 +10,7 @@ from app.cli.pairwise import _build_reports_for_all_pairs
 from rules.engine import evaluate_all, load_rules
 
 
-def build_cli_pair_reports(
+def build_runtime_pair_reports(
     args,
     *,
     facts,

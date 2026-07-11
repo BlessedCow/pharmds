@@ -5,7 +5,7 @@ from core.mechanisms.result_summary import build_public_result_summaries
 from reasoning.combine import build_regimen_summary
 
 
-def build_cli_summaries(
+def build_runtime_summaries(
     args,
     *,
     facts,

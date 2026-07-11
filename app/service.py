@@ -13,9 +13,9 @@ from app.cli.inputs import (
     resolve_drug_ids,
 )
 from app.cli.runtime import (
-    build_cli_pair_reports,
-    build_cli_summaries,
     build_patient_flags,
+    build_runtime_pair_reports,
+    build_runtime_summaries,
 )
 from app.json_output import build_json_payload
 from core.exceptions import UnknownDrugError
@@ -189,7 +189,7 @@ def analyze_names(
         )
     facts = load_facts(conn, drug_ids, patient_flags)
 
-    selected, templates, pair_reports = build_cli_pair_reports(
+    selected, templates, pair_reports = build_runtime_pair_reports(
         SimpleNamespace(domain=domain),
         facts=facts,
         drug_ids=drug_ids,
@@ -197,7 +197,11 @@ def analyze_names(
     )
 
     summary_args = SimpleNamespace(evidence_mode="off")
-    regimen_summary, mechanism_pipeline, public_result_summaries = build_cli_summaries(
+    (
+        regimen_summary,
+        mechanism_pipeline,
+        public_result_summaries,
+    ) = build_runtime_summaries(
         summary_args,
         facts=facts,
         drug_ids=drug_ids,
