@@ -627,27 +627,15 @@ Supported domains:
   
 
 | Domain | Meaning |
-
-|---|---|
-
+| :---: | :---: |
 | `cyp` | CYP-mediated PK |
-
 | `ugt` | UGT-mediated PK |
-
 | `pgp` | P-glycoprotein |
-
 | `bcrp` | BCRP transporter |
-
 | `oatp` | OATP transporters |
-
 | `pd` | Pharmacodynamic overlap |
-
 | `pk` | Alias for all PK mechanisms |
-
 | `all` | All domains, default |
-
-  
-
 ---
 
   
