@@ -12,12 +12,12 @@ from app.cli.inputs import (
     _parse_drug_tokens,
     resolve_drug_ids,
 )
-from app.cli.runtime import (
+from app.json_output import build_json_payload
+from app.runtime import (
     build_patient_flags,
     build_runtime_pair_reports,
     build_runtime_summaries,
 )
-from app.json_output import build_json_payload
 from core.exceptions import UnknownDrugError
 from core.mechanisms.pipeline_json import mechanism_pipeline_to_json_dict
 from core.mechanisms.result_summary import (

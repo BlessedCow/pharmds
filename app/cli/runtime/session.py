@@ -10,7 +10,7 @@ from app.cli.inputs import (
     _format_unknown_drug_message,
     resolve_drug_ids,
 )
-from app.cli.runtime.options import build_patient_flags
+from app.runtime import build_patient_flags
 from core.exceptions import UnknownDrugError
 
 
