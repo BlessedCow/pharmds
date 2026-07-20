@@ -24,6 +24,7 @@ from core.mechanisms.result_summary import (
     ResultSummary,
     result_summaries_to_json_dicts,
 )
+from core.pk_timing import build_pk_timing_context, describe_pk_timing_context
 
 
 @dataclass(frozen=True)
@@ -41,9 +42,23 @@ class AnalyzeResult:
     payload: dict[str, Any]
 
 
+def _build_pk_timing_input_metadata(
+    *,
+    route: str | None,
+    release_type: str | None,
+) -> dict[str, str]:
+    return {
+        "route": route or "oral",
+        "release_type": release_type or "ir",
+        "route_source": "request" if route else "default",
+        "release_type_source": "request" if release_type else "default",
+    }
+
+
 def _build_json_analyze_payload(
     *,
     facts: Any,
+    drug_ids: list[str],
     pair_reports: list[Any],
     templates: dict[str, str],
     selected_domains: list[str],
@@ -53,6 +68,8 @@ def _build_json_analyze_payload(
     mechanism_pipeline_json: dict[str, Any],
     public_result_summaries: list[ResultSummary],
     input_drug_text: str | None,
+    route: str | None,
+    release_type: str | None,
 ) -> dict[str, Any]:
     """Build the JSON/API-oriented success payload."""
     payload = build_json_payload(
@@ -65,11 +82,26 @@ def _build_json_analyze_payload(
         regimen_summary=regimen_summary,
     )
 
+    payload["input"]["pk_timing"] = _build_pk_timing_input_metadata(
+        route=route,
+        release_type=release_type,
+    )
+
     payload["mechanism_pipeline"] = mechanism_pipeline_json
     payload["public_result_summaries"] = result_summaries_to_json_dicts(
         public_result_summaries,
     )
 
+    payload["pk_timing_context"] = build_pk_timing_context(
+        drug_ids,
+        route=route or "oral",
+        release_type=release_type or "ir",
+    )
+    payload["pk_timing_interpretation"] = describe_pk_timing_context(
+        drug_ids,
+        route=route or "oral",
+        release_type=release_type or "ir",
+    )
     if input_drug_text is not None:
         payload["input_drug_text"] = input_drug_text
 
@@ -113,6 +145,8 @@ def analyze_text(
     drug_text: str,
     *,
     domain: str = "all",
+    route: str | None = None,
+    release_type: str | None = None,
     qt_risk: bool = False,
     bleeding_risk: bool = False,
     as_json_payload: bool = False,
@@ -127,6 +161,8 @@ def analyze_text(
     return analyze_names(
         drug_names,
         domain=domain,
+        route=route,
+        release_type=release_type,
         qt_risk=qt_risk,
         bleeding_risk=bleeding_risk,
         as_json_payload=as_json_payload,
@@ -138,6 +174,8 @@ def analyze_names(
     drug_names: list[str],
     *,
     domain: str = "all",
+    route: str | None = None,
+    release_type: str | None = None,
     qt_risk: bool = False,
     bleeding_risk: bool = False,
     as_json_payload: bool = False,
@@ -216,6 +254,7 @@ def analyze_names(
             ok=True,
             payload=_build_json_analyze_payload(
                 facts=facts,
+                drug_ids=drug_ids,
                 pair_reports=pair_reports,
                 templates=templates,
                 selected_domains=selected,
@@ -225,6 +264,8 @@ def analyze_names(
                 mechanism_pipeline_json=mechanism_pipeline_json,
                 public_result_summaries=public_result_summaries,
                 input_drug_text=input_drug_text,
+                route=route,
+                release_type=release_type,
             ),
         )
 

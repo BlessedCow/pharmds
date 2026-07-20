@@ -10,6 +10,29 @@ from app.service import (
 from core.mechanisms.result_summary import ResultSummary
 
 
+def test_service_json_payload_includes_pk_timing_context() -> None:
+    result = analyze_names(
+        ["vortioxetine", "propranolol"],
+        as_json_payload=True,
+    )
+
+    assert result.ok is True
+
+    payload = result.payload
+
+    assert "pk_timing_context" in payload
+    assert payload["pk_timing_context"][0]["drug_id"] == "vortioxetine"
+    assert payload["pk_timing_context"][0]["timing"]["tmax"] == {
+        "min_value": 7,
+        "max_value": 11,
+        "unit": "hours",
+    }
+    assert payload["pk_timing_context"][1]["drug_id"] == "propranolol"
+    assert payload["pk_timing_context"][1]["timing"]["steady_state_basis"] == (
+        "derived_from_half_life"
+    )
+
+
 def test_analyze_text_streamlit_payload_includes_stable_top_level_keys():
     result = analyze_text(
         "clarithromycin fluconazole",
@@ -51,6 +74,7 @@ def test_analyze_text_streamlit_payload_includes_mechanism_summaries():
     assert payload["public_result_summaries"]
     assert payload["aggregate_concern_summaries"]
 
+
 def test_analyze_text_json_payload_includes_stable_top_level_keys():
     result = analyze_text(
         "clarithromycin fluconazole",
@@ -66,9 +90,19 @@ def test_analyze_text_json_payload_includes_stable_top_level_keys():
         "input",
         "input_drug_text",
         "pairs",
+        "pk_timing_context",
+        "pk_timing_interpretation",
         "mechanism_pipeline",
         "public_result_summaries",
     }
+
+    assert payload["input"]["pk_timing"] == {
+        "route": "oral",
+        "release_type": "ir",
+        "route_source": "default",
+        "release_type_source": "default",
+    }
+
 
 def test_analyze_text_json_payload_with_regimen_summary_contract():
     result = analyze_text(
@@ -86,6 +120,8 @@ def test_analyze_text_json_payload_with_regimen_summary_contract():
         "input",
         "input_drug_text",
         "pairs",
+        "pk_timing_context",
+        "pk_timing_interpretation",
         "regimen_summary",
         "mechanism_pipeline",
         "public_result_summaries",
@@ -105,6 +141,7 @@ def test_analyze_text_json_payload_with_regimen_summary_contract():
         "hit_counts",
         "top_pairs",
     }
+
 
 def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline():
     result = analyze_text(
@@ -131,6 +168,7 @@ def test_analyze_text_json_payload_includes_public_summaries_and_debug_pipeline(
         "explanation",
     }
 
+
 def test_analyze_text_json_payload_public_summary_contract():
     result = analyze_text(
         "clarithromycin fluconazole",
@@ -144,7 +182,8 @@ def test_analyze_text_json_payload_public_summary_contract():
 
     assert summaries
     assert all(
-        set(summary) == {
+        set(summary)
+        == {
             "source",
             "title",
             "drugs",
@@ -192,6 +231,7 @@ def test_analyze_text_json_payload_mechanism_pipeline_contract():
     for value in pipeline.values():
         assert isinstance(value, list)
 
+
 def test_analyze_names_unknown_drug_payload_includes_actionable_message():
     result = analyze_names(["quetiaipne", "fluconazole"])
 
@@ -216,7 +256,8 @@ def test_analyze_text_resolves_aliases_with_common_separator_variants():
         "bupropion",
         "amphetamine_dextroamphetamine",
     ]
-    
+
+
 def test_analyze_names_deduplicates_canonical_drug_ids_after_alias_resolution():
     result = analyze_names(["wellbutrin-xl", "bupropion", "diflucan"])
 
@@ -225,7 +266,8 @@ def test_analyze_names_deduplicates_canonical_drug_ids_after_alias_resolution():
         "bupropion",
         "fluconazole",
     ]
-    
+
+
 def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
     public_summary = ResultSummary(
         source="aggregate_summary",
@@ -239,6 +281,7 @@ def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
 
     payload = _build_json_analyze_payload(
         facts=object(),
+        drug_ids=["clarithromycin", "fluconazole"],
         pair_reports=[],
         templates={},
         selected_domains=["all"],
@@ -248,13 +291,19 @@ def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
         mechanism_pipeline_json={"aggregate_concern_summaries": []},
         public_result_summaries=[public_summary],
         input_drug_text="clarithromycin fluconazole",
+        route="oral",
+        release_type="ir",
     )
+    assert payload["input"]["pk_timing"] == {
+        "route": "oral",
+        "release_type": "ir",
+        "route_source": "request",
+        "release_type_source": "request",
+    }
 
     assert payload["schema_version"] == "1.0"
     assert payload["input_drug_text"] == "clarithromycin fluconazole"
-    assert payload["mechanism_pipeline"] == {
-        "aggregate_concern_summaries": []
-    }
+    assert payload["mechanism_pipeline"] == {"aggregate_concern_summaries": []}
     assert payload["public_result_summaries"] == [
         {
             "source": "aggregate_summary",
@@ -263,9 +312,7 @@ def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
             "concern_type": "cardiac_rhythm",
             "severity_label": "moderate",
             "evidence_label": "complete",
-            "explanation": (
-                "Both drugs are associated with QT prolongation."
-            ),
+            "explanation": ("Both drugs are associated with QT prolongation."),
         }
     ]
 
@@ -307,4 +354,32 @@ def test_build_streamlit_analyze_payload_preserves_ui_objects():
         "mechanism_pipeline_json": mechanism_pipeline_json,
         "public_result_summaries": [public_summary],
         "aggregate_concern_summaries": (aggregate_summary,),
+    }
+
+
+def test_service_json_payload_uses_route_and_release_type_for_pk_timing() -> None:
+    result = analyze_names(
+        ["propranolol", "vortioxetine"],
+        route="oral",
+        release_type="er",
+        as_json_payload=True,
+    )
+
+    assert result.ok is True
+    
+    assert result.payload["input"]["pk_timing"] == {
+        "route": "oral",
+        "release_type": "er",
+        "route_source": "request",
+        "release_type_source": "request",
+    }
+
+    timing = result.payload["pk_timing_context"][0]["timing"]
+
+    assert timing["drug_id"] == "propranolol"
+    assert timing["release_type"] == "er"
+    assert timing["tmax"] == {
+        "min_value": 6,
+        "max_value": 10,
+        "unit": "hours",
     }

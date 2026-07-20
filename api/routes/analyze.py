@@ -13,6 +13,8 @@ def analyze_drugs(request: AnalyzeRequest) -> AnalyzeResponse:
     result = analyze_names(
         request.drug_names,
         domain=request.domain,
+        route=request.route,
+        release_type=request.release_type,
         qt_risk=request.qt_risk,
         bleeding_risk=request.bleeding_risk,
         as_json_payload=True,

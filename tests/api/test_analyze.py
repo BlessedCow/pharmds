@@ -17,6 +17,7 @@ def test_analyze_requires_at_least_two_drugs() -> None:
 
 
 def test_analyze_returns_400_for_unknown_drug() -> None:
+    
     client = TestClient(app)
 
     response = client.post(
@@ -51,6 +52,7 @@ def test_analyze_returns_service_payload_for_valid_drugs() -> None:
         },
     )
 
+
     assert response.status_code == 200
 
     body = response.json()
@@ -72,6 +74,67 @@ def test_analyze_returns_service_payload_for_valid_drugs() -> None:
         "qt_risk": False,
         "bleeding_risk": False,
     }
+    assert payload["input"]["pk_timing"] == {
+        "route": "oral",
+        "release_type": "ir",
+        "route_source": "default",
+        "release_type_source": "default",
+    }
     assert isinstance(payload["pairs"], list)
+    assert isinstance(payload["pk_timing_context"], list)
+    assert payload["pk_timing_context"][0]["drug_id"] == "vortioxetine"
+    assert payload["pk_timing_context"][0]["timing"]["route"] == "oral"
+    assert payload["pk_timing_context"][0]["timing"]["release_type"] == "ir"
+    assert payload["pk_timing_context"][0]["timing"]["half_life"] == {
+        "min_value": 66,
+        "max_value": 66,
+        "unit": "hours",
+    }
+    assert payload["pk_timing_context"][1]["drug_id"] == "propranolol"
+    assert payload["pk_timing_context"][1]["timing"]["steady_state"] == {
+        "min_value": 12,
+        "max_value": 30,
+        "unit": "hours",
+    }
+    assert isinstance(payload["pk_timing_interpretation"], list)
+    assert payload["pk_timing_interpretation"][0]["drug_id"] == "vortioxetine"
+    assert (
+        payload["pk_timing_interpretation"][0]["summary"]
+        == "Peak timing is about 7-11 hours; half-life is about 66 hours; "
+        "steady state is about 14 days."
+    )
     assert isinstance(payload["mechanism_pipeline"], dict)
     assert isinstance(payload["public_result_summaries"], list)
+
+
+def test_analyze_accepts_route_and_release_type_for_pk_timing() -> None:
+    client = TestClient(app)
+
+    response = client.post(
+        "/analyze",
+        json={
+            "drug_names": ["propranolol", "vortioxetine"],
+            "route": "oral",
+            "release_type": "er",
+        },
+    )
+
+    assert response.status_code == 200
+
+    payload = response.json()["payload"]
+    assert payload["input"]["pk_timing"] == {
+        "route": "oral",
+        "release_type": "er",
+        "route_source": "request",
+        "release_type_source": "request",
+    }
+    propranolol_timing = payload["pk_timing_context"][0]["timing"]
+
+    assert propranolol_timing["drug_id"] == "propranolol"
+    assert propranolol_timing["route"] == "oral"
+    assert propranolol_timing["release_type"] == "er"
+    assert propranolol_timing["tmax"] == {
+        "min_value": 6,
+        "max_value": 10,
+        "unit": "hours",
+    }
