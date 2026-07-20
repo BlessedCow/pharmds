@@ -34,6 +34,22 @@ def test_analyze_returns_service_payload_for_valid_drugs() -> None:
     body = response.json()
 
     assert body["ok"] is True
-    assert "payload" in body
-    assert isinstance(body["payload"], dict)
-    assert body["payload"]
+
+    payload = body["payload"]
+
+    assert payload["schema_version"] == "1.0"
+    assert payload["input"]["drug_names"] == [
+        "vortioxetine",
+        "propranolol",
+    ]
+    assert isinstance(payload["input"]["selected_domains"], list)
+    assert "cyp" in payload["input"]["selected_domains"]
+    assert "ugt" in payload["input"]["selected_domains"]
+    assert "pd" in payload["input"]["selected_domains"]
+    assert payload["input"]["patient_flags"] == {
+        "qt_risk": False,
+        "bleeding_risk": False,
+    }
+    assert isinstance(payload["pairs"], list)
+    assert isinstance(payload["mechanism_pipeline"], dict)
+    assert isinstance(payload["public_result_summaries"], list)
