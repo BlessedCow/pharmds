@@ -1,8 +1,4 @@
-﻿from app.cli.domains import (
-    _parse_domain_selection,
-    filter_rules_for_selected_domains,
-)
-from app.cli.facts import connect, load_facts
+﻿from app.cli.facts import connect, load_facts
 from app.cli.inputs import resolve_drug_ids
 from app.cli.main import (
     DB_PATH,
@@ -26,6 +22,10 @@ from app.cli.render.plain import (
     render_public_result_summaries,
 )
 from app.cli.runtime import DEFAULT_AGGREGATE_SUMMARY_LIMIT
+from app.runtime.domains import (
+    _parse_domain_selection,
+    filter_rules_for_selected_domains,
+)
 
 __all__ = [
     "DB_PATH",

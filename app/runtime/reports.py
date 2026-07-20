@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from app.cli.domains import (
+from app.runtime.domains import (
     _parse_domain_selection,
     filter_rules_for_selected_domains,
 )
-from app.cli.pairwise import _build_reports_for_all_pairs
+from app.runtime.pairwise import _build_reports_for_all_pairs
 from rules.engine import evaluate_all, load_rules
 
 

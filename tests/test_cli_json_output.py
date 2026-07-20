@@ -5,7 +5,7 @@ import sys
 
 import app.cli as cli_mod
 from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
-from app.cli.pairwise import _build_reports_for_all_pairs
+from app.runtime.pairwise import _build_reports_for_all_pairs
 from app.json_output import build_json_payload
 from reasoning.combine import build_regimen_summary
 from rules.composite_rules import apply_composites
@@ -40,6 +40,7 @@ def _build_payload(drugs: list[str], domain: str = "all"):
         regimen_summary=regimen_summary,
     )
     return payload
+
 
 def _assert_pair_json_contract(pair: dict):
     assert set(pair) == {
@@ -149,6 +150,7 @@ def test_cli_json_regimen_summary_contract_for_three_drugs():
     assert isinstance(summary["pd_stacks"], list)
     assert isinstance(summary["top_pairs"], list)
 
+
 def test_json_payload_includes_regimen_summary_for_three_drugs():
     payload = _build_payload(
         ["quetiapine", "hydroxyzine", "trazodone"],
@@ -182,10 +184,7 @@ def test_json_payload_contains_expected_fields_for_pk_pair():
     assert "pk" in pair and "hits" in pair["pk"]
     assert isinstance(pair["pk"]["hits"], list)
 
-    assert any(
-        (h.get("explanation") or h.get("rationale"))
-        for h in pair["pk"]["hits"]
-    )
+    assert any((h.get("explanation") or h.get("rationale")) for h in pair["pk"]["hits"])
 
 
 def test_json_hits_include_normalized_rationales():
@@ -201,6 +200,7 @@ def test_json_hits_include_normalized_rationales():
     assert all("action_rationale" in h for h in hits)
     assert any("Caution because" in h["severity_rationale"] for h in hits)
     assert any("Adjust/monitor action" in h["action_rationale"] for h in hits)
+
 
 def test_cli_json_shortcut_outputs_json(capsys, monkeypatch):
     monkeypatch.setattr(
@@ -221,6 +221,7 @@ def test_cli_json_shortcut_outputs_json(capsys, monkeypatch):
 
     assert payload["schema_version"] == "1.0"
     assert payload["input"]["drug_names"] == ["clarithromycin", "fluconazole"]
+
 
 def test_cli_format_json_outputs_public_pair_contract(
     capsys,
@@ -305,6 +306,7 @@ def test_cli_format_json_outputs_regimen_summary_contract(
         "top_pairs",
     }
 
+
 def test_cli_format_json_show_evidence_gaps_outputs_json(
     capsys,
     monkeypatch,
@@ -338,7 +340,8 @@ def test_cli_format_json_show_evidence_gaps_outputs_json(
     assert "backfill_plan" in payload
 
     assert "PD Effect Evidence Gaps" not in out
-    
+
+
 def test_cli_format_json_show_aggregate_evidence_outputs_json(
     capsys,
     monkeypatch,
