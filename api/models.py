@@ -42,3 +42,10 @@ class AnalyzePayload(BaseModel):
 class AnalyzeResponse(BaseModel):
     ok: bool
     payload: AnalyzePayload
+    
+
+class MetadataResponse(BaseModel):
+    domains: list[str]
+    patient_flags: list[str]
+    routes: list[str]
+    release_types: list[str]
