@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 
 from api.models import AnalyzeRequest, AnalyzeResponse
 from app.service import analyze_names
@@ -17,6 +17,12 @@ def analyze_drugs(request: AnalyzeRequest) -> AnalyzeResponse:
         bleeding_risk=request.bleeding_risk,
         as_json_payload=True,
     )
+
+    if not result.ok:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=result.payload,
+        )
 
     return AnalyzeResponse(
         ok=result.ok,

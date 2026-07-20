@@ -16,6 +16,28 @@ def test_analyze_requires_at_least_two_drugs() -> None:
     assert response.status_code == 422
 
 
+def test_analyze_returns_400_for_unknown_drug() -> None:
+    client = TestClient(app)
+
+    response = client.post(
+        "/analyze",
+        json={
+            "drug_names": ["vortioxetine", "notarealdrug"],
+        },
+    )
+
+    assert response.status_code == 400
+
+    body = response.json()
+
+    assert body["detail"]["error"] == "unknown_drug"
+    assert body["detail"]["unknown"] == ["notarealdrug"]
+    assert body["detail"]["input_drug_names"] == [
+        "vortioxetine",
+        "notarealdrug",
+    ]
+
+
 def test_analyze_returns_service_payload_for_valid_drugs() -> None:
     client = TestClient(app)
 
