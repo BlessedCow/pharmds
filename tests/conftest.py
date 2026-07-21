@@ -14,7 +14,14 @@ def pytest_sessionstart(session):
 
     CI previously relied on a committed pharmds.sqlite3 artifact, which can drift.
     Seeding on session start keeps tests aligned with the curation source of truth.
+
+    When pytest-xdist is active, this hook runs in every worker. Only the controller
+    process should rebuild the shared SQLite file; workers should use the database
+    that the controller prepared before dispatching tests.
     """
+    if hasattr(session.config, "workerinput"):
+        return
+
     from data.seed_sqlite import DB_PATH, apply_schema, connect, seed
 
     if DB_PATH.exists():
@@ -25,4 +32,3 @@ def pytest_sessionstart(session):
     seed(conn)
     conn.commit()
     conn.close()
-
