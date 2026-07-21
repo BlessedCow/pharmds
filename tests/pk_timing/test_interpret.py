@@ -3,6 +3,7 @@ from core.pk_timing import (
     TimingRange,
     describe_pk_timing,
     describe_pk_timing_context,
+    describe_pk_timing_context_from_entries,
     describe_timing_range,
 )
 
@@ -118,6 +119,38 @@ def test_describe_pk_timing_context_returns_drug_summaries() -> None:
             "Peak timing is about 1-4 hours; half-life is about "
             "3-6 hours; estimated steady state is about 12-30 "
             "hours based on half-life."
+        ),
+    }
+
+
+def test_describe_pk_timing_context_from_entries_uses_per_drug_timing() -> None:
+    context = describe_pk_timing_context_from_entries(
+        [
+            {
+                "drug_id": "propranolol",
+                "route": "oral",
+                "release_type": "er",
+            },
+            {
+                "drug_id": "vortioxetine",
+                "route": "oral",
+                "release_type": "ir",
+            },
+        ]
+    )
+
+    assert context[0] == {
+        "drug_id": "propranolol",
+        "summary": (
+            "Peak timing is about 6-10 hours; half-life is about 8-10 hours; "
+            "estimated steady state is about 32-50 hours based on half-life."
+        ),
+    }
+    assert context[1] == {
+        "drug_id": "vortioxetine",
+        "summary": (
+            "Peak timing is about 7-11 hours; half-life is about 66 hours; "
+            "steady state is about 14 days."
         ),
     }
 

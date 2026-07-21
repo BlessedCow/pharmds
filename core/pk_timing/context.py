@@ -35,6 +35,32 @@ def build_pk_timing_context(
     return context
 
 
+def build_pk_timing_context_from_entries(
+    entries: Iterable[dict[str, str | None]],
+    *,
+    data: Iterable[PharmacokineticTiming] | None = None,
+) -> list[dict[str, Any]]:
+    context = []
+
+    for entry in entries:
+        drug_id = entry["drug_id"]
+        timing = _resolve_timing(
+            drug_id,
+            route=entry.get("route"),
+            release_type=entry.get("release_type"),
+            data=data,
+        )
+
+        context.append(
+            {
+                "drug_id": drug_id,
+                "timing": serialize_pk_timing(timing),
+            }
+        )
+
+    return context
+
+
 def _resolve_timing(
     drug_id: str,
     *,

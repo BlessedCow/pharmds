@@ -24,7 +24,12 @@ from core.mechanisms.result_summary import (
     ResultSummary,
     result_summaries_to_json_dicts,
 )
-from core.pk_timing import build_pk_timing_context, describe_pk_timing_context
+from core.pk_timing import (
+    build_pk_timing_context,
+    build_pk_timing_context_from_entries,
+    describe_pk_timing_context,
+    describe_pk_timing_context_from_entries,
+)
 
 
 @dataclass(frozen=True)
@@ -55,6 +60,61 @@ def _build_pk_timing_input_metadata(
     }
 
 
+def _build_pk_timing_entries(
+    *,
+    drug_ids: list[str],
+    route: str | None,
+    release_type: str | None,
+    pk_timing_inputs: list[dict[str, str | None]] | None,
+) -> list[dict[str, str | None]]:
+    if pk_timing_inputs is None:
+        return [
+            {
+                "drug_id": drug_id,
+                "route": route or "oral",
+                "release_type": release_type or "ir",
+                "route_source": "request" if route else "default",
+                "release_type_source": "request" if release_type else "default",
+            }
+            for drug_id in drug_ids
+        ]
+
+    entries = []
+    for drug_id, timing_input in zip(
+        drug_ids,
+        pk_timing_inputs,
+        strict=False,
+    ):
+        input_route = timing_input.get("route") or route or "oral"
+        input_release_type = (
+            timing_input.get("release_type") or release_type or "ir"
+        )
+
+        entries.append(
+            {
+                "drug_id": drug_id,
+                "route": input_route,
+                "release_type": input_release_type,
+                "route_source": (
+                    "drug"
+                    if timing_input.get("route")
+                    else "request"
+                    if route
+                    else "default"
+                ),
+                "release_type_source": (
+                    "drug"
+                    if timing_input.get("release_type")
+                    else "request"
+                    if release_type
+                    else "default"
+                ),
+            }
+        )
+
+    return entries
+
+
 def _build_json_analyze_payload(
     *,
     facts: Any,
@@ -70,6 +130,7 @@ def _build_json_analyze_payload(
     input_drug_text: str | None,
     route: str | None,
     release_type: str | None,
+    pk_timing_inputs: list[dict[str, str | None]] | None,
 ) -> dict[str, Any]:
     """Build the JSON/API-oriented success payload."""
     payload = build_json_payload(
@@ -82,26 +143,45 @@ def _build_json_analyze_payload(
         regimen_summary=regimen_summary,
     )
 
+    pk_timing_entries = _build_pk_timing_entries(
+        drug_ids=drug_ids,
+        route=route,
+        release_type=release_type,
+        pk_timing_inputs=pk_timing_inputs,
+    )
+
     payload["input"]["pk_timing"] = _build_pk_timing_input_metadata(
         route=route,
         release_type=release_type,
     )
+    payload["input"]["pk_timing_by_drug"] = pk_timing_entries
 
     payload["mechanism_pipeline"] = mechanism_pipeline_json
     payload["public_result_summaries"] = result_summaries_to_json_dicts(
         public_result_summaries,
     )
 
-    payload["pk_timing_context"] = build_pk_timing_context(
-        drug_ids,
-        route=route or "oral",
-        release_type=release_type or "ir",
-    )
-    payload["pk_timing_interpretation"] = describe_pk_timing_context(
-        drug_ids,
-        route=route or "oral",
-        release_type=release_type or "ir",
-    )
+    if pk_timing_inputs is None:
+        payload["pk_timing_context"] = build_pk_timing_context(
+            drug_ids,
+            route=route or "oral",
+            release_type=release_type or "ir",
+        )
+        payload["pk_timing_interpretation"] = describe_pk_timing_context(
+            drug_ids,
+            route=route or "oral",
+            release_type=release_type or "ir",
+        )
+    else:
+        payload["pk_timing_context"] = build_pk_timing_context_from_entries(
+            pk_timing_entries,
+        )
+        payload["pk_timing_interpretation"] = (
+            describe_pk_timing_context_from_entries(
+                pk_timing_entries,
+            )
+        )
+
     if input_drug_text is not None:
         payload["input_drug_text"] = input_drug_text
 
@@ -167,6 +247,7 @@ def analyze_text(
         bleeding_risk=bleeding_risk,
         as_json_payload=as_json_payload,
         input_drug_text=drug_text,
+        pk_timing_inputs=None,
     )
 
 
@@ -180,6 +261,7 @@ def analyze_names(
     bleeding_risk: bool = False,
     as_json_payload: bool = False,
     input_drug_text: str | None = None,
+    pk_timing_inputs: list[dict[str, str | None]] | None = None,
 ) -> AnalyzeResult:
     """
     Analyze drug interactions from a list of drug strings.
@@ -266,6 +348,7 @@ def analyze_names(
                 input_drug_text=input_drug_text,
                 route=route,
                 release_type=release_type,
+                pk_timing_inputs=pk_timing_inputs,
             ),
         )
 

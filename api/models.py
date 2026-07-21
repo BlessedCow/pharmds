@@ -5,10 +5,29 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 
+class AnalyzeDrugInput(BaseModel):
+    name: str = Field(
+        min_length=1,
+        description="Drug name, generic name, or supported alias to analyze.",
+    )
+    route: str | None = Field(
+        default=None,
+        description="Optional route for this drug's PK timing lookup.",
+    )
+    release_type: str | None = Field(
+        default=None,
+        description="Optional release type for this drug's PK timing lookup.",
+    )
+
+
 class AnalyzeRequest(BaseModel):
-    drug_names: list[str] = Field(
-        min_length=2,
+    drug_names: list[str] | None = Field(
+        default=None,
         description="Drug names, generic names, or supported aliases to analyze.",
+    )
+    drugs: list[AnalyzeDrugInput] | None = Field(
+        default=None,
+        description="Structured drug inputs for route- and release-aware analysis.",
     )
     domain: str = Field(
         default="all",
@@ -49,7 +68,7 @@ class AnalyzeInputPayload(BaseModel):
     selected_domains: list[str]
     patient_flags: dict[str, bool]
     pk_timing: AnalyzePkTimingInputPayload
-
+    pk_timing_by_drug: list[dict[str, Any]] = Field(default_factory=list)
 
 class AnalyzePayload(BaseModel):
     schema_version: str
@@ -65,7 +84,7 @@ class AnalyzePayload(BaseModel):
 class AnalyzeResponse(BaseModel):
     ok: bool
     payload: AnalyzePayload
-    
+
 
 class MetadataResponse(BaseModel):
     domains: list[str]

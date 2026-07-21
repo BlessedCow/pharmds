@@ -1,8 +1,12 @@
-from core.pk_timing.context import build_pk_timing_context
+from core.pk_timing.context import (
+    build_pk_timing_context,
+    build_pk_timing_context_from_entries,
+)
 from core.pk_timing.data import PK_TIMING_DATA
 from core.pk_timing.interpret import (
     describe_pk_timing,
     describe_pk_timing_context,
+    describe_pk_timing_context_from_entries,
     describe_timing_range,
 )
 from core.pk_timing.models import (
@@ -27,4 +31,6 @@ __all__ = [
     "resolve_pk_timing",
     "serialize_pk_timing",
     "serialize_timing_range",
+    "build_pk_timing_context_from_entries",
+    "describe_pk_timing_context_from_entries",
 ]

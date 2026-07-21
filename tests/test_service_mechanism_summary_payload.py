@@ -293,6 +293,7 @@ def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
         input_drug_text="clarithromycin fluconazole",
         route="oral",
         release_type="ir",
+        pk_timing_inputs=None,
     )
     assert payload["input"]["pk_timing"] == {
         "route": "oral",
@@ -355,6 +356,49 @@ def test_build_streamlit_analyze_payload_preserves_ui_objects():
         "public_result_summaries": [public_summary],
         "aggregate_concern_summaries": (aggregate_summary,),
     }
+
+
+def test_service_json_payload_uses_per_drug_pk_timing_inputs() -> None:
+    result = analyze_names(
+        ["propranolol", "vortioxetine"],
+        pk_timing_inputs=[
+            {
+                "route": "oral",
+                "release_type": "er",
+            },
+            {
+                "route": "oral",
+                "release_type": "ir",
+            },
+        ],
+        as_json_payload=True,
+    )
+
+    assert result.ok is True
+
+    assert result.payload["input"]["pk_timing_by_drug"] == [
+        {
+            "drug_id": "propranolol",
+            "route": "oral",
+            "release_type": "er",
+            "route_source": "drug",
+            "release_type_source": "drug",
+        },
+        {
+            "drug_id": "vortioxetine",
+            "route": "oral",
+            "release_type": "ir",
+            "route_source": "drug",
+            "release_type_source": "drug",
+        },
+    ]
+
+    assert result.payload["pk_timing_context"][0]["timing"]["release_type"] == (
+        "er"
+    )
+    assert result.payload["pk_timing_context"][1]["timing"]["release_type"] == (
+        "ir"
+    )
 
 
 def test_service_json_payload_uses_route_and_release_type_for_pk_timing() -> None:

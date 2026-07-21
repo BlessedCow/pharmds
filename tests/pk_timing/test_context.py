@@ -2,6 +2,7 @@ from core.pk_timing import (
     PharmacokineticTiming,
     TimingRange,
     build_pk_timing_context,
+    build_pk_timing_context_from_entries,
 )
 
 
@@ -57,6 +58,39 @@ def test_build_pk_timing_context_returns_none_timing_for_unknown_drugs() -> None
     assert context[1] == {
         "drug_id": "notarealdrug",
         "timing": None,
+    }
+
+
+def test_build_pk_timing_context_from_entries_uses_per_drug_timing() -> None:
+    context = build_pk_timing_context_from_entries(
+        [
+            {
+                "drug_id": "propranolol",
+                "route": "oral",
+                "release_type": "er",
+            },
+            {
+                "drug_id": "vortioxetine",
+                "route": "oral",
+                "release_type": "ir",
+            },
+        ]
+    )
+
+    assert context[0]["drug_id"] == "propranolol"
+    assert context[0]["timing"]["release_type"] == "er"
+    assert context[0]["timing"]["tmax"] == {
+        "min_value": 6,
+        "max_value": 10,
+        "unit": "hours",
+    }
+
+    assert context[1]["drug_id"] == "vortioxetine"
+    assert context[1]["timing"]["release_type"] == "ir"
+    assert context[1]["timing"]["tmax"] == {
+        "min_value": 7,
+        "max_value": 11,
+        "unit": "hours",
     }
 
 
