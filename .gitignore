@@ -47,3 +47,21 @@ reports/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Frontend dependencies and build outputs
+web/node_modules/
+web/dist/
+web/.vite/
+web/.turbo/
+web/.cache/
+
+# Frontend environment files
+web/.env
+web/.env.local
+web/.env.*.local
+
+# Logs
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
+web/pnpm-debug.log*
