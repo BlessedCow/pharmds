@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 
 from api.routes.analyze import router as analyze_router
+from api.routes.drugs import router as drugs_router
 from api.routes.health import router as health_router
 from api.routes.metadata import router as metadata_router
 
@@ -15,3 +16,4 @@ app = FastAPI(
 app.include_router(health_router)
 app.include_router(analyze_router)
 app.include_router(metadata_router)
+app.include_router(drugs_router)

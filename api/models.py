@@ -91,3 +91,21 @@ class MetadataResponse(BaseModel):
     patient_flags: list[str]
     routes: list[str]
     release_types: list[str]
+
+
+class DrugFormulationResponse(BaseModel):
+    route: str
+    release_types: list[str]
+
+
+class DrugCatalogEntryResponse(BaseModel):
+    id: str
+    generic_name: str
+    drug_class: str | None
+    aliases: list[str]
+    release_types: list[str]
+    formulations: list[DrugFormulationResponse]
+
+
+class DrugCatalogResponse(BaseModel):
+    drugs: list[DrugCatalogEntryResponse]

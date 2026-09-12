@@ -7,6 +7,10 @@ from pathlib import Path
 
 import core.constants as c
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
+from core.formulations import (
+    RELEASE_TYPE_OPTIONS,
+    ROUTE_OPTIONS,
+)
 from data.loaders import load_transporters
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -18,6 +22,9 @@ _ALLOWED_STRENGTH = {"weak", "moderate", "strong"}
 _ALLOWED_PD_DIR = {"increase", "decrease"}
 _ALLOWED_PD_MAG = {"low", "medium", "high"}
 _ALLOWED_HALF_LIFE = {"short", "medium", "long"}
+
+_ALLOWED_ROUTES = set(ROUTE_OPTIONS)
+_ALLOWED_RELEASE_TYPES = set(RELEASE_TYPE_OPTIONS)
 
 # Keep in sync with data.seed_sqlite enzymes. v0: small curated set.
 _KNOWN_ENZYMES = {
@@ -76,7 +83,7 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
     transporters = load_transporters()
     known_transporters = set(transporters.keys())
     known_pd_effects = PD_EFFECT_IDS | _load_rule_pd_effect_ids()
-    
+
     seen_drug_ids: set[str] = set()
     seen_aliases: dict[str, str] = {}  # alias -> drug_id
 
@@ -166,6 +173,216 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
                     )
                 )
             seen_aliases[a] = drug_id
+
+        # Release types
+        release_types = d.get("release_types")
+
+        if release_types is not None:
+            if not isinstance(release_types, list):
+                errors.append(
+                    CurationError(
+                        prefix + ".release_types",
+                        "release_types must be a list.",
+                    )
+                )
+            else:
+                normalized_release_types: list[str] = []
+
+                for release_type in release_types:
+                    if not isinstance(release_type, str) or not release_type.strip():
+                        errors.append(
+                            CurationError(
+                                prefix + ".release_types",
+                                "release type must be a non-empty string.",
+                            )
+                        )
+                        continue
+
+                    normalized = release_type.strip().lower()
+                    normalized_release_types.append(normalized)
+
+                    if normalized not in _ALLOWED_RELEASE_TYPES:
+                        errors.append(
+                            CurationError(
+                                prefix + ".release_types",
+                                (
+                                    f"Unknown release type '{normalized}'. "
+                                    "Expected one of "
+                                    f"{sorted(_ALLOWED_RELEASE_TYPES)}."
+                                ),
+                            )
+                        )
+
+                if not normalized_release_types:
+                    errors.append(
+                        CurationError(
+                            prefix + ".release_types",
+                            "release_types must contain at least one value.",
+                        )
+                    )
+
+                if len(set(normalized_release_types)) != len(normalized_release_types):
+                    errors.append(
+                        CurationError(
+                            prefix + ".release_types",
+                            "Duplicate release types for this drug.",
+                        )
+                    )
+
+        # Formulations
+        formulations = d.get("formulations")
+
+        if formulations is not None:
+            if not isinstance(formulations, list):
+                errors.append(
+                    CurationError(
+                        prefix + ".formulations",
+                        "formulations must be a list.",
+                    )
+                )
+            elif not formulations:
+                errors.append(
+                    CurationError(
+                        prefix + ".formulations",
+                        "formulations must contain at least one value.",
+                    )
+                )
+            else:
+                seen_routes: set[str] = set()
+                formulation_release_types: set[str] = set()
+
+                for j, formulation in enumerate(formulations):
+                    formulation_prefix = f"{prefix}.formulations[{j}]"
+
+                    if not isinstance(formulation, dict):
+                        errors.append(
+                            CurationError(
+                                formulation_prefix,
+                                "formulation must be an object.",
+                            )
+                        )
+                        continue
+
+                    route = formulation.get("route")
+
+                    if not isinstance(route, str) or not route.strip():
+                        errors.append(
+                            CurationError(
+                                formulation_prefix + ".route",
+                                "route must be a non-empty string.",
+                            )
+                        )
+                        continue
+
+                    normalized_route = route.strip().lower()
+
+                    if normalized_route not in _ALLOWED_ROUTES:
+                        errors.append(
+                            CurationError(
+                                formulation_prefix + ".route",
+                                (
+                                    f"Unknown route '{normalized_route}'. "
+                                    "Expected one of "
+                                    f"{sorted(_ALLOWED_ROUTES)}."
+                                ),
+                            )
+                        )
+
+                    if normalized_route in seen_routes:
+                        errors.append(
+                            CurationError(
+                                formulation_prefix + ".route",
+                                (
+                                    "Duplicate formulation route "
+                                    f"'{normalized_route}' for this drug."
+                                ),
+                            )
+                        )
+
+                    seen_routes.add(normalized_route)
+
+                    formulation_release_values = formulation.get("release_types")
+
+                    if not isinstance(
+                        formulation_release_values,
+                        list,
+                    ):
+                        errors.append(
+                            CurationError(
+                                formulation_prefix + ".release_types",
+                                "release_types must be a list.",
+                            )
+                        )
+                        continue
+
+                    if not formulation_release_values:
+                        errors.append(
+                            CurationError(
+                                formulation_prefix + ".release_types",
+                                ("release_types must contain at least " "one value."),
+                            )
+                        )
+                        continue
+
+                    normalized_values: list[str] = []
+
+                    for release_type in formulation_release_values:
+                        if (
+                            not isinstance(release_type, str)
+                            or not release_type.strip()
+                        ):
+                            errors.append(
+                                CurationError(
+                                    formulation_prefix + ".release_types",
+                                    ("release type must be a " "non-empty string."),
+                                )
+                            )
+                            continue
+
+                        normalized_release_type = release_type.strip().lower()
+
+                        normalized_values.append(normalized_release_type)
+
+                        if normalized_release_type not in _ALLOWED_RELEASE_TYPES:
+                            errors.append(
+                                CurationError(
+                                    formulation_prefix + ".release_types",
+                                    (
+                                        "Unknown release type "
+                                        f"'{normalized_release_type}'. "
+                                        "Expected one of "
+                                        f"{sorted(_ALLOWED_RELEASE_TYPES)}."
+                                    ),
+                                )
+                            )
+
+                        formulation_release_types.add(normalized_release_type)
+
+                    if len(set(normalized_values)) != len(normalized_values):
+                        errors.append(
+                            CurationError(
+                                formulation_prefix + ".release_types",
+                                ("Duplicate release types for this " "formulation."),
+                            )
+                        )
+
+                if isinstance(release_types, list):
+                    normalized_flat_release_types = {
+                        release_type.strip().lower()
+                        for release_type in release_types
+                        if isinstance(release_type, str) and release_type.strip()
+                    }
+
+                    if normalized_flat_release_types != formulation_release_types:
+                        errors.append(
+                            CurationError(
+                                prefix + ".formulations",
+                                (
+                                    "Formulation release types must match "
+                                    "the drug-level release_types values."
+                                ),
+                            )
+                        )
 
         # Enzymes
         enzymes = d.get("enzymes", [])
@@ -402,4 +619,3 @@ def assert_valid_drugs_curation(path: Path = DEFAULT_PATH) -> None:
             f"- {e.path}: {e.message}" for e in errors
         )
         raise ValueError(msg)
-

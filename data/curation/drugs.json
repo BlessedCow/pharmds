@@ -9,6 +9,9 @@
       "aliases": [
         "versed"
       ],
+      "release_types": [
+        "ir"
+      ],
       "notes": "Educational CYP3A4 substrate anchor.",
       "enzymes": [
         {
@@ -49,7 +52,33 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "rifampin",
@@ -58,6 +87,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "rifampicin"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational strong inducer anchor; time-course is clinically important.",
       "enzymes": [
@@ -80,7 +112,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "clarithromycin",
@@ -89,6 +135,10 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "biaxin"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational strong CYP3A4 inhibitor and P-gp inhibitor anchor.",
       "enzymes": [
@@ -124,7 +174,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "quetiapine",
@@ -133,6 +192,10 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "seroquel"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "CYP3A4 substrate used in strong inhibitor rule tests.",
       "enzymes": [
@@ -186,7 +249,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "clopidogrel",
@@ -195,6 +267,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "plavix"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Prodrug requiring CYP2C19 activation; inhibition reduces efficacy.",
       "enzymes": [
@@ -219,7 +294,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "fluconazole",
@@ -228,6 +311,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "diflucan"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "CYP2C9/2C19 inhibitor anchor.",
       "enzymes": [
@@ -262,7 +348,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "warfarin",
@@ -272,6 +372,9 @@
       "aliases": [
         "coumadin",
         "jantoven"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Narrow TI; classic CYP2C9 substrate.",
       "enzymes": [
@@ -295,7 +398,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "digoxin",
@@ -304,6 +415,9 @@
       "therapeutic_index": "narrow",
       "aliases": [
         "lanoxin"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "P-gp substrate; narrow TI.",
       "enzymes": [],
@@ -326,7 +440,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "verapamil",
@@ -336,6 +464,11 @@
       "aliases": [
         "calan",
         "verelan"
+      ],
+      "release_types": [
+        "ir",
+        "sr",
+        "er"
       ],
       "notes": "P-gp inhibitor used in transporter rules and dual mechanism scenarios.",
       "enzymes": [
@@ -365,7 +498,23 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "sr",
+            "er"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "tizanidine",
@@ -374,6 +523,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "zanaflex"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Sensitive CYP1A2 substrate used in dedicated rule test.",
       "enzymes": [
@@ -409,7 +561,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "citalopram",
@@ -418,6 +578,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "celexa"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "QT additive PD rule anchor in tests.",
       "enzymes": [
@@ -465,7 +628,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "ondansetron",
@@ -474,6 +645,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "zofran"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "QT additive PD rule anchor in tests.",
       "enzymes": [
@@ -497,7 +671,27 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "sertraline",
@@ -506,6 +700,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "zoloft"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Serotonergic PD stacking anchor.",
       "enzymes": [
@@ -552,7 +749,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "desvenlafaxine",
@@ -561,6 +766,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "pristiq"
+      ],
+      "release_types": [
+        "er"
       ],
       "notes": "Serotonergic and BP/HR effects used in PD scenarios.",
       "enzymes": [],
@@ -596,7 +804,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "propranolol",
@@ -605,6 +821,10 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "inderal"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Bradycardia additive PD anchor.",
       "enzymes": [
@@ -628,7 +848,22 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "cyclosporine",
@@ -638,6 +873,9 @@
       "aliases": [
         "neoral",
         "sandimmune"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Transporter inhibitor used in rosuvastatin BCRP/OATP tests.",
       "enzymes": [
@@ -670,7 +908,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "rosuvastatin",
@@ -679,6 +931,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "crestor"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "BCRP and OATP substrate used in cyclosporine transporter tests.",
       "enzymes": [],
@@ -698,7 +953,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "tacrolimus",
@@ -707,6 +970,10 @@
       "therapeutic_index": "narrow",
       "aliases": [
         "prograf"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Included for common transplant scenarios; CYP3A4 and P-gp substrate.",
       "enzymes": [
@@ -728,7 +995,28 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "topical",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "atazanavir",
@@ -737,6 +1025,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "reyataz"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "UGT1A1 inhibitor used in irinotecan interaction scenario.",
       "enzymes": [
@@ -753,7 +1044,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "irinotecan",
@@ -762,6 +1061,9 @@
       "therapeutic_index": "narrow",
       "aliases": [
         "camptosar"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "UGT1A1 substrate (SN-38 glucuronidation); used with atazanavir.",
       "enzymes": [
@@ -778,7 +1080,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "hydroxyzine",
@@ -790,6 +1100,9 @@
         "vistaril",
         "hydroxyzine hcl",
         "hydroxyzine pamoate"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Sedating antihistamine; include CNS depression and QT effect for additive-risk PD logic. Enzyme data is educational placeholder.",
       "enzymes": [
@@ -842,7 +1155,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "paliperidone",
@@ -855,6 +1182,10 @@
         "invega trinza",
         "invega hafyera",
         "paliperidone er"
+      ],
+      "release_types": [
+        "er",
+        "depot"
       ],
       "notes": "Antipsychotic; prioritize QT prolongation composite PD logic. Limited CYP contribution modeled here; primary handling is PD and renal clearance flag.",
       "enzymes": [],
@@ -914,7 +1245,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "er"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "depot"
+          ]
+        }
+      ]
     },
     {
       "id": "lorazepam",
@@ -924,6 +1269,9 @@
       "aliases": [
         "ativan",
         "lorazepam intensol"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Benzodiazepine; UGT substrate anchor for phase II logic. Primary interaction surface is additive CNS depression.",
       "enzymes": [
@@ -965,7 +1313,27 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "olanzapine",
@@ -976,6 +1344,10 @@
         "zyprexa",
         "zyprexa zydis",
         "lybalvi"
+      ],
+      "release_types": [
+        "ir",
+        "depot"
       ],
       "notes": "Educational CYP1A2 substrate anchor for induction and inhibition rules. Include QT effect for additive-risk PD logic.",
       "enzymes": [
@@ -1041,7 +1413,22 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir",
+            "depot"
+          ]
+        }
+      ]
     },
     {
       "id": "cariprazine",
@@ -1050,6 +1437,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "vraylar"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "CYP3A4 substrate anchor for inhibitor and inducer rules. Long half-life bucket for persistence of effect.",
       "enzymes": [
@@ -1102,7 +1492,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "methocarbamol",
@@ -1111,6 +1509,9 @@
       "therapeutic_index": "wide",
       "aliases": [
         "robaxin"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Muscle relaxant; primary interaction surface is additive CNS depression. PK modeled minimally for now.",
       "enzymes": [],
@@ -1134,7 +1535,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "amphetamine_dextroamphetamine",
@@ -1148,6 +1563,10 @@
         "amphetamine/dextroamphetamine",
         "amphetamine and dextroamphetamine",
         "amphetamine_dextroamphetamine"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Stimulant combination product; add PD effects only if you have PD rules for them (e.g., cardiovascular, hypertension).",
       "enzymes": [],
@@ -1195,7 +1614,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "pseudoephedrine",
@@ -1204,6 +1632,10 @@
       "therapeutic_index": "wide",
       "aliases": [
         "sudafed"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Sympathomimetic decongestant; increases blood pressure and heart rate.",
       "enzymes": [],
@@ -1239,7 +1671,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "gabapentin",
@@ -1250,6 +1691,10 @@
         "neurontin",
         "gralise",
         "horizant"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational anchor: renally eliminated, minimal CYP involvement. Key PD concern is additive CNS and respiratory depression risk when combined with opioids or other CNS depressants.",
       "enzymes": [],
@@ -1291,6 +1736,15 @@
           "citation": "Drug Safety Communication: serious breathing problems with gabapentin and pregabalin",
           "url": "https://www.fda.gov/drugs/drug-safety-and-availability/fda-warns-about-serious-breathing-problems-seizure-and-nerve-pain-medicines-gabapentin-neurontin"
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
       ]
     },
     {
@@ -1301,6 +1755,10 @@
       "aliases": [
         "lyrica",
         "lyrica cr"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational anchor: renally eliminated, minimal CYP involvement. Key PD concern is additive CNS and respiratory depression risk when combined with opioids or other CNS depressants.",
       "enzymes": [],
@@ -1342,6 +1800,15 @@
           "citation": "Drug Safety Communication: serious breathing problems with gabapentin and pregabalin",
           "url": "https://www.fda.gov/drugs/drug-safety-and-availability/fda-warns-about-serious-breathing-problems-seizure-and-nerve-pain-medicines-gabapentin-neurontin"
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
       ]
     },
     {
@@ -1353,6 +1820,9 @@
         "narcan",
         "kloxxado",
         "zimhi"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational anchor: opioid receptor antagonist used for reversal of opioid overdose. May precipitate acute withdrawal in opioid dependent patients.",
       "enzymes": [],
@@ -1383,6 +1853,32 @@
           "citation": "NARCAN (naloxone hydrochloride) Nasal Spray Prescribing Information",
           "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2020/208411Orig1s004lbl.pdf"
         }
+      ],
+      "formulations": [
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "sc",
+          "release_types": [
+            "ir"
+          ]
+        }
       ]
     },
     {
@@ -1394,6 +1890,10 @@
         "depade",
         "revia",
         "vivitrol"
+      ],
+      "release_types": [
+        "ir",
+        "depot"
       ],
       "notes": "Educational anchor: long acting opioid antagonist. Blocks opioid effects and can precipitate withdrawal if opioids are present. Label includes hepatotoxicity warnings.",
       "enzymes": [],
@@ -1424,6 +1924,20 @@
           "citation": "Revia (naltrexone hydrochloride) Prescribing Information",
           "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2013/018932s017lbl.pdf"
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "depot"
+          ]
+        }
       ]
     },
     {
@@ -1439,6 +1953,11 @@
         "subutex",
         "butrans",
         "zubsolv"
+      ],
+      "release_types": [
+        "ir",
+        "er",
+        "depot"
       ],
       "notes": "Educational anchor: CYP3A4 substrate for PK inhibitor and inducer rules. PD: additive CNS and respiratory depression with other CNS depressants. QT effect is product and dose dependent (notably described for transdermal buprenorphine).",
       "enzymes": [
@@ -1503,6 +2022,32 @@
           "citation": "Drug Safety Communication: caution about withholding opioid addiction medications from patients taking benzodiazepines or CNS depressants",
           "url": "https://www.fda.gov/drugs/drug-safety-and-availability/fda-drug-safety-communication-fda-urges-caution-about-withholding-opioid-addiction-medications"
         }
+      ],
+      "formulations": [
+        {
+          "route": "sublingual",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "buccal",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "transdermal",
+          "release_types": [
+            "er"
+          ]
+        },
+        {
+          "route": "sc",
+          "release_types": [
+            "depot"
+          ]
+        }
       ]
     },
     {
@@ -1515,6 +2060,11 @@
         "wellbutrin sr",
         "wellbutrin xl",
         "zyban"
+      ],
+      "release_types": [
+        "ir",
+        "sr",
+        "er"
       ],
       "notes": "Educational anchor: CYP2D6 inhibitor and CYP2B6 substrate for PK logic. PD: dose related seizure risk described in labeling. Not classically serotonergic.",
       "enzymes": [
@@ -1574,6 +2124,16 @@
           "citation": "Wellbutrin XL (bupropion hydrochloride extended release) Prescribing Information",
           "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/021515s044lbl.pdf"
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "sr",
+            "er"
+          ]
+        }
       ]
     },
     {
@@ -1583,6 +2143,10 @@
       "aliases": [
         "Prozac",
         "Sarafem"
+      ],
+      "release_types": [
+        "ir",
+        "dr"
       ],
       "notes": "SSRI. Strong CYP2D6 inhibitor; can increase exposure of CYP2D6 substrates.",
       "therapeutic_index": "moderate",
@@ -1627,6 +2191,15 @@
           "magnitude": "medium",
           "mechanism_note": "Physiologic dependence potential; abrupt discontinuation may cause withdrawal."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "dr"
+          ]
+        }
       ]
     },
     {
@@ -1636,6 +2209,10 @@
       "aliases": [
         "Effexor",
         "Effexor XR"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "SNRI. CYP2D6 substrate; exposure may increase with CYP2D6 inhibitors.",
       "therapeutic_index": "moderate",
@@ -1676,6 +2253,15 @@
           "magnitude": "medium",
           "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
       ]
     },
     {
@@ -1684,6 +2270,9 @@
       "drug_class": "SNRI",
       "aliases": [
         "Cymbalta"
+      ],
+      "release_types": [
+        "dr"
       ],
       "notes": "SNRI. CYP1A2 and CYP2D6 substrate; moderate CYP2D6 inhibitor.",
       "therapeutic_index": "moderate",
@@ -1734,6 +2323,14 @@
           "magnitude": "medium",
           "mechanism_note": "Increases norepinephrine signaling; may raise BP/HR and cause stimulation."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "dr"
+          ]
+        }
       ]
     },
     {
@@ -1742,6 +2339,10 @@
       "drug_class": "serotonin antagonist and reuptake inhibitor",
       "aliases": [
         "Desyrel"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Sedating antidepressant. CYP3A4 substrate; modeled for CNS depression, serotonergic activity, and QT prolongation.",
       "therapeutic_index": "moderate",
@@ -1807,6 +2408,15 @@
           "magnitude": "medium",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension, dizziness, and syncope risk."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
       ]
     },
     {
@@ -1815,6 +2425,10 @@
       "drug_class": "atypical antipsychotic",
       "aliases": [
         "Haldol"
+      ],
+      "release_types": [
+        "ir",
+        "depot"
       ],
       "notes": "Typical antipsychotic. QT prolongation risk; CYP2D6/CYP3A4 metabolism.",
       "therapeutic_index": "moderate",
@@ -1871,6 +2485,21 @@
           "magnitude": "low",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; may contribute to orthostatic hypotension and dizziness."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir",
+            "depot"
+          ]
+        }
       ]
     },
     {
@@ -1879,6 +2508,9 @@
       "drug_class": "typical antipsychotic",
       "aliases": [
         "Geodon"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Atypical antipsychotic. Higher QT prolongation risk signal; use caution with other QT-prolonging drugs.",
       "therapeutic_index": "moderate",
@@ -1932,6 +2564,20 @@
           "magnitude": "medium",
           "mechanism_note": "Alpha-1 adrenergic receptor antagonism; contributes to orthostatic hypotension and dizziness."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        }
       ]
     },
     {
@@ -1941,6 +2587,10 @@
       "aliases": [
         "Lithobid",
         "Eskalith"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Mood stabilizer with narrow therapeutic index. Renal elimination; levels can rise with interacting drugs (NSAIDs, ACE inhibitors, thiazides).",
       "therapeutic_index": "narrow",
@@ -1958,6 +2608,15 @@
           "magnitude": "high",
           "mechanism_note": "May increase lithium exposure/toxicity risk (often via renal effects)."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
       ]
     },
     {
@@ -1966,6 +2625,10 @@
       "drug_class": "antiepileptic",
       "aliases": [
         "Lamictal"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Mood stabilizer/antiepileptic. UGT substrate; interactions via UGT inhibition/induction can affect levels.",
       "therapeutic_index": "moderate",
@@ -1976,7 +2639,16 @@
         }
       ],
       "transporters": [],
-      "pd_effects": []
+      "pd_effects": [],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "ibuprofen",
@@ -1985,6 +2657,9 @@
       "aliases": [
         "Advil",
         "Motrin"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "NSAID. Can increase lithium levels and toxicity risk via reduced renal perfusion.",
       "therapeutic_index": "wide",
@@ -2009,6 +2684,20 @@
           "magnitude": "medium",
           "mechanism_note": "Inhibition of platelet function increases bleeding risk."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
       ]
     },
     {
@@ -2018,6 +2707,9 @@
       "aliases": [
         "Prinivil",
         "Zestril"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "ACE inhibitor. Can increase lithium levels and toxicity risk; monitor renal function and lithium levels if combined.",
       "therapeutic_index": "wide",
@@ -2042,6 +2734,14 @@
           "magnitude": "medium",
           "mechanism_note": "May impair renal function or worsen kidney perfusion in susceptible patients."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
       ]
     },
     {
@@ -2051,6 +2751,9 @@
       "aliases": [
         "HCTZ",
         "Microzide"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Thiazide diuretic. Can markedly increase lithium levels and toxicity risk; avoid or monitor closely if combined.",
       "therapeutic_index": "wide",
@@ -2075,6 +2778,14 @@
           "magnitude": "medium",
           "mechanism_note": "May impair renal function or worsen kidney perfusion in susceptible patients."
         }
+      ],
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
       ]
     },
     {
@@ -2085,6 +2796,10 @@
       "aliases": [
         "Xanax",
         "Niravam"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Short to intermediate-acting benzodiazepine metabolized primarily by CYP3A4. Sensitive substrate; exposure significantly increased by strong CYP3A4 inhibitors and reduced by inducers. Additive CNS and respiratory depression with opioids, alcohol, and other sedatives. Risk of dependence, tolerance, and withdrawal with chronic use. Abrupt discontinuation may precipitate withdrawal, including seizures.",
       "enzymes": [
@@ -2126,7 +2841,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "amitriptyline",
@@ -2137,6 +2861,9 @@
         "Elavil",
         "Endep",
         "Vanatrip"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "TCA with mixed SERT/NET inhibition and significant anticholinergic, antihistaminic, and alpha-1 antagonism. Active metabolite (nortriptyline) contributes to clinical effect and accumulation. CYP2D6 substrate; exposure may increase with 2D6 inhibitors. Associated with QT prolongation and cardiotoxicity risk, especially in overdose or polypharmacy.",
       "enzymes": [
@@ -2244,7 +2971,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "doxepin",
@@ -2254,6 +2989,9 @@
       "aliases": [
         "Silenor",
         "Sinequan"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "TCA with mixed SERT/NET inhibition and prominent antihistaminic (H1) sedation, plus anticholinergic and alpha-1 antagonism. Active metabolite (nordoxepin) contributes to clinical effect and accumulation. CYP2D6 substrate (major) with additional CYP2C19 metabolism; exposure may increase with 2D6 inhibitors and varies with CYP2D6 phenotype. Associated with QT prolongation and cardiotoxicity risk, especially at higher doses, overdose, or polypharmacy.",
       "enzymes": [
@@ -2355,7 +3093,21 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "topical",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "risperidone",
@@ -2365,6 +3117,10 @@
         "Risperdal",
         "Risvan",
         "Perseris"
+      ],
+      "release_types": [
+        "ir",
+        "depot"
       ],
       "notes": "Atypical antipsychotic; may have sedating, anticholinergic, and CNS depressant effects.",
       "therapeutic_index": "moderate",
@@ -2430,7 +3186,27 @@
         "active_metabolite": true,
         "renal_clearance_flag": true,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "depot"
+          ]
+        },
+        {
+          "route": "sc",
+          "release_types": [
+            "depot"
+          ]
+        }
+      ]
     },
     {
       "id": "promethazine",
@@ -2441,6 +3217,9 @@
         "Phenergan",
         "Phenadoz",
         "Promethegan"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Sedating first-generation H1 antihistamine with antiemetic and anticholinergic effects; also has weak alpha-1 antagonism.",
       "enzymes": [
@@ -2475,7 +3254,33 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "rectal",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "aripiprazole",
@@ -2484,6 +3289,10 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "Abilify"
+      ],
+      "release_types": [
+        "ir",
+        "depot"
       ],
       "notes": "Atypical antipsychotic; CYP2D6/CYP3A4 substrate with a long half-life. Can cause akathisia, somnolence, and orthostatic hypotension.",
       "enzymes": [
@@ -2516,7 +3325,22 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir",
+            "depot"
+          ]
+        }
+      ]
     },
     {
       "id": "tramadol",
@@ -2527,6 +3351,10 @@
         "Ultram",
         "ConZip",
         "Qdolo"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Analgesic with opioid and monoaminergic effects; CYP2D6 contributes to formation of the active metabolite.",
       "enzymes": [
@@ -2565,7 +3393,16 @@
         "active_metabolite": true,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "mirtazapine",
@@ -2574,6 +3411,9 @@
       "therapeutic_index": "narrow",
       "aliases": [
         "Remeron"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "NaSSA antidepressant. Clinically important for additive sedation and serotonergic overlap; limited CYP interaction burden compared with strong inhibitors/inducers.",
       "enzymes": [
@@ -2616,7 +3456,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "mepolizumab",
@@ -2625,6 +3473,9 @@
       "therapeutic_index": "wide",
       "aliases": [
         "nucala"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "IL-5 antagonist monoclonal antibody. No meaningful CYP/transporter-based DDI signal expected. Best treated as a biologic with minimal classic PK interaction burden.",
       "enzymes": [],
@@ -2642,7 +3493,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "sc",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "lisdexamfetamine",
@@ -2651,6 +3510,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "vyvanse"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Prodrug converted to dextroamphetamine, primarily via hydrolysis in red blood cells. Lisdexamfetamine itself is not metabolized by CYP enzymes. CYP2D6 inhibitors can increase exposure to dextroamphetamine, the active metabolite.",
       "enzymes": [],
@@ -2686,7 +3548,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "erenumab",
@@ -2696,6 +3566,9 @@
       "aliases": [
         "aimovig",
         "erenumab-aooe"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "CGRP receptor antagonist monoclonal antibody. Minimal classic CYP/transporter DDI relevance. Main clinically relevant modeled risks are constipation, hypertension, and hypersensitivity.",
       "enzymes": [],
@@ -2725,7 +3598,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "sc",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "doxycycline",
@@ -2735,6 +3616,10 @@
       "aliases": [
         "acticlate",
         "doxycycline hyclate"
+      ],
+      "release_types": [
+        "ir",
+        "dr"
       ],
       "notes": "Tetracycline-class antibiotic. High-value interaction burden is mostly absorption chelation plus a few classic interaction warnings. Best modeled through dedicated rules rather than heavy enzyme/transporter metadata.",
       "enzymes": [],
@@ -2758,7 +3643,22 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "dr"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "vibegron",
@@ -2767,6 +3667,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "gemtesa"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Beta-3 adrenergic agonist for overactive bladder. Label identifies vibegron as a CYP3A4 substrate and a P-gp substrate. The clearest clinically relevant interaction in labeling is increased digoxin exposure.",
       "enzymes": [
@@ -2807,7 +3710,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "methadone",
@@ -2817,6 +3728,9 @@
       "aliases": [
         "dolophine",
         "methadose"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Long-acting opioid agonist with major PK and PD interaction burden. CYP3A4, CYP2B6, CYP2C19, CYP2C9, and CYP2D6 inhibitors can increase methadone levels, while inducers can lower levels and precipitate withdrawal. Major modeled PD liabilities are CNS depression, respiratory depression, QT prolongation, and serotonergic toxicity potential.",
       "enzymes": [
@@ -2884,7 +3798,33 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "sc",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "diazepam",
@@ -2893,6 +3833,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "valium"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational benzodiazepine entry for CNS and respiratory depression interaction testing.",
       "enzymes": [
@@ -2927,7 +3870,39 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "rectal",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "amoxicillin",
@@ -2936,6 +3911,10 @@
       "therapeutic_index": "wide",
       "aliases": [
         "amoxil"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational beta-lactam entry for doxycycline interaction testing.",
       "enzymes": [],
@@ -2946,7 +3925,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "calcium_carbonate",
@@ -2957,6 +3945,9 @@
         "tums",
         "caltrate"
       ],
+      "release_types": [
+        "ir"
+      ],
       "notes": "Educational polyvalent cation entry for doxycycline chelation interaction testing.",
       "enzymes": [],
       "transporters": [],
@@ -2966,7 +3957,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "carbamazepine",
@@ -2975,6 +3974,10 @@
       "therapeutic_index": "narrow",
       "aliases": [
         "tegretol"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational strong enzyme inducer entry for methadone interaction testing.",
       "enzymes": [
@@ -3014,7 +4017,16 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "escitalopram",
@@ -3023,6 +4035,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "lexapro"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational SSRI entry with serotonergic, bleeding, and modest QT educational tagging.",
       "enzymes": [
@@ -3092,7 +4107,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "paroxetine",
@@ -3102,6 +4125,10 @@
       "aliases": [
         "paxil",
         "brisdelle"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational SSRI entry with strong CYP2D6 inhibition and serotonergic tagging.",
       "enzymes": [
@@ -3166,7 +4193,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "vilazodone",
@@ -3175,6 +4211,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "viibryd"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational serotonergic antidepressant entry with SSRI and 5-HT1A partial agonist style tagging.",
       "enzymes": [
@@ -3244,7 +4283,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "lurasidone",
@@ -3253,6 +4300,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "latuda"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational atypical antipsychotic entry with D2 blockade and CYP3A4 substrate tagging.",
       "enzymes": [
@@ -3294,7 +4344,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "clozapine",
@@ -3305,6 +4363,9 @@
         "clozaril",
         "fazaclo",
         "versacloz"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational clozapine entry with sedative, anticholinergic, orthostatic, and seizure educational tagging.",
       "enzymes": [
@@ -3380,7 +4441,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "brexpiprazole",
@@ -3389,6 +4458,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "rexulti"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational atypical antipsychotic entry with CYP3A4/CYP2D6 substrate tagging.",
       "enzymes": [
@@ -3429,7 +4501,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "clonazepam",
@@ -3438,6 +4518,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "klonopin"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational benzodiazepine entry for additive CNS and respiratory depression testing.",
       "enzymes": [
@@ -3473,7 +4556,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "buspirone",
@@ -3482,6 +4573,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "buspar"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational anxiolytic entry with CYP3A4 substrate and serotonergic tagging.",
       "enzymes": [
@@ -3511,7 +4605,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "zolpidem",
@@ -3523,6 +4625,10 @@
         "edluar",
         "intermezzo",
         "zolpimist"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational sedative hypnotic entry for additive CNS depression testing.",
       "enzymes": [
@@ -3558,7 +4664,22 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        },
+        {
+          "route": "sublingual",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "methylphenidate",
@@ -3573,6 +4694,12 @@
         "quillichew",
         "quillivant"
       ],
+      "release_types": [
+        "ir",
+        "sr",
+        "er",
+        "dr"
+      ],
       "notes": "Educational stimulant entry with sympathomimetic and cardiovascular educational tagging.",
       "enzymes": [],
       "transporters": [
@@ -3631,7 +4758,24 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "sr",
+            "er",
+            "dr"
+          ]
+        },
+        {
+          "route": "transdermal",
+          "release_types": [
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "dexmethylphenidate",
@@ -3641,6 +4785,10 @@
       "aliases": [
         "focalin"
       ],
+      "release_types": [
+        "ir",
+        "er"
+      ],
       "notes": "Educational stimulant entry with sympathomimetic and cardiovascular educational tagging.",
       "enzymes": [],
       "transporters": [
@@ -3699,7 +4847,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "atomoxetine",
@@ -3708,6 +4865,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "strattera"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational nonstimulant ADHD entry with CYP2D6 substrate and noradrenergic educational tagging.",
       "enzymes": [
@@ -3773,7 +4933,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "guanfacine",
@@ -3783,6 +4951,10 @@
       "aliases": [
         "intuniv",
         "tenex"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational alpha-2 agonist entry with bradycardia and orthostatic educational tagging.",
       "enzymes": [
@@ -3824,7 +4996,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "topiramate",
@@ -3835,6 +5016,10 @@
         "topamax",
         "qudexy",
         "trokendi"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational anticonvulsant entry with weak enzyme modulation and CNS effect tagging.",
       "enzymes": [
@@ -3875,7 +5060,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "divalproex_sodium",
@@ -3884,6 +5078,10 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "depakote"
+      ],
+      "release_types": [
+        "dr",
+        "er"
       ],
       "notes": "Educational valproate entry with CNS depression and weak CYP2C9 inhibition educational tagging.",
       "enzymes": [
@@ -3919,7 +5117,16 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "dr",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "disulfiram",
@@ -3928,6 +5135,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "antabuse"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Educational alcohol deterrent entry with enzyme inhibition educational tagging.",
       "enzymes": [
@@ -3957,7 +5167,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "acamprosate",
@@ -3966,6 +5184,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "campral"
+      ],
+      "release_types": [
+        "dr"
       ],
       "notes": "Educational AUD maintenance entry with renal clearance educational tagging.",
       "enzymes": [],
@@ -3983,7 +5204,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "dr"
+          ]
+        }
+      ]
     },
     {
       "id": "clonidine",
@@ -3993,6 +5222,10 @@
       "aliases": [
         "catapres",
         "kapvay"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Educational alpha-2 agonist entry with bradycardia, hypotension, and sedation educational tagging.",
       "enzymes": [],
@@ -4046,7 +5279,22 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        },
+        {
+          "route": "transdermal",
+          "release_types": [
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "alcohol",
@@ -4057,6 +5305,9 @@
         "ethanol",
         "etoh",
         "alcoholic beverage"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Modeled educationally as a CNS depressant with additive sedation, CNS depression, respiratory depression, and withdrawal risk.",
       "enzymes": [],
@@ -4092,7 +5343,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "heroin",
@@ -4101,6 +5360,9 @@
       "therapeutic_index": "narrow",
       "aliases": [
         "diacetylmorphine"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Modeled educationally as a high-risk opioid with strong CNS and respiratory depressant effects and withdrawal risk.",
       "enzymes": [],
@@ -4142,7 +5404,39 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "iv",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "intranasal",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "inhaled",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "sc",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "oxycodone",
@@ -4153,6 +5447,10 @@
         "roxicodone",
         "oxycontin",
         "roxybond"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Opioid analgesic with important PK via CYP3A4 and CYP2D6 and major PD overlap with other CNS depressants.",
       "enzymes": [
@@ -4205,7 +5503,16 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "fentanyl",
@@ -4216,6 +5523,10 @@
         "duragesic",
         "sublimaze",
         "fentanyl citrate"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "High-potency opioid with major respiratory depression risk and CYP3A4 PK relevance.",
       "enzymes": [
@@ -4263,7 +5574,45 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "transdermal",
+          "release_types": [
+            "er"
+          ]
+        },
+        {
+          "route": "buccal",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "sublingual",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "cannabis",
@@ -4274,6 +5623,9 @@
         "marijuana",
         "thc",
         "weed"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Modeled conservatively for sedation, CNS depression, tachycardia, and modest withdrawal risk.",
       "enzymes": [],
@@ -4315,7 +5667,27 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "inhaled",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "sublingual",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "cocaine",
@@ -4326,6 +5698,9 @@
         "coke",
         "crack cocaine",
         "crack"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Potent sympathomimetic stimulant with major cardiovascular stimulation and seizure risk.",
       "enzymes": [],
@@ -4373,7 +5748,33 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "intranasal",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "inhaled",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "topical",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "methamphetamine",
@@ -4384,6 +5785,9 @@
         "meth",
         "crystal meth",
         "ice"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Potent stimulant with strong CNS and sympathetic activation plus seizure liability.",
       "enzymes": [],
@@ -4431,7 +5835,33 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "inhaled",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "mdma",
@@ -4442,6 +5872,9 @@
         "mdma",
         "ecstasy",
         "molly"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Modeled as both stimulant and serotonergic, with serotonin syndrome risk.",
       "enzymes": [],
@@ -4489,7 +5922,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "lsd",
@@ -4499,6 +5940,9 @@
       "aliases": [
         "acid",
         "lsd"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Modeled conservatively for CNS activation and sympathetic effects rather than as a major serotonergic-toxicity driver.",
       "enzymes": [],
@@ -4540,7 +5984,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "sublingual",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "nicotine",
@@ -4550,6 +6008,10 @@
       "aliases": [
         "nicotine",
         "tobacco nicotine"
+      ],
+      "release_types": [
+        "ir",
+        "er"
       ],
       "notes": "Modeled for dependence, withdrawal, and mild sympathetic stimulation.",
       "enzymes": [],
@@ -4591,7 +6053,33 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "inhaled",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "buccal",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "transdermal",
+          "release_types": [
+            "er"
+          ]
+        }
+      ]
     },
     {
       "id": "kratom",
@@ -4601,6 +6089,9 @@
       "aliases": [
         "mitragyna speciosa",
         "kratom"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Modeled conservatively with opioid-like CNS depression and withdrawal risk; effects may vary by product and dose.",
       "enzymes": [],
@@ -4636,7 +6127,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "seven_hydroxymitragynine",
@@ -4647,6 +6146,9 @@
         "7-oh",
         "7oh",
         "7-hydroxymitragynine"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Modeled conservatively as a stronger opioid-like kratom alkaloid with higher concern for abuse, dependence, and respiratory depression.",
       "enzymes": [],
@@ -4682,7 +6184,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "ketamine",
@@ -4692,6 +6202,9 @@
       "aliases": [
         "ketalar",
         "special k"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Modeled conservatively for sedation/CNS depression plus BP/HR elevation.",
       "enzymes": [],
@@ -4733,7 +6246,21 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "im",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "vortioxetine",
@@ -4743,6 +6270,9 @@
       "aliases": [
         "trintellix",
         "brintellix"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Multimodal serotonergic antidepressant (SERT inhibition + 5-HT receptor modulation). Primarily metabolized by CYP2D6.",
       "enzymes": [
@@ -4827,7 +6357,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "long"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "varenicline",
@@ -4836,6 +6374,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "chantix"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Partial agonist at alpha4beta2 nicotinic acetylcholine receptors used for smoking cessation.",
       "enzymes": [],
@@ -4877,7 +6418,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "mecamylamine",
@@ -4886,6 +6435,9 @@
       "therapeutic_index": "narrow",
       "aliases": [
         "inversine"
+      ],
+      "release_types": [
+        "ir"
       ],
       "notes": "Nonselective nicotinic acetylcholine receptor antagonist affecting autonomic ganglia.",
       "enzymes": [],
@@ -4927,7 +6479,15 @@
         "active_metabolite": false,
         "renal_clearance_flag": true,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ]
     },
     {
       "id": "turmeric",
@@ -4937,6 +6497,9 @@
       "aliases": [
         "curcuma longa",
         "curcumin"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Herbal supplement containing curcuminoids with anti-inflammatory and antioxidant properties. Curcumin may inhibit multiple CYP enzymes and P-gp in vitro, though clinical interaction magnitude is variable.",
       "enzymes": [
@@ -4978,7 +6541,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "ginkgo_biloba",
@@ -4987,6 +6558,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "ginkgo"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Herbal supplement used for cognitive and circulatory support. Contains flavonoids and terpene lactones with potential platelet and CYP effects.",
       "enzymes": [
@@ -5029,7 +6603,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "milk_thistle",
@@ -5039,6 +6621,9 @@
       "aliases": [
         "silymarin",
         "silybum marianum"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Herbal supplement commonly used for hepatoprotective purposes. Silymarin components may inhibit CYP3A4 and P-gp activity.",
       "enzymes": [
@@ -5080,7 +6665,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "rhodiola_rosea",
@@ -5091,6 +6684,9 @@
         "rhodiola",
         "golden root",
         "arctic root"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Adaptogenic herbal supplement with possible monoaminergic and stimulating effects. Limited evidence suggests CYP modulation potential.",
       "enzymes": [
@@ -5135,7 +6731,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "holy_basil",
@@ -5146,6 +6750,9 @@
         "tulsi",
         "ocimum sanctum",
         "ocimum tenuiflorum"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Adaptogenic herbal supplement traditionally used for stress and metabolic support. May have mild antiplatelet and sedative effects.",
       "enzymes": [
@@ -5184,7 +6791,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "aloe_vera",
@@ -5193,6 +6808,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "aloe"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Botanical supplement used topically and orally. Oral aloe latex has stimulant laxative properties and may affect electrolyte balance.",
       "enzymes": [],
@@ -5216,7 +6834,21 @@
         "active_metabolite": false,
         "renal_clearance_flag": false,
         "half_life_bucket": "short"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        },
+        {
+          "route": "topical",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "lions_mane_mushroom",
@@ -5226,6 +6858,9 @@
       "aliases": [
         "hericium erinaceus",
         "lion's mane"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Medicinal mushroom supplement investigated for neurocognitive and neurotrophic effects. Clinically significant CYP interactions are not well established.",
       "enzymes": [],
@@ -5249,7 +6884,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "cordyceps",
@@ -5259,6 +6902,9 @@
       "aliases": [
         "cordyceps sinensis",
         "cordyceps militaris"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Medicinal mushroom supplement used for energy and endurance support. Limited evidence suggests possible immunologic and platelet effects.",
       "enzymes": [
@@ -5293,7 +6939,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "motherwort",
@@ -5302,6 +6956,9 @@
       "therapeutic_index": "moderate",
       "aliases": [
         "leonurus cardiaca"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Traditional herbal supplement used for anxiety and cardiovascular symptoms. Limited clinical interaction data available.",
       "enzymes": [],
@@ -5337,7 +6994,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     },
     {
       "id": "ashwagandha",
@@ -5347,6 +7012,9 @@
       "aliases": [
         "withania somnifera",
         "indian ginseng"
+      ],
+      "release_types": [
+        "unknown"
       ],
       "notes": "Adaptogenic herbal supplement with anxiolytic and sedative properties. May have GABAergic and thyroid-modulating effects.",
       "enzymes": [
@@ -5381,7 +7049,15 @@
         "active_metabolite": true,
         "renal_clearance_flag": false,
         "half_life_bucket": "medium"
-      }
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ]
     }
   ]
 }

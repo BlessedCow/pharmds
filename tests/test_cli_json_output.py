@@ -5,8 +5,8 @@ import sys
 
 import app.cli as cli_mod
 from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
-from app.runtime.pairwise import _build_reports_for_all_pairs
 from app.json_output import build_json_payload
+from app.runtime.pairwise import _build_reports_for_all_pairs
 from reasoning.combine import build_regimen_summary
 from rules.composite_rules import apply_composites
 from rules.engine import evaluate_all, load_rules

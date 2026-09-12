@@ -35,10 +35,14 @@ def test_metadata_returns_frontend_options() -> None:
         "inhaled",
         "intranasal",
         "sublingual",
+        "buccal",
         "rectal",
         "topical",
         "ophthalmic",
         "otic",
+        "epidural",
+        "intrathecal",
+        "vaginal",
         "unknown",
     ]
     assert body["release_types"] == [

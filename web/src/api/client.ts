@@ -2,6 +2,8 @@ import type {
   AnalyzeRequest,
   AnalyzeResponse,
   ApiErrorResponse,
+  DrugCatalogEntry,
+  DrugCatalogResponse,
   MetadataResponse,
 } from "./types";
 
@@ -13,6 +15,34 @@ export async function fetchMetadata(): Promise<MetadataResponse> {
   }
 
   return response.json() as Promise<MetadataResponse>;
+}
+
+export async function fetchDrugCatalog(): Promise<DrugCatalogResponse> {
+  const response = await fetch("/api/drugs");
+
+  if (!response.ok) {
+    throw new Error("Failed to load PharmDS drug catalog.");
+  }
+
+  return response.json() as Promise<DrugCatalogResponse>;
+}
+
+export async function fetchDrug(
+  drugId: string,
+): Promise<DrugCatalogEntry> {
+  const response = await fetch(
+    `/api/drugs/${encodeURIComponent(drugId)}`,
+  );
+
+  if (!response.ok) {
+    const errorBody = (await response
+      .json()
+      .catch(() => null)) as ApiErrorResponse | null;
+
+    throw new Error(formatApiError(errorBody));
+  }
+
+  return response.json() as Promise<DrugCatalogEntry>;
 }
 
 export async function analyzeDrugs(
@@ -54,5 +84,5 @@ function formatApiError(errorBody: ApiErrorResponse | null): string {
     return errorBody.detail;
   }
 
-  return "Failed to analyze medications.";
+  return "Failed to complete the PharmDS API request.";
 }

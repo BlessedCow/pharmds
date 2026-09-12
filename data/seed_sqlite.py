@@ -162,6 +162,42 @@ def seed(conn: sqlite3.Connection) -> None:
                 (drug_id, str(alias).strip().lower()),
             )
 
+        # Release types
+        for release_type in d.get("release_types", []) or []:
+            upsert(
+                conn,
+                (
+                    "INSERT OR IGNORE INTO "
+                    "drug_release_type(drug_id,release_type) VALUES(?,?)"
+                ),
+                (
+                    drug_id,
+                    str(release_type).strip().lower(),
+                ),
+            )
+
+        # Formulations
+        for formulation in d.get("formulations", []) or []:
+            route = str(formulation["route"]).strip().lower()
+
+            for release_type in (
+                formulation.get("release_types", []) or []
+            ):
+                upsert(
+                    conn,
+                    (
+                        "INSERT OR IGNORE INTO "
+                        "drug_formulation("
+                        "drug_id,route,release_type"
+                        ") VALUES(?,?,?)"
+                    ),
+                    (
+                        drug_id,
+                        route,
+                        str(release_type).strip().lower(),
+                    ),
+                )
+
         # Enzyme roles (FK to enzyme + drug)
         for r in d.get("enzymes", []) or []:
             upsert(

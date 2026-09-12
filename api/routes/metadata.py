@@ -3,6 +3,10 @@ from __future__ import annotations
 from fastapi import APIRouter
 
 from api.models import MetadataResponse
+from core.formulations import (
+    RELEASE_TYPE_OPTIONS,
+    ROUTE_OPTIONS,
+)
 
 router = APIRouter(tags=["metadata"])
 
@@ -22,39 +26,12 @@ PATIENT_FLAG_OPTIONS = [
     "bleeding_risk",
 ]
 
-ROUTE_OPTIONS = [
-    "oral",
-    "iv",
-    "im",
-    "sc",
-    "transdermal",
-    "inhaled",
-    "intranasal",
-    "sublingual",
-    "rectal",
-    "topical",
-    "ophthalmic",
-    "otic",
-    "unknown",
-]
-
-RELEASE_TYPE_OPTIONS = [
-    "ir",
-    "sr",
-    "er",
-    "xr",
-    "dr",
-    "la",
-    "depot",
-    "unknown",
-]
-
 
 @router.get("/metadata", response_model=MetadataResponse)
 def get_metadata() -> MetadataResponse:
     return MetadataResponse(
         domains=DOMAIN_OPTIONS,
         patient_flags=PATIENT_FLAG_OPTIONS,
-        routes=ROUTE_OPTIONS,
-        release_types=RELEASE_TYPE_OPTIONS,
+        routes=list(ROUTE_OPTIONS),
+        release_types=list(RELEASE_TYPE_OPTIONS),
     )

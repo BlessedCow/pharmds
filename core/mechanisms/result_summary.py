@@ -9,6 +9,7 @@ evidence traces, arbitration details, policy results, or scored concerns.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Any
 
@@ -193,10 +194,47 @@ def _public_explanation(explanation: str) -> str:
             f"{effect_id}-related pharmacodynamic effect",
             _public_pd_effect_phrase(effect_id, effect_label),
         )
-        out = out.replace(effect_id, effect_label)
+        out = _replace_public_effect_id(
+            out,
+            effect_id=effect_id,
+            effect_label=effect_label,
+        )
 
     return out
 
+
+def _public_explanation(explanation: str) -> str:
+    out = explanation
+
+    for effect_id in sorted(PUBLIC_EFFECT_LABELS, key=len, reverse=True):
+        effect_label = _effect_display_label(effect_id)
+        out = out.replace(
+            f"{effect_id}-related pharmacodynamic effect",
+            _public_pd_effect_phrase(effect_id, effect_label),
+        )
+        out = _replace_public_effect_id(
+            out,
+            effect_id=effect_id,
+            effect_label=effect_label,
+        )
+
+    return out
+
+
+def _replace_public_effect_id(
+    text: str,
+    *,
+    effect_id: str,
+    effect_label: str,
+) -> str:
+    if effect_id == "bleeding":
+        return re.sub(
+            r"\bbleeding\b(?!\s+risk\b)",
+            effect_label,
+            text,
+        )
+
+    return text.replace(effect_id, effect_label)
 
 def _public_pd_effect_phrase(effect_id: str, effect_label: str) -> str:
     if effect_label == effect_id:

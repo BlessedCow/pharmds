@@ -1,41 +1,58 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 
-import { analyzeDrugs, fetchMetadata } from "./api/client";
-import type { AnalyzeResponse, MetadataResponse } from "./api/types";
+import { analyzeDrugs, fetchDrugCatalog, fetchMetadata } from "./api/client";
+import type {
+  AnalyzeResponse,
+  DrugCatalogEntry,
+  MetadataResponse,
+} from "./api/types";
 
 type DrugFormState = {
   name: string;
   route: string;
   releaseType: string;
+  selectedDrugId: string | null;
 };
+
+type Page = "analyzer" | "drug-database";
 
 const DEFAULT_DRUGS: DrugFormState[] = [
   {
     name: "propranolol",
     route: "oral",
     releaseType: "er",
+    selectedDrugId: "propranolol",
   },
   {
     name: "vortioxetine",
     route: "oral",
     releaseType: "ir",
+    selectedDrugId: "vortioxetine",
   },
 ];
 
 const EMPTY_DRUG: DrugFormState = {
   name: "",
   route: "oral",
-  releaseType: "ir",
+  releaseType: "unknown",
+  selectedDrugId: null,
 };
 
 function App() {
+  const [page, setPage] = useState<Page>("analyzer");
   const [metadata, setMetadata] = useState<MetadataResponse | null>(null);
   const [metadataError, setMetadataError] = useState<string | null>(null);
+  const [drugCatalog, setDrugCatalog] = useState<DrugCatalogEntry[]>([]);
+  const [drugCatalogError, setDrugCatalogError] = useState<string | null>(null);
+  const [isDrugCatalogLoading, setIsDrugCatalogLoading] = useState(true);
   const [drugs, setDrugs] = useState<DrugFormState[]>(DEFAULT_DRUGS);
   const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [domain, setDomain] = useState("all");
+  const [qtRisk, setQtRisk] = useState(false);
+  const [bleedingRisk, setBleedingRisk] = useState(false);
 
   useEffect(() => {
     void fetchMetadata()
@@ -47,6 +64,24 @@ function App() {
             : "Failed to load PharmDS metadata.";
 
         setMetadataError(message);
+      });
+  }, []);
+
+  useEffect(() => {
+    void fetchDrugCatalog()
+      .then((response) => {
+        setDrugCatalog(response.drugs);
+      })
+      .catch((caught: unknown) => {
+        const message =
+          caught instanceof Error
+            ? caught.message
+            : "Failed to load PharmDS drug catalog.";
+
+        setDrugCatalogError(message);
+      })
+      .finally(() => {
+        setIsDrugCatalogLoading(false);
       });
   }, []);
 
@@ -86,13 +121,13 @@ function App() {
     try {
       const result = await analyzeDrugs({
         drugs: drugs.map((drug) => ({
-          name: drug.name.trim(),
+          name: drug.selectedDrugId ?? drug.name.trim(),
           route: drug.route || null,
           release_type: drug.releaseType || null,
         })),
-        domain: "all",
-        qt_risk: false,
-        bleeding_risk: false,
+        domain,
+        qt_risk: qtRisk,
+        bleeding_risk: bleedingRisk,
       });
 
       setAnalysis(result);
@@ -111,65 +146,380 @@ function App() {
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-10 text-slate-100">
       <section className="mx-auto flex max-w-7xl flex-col gap-8">
-        <header className="space-y-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">
-            PharmDS
-          </p>
-
-          <div className="space-y-4">
-            <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
-              Medication interaction analysis with timing context.
-            </h1>
-
-            <p className="max-w-3xl text-lg leading-8 text-slate-300">
-              Analyze medication combinations with structured interaction,
-              mechanism, and pharmacokinetic timing context.
+        <header className="space-y-6">
+          <div className="space-y-3">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">
+              PharmDS
             </p>
+
+            <div className="space-y-4">
+              <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white md:text-6xl">
+                Medication interaction analysis with timing context.
+              </h1>
+
+              <p className="max-w-3xl text-lg leading-8 text-slate-300">
+                Analyze medication combinations with structured interaction,
+                mechanism, and pharmacokinetic timing context.
+              </p>
+            </div>
           </div>
+
+          <nav
+            aria-label="Primary"
+            className="flex w-fit gap-2 rounded-2xl border border-slate-800 bg-slate-900 p-1.5"
+          >
+            <NavButton
+              active={page === "analyzer"}
+              label="Analyzer"
+              onClick={() => setPage("analyzer")}
+            />
+            <NavButton
+              active={page === "drug-database"}
+              label="Drug Database"
+              onClick={() => setPage("drug-database")}
+            />
+          </nav>
         </header>
 
-        <section className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
-          <AnalyzeForm
-            canSubmit={canSubmit}
-            drugs={drugs}
-            isAnalyzing={isAnalyzing}
-            metadata={metadata}
-            metadataError={metadataError}
-            onAddDrug={addDrug}
-            onAnalyze={() => {
-              void handleAnalyze();
-            }}
-            onRemoveDrug={removeDrug}
-            onUpdateDrug={updateDrug}
-          />
+        {page === "analyzer" ? (
+          <section className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
+            <AnalyzeForm
+              bleedingRisk={bleedingRisk}
+              canSubmit={canSubmit}
+              domain={domain}
+              drugCatalog={drugCatalog}
+              drugs={drugs}
+              isAnalyzing={isAnalyzing}
+              metadata={metadata}
+              metadataError={metadataError}
+              onAddDrug={addDrug}
+              onAnalyze={() => {
+                void handleAnalyze();
+              }}
+              onBleedingRiskChange={setBleedingRisk}
+              onDomainChange={setDomain}
+              onQtRiskChange={setQtRisk}
+              onRemoveDrug={removeDrug}
+              onUpdateDrug={updateDrug}
+              qtRisk={qtRisk}
+            />
 
-          <ResultsPanel analysis={analysis} error={analysisError} />
-        </section>
+            <ResultsPanel analysis={analysis} error={analysisError} />
+          </section>
+        ) : (
+          <DrugDatabasePage
+            drugs={drugCatalog}
+            error={drugCatalogError}
+            isLoading={isDrugCatalogLoading}
+          />
+        )}
       </section>
     </main>
   );
 }
 
+function NavButton({
+  active,
+  label,
+  onClick,
+}: {
+  active: boolean;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      className={
+        active
+          ? "rounded-xl bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950"
+          : "rounded-xl px-4 py-2 text-sm font-semibold text-slate-400 transition hover:bg-slate-800 hover:text-white"
+      }
+      onClick={onClick}
+      type="button"
+    >
+      {label}
+    </button>
+  );
+}
+
+function DrugDatabasePage({
+  drugs,
+  error,
+  isLoading,
+}: {
+  drugs: DrugCatalogEntry[];
+  error: string | null;
+  isLoading: boolean;
+}) {
+  const [query, setQuery] = useState("");
+  const [drugClassFilter, setDrugClassFilter] = useState("all");
+  const [releaseTypeFilter, setReleaseTypeFilter] = useState("all");
+
+  const drugClasses = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          drugs
+            .map((drug) => drug.drug_class)
+            .filter((drugClass): drugClass is string => Boolean(drugClass)),
+        ),
+      ).sort((a, b) => a.localeCompare(b)),
+    [drugs],
+  );
+
+  const releaseTypes = useMemo(
+    () =>
+      Array.from(new Set(drugs.flatMap((drug) => drug.release_types))).sort(
+        (a, b) => a.localeCompare(b),
+      ),
+    [drugs],
+  );
+
+  const filteredDrugs = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return drugs.filter((drug) => {
+      const searchableValues = [
+        drug.id,
+        drug.generic_name,
+        drug.drug_class ?? "",
+        ...drug.aliases,
+      ];
+
+      const matchesText =
+        !normalizedQuery ||
+        searchableValues.some((value) =>
+          value.toLowerCase().includes(normalizedQuery),
+        );
+
+      const matchesDrugClass =
+        drugClassFilter === "all" || drug.drug_class === drugClassFilter;
+
+      const matchesReleaseType =
+        releaseTypeFilter === "all" ||
+        drug.release_types.includes(releaseTypeFilter);
+
+      return matchesText && matchesDrugClass && matchesReleaseType;
+    });
+  }, [drugClassFilter, drugs, query, releaseTypeFilter]);
+
+  const hasActiveFilters =
+    query.trim().length > 0 ||
+    drugClassFilter !== "all" ||
+    releaseTypeFilter !== "all";
+
+  function clearFilters() {
+    setQuery("");
+    setDrugClassFilter("all");
+    setReleaseTypeFilter("all");
+  }
+
+  return (
+    <section className="space-y-6">
+      <div className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-semibold text-white">Drug Database</h2>
+            <p className="max-w-3xl text-sm leading-6 text-slate-400">
+              Browse the medications currently available to the PharmDS analysis
+              engine, including aliases and curated release types.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/70 px-5 py-3">
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+              Drugs
+            </p>
+            <p className="mt-1 text-2xl font-semibold text-cyan-200">
+              {drugs.length}
+            </p>
+          </div>
+        </div>
+
+        <label className="mt-6 block text-sm font-medium text-slate-300">
+          Search drugs
+          <input
+            className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300"
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search by generic name, class, ID, or alias"
+            value={query}
+          />
+        </label>
+
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <label className="block text-sm font-medium text-slate-300">
+            Drug class
+            <select
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+              onChange={(event) => setDrugClassFilter(event.target.value)}
+              value={drugClassFilter}
+            >
+              <option value="all">All drug classes</option>
+              {drugClasses.map((drugClass) => (
+                <option key={drugClass} value={drugClass}>
+                  {drugClass}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="block text-sm font-medium text-slate-300">
+            Release type
+            <select
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+              onChange={(event) => setReleaseTypeFilter(event.target.value)}
+              value={releaseTypeFilter}
+            >
+              <option value="all">All release types</option>
+              {releaseTypes.map((releaseType) => (
+                <option key={releaseType} value={releaseType}>
+                  {formatReleaseType(releaseType)}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        {hasActiveFilters ? (
+          <div className="mt-4 flex justify-end">
+            <button
+              className="rounded-xl border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-400 transition hover:border-slate-500 hover:text-white"
+              onClick={clearFilters}
+              type="button"
+            >
+              Clear filters
+            </button>
+          </div>
+        ) : null}
+      </div>
+
+      {error ? <ErrorBanner message={error} /> : null}
+
+      {isLoading ? (
+        <div className="rounded-3xl border border-slate-800 bg-slate-900 p-10 text-center text-sm text-slate-500">
+          Loading drug catalog...
+        </div>
+      ) : null}
+
+      {!isLoading && !error ? (
+        <>
+          <div className="flex items-center justify-between px-1">
+            <p className="text-sm text-slate-400">
+              Showing {filteredDrugs.length} of {drugs.length} drugs
+            </p>
+          </div>
+
+          {filteredDrugs.length ? (
+            <div className="grid gap-4 lg:grid-cols-2">
+              {filteredDrugs.map((drug) => (
+                <DrugCatalogCard drug={drug} key={drug.id} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-3xl border border-dashed border-slate-700 bg-slate-900/50 p-10 text-center text-sm text-slate-500">
+              No drugs match the current search and filters.
+            </div>
+          )}
+        </>
+      ) : null}
+    </section>
+  );
+}
+
+function DrugCatalogCard({ drug }: { drug: DrugCatalogEntry }) {
+  return (
+    <article className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+      <div className="space-y-1">
+        <h3 className="text-xl font-semibold text-white">
+          {formatDrugName(drug.generic_name)}
+        </h3>
+        <p className="text-sm text-slate-500">{drug.id}</p>
+      </div>
+
+      <dl className="mt-5 space-y-4">
+        <div>
+          <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            Drug class
+          </dt>
+          <dd className="mt-1 text-sm text-slate-300">
+            {drug.drug_class ?? "Not specified"}
+          </dd>
+        </div>
+
+        <div>
+          <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            Aliases
+          </dt>
+          <dd className="mt-2 flex flex-wrap gap-2">
+            {drug.aliases.length ? (
+              drug.aliases.map((alias) => (
+                <span
+                  className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs text-slate-300"
+                  key={alias}
+                >
+                  {alias}
+                </span>
+              ))
+            ) : (
+              <span className="text-sm text-slate-500">None</span>
+            )}
+          </dd>
+        </div>
+
+        <div>
+          <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            Release types
+          </dt>
+          <dd className="mt-2 flex flex-wrap gap-2">
+            {drug.release_types.map((releaseType) => (
+              <span
+                className="rounded-full bg-cyan-950/70 px-3 py-1 text-xs font-semibold text-cyan-200"
+                key={releaseType}
+              >
+                {formatReleaseType(releaseType)}
+              </span>
+            ))}
+          </dd>
+        </div>
+      </dl>
+    </article>
+  );
+}
+
 function AnalyzeForm({
+  bleedingRisk,
   canSubmit,
+  domain,
+  drugCatalog,
   drugs,
   isAnalyzing,
   metadata,
   metadataError,
   onAddDrug,
   onAnalyze,
+  onBleedingRiskChange,
+  onDomainChange,
+  onQtRiskChange,
   onRemoveDrug,
   onUpdateDrug,
+  qtRisk,
 }: {
+  bleedingRisk: boolean;
   canSubmit: boolean;
+  domain: string;
+  drugCatalog: DrugCatalogEntry[];
   drugs: DrugFormState[];
   isAnalyzing: boolean;
   metadata: MetadataResponse | null;
   metadataError: string | null;
   onAddDrug: () => void;
   onAnalyze: () => void;
+  onBleedingRiskChange: (value: boolean) => void;
+  onDomainChange: (value: string) => void;
+  onQtRiskChange: (value: boolean) => void;
   onRemoveDrug: (index: number) => void;
   onUpdateDrug: (index: number, drug: DrugFormState) => void;
+  qtRisk: boolean;
 }) {
   return (
     <section className="h-fit rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-2xl shadow-slate-950/50">
@@ -187,6 +537,7 @@ function AnalyzeForm({
           <DrugInputCard
             canRemove={drugs.length > 2}
             drug={drug}
+            drugCatalog={drugCatalog}
             index={index}
             key={index}
             metadata={metadata}
@@ -195,6 +546,16 @@ function AnalyzeForm({
           />
         ))}
       </div>
+
+      <AnalysisControls
+        bleedingRisk={bleedingRisk}
+        domain={domain}
+        metadata={metadata}
+        onBleedingRiskChange={onBleedingRiskChange}
+        onDomainChange={onDomainChange}
+        onQtRiskChange={onQtRiskChange}
+        qtRisk={qtRisk}
+      />
 
       <button
         className="mt-4 w-full rounded-2xl border border-slate-700 bg-slate-950 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:border-cyan-300 hover:text-cyan-200"
@@ -216,9 +577,108 @@ function AnalyzeForm({
   );
 }
 
+function AnalysisControls({
+  bleedingRisk,
+  domain,
+  metadata,
+  onBleedingRiskChange,
+  onDomainChange,
+  onQtRiskChange,
+  qtRisk,
+}: {
+  bleedingRisk: boolean;
+  domain: string;
+  metadata: MetadataResponse | null;
+  onBleedingRiskChange: (value: boolean) => void;
+  onDomainChange: (value: string) => void;
+  onQtRiskChange: (value: boolean) => void;
+  qtRisk: boolean;
+}) {
+  const domains = metadata?.domains ?? ["all"];
+
+  return (
+    <section className="mt-6 rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
+      <div className="space-y-2">
+        <h3 className="font-semibold text-white">Analysis controls</h3>
+        <p className="text-sm leading-6 text-slate-400">
+          Narrow the interaction domain or add patient-specific risk context.
+        </p>
+      </div>
+
+      <label className="mt-4 block text-sm font-medium text-slate-300">
+        Interaction domain
+        <select
+          className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+          onChange={(event) => onDomainChange(event.target.value)}
+          value={domain}
+        >
+          {domains.map((domainOption) => (
+            <option key={domainOption} value={domainOption}>
+              {formatLabel(domainOption)}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <div className="mt-5 space-y-3">
+        <p className="text-sm font-medium text-slate-300">
+          Patient-specific risk context
+        </p>
+
+        <RiskToggle
+          checked={qtRisk}
+          description="Include patient-specific QT risk context in the analysis."
+          label="QT risk"
+          onChange={onQtRiskChange}
+        />
+
+        <RiskToggle
+          checked={bleedingRisk}
+          description="Include patient-specific bleeding risk context in the analysis."
+          label="Bleeding risk"
+          onChange={onBleedingRiskChange}
+        />
+      </div>
+    </section>
+  );
+}
+
+function RiskToggle({
+  checked,
+  description,
+  label,
+  onChange,
+}: {
+  checked: boolean;
+  description: string;
+  label: string;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-800 bg-slate-900 p-4">
+      <input
+        checked={checked}
+        className="mt-1 h-4 w-4 rounded border-slate-600 bg-slate-950 text-cyan-300 focus:ring-cyan-300"
+        onChange={(event) => onChange(event.target.checked)}
+        type="checkbox"
+      />
+
+      <span>
+        <span className="block text-sm font-semibold text-slate-200">
+          {label}
+        </span>
+        <span className="mt-1 block text-xs leading-5 text-slate-500">
+          {description}
+        </span>
+      </span>
+    </label>
+  );
+}
+
 function DrugInputCard({
   canRemove,
   drug,
+  drugCatalog,
   index,
   metadata,
   onChange,
@@ -226,13 +686,32 @@ function DrugInputCard({
 }: {
   canRemove: boolean;
   drug: DrugFormState;
+  drugCatalog: DrugCatalogEntry[];
   index: number;
   metadata: MetadataResponse | null;
   onChange: (drug: DrugFormState) => void;
   onRemove: () => void;
 }) {
-  const routes = metadata?.routes ?? ["oral", "unknown"];
-  const releaseTypes = metadata?.release_types ?? ["ir", "unknown"];
+  const selectedCatalogDrug =
+    drug.selectedDrugId === null
+      ? null
+      : (drugCatalog.find((entry) => entry.id === drug.selectedDrugId) ?? null);
+
+  const formulations = selectedCatalogDrug?.formulations ?? [];
+
+  const routes = formulations.length
+    ? formulations.map((formulation) => formulation.route)
+    : ["unknown"];
+
+  const selectedFormulation =
+    formulations.find((formulation) => formulation.route === drug.route) ??
+    null;
+
+  const releaseTypes = selectedFormulation?.release_types.length
+    ? selectedFormulation.release_types
+    : ["unknown"];
+
+  const suggestions = getDrugSuggestions(drug.name, drugCatalog);
 
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
@@ -254,37 +733,96 @@ function DrugInputCard({
         </button>
       </div>
 
-      <label className="block text-sm font-medium text-slate-300">
-        Medication name
-        <input
-          className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300"
-          onChange={(event) =>
-            onChange({
-              ...drug,
-              name: event.target.value,
-            })
-          }
-          placeholder="vortioxetine"
-          value={drug.name}
-        />
-      </label>
+      <div className="relative">
+        <label className="block text-sm font-medium text-slate-300">
+          Medication name
+          <input
+            autoComplete="off"
+            className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300"
+            onChange={(event) => {
+              const nextName = event.target.value;
+
+              onChange({
+                ...drug,
+                name: nextName,
+                route: "unknown",
+                releaseType: "unknown",
+                selectedDrugId: null,
+              });
+            }}
+            placeholder="vortioxetine"
+            value={drug.name}
+          />
+        </label>
+
+        {drug.name.trim() && drug.selectedDrugId === null ? (
+          <DrugSuggestions
+            onSelect={(entry) => {
+              const selectedFormulation =
+                entry.formulations.find(
+                  (formulation) => formulation.route === drug.route,
+                ) ??
+                entry.formulations[0] ??
+                null;
+
+              const route = selectedFormulation?.route ?? "unknown";
+              const releaseTypes = selectedFormulation?.release_types ?? [
+                "unknown",
+              ];
+
+              const releaseType = releaseTypes.includes(drug.releaseType)
+                ? drug.releaseType
+                : (releaseTypes[0] ?? "unknown");
+
+              onChange({
+                ...drug,
+                name: entry.generic_name,
+                route,
+                releaseType,
+                selectedDrugId: entry.id,
+              });
+            }}
+            suggestions={suggestions}
+          />
+        ) : null}
+
+        {selectedCatalogDrug ? (
+          <p className="mt-2 text-xs text-slate-500">
+            Selected: {formatDrugName(selectedCatalogDrug.generic_name)}
+            {selectedCatalogDrug.drug_class
+              ? ` · ${selectedCatalogDrug.drug_class}`
+              : ""}
+          </p>
+        ) : null}
+      </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         <label className="block text-sm font-medium text-slate-300">
           Route
           <select
             className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
-            onChange={(event) =>
+            onChange={(event) => {
+              const nextRoute = event.target.value;
+              const nextFormulation = formulations.find(
+                (formulation) => formulation.route === nextRoute,
+              );
+              const nextReleaseTypes = nextFormulation?.release_types ?? [
+                "unknown",
+              ];
+
               onChange({
                 ...drug,
-                route: event.target.value,
-              })
-            }
+                route: nextRoute,
+                releaseType: nextReleaseTypes.includes(drug.releaseType)
+                  ? drug.releaseType
+                  : (nextReleaseTypes[0] ?? "unknown"),
+              });
+            }}
             value={drug.route}
           >
             {routes.map((route) => (
               <option key={route} value={route}>
-                {route}
+                {formatRoute(route)}
               </option>
             ))}
           </select>
@@ -304,12 +842,58 @@ function DrugInputCard({
           >
             {releaseTypes.map((releaseType) => (
               <option key={releaseType} value={releaseType}>
-                {releaseType}
+                {formatReleaseType(releaseType)}
               </option>
             ))}
           </select>
         </label>
       </div>
+    </div>
+  );
+}
+
+function DrugSuggestions({
+  onSelect,
+  suggestions,
+}: {
+  onSelect: (drug: DrugCatalogEntry) => void;
+  suggestions: DrugCatalogEntry[];
+}) {
+  if (!suggestions.length) {
+    return (
+      <div className="absolute z-20 mt-1 w-full rounded-xl border border-slate-800 bg-slate-950 p-3 text-sm text-slate-500 shadow-2xl">
+        No matching drugs found.
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-xl border border-slate-800 bg-slate-950 shadow-2xl">
+      {suggestions.map((suggestion) => (
+        <button
+          className="block w-full border-b border-slate-900 px-4 py-3 text-left transition last:border-b-0 hover:bg-slate-900"
+          key={suggestion.id}
+          onMouseDown={(event) => {
+            event.preventDefault();
+            onSelect(suggestion);
+          }}
+          type="button"
+        >
+          <span className="block text-sm font-semibold text-white">
+            {formatDrugName(suggestion.generic_name)}
+          </span>
+
+          <span className="mt-1 block text-xs text-slate-500">
+            {suggestion.drug_class ?? "Class not specified"}
+          </span>
+
+          {suggestion.aliases.length ? (
+            <span className="mt-1 block text-xs text-slate-600">
+              Also: {suggestion.aliases.join(", ")}
+            </span>
+          ) : null}
+        </button>
+      ))}
     </div>
   );
 }
@@ -538,6 +1122,104 @@ function formatValue(value: unknown): string {
   }
 
   return JSON.stringify(value);
+}
+
+function getDrugSuggestions(
+  query: string,
+  drugCatalog: DrugCatalogEntry[],
+): DrugCatalogEntry[] {
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return [];
+  }
+
+  const scored = drugCatalog
+    .map((drug) => {
+      const genericName = drug.generic_name.toLowerCase();
+      const id = drug.id.toLowerCase();
+      const aliases = drug.aliases.map((alias) => alias.toLowerCase());
+
+      let score = 0;
+
+      if (genericName === normalizedQuery || id === normalizedQuery) {
+        score = 100;
+      } else if (aliases.includes(normalizedQuery)) {
+        score = 95;
+      } else if (
+        genericName.startsWith(normalizedQuery) ||
+        id.startsWith(normalizedQuery)
+      ) {
+        score = 80;
+      } else if (aliases.some((alias) => alias.startsWith(normalizedQuery))) {
+        score = 75;
+      } else if (
+        genericName.includes(normalizedQuery) ||
+        id.includes(normalizedQuery)
+      ) {
+        score = 60;
+      } else if (aliases.some((alias) => alias.includes(normalizedQuery))) {
+        score = 55;
+      }
+
+      return {
+        drug,
+        score,
+      };
+    })
+    .filter((result) => result.score > 0)
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.drug.generic_name.localeCompare(b.drug.generic_name),
+    );
+
+  return scored.slice(0, 8).map((result) => result.drug);
+}
+
+function formatDrugName(value: string): string {
+  return value
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (letter: string) => letter.toUpperCase());
+}
+
+function formatRoute(value: string): string {
+  const labels: Record<string, string> = {
+    oral: "Oral",
+    iv: "IV",
+    im: "IM",
+    sc: "SC",
+    transdermal: "Transdermal",
+    inhaled: "Inhaled",
+    intranasal: "Intranasal",
+    sublingual: "Sublingual",
+    buccal: "Buccal",
+    rectal: "Rectal",
+    topical: "Topical",
+    ophthalmic: "Ophthalmic",
+    otic: "Otic",
+    epidural: "Epidural",
+    intrathecal: "Intrathecal",
+    vaginal: "Vaginal",
+    unknown: "Unknown",
+  };
+
+  return labels[value] ?? formatLabel(value);
+}
+
+function formatReleaseType(value: string): string {
+  const labels: Record<string, string> = {
+    ir: "IR",
+    sr: "SR",
+    er: "ER",
+    xr: "XR",
+    dr: "DR",
+    la: "LA",
+    depot: "Depot",
+    unknown: "Unknown",
+  };
+
+  return labels[value] ?? formatLabel(value);
 }
 
 export default App;

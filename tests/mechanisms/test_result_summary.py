@@ -274,7 +274,8 @@ def test_result_summaries_to_json_dicts_returns_public_list():
     assert payload == [
         result_summary_to_json_dict(result),
     ]
-    
+
+
 def test_public_result_summary_smooths_known_pd_effect_label_wording():
     aggregate = AggregateConcern(
         aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
@@ -291,7 +292,7 @@ def test_public_result_summary_smooths_known_pd_effect_label_wording():
 
     result = aggregate_summary_to_result_summary(summaries[0])
 
-    assert "QT prolongation-related pharmacodynamic concern" in result.explanation    
+    assert "QT prolongation-related pharmacodynamic concern" in result.explanation
     assert "QT prolongation-related pharmacodynamic effect" not in result.explanation
     assert "QT_prolongation" not in result.explanation
 
@@ -313,3 +314,25 @@ def test_public_result_summary_keeps_unknown_pd_effect_related_wording():
     result = aggregate_summary_to_result_summary(summaries[0])
 
     assert "sedation-related pharmacodynamic concern" in result.explanation
+
+
+def test_public_result_summary_does_not_duplicate_bleeding_risk_label():
+    aggregate = AggregateConcern(
+        aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
+        anchor="bleeding",
+        policy_concern="safety_concern",
+        drugs=("ibuprofen", "venlafaxine"),
+        effect_id="bleeding",
+    )
+    summaries = build_aggregate_concern_summaries(
+        [aggregate],
+        [],
+        [],
+    )
+
+    summary = summaries[0]
+
+    result = aggregate_summary_to_result_summary(summary)
+
+    assert "bleeding risk risk" not in result.explanation
+    assert "bleeding risk" in result.explanation

@@ -5,6 +5,24 @@ export type MetadataResponse = {
   release_types: string[];
 };
 
+export type DrugFormulation = {
+  route: string;
+  release_types: string[];
+};
+
+export type DrugCatalogEntry = {
+  id: string;
+  generic_name: string;
+  drug_class: string | null;
+  aliases: string[];
+  release_types: string[];
+  formulations: DrugFormulation[];
+};
+
+export type DrugCatalogResponse = {
+  drugs: DrugCatalogEntry[];
+};
+
 export type AnalyzeDrugInput = {
   name: string;
   route?: string | null;
