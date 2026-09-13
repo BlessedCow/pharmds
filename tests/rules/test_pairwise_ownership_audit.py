@@ -44,6 +44,7 @@ EXPECTED_EXPLICIT_PAIR_COVERAGE_CLASSES = {
 
 EXPECTED_PD_EFFECT_IDS = {
     "activation_agitation_risk",
+    "anticholinergic_effects",
     "alpha1_antagonism",
     "bleeding",
     "bradycardia",
@@ -53,12 +54,19 @@ EXPECTED_PD_EFFECT_IDS = {
     "D2_blockade",
     "EPS_risk",
     "h1_antagonism",
+    "hyperkalemia_risk",
+    "hypokalemia_risk",
+    "intracranial_hypertension_risk",
     "hypertension",
     "insomnia_risk",
     "lithium_level_increase_risk",
     "mania_activation_risk",
     "nausea",
+    "neurotoxicity_risk",
+    "noradrenergic_effects",
     "opioid_antagonist",
+    "orthostatic_hypotension",
+    "photosensitivity_risk",
     "QT_prolongation",
     "respiratory_depression",
     "sedation",
@@ -67,6 +75,7 @@ EXPECTED_PD_EFFECT_IDS = {
     "serotonin_syndrome",
     "sympathetic_stimulation",
     "tachycardia",
+    "urinary_retention_risk",
     "withdrawal_risk",
 }
 
@@ -78,6 +87,10 @@ EXPECTED_EXPLICIT_PK_PAIR_RULE_IDS = {
     "PK_METHADONE_CARBAMAZEPINE",
     "PK_METHADONE_FLUOXETINE",
     "PK_VIBEGRON_DIGOXIN",
+}
+
+EXPECTED_EXPLICIT_PD_PAIR_RULE_IDS = {
+    "PD_BUPROPION_ALCOHOL",
 }
 
 
@@ -106,14 +119,29 @@ def test_pairwise_pd_overlap_inventory_is_documented() -> None:
     rules = _load_rule_defs()
 
     pd_rules = [rule for rule in rules if rule["domain"] == "PD"]
-    pd_effect_ids = {
-        rule["logic"]["pd_overlap"]["effect_id"]
+    pd_overlap_rules = [
+        rule
         for rule in pd_rules
         if "pd_overlap" in rule.get("logic", {})
+    ]
+    explicit_pd_pair_rule_ids = {
+        rule["id"]
+        for rule in pd_rules
+        if "drug_pair" in rule.get("logic", {})
+    }
+    pd_effect_ids = {
+        rule["logic"]["pd_overlap"]["effect_id"]
+        for rule in pd_overlap_rules
     }
 
-    assert len(pd_rules) == 27
-    assert all("pd_overlap" in rule.get("logic", {}) for rule in pd_rules)
+    assert len(pd_rules) == 37
+    assert len(pd_overlap_rules) == 36
+    assert explicit_pd_pair_rule_ids == EXPECTED_EXPLICIT_PD_PAIR_RULE_IDS
+    assert all(
+        "pd_overlap" in rule.get("logic", {})
+        or "drug_pair" in rule.get("logic", {})
+        for rule in pd_rules
+    )
     assert pd_effect_ids == EXPECTED_PD_EFFECT_IDS
 
 
@@ -129,7 +157,8 @@ def test_pairwise_rule_inventory_has_migration_relevant_constraints() -> None:
         or "B_strength_in" in logic.get("transporter", {})
         for logic in logic_blocks
     )
-    
+
+
 def test_explicit_pair_gap_audit_doc_tracks_named_pair_rules() -> None:
     audit_text = EXPLICIT_PAIR_GAP_AUDIT_DOC.read_text(encoding="utf-8")
 

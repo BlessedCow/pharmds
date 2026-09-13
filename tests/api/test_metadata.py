@@ -55,3 +55,25 @@ def test_metadata_returns_frontend_options() -> None:
         "depot",
         "unknown",
     ]
+    
+    pd_effects = body["pd_effects"]
+
+    assert {
+        "id": "seizure_risk",
+        "label": "Seizure Risk",
+    } in pd_effects
+
+    assert {
+        "id": "CNS_depression",
+        "label": "CNS Depression",
+    } in pd_effects
+
+    assert {
+        "id": "QT_prolongation",
+        "label": "QT Prolongation",
+    } in pd_effects
+
+    assert {
+        "id": "bleeding",
+        "label": "Bleeding Risk",
+    } in pd_effects

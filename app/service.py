@@ -229,11 +229,11 @@ def analyze_text(
     release_type: str | None = None,
     qt_risk: bool = False,
     bleeding_risk: bool = False,
+    pd_effects: list[str] | None = None,
     as_json_payload: bool = False,
 ) -> AnalyzeResult:
     """
     Analyze drug interactions from free-form text input.
-
     """
     tokens = _parse_drug_tokens(drug_text)
     drug_names = _collect_drug_inputs(tokens, [])
@@ -245,6 +245,7 @@ def analyze_text(
         release_type=release_type,
         qt_risk=qt_risk,
         bleeding_risk=bleeding_risk,
+        pd_effects=pd_effects,
         as_json_payload=as_json_payload,
         input_drug_text=drug_text,
         pk_timing_inputs=None,
@@ -259,6 +260,7 @@ def analyze_names(
     release_type: str | None = None,
     qt_risk: bool = False,
     bleeding_risk: bool = False,
+    pd_effects: list[str] | None = None,
     as_json_payload: bool = False,
     input_drug_text: str | None = None,
     pk_timing_inputs: list[dict[str, str | None]] | None = None,
@@ -307,16 +309,23 @@ def analyze_names(
                 "input_drug_names": drug_names,
             },
         )
+
     facts = load_facts(conn, drug_ids, patient_flags)
 
     selected, templates, pair_reports = build_runtime_pair_reports(
-        SimpleNamespace(domain=domain),
+        SimpleNamespace(
+            domain=domain,
+            pd_effects=pd_effects,
+        ),
         facts=facts,
         drug_ids=drug_ids,
         rule_dir=RULE_DIR,
     )
 
-    summary_args = SimpleNamespace(evidence_mode="off")
+    summary_args = SimpleNamespace(
+        evidence_mode="off",
+        pd_effects=pd_effects,
+    )
     (
         regimen_summary,
         mechanism_pipeline,

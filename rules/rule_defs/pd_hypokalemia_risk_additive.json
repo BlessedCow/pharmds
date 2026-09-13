@@ -1,0 +1,29 @@
+{
+  "id": "PD_HYPOKALEMIA_RISK_ADDITIVE",
+  "name": "Additive hypokalemia risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Review potassium-related risk factors and concurrent medications.",
+    "Monitor serum potassium when clinically appropriate.",
+    "Use additional caution when other arrhythmia or electrolyte risk factors are present."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "hypokalemia_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to hypokalemia risk.",
+      "Combined effects may increase the likelihood of clinically important potassium depletion."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both contribute hypokalemia risk. Combined use may increase potassium depletion and related adverse effects (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: overlapping hypokalemia risk may increase electrolyte-related adverse effects."
+    }
+  ]
+}

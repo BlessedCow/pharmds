@@ -285,3 +285,48 @@ def test_analyze_requires_drug_names_or_structured_drugs() -> None:
 
     assert response.status_code == 422
     assert response.json()["detail"] == "Provide either drug_names or drugs."
+
+
+def test_analyze_accepts_pd_effect_filter() -> None:
+    client = TestClient(app)
+
+    response = client.post(
+        "/analyze",
+        json={
+            "drug_names": [
+                "vortioxetine",
+                "sertraline",
+            ],
+            "pd_effects": [
+                "serotonergic",
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["ok"] is True
+
+
+def test_analyze_rejects_unknown_pd_effect_filter() -> None:
+    client = TestClient(app)
+
+    response = client.post(
+        "/analyze",
+        json={
+            "drug_names": [
+                "vortioxetine",
+                "sertraline",
+            ],
+            "pd_effects": [
+                "definitely_not_a_pd_effect",
+            ],
+        },
+    )
+
+    assert response.status_code == 422
+    assert response.json()["detail"] == {
+        "error": "unsupported_pd_effect",
+        "unsupported": [
+            "definitely_not_a_pd_effect",
+        ],
+    }

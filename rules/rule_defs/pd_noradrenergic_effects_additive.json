@@ -1,0 +1,29 @@
+{
+  "id": "PD_NORADRENERGIC_EFFECTS_ADDITIVE",
+  "name": "Additive noradrenergic effects",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Review for additive activation and cardiovascular effects when combining noradrenergic agents.",
+    "Monitor blood pressure, heart rate, agitation, tremor, and insomnia when clinically appropriate.",
+    "Use additional caution in patients with cardiovascular disease or poorly controlled hypertension."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "noradrenergic_effects",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs increase noradrenergic signaling.",
+      "Combined noradrenergic effects may increase activation and cardiovascular adverse effects."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both increase noradrenergic activity. Combined use may increase activation, blood-pressure, or heart-rate effects (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: overlapping noradrenergic effects may increase activation and cardiovascular burden."
+    }
+  ]
+}

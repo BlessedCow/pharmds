@@ -1,0 +1,29 @@
+{
+  "id": "PD_URINARY_RETENTION_RISK_ADDITIVE",
+  "name": "Additive urinary retention risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Review the combined urinary-retention burden.",
+    "Monitor for difficulty initiating urination, reduced urinary flow, bladder discomfort, or inability to void.",
+    "Use additional caution in patients with bladder outlet obstruction or a history of urinary retention."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "urinary_retention_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to urinary retention risk.",
+      "Combined effects may increase difficulty with bladder emptying."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both contribute urinary retention risk. Combined use may increase difficulty with bladder emptying (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: overlapping urinary retention risk may increase bladder-emptying difficulty."
+    }
+  ]
+}

@@ -5,6 +5,7 @@ from pathlib import Path
 from app.runtime.domains import (
     _parse_domain_selection,
     filter_rules_for_selected_domains,
+    filter_rules_for_selected_pd_effects,
 )
 from app.runtime.pairwise import _build_reports_for_all_pairs
 from rules.engine import evaluate_all, load_rules
@@ -20,7 +21,14 @@ def build_runtime_pair_reports(
     selected = _parse_domain_selection(args.domain)
 
     rules_all = load_rules(rule_dir)
-    rules = filter_rules_for_selected_domains(rules_all, selected)
+    rules = filter_rules_for_selected_domains(
+        rules_all,
+        selected,
+    )
+    rules = filter_rules_for_selected_pd_effects(
+        rules,
+        getattr(args, "pd_effects", None),
+    )
 
     hits = evaluate_all(rules, facts, drug_ids)
 

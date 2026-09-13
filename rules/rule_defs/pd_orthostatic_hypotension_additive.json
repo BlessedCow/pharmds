@@ -1,0 +1,30 @@
+{
+  "id": "PD_ORTHOSTATIC_HYPOTENSION_ADDITIVE",
+  "name": "Additive orthostatic hypotension risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Use caution when combining agents that can lower standing blood pressure.",
+    "Monitor for dizziness, lightheadedness, syncope, falls, and orthostatic blood pressure changes.",
+    "Counsel patients to rise slowly from sitting or lying positions.",
+    "Use additional caution in older adults, patients with autonomic dysfunction, dehydration, or concurrent antihypertensive therapy."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "orthostatic_hypotension",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to orthostatic blood pressure reduction.",
+      "Combined effects may increase dizziness, syncope, and falls risk."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} can both contribute to orthostatic hypotension. Combined use may increase dizziness, syncope, and falls risk (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: overlapping orthostatic hypotension effects may increase symptomatic blood-pressure reduction and falls risk."
+    }
+  ]
+}

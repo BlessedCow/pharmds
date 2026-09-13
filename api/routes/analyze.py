@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from api.models import AnalyzeRequest, AnalyzeResponse
 from app.service import analyze_names
+from core.mechanisms.effect_labels import SUPPORTED_PD_EFFECT_IDS
 
 router = APIRouter(prefix="/analyze", tags=["analyze"])
 
@@ -41,6 +42,20 @@ def analyze_drugs(request: AnalyzeRequest) -> AnalyzeResponse:
     drug_names = _resolve_request_drug_names(request)
     pk_timing_inputs = _resolve_request_pk_timing_inputs(request)
 
+    if request.pd_effects is not None:
+        unsupported_pd_effects = sorted(
+            set(request.pd_effects) - SUPPORTED_PD_EFFECT_IDS
+        )
+
+        if unsupported_pd_effects:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+                detail={
+                    "error": "unsupported_pd_effect",
+                    "unsupported": unsupported_pd_effects,
+                },
+            )
+
     result = analyze_names(
         drug_names,
         domain=request.domain,
@@ -49,6 +64,7 @@ def analyze_drugs(request: AnalyzeRequest) -> AnalyzeResponse:
         pk_timing_inputs=pk_timing_inputs,
         qt_risk=request.qt_risk,
         bleeding_risk=request.bleeding_risk,
+        pd_effects=request.pd_effects,
         as_json_payload=True,
     )
 

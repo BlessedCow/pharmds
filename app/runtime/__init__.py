@@ -1,6 +1,8 @@
 from app.runtime.domains import (
     _parse_domain_selection,
+    filter_facts_for_selected_pd_effects,
     filter_rules_for_selected_domains,
+    filter_rules_for_selected_pd_effects,
 )
 from app.runtime.options import build_patient_flags
 from app.runtime.pairwise import _build_reports_for_all_pairs
@@ -13,5 +15,7 @@ __all__ = [
     "build_patient_flags",
     "build_runtime_pair_reports",
     "build_runtime_summaries",
+    "filter_facts_for_selected_pd_effects",
     "filter_rules_for_selected_domains",
+    "filter_rules_for_selected_pd_effects",
 ]

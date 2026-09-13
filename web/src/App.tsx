@@ -6,6 +6,8 @@ import type {
   AnalyzeResponse,
   DrugCatalogEntry,
   MetadataResponse,
+  PairFinding,
+  RuleHit,
 } from "./api/types";
 
 type DrugFormState = {
@@ -53,6 +55,8 @@ function App() {
   const [domain, setDomain] = useState("all");
   const [qtRisk, setQtRisk] = useState(false);
   const [bleedingRisk, setBleedingRisk] = useState(false);
+  const [pdEffectMode, setPdEffectMode] = useState<"all" | "specific">("all");
+  const [selectedPdEffects, setSelectedPdEffects] = useState<string[]>([]);
 
   useEffect(() => {
     void fetchMetadata()
@@ -128,6 +132,10 @@ function App() {
         domain,
         qt_risk: qtRisk,
         bleeding_risk: bleedingRisk,
+        pd_effects:
+          pdEffectMode === "all"
+            ? null
+            : selectedPdEffects,
       });
 
       setAnalysis(result);
@@ -198,10 +206,26 @@ function App() {
               }}
               onBleedingRiskChange={setBleedingRisk}
               onDomainChange={setDomain}
+              onPdEffectModeChange={(mode) => {
+                setPdEffectMode(mode);
+
+                if (mode === "all") {
+                  setSelectedPdEffects([]);
+                }
+              }}
               onQtRiskChange={setQtRisk}
               onRemoveDrug={removeDrug}
+              onResetPdSelection={() => {
+                setPdEffectMode("all");
+                setSelectedPdEffects([]);
+                setQtRisk(false);
+                setBleedingRisk(false);
+              }}
+              onSelectedPdEffectsChange={setSelectedPdEffects}
               onUpdateDrug={updateDrug}
+              pdEffectMode={pdEffectMode}
               qtRisk={qtRisk}
+              selectedPdEffects={selectedPdEffects}
             />
 
             <ResultsPanel analysis={analysis} error={analysisError} />
@@ -357,7 +381,7 @@ function DrugDatabasePage({
               <option value="all">All drug classes</option>
               {drugClasses.map((drugClass) => (
                 <option key={drugClass} value={drugClass}>
-                  {drugClass}
+                  {formatDrugClass(drugClass)}
                 </option>
               ))}
             </select>
@@ -442,7 +466,9 @@ function DrugCatalogCard({ drug }: { drug: DrugCatalogEntry }) {
             Drug class
           </dt>
           <dd className="mt-1 text-sm text-slate-300">
-            {drug.drug_class ?? "Not specified"}
+            {drug.drug_class
+              ? formatDrugClass(drug.drug_class)
+              : "Not specified"}
           </dd>
         </div>
 
@@ -499,10 +525,15 @@ function AnalyzeForm({
   onAnalyze,
   onBleedingRiskChange,
   onDomainChange,
+  onPdEffectModeChange,
   onQtRiskChange,
   onRemoveDrug,
+  onResetPdSelection,
+  onSelectedPdEffectsChange,
   onUpdateDrug,
+  pdEffectMode,
   qtRisk,
+  selectedPdEffects,
 }: {
   bleedingRisk: boolean;
   canSubmit: boolean;
@@ -516,10 +547,15 @@ function AnalyzeForm({
   onAnalyze: () => void;
   onBleedingRiskChange: (value: boolean) => void;
   onDomainChange: (value: string) => void;
+  onPdEffectModeChange: (value: "all" | "specific") => void;
   onQtRiskChange: (value: boolean) => void;
   onRemoveDrug: (index: number) => void;
+  onResetPdSelection: () => void;
+  onSelectedPdEffectsChange: (value: string[]) => void;
   onUpdateDrug: (index: number, drug: DrugFormState) => void;
+  pdEffectMode: "all" | "specific";
   qtRisk: boolean;
+  selectedPdEffects: string[];
 }) {
   return (
     <section className="h-fit rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-2xl shadow-slate-950/50">
@@ -547,16 +583,6 @@ function AnalyzeForm({
         ))}
       </div>
 
-      <AnalysisControls
-        bleedingRisk={bleedingRisk}
-        domain={domain}
-        metadata={metadata}
-        onBleedingRiskChange={onBleedingRiskChange}
-        onDomainChange={onDomainChange}
-        onQtRiskChange={onQtRiskChange}
-        qtRisk={qtRisk}
-      />
-
       <button
         className="mt-4 w-full rounded-2xl border border-slate-700 bg-slate-950 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:border-cyan-300 hover:text-cyan-200"
         onClick={onAddDrug}
@@ -564,6 +590,25 @@ function AnalyzeForm({
       >
         Add medication
       </button>
+
+      <AnalysisControls
+        domain={domain}
+        metadata={metadata}
+        onDomainChange={onDomainChange}
+      />
+
+      <PdEffectControls
+        bleedingRisk={bleedingRisk}
+        metadata={metadata}
+        mode={pdEffectMode}
+        onBleedingRiskChange={onBleedingRiskChange}
+        onModeChange={onPdEffectModeChange}
+        onQtRiskChange={onQtRiskChange}
+        onReset={onResetPdSelection}
+        onSelectedEffectsChange={onSelectedPdEffectsChange}
+        qtRisk={qtRisk}
+        selectedEffects={selectedPdEffects}
+      />
 
       <button
         className="mt-4 w-full rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
@@ -578,21 +623,13 @@ function AnalyzeForm({
 }
 
 function AnalysisControls({
-  bleedingRisk,
   domain,
   metadata,
-  onBleedingRiskChange,
   onDomainChange,
-  onQtRiskChange,
-  qtRisk,
 }: {
-  bleedingRisk: boolean;
   domain: string;
   metadata: MetadataResponse | null;
-  onBleedingRiskChange: (value: boolean) => void;
   onDomainChange: (value: string) => void;
-  onQtRiskChange: (value: boolean) => void;
-  qtRisk: boolean;
 }) {
   const domains = metadata?.domains ?? ["all"];
 
@@ -601,7 +638,7 @@ function AnalysisControls({
       <div className="space-y-2">
         <h3 className="font-semibold text-white">Analysis controls</h3>
         <p className="text-sm leading-6 text-slate-400">
-          Narrow the interaction domain or add patient-specific risk context.
+          Narrow the interaction domain included in the analysis.
         </p>
       </div>
 
@@ -619,11 +656,117 @@ function AnalysisControls({
           ))}
         </select>
       </label>
+    </section>
+  );
+}
 
-      <div className="mt-5 space-y-3">
-        <p className="text-sm font-medium text-slate-300">
-          Patient-specific risk context
+function PdEffectControls({
+  bleedingRisk,
+  metadata,
+  mode,
+  onBleedingRiskChange,
+  onModeChange,
+  onQtRiskChange,
+  onReset,
+  onSelectedEffectsChange,
+  qtRisk,
+  selectedEffects,
+}: {
+  bleedingRisk: boolean;
+  metadata: MetadataResponse | null;
+  mode: "all" | "specific";
+  onBleedingRiskChange: (value: boolean) => void;
+  onModeChange: (value: "all" | "specific") => void;
+  onQtRiskChange: (value: boolean) => void;
+  onReset: () => void;
+  onSelectedEffectsChange: (value: string[]) => void;
+  qtRisk: boolean;
+  selectedEffects: string[];
+}) {
+  const effects = metadata?.pd_effects ?? [];
+
+  function toggleEffect(effectId: string, checked: boolean) {
+    onModeChange("specific");
+
+    if (checked) {
+      onSelectedEffectsChange(
+        Array.from(new Set([...selectedEffects, effectId])),
+      );
+      return;
+    }
+
+    onSelectedEffectsChange(
+      selectedEffects.filter((selected) => selected !== effectId),
+    );
+  }
+
+  return (
+    <section className="mt-6 rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
+      <div className="space-y-2">
+        <h3 className="font-semibold text-white">PD Effects</h3>
+        <p className="text-sm leading-6 text-slate-400">
+          Analyze all supported pharmacodynamic effects or limit the analysis
+          to specific effects.
         </p>
+      </div>
+
+      <label className="mt-4 block text-sm font-medium text-slate-300">
+        Effect selection
+        <select
+          className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+          onChange={(event) =>
+            onModeChange(event.target.value as "all" | "specific")
+          }
+          value={mode}
+        >
+          <option value="all">All Effects</option>
+          <option value="specific">Specific Effects</option>
+        </select>
+      </label>
+
+      <div className="mt-5">
+        <p className="text-sm font-medium text-slate-300">
+          Specific PD effects
+        </p>
+
+        <div className="mt-3 grid max-h-80 gap-2 overflow-y-auto pr-1 sm:grid-cols-2">
+          {effects.map((effect) => (
+            <label
+              className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 px-3 py-3"
+              key={effect.id}
+            >
+              <input
+                checked={selectedEffects.includes(effect.id)}
+                className="h-4 w-4 rounded border-slate-600 bg-slate-950 text-cyan-300 focus:ring-cyan-300"
+                onChange={(event) =>
+                  toggleEffect(effect.id, event.target.checked)
+                }
+                type="checkbox"
+              />
+              <span className="text-sm text-slate-300">
+                {effect.label}
+              </span>
+            </label>
+          ))}
+        </div>
+
+        {!effects.length ? (
+          <p className="mt-3 text-sm text-slate-500">
+            PD effect metadata is not available.
+          </p>
+        ) : null}
+      </div>
+
+      <div className="mt-6 space-y-3 border-t border-slate-800 pt-5">
+        <div>
+          <p className="text-sm font-medium text-slate-300">
+            Patient-specific risk context
+          </p>
+          <p className="mt-1 text-xs leading-5 text-slate-500">
+            These modifiers add patient context and do not filter the selected
+            PD effects.
+          </p>
+        </div>
 
         <RiskToggle
           checked={qtRisk}
@@ -639,6 +782,14 @@ function AnalysisControls({
           onChange={onBleedingRiskChange}
         />
       </div>
+
+      <button
+        className="mt-5 w-full rounded-xl border border-slate-700 px-4 py-2.5 text-sm font-semibold text-slate-400 transition hover:border-slate-500 hover:text-white"
+        onClick={onReset}
+        type="button"
+      >
+        Reset Selection
+      </button>
     </section>
   );
 }
@@ -983,9 +1134,9 @@ function ResultsPanel({
         title="Pair findings"
       >
         {pairCount ? (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {payload.pairs.map((pair, index) => (
-              <SummaryObjectCard key={index} summary={pair} />
+              <PairFindingCard key={index} pair={pair} />
             ))}
           </div>
         ) : (
@@ -1065,7 +1216,11 @@ function ResultCard({
   );
 }
 
-function SummaryObjectCard({ summary }: { summary: Record<string, unknown> }) {
+function SummaryObjectCard({
+  summary,
+}: {
+  summary: Record<string, unknown>;
+}) {
   const entries = Object.entries(summary);
 
   return (
@@ -1077,7 +1232,7 @@ function SummaryObjectCard({ summary }: { summary: Record<string, unknown> }) {
               {formatLabel(key)}
             </dt>
             <dd className="mt-1 break-words text-sm leading-6 text-slate-300">
-              {formatValue(value)}
+              {formatSummaryValue(key, value)}
             </dd>
           </div>
         ))}
@@ -1085,6 +1240,203 @@ function SummaryObjectCard({ summary }: { summary: Record<string, unknown> }) {
     </div>
   );
 }
+
+function PairFindingCard({ pair }: { pair: PairFinding }) {
+  return (
+    <article className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/70">
+      <header className="border-b border-slate-800 bg-slate-900/70 p-5">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+              Medication pair
+            </p>
+            <h3 className="mt-1 text-lg font-semibold text-white">
+              {formatDrugName(pair.drug_1.name)}{" "}
+              <span className="font-normal text-slate-500">+</span>{" "}
+              {formatDrugName(pair.drug_2.name)}
+            </h3>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <ResultBadge
+              label={`Severity: ${formatLabel(pair.overall.severity)}`}
+            />
+            <ResultBadge
+              label={`Action: ${formatLabel(pair.overall.class)}`}
+            />
+          </div>
+        </div>
+      </header>
+
+      <div className="space-y-5 p-5">
+        <PairDomainSection
+          emptyMessage="No PK findings for this medication pair."
+          hits={pair.pk.hits}
+          summary={pair.pk.summary}
+          title="Pharmacokinetic findings"
+        />
+
+        <PairDomainSection
+          emptyMessage="No PD findings for this medication pair."
+          hits={pair.pd.hits}
+          summary={pair.pd.summary}
+          title="Pharmacodynamic findings"
+        />
+      </div>
+    </article>
+  );
+}
+
+function PairDomainSection({
+  emptyMessage,
+  hits,
+  summary,
+  title,
+}: {
+  emptyMessage: string;
+  hits: RuleHit[];
+  summary?: string | null;
+  title: string;
+}) {
+  return (
+    <section>
+      <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+        {title}
+      </h4>
+
+      {summary ? (
+        <p className="mt-2 text-sm leading-6 text-slate-300">{summary}</p>
+      ) : null}
+
+      {hits.length ? (
+        <div className="mt-3 space-y-3">
+          {hits.map((hit) => (
+            <RuleHitCard hit={hit} key={hit.rule_id} />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-2 text-sm text-slate-500">{emptyMessage}</p>
+      )}
+    </section>
+  );
+}
+
+function RuleHitCard({ hit }: { hit: RuleHit }) {
+  const effectId =
+    typeof hit.inputs.effect_id === "string" ? hit.inputs.effect_id : null;
+
+  return (
+    <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h5 className="font-semibold text-white">{hit.name}</h5>
+          <p className="mt-1 text-xs text-slate-500">
+            Rule {hit.rule_id}
+            {effectId ? ` · ${formatLabel(effectId)}` : ""}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <ResultBadge label={formatLabel(hit.severity)} />
+          <ResultBadge label={formatLabel(hit.class)} />
+        </div>
+      </div>
+
+      {hit.explanation ? (
+        <div className="mt-4">
+          <ResultSectionLabel>Explanation</ResultSectionLabel>
+          <p className="mt-1 text-sm leading-6 text-slate-300">
+            {hit.explanation}
+          </p>
+        </div>
+      ) : null}
+
+      {hit.rationale.length ? (
+        <div className="mt-4">
+          <ResultSectionLabel>Why this matters</ResultSectionLabel>
+          <ResultList items={hit.rationale} />
+        </div>
+      ) : null}
+
+      {hit.actions.length ? (
+        <div className="mt-4">
+          <ResultSectionLabel>Suggested actions</ResultSectionLabel>
+          <ResultList items={hit.actions} />
+        </div>
+      ) : null}
+
+      {hit.references.length ? (
+        <div className="mt-4">
+          <ResultSectionLabel>References</ResultSectionLabel>
+          <div className="mt-2 space-y-2">
+            {hit.references.map((reference, index) => (
+              <div
+                className="rounded-lg border border-slate-800 bg-slate-950/60 px-3 py-2"
+                key={`${reference.source}-${index}`}
+              >
+                <p className="text-xs font-semibold text-cyan-200">
+                  {reference.source}
+                </p>
+                <p className="mt-1 text-xs leading-5 text-slate-400">
+                  {reference.citation}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {hit.severity_rationale || hit.action_rationale ? (
+        <details className="mt-4 rounded-lg border border-slate-800 bg-slate-950/40 px-3 py-2">
+          <summary className="cursor-pointer text-xs font-semibold text-slate-400">
+            Scoring rationale
+          </summary>
+
+          <div className="mt-2 space-y-2 text-xs leading-5 text-slate-500">
+            {hit.severity_rationale ? (
+              <p>{hit.severity_rationale}</p>
+            ) : null}
+            {hit.action_rationale ? (
+              <p>{hit.action_rationale}</p>
+            ) : null}
+          </div>
+        </details>
+      ) : null}
+    </div>
+  );
+}
+
+function ResultBadge({ label }: { label: string }) {
+  return (
+    <span className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs font-medium text-slate-300">
+      {label}
+    </span>
+  );
+}
+
+function ResultSectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+      {children}
+    </p>
+  );
+}
+
+function ResultList({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-2 space-y-1.5 text-sm leading-6 text-slate-300">
+      {items.map((item, index) => (
+        <li className="flex gap-2" key={`${item}-${index}`}>
+          <span aria-hidden="true" className="text-cyan-300">
+            •
+          </span>
+          <span>{stripLeadingBullet(item)}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 
 function EmptyResult({ message }: { message: string }) {
   return (
@@ -1108,9 +1460,42 @@ function formatLabel(value: string): string {
     .replace(/\b\w/g, (letter: string) => letter.toUpperCase());
 }
 
-function formatValue(value: unknown): string {
+function formatSummaryValue(key: string, value: unknown): string {
   if (value === null || value === undefined) {
     return "None";
+  }
+
+  if (key === "source" && typeof value === "string") {
+    if (value === "aggregate_summary") {
+      return "Mechanism pipeline";
+    }
+
+    if (value === "rule_hit") {
+      return "Rule engine";
+    }
+  }
+
+  if (key === "evidence_label" && typeof value === "string") {
+    if (value === "rule_engine") {
+      return "Rule engine";
+    }
+
+    return formatLabel(value);
+  }
+
+  if (key === "drugs" && Array.isArray(value)) {
+    return value.map((item) => formatDrugName(String(item))).join(", ");
+  }
+
+  if (key === "concern_type" && typeof value === "string") {
+    return value === "PD" || value === "PK" ? value : formatLabel(value);
+  }
+
+  if (
+    (key === "severity_label" || key === "class") &&
+    typeof value === "string"
+  ) {
+    return formatLabel(value);
   }
 
   if (typeof value === "string") {
@@ -1122,6 +1507,10 @@ function formatValue(value: unknown): string {
   }
 
   return JSON.stringify(value);
+}
+
+function stripLeadingBullet(value: string): string {
+  return value.replace(/^\s*[-•]\s*/, "");
 }
 
 function getDrugSuggestions(
@@ -1175,6 +1564,47 @@ function getDrugSuggestions(
     );
 
   return scored.slice(0, 8).map((result) => result.drug);
+}
+
+function formatDrugClass(value: string): string {
+  const preserved: Record<string, string> = {
+    ssri: "SSRI",
+    snri: "SNRI",
+    nassa: "NaSSA",
+  };
+
+  const words = value.trim().split(/\s+/);
+
+  return words
+    .map((word) => {
+      const normalized = word.toLowerCase();
+
+      if (preserved[normalized]) {
+        return preserved[normalized];
+      }
+
+      if (normalized === "spari") {
+        return "SPARI";
+      }
+
+      return word
+        .split(/([/-])/)
+        .map((part) => {
+          if (part === "/" || part === "-") {
+            return part;
+          }
+
+          if (!part) {
+            return part;
+          }
+
+          const lowered = part.toLowerCase();
+
+          return lowered.charAt(0).toUpperCase() + lowered.slice(1);
+        })
+        .join("");
+    })
+    .join(" ");
 }
 
 function formatDrugName(value: string): string {

@@ -1,0 +1,29 @@
+{
+  "id": "PD_PHOTOSENSITIVITY_RISK_ADDITIVE",
+  "name": "Additive photosensitivity risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Review concurrent agents with known photosensitivity risk.",
+    "Counsel on sun protection and avoidance of excessive ultraviolet exposure when clinically appropriate.",
+    "Monitor for exaggerated sunburn or phototoxic skin reactions."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "photosensitivity_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to photosensitivity risk.",
+      "Overlapping photosensitizing effects may increase susceptibility to phototoxic reactions."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both contribute photosensitivity risk. Combined exposure may increase susceptibility to phototoxic skin reactions (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: overlapping photosensitivity risk may increase phototoxic reaction risk."
+    }
+  ]
+}

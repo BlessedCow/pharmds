@@ -1,0 +1,29 @@
+{
+  "id": "PD_INTRACRANIAL_HYPERTENSION_RISK_ADDITIVE",
+  "name": "Additive intracranial hypertension risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Review for additional agents or conditions associated with intracranial hypertension.",
+    "Monitor for persistent headache, visual changes, pulsatile tinnitus, or other concerning neurologic symptoms.",
+    "Escalate for clinical evaluation when symptoms suggest possible intracranial hypertension."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "intracranial_hypertension_risk",
+      "min_magnitude": "low"
+    },
+    "rationale": [
+      "Both drugs are associated with intracranial hypertension risk.",
+      "Overlapping risk factors may warrant additional clinical awareness."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both carry intracranial hypertension risk. Overlapping exposure may warrant additional clinical awareness (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: overlapping intracranial hypertension risk warrants patient-specific assessment."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "PD_BUPROPION_ALCOHOL",
+  "name": "Bupropion and alcohol risk",
+  "domain": "PD",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Assess the pattern and amount of alcohol use before interpreting the risk.",
+    "Avoid abrupt alcohol discontinuation in a person with regular or heavy alcohol use without appropriate clinical guidance.",
+    "Minimize or avoid alcohol during bupropion treatment.",
+    "Review additional seizure-risk factors and other medications that may lower seizure threshold."
+  ],
+  "logic": {
+    "drug_pair": {
+      "a": "bupropion",
+      "b": "alcohol"
+    },
+    "effect_id": "seizure_risk",
+    "rationale": [
+      "Bupropion has dose-related seizure risk.",
+      "Abrupt discontinuation of alcohol is a contraindicated clinical situation during bupropion treatment because seizure risk may increase.",
+      "Bupropion labeling advises minimizing or avoiding alcohol during treatment."
+    ]
+  },
+  "explanation_template": "{A_name} with {B_name} requires alcohol-use context. Bupropion has dose-related seizure risk, abrupt alcohol discontinuation can further increase seizure risk, and alcohol use during treatment should be minimized or avoided (educational).",
+  "references": [
+    {
+      "source": "DailyMed",
+      "citation": "Bupropion hydrochloride prescribing information: Contraindications (4), Seizure (5.3), and Use with Alcohol (7.5)."
+    }
+  ]
+}

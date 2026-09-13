@@ -17,7 +17,9 @@ from core.mechanisms.aggregate_summary import AggregateConcernSummary
 from core.mechanisms.aggregation import (
     AGGREGATE_OBJECT_EXPOSURE_DECREASE,
     AGGREGATE_OBJECT_EXPOSURE_INCREASE,
+    AGGREGATE_SAFETY_CONCERN,
     AGGREGATE_SHARED_PD_EFFECT,
+    AGGREGATE_TOLERABILITY_CONCERN,
 )
 from core.mechanisms.effect_labels import (
     PUBLIC_EFFECT_LABELS,
@@ -27,10 +29,10 @@ from core.mechanisms.pipeline import MechanismPipelineResult
 from core.models import PairReport, RuleHit
 
 RESULT_SOURCE_AGGREGATE = "aggregate_summary"
-RESULT_SOURCE_RULE = "legacy_rule_hit"
+RESULT_SOURCE_RULE = "rule_hit"
 
 EVIDENCE_LABEL_NOT_AVAILABLE = "not_available"
-EVIDENCE_LABEL_LEGACY_RULE = "legacy_rule"
+EVIDENCE_LABEL_LEGACY_RULE = "rule_engine"
 
 
 @dataclass(frozen=True)
@@ -50,10 +52,13 @@ def build_public_result_summaries(
     pipeline: MechanismPipelineResult,
     pair_reports: list[PairReport] | None = None,
 ) -> list[ResultSummary]:
-    """Build public summaries from aggregate summaries and legacy rule hits."""
+    """Build public summaries from aggregate summaries and pair rule hits."""
+    public_aggregate_summaries = _consolidate_public_aggregate_summaries(
+        list(pipeline.aggregate_concern_summaries),
+    )
     summaries = [
         aggregate_summary_to_result_summary(summary)
-        for summary in pipeline.aggregate_concern_summaries
+        for summary in public_aggregate_summaries
     ]
 
     if pair_reports:
@@ -62,6 +67,73 @@ def build_public_result_summaries(
         )
 
     return dedupe_result_summaries(summaries)
+
+
+def _consolidate_public_aggregate_summaries(
+    summaries: list[AggregateConcernSummary],
+) -> list[AggregateConcernSummary]:
+    """Hide broad PD policy summaries already represented by shared effects.
+
+    Safety/tolerability aggregate summaries are useful when they add a broader
+    regimen-level concern. When every PD effect in one of those summaries is
+    already represented by a shared-PD-effect summary for the same drug set and
+    policy concern, the broad summary is redundant in public output.
+    """
+    shared_effects: set[tuple[str, tuple[str, ...], str]] = set()
+
+    for summary in summaries:
+        aggregate = summary.aggregate
+        if (
+            aggregate.aggregate_type == AGGREGATE_SHARED_PD_EFFECT
+            and aggregate.effect_id
+        ):
+            shared_effects.add(
+                (
+                    aggregate.effect_id,
+                    tuple(aggregate.drugs),
+                    aggregate.policy_concern,
+                )
+            )
+
+    out: list[AggregateConcernSummary] = []
+
+    for summary in summaries:
+        aggregate = summary.aggregate
+
+        if aggregate.aggregate_type not in {
+            AGGREGATE_SAFETY_CONCERN,
+            AGGREGATE_TOLERABILITY_CONCERN,
+        }:
+            out.append(summary)
+            continue
+
+        effect_ids = {
+            member.effect_id
+            for member in aggregate.members
+            if member.effect_id
+        }
+
+        if not effect_ids:
+            out.append(summary)
+            continue
+
+        drugs = tuple(aggregate.drugs)
+        fully_represented = all(
+            (
+                effect_id,
+                drugs,
+                aggregate.policy_concern,
+            )
+            in shared_effects
+            for effect_id in effect_ids
+        )
+
+        if fully_represented:
+            continue
+
+        out.append(summary)
+
+    return out
 
 
 def aggregate_summary_to_result_summary(
@@ -87,7 +159,7 @@ def aggregate_summary_to_result_summary(
 def build_legacy_rule_result_summaries(
     pair_reports: list[PairReport],
 ) -> list[ResultSummary]:
-    """Convert legacy rule hits into public result summaries."""
+    """Convert pair rule hits into public result summaries."""
     summaries = []
 
     for report in pair_reports:
@@ -103,7 +175,7 @@ def legacy_rule_hit_to_result_summary(
     report: PairReport,
     hit: RuleHit,
 ) -> ResultSummary:
-    """Convert one legacy rule hit into a public result summary."""
+    """Convert one pair rule hit into a public result summary."""
     return ResultSummary(
         source=RESULT_SOURCE_RULE,
         title=hit.name,
@@ -184,24 +256,6 @@ def _aggregate_summary_title(summary: AggregateConcernSummary) -> str:
 
 def _effect_display_label(effect_id: str | None) -> str:
     return effect_display_label(effect_id)
-
-def _public_explanation(explanation: str) -> str:
-    out = explanation
-
-    for effect_id in sorted(PUBLIC_EFFECT_LABELS, key=len, reverse=True):
-        effect_label = _effect_display_label(effect_id)
-        out = out.replace(
-            f"{effect_id}-related pharmacodynamic effect",
-            _public_pd_effect_phrase(effect_id, effect_label),
-        )
-        out = _replace_public_effect_id(
-            out,
-            effect_id=effect_id,
-            effect_label=effect_label,
-        )
-
-    return out
-
 
 def _public_explanation(explanation: str) -> str:
     out = explanation

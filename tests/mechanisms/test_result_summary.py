@@ -109,7 +109,7 @@ def test_aggregate_exposure_summary_to_result_summary_uses_public_title():
     assert "vortioxetine exposure" in result.explanation
 
 
-def test_legacy_rule_hit_to_result_summary_uses_public_shape():
+def test_rule_hit_to_result_summary_uses_public_shape():
     hit = RuleHit(
         rule_id="pd_test_rule",
         name="Additive CNS depression",
@@ -135,17 +135,18 @@ def test_legacy_rule_hit_to_result_summary_uses_public_shape():
     result = legacy_rule_hit_to_result_summary(report, hit)
 
     assert result.source == RESULT_SOURCE_RULE
+    assert result.source == "rule_hit"
     assert result.title == "Additive CNS depression"
     assert result.drugs == ("alcohol", "clonazepam")
     assert result.concern_type == "PD"
     assert result.severity_label == "caution"
-    assert result.evidence_label == "legacy_rule"
+    assert result.evidence_label == "rule_engine"
     assert result.explanation == (
         "Both selected drugs may contribute to CNS depression."
     )
 
 
-def test_build_public_result_summaries_combines_aggregate_and_legacy_rules():
+def test_build_public_result_summaries_combines_aggregate_and_rule_hits():
     aggregate = AggregateConcern(
         aggregate_type=AGGREGATE_SHARED_PD_EFFECT,
         anchor="sedation",

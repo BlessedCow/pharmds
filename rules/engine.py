@@ -8,6 +8,7 @@ from typing import Any
 
 from core.enums import Domain, RuleClass, Severity
 from core.models import Facts, RuleHit
+from core.pd_effect_families import pd_effects_share_family
 from data.loaders import load_transporters
 
 
@@ -75,8 +76,11 @@ def rule_mechanisms(rule: Rule) -> list[str]:
     if "pd_overlap" in L:
         out.append("pd")
 
-    if not out and rule.domain == Domain.PK and "drug_pair" in L:
-        out.append("named_pair")
+    if not out and "drug_pair" in L:
+        if rule.domain == Domain.PK:
+            out.append("named_pair")
+        elif rule.domain == Domain.PD:
+            out.append("pd")
 
     return out
 
@@ -175,7 +179,7 @@ def _drug_has_pd_effect(
 ) -> bool:
     order = {"low": 1, "medium": 2, "high": 3}
     for e in facts.pd_effects.get(drug_id, []):
-        if e.effect_id != effect_id:
+        if not pd_effects_share_family(e.effect_id, effect_id):
             continue
         if min_magnitude is None:
             return True

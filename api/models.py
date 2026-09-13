@@ -54,6 +54,13 @@ class AnalyzeRequest(BaseModel):
         default=False,
         description="Whether to include patient-specific bleeding risk context.",
     )
+    pd_effects: list[str] | None = Field(
+        default=None,
+        description=(
+            "Optional canonical PD effect IDs to include. "
+            "Null means include all supported PD effects."
+        ),
+    )
 
 
 class AnalyzePkTimingInputPayload(BaseModel):
@@ -84,6 +91,18 @@ class AnalyzePayload(BaseModel):
 class AnalyzeResponse(BaseModel):
     ok: bool
     payload: AnalyzePayload
+    pd_effects: list[str] | None = Field(
+        default=None,
+        description=(
+            "Optional canonical PD effect IDs to include. "
+            "Null means include all supported PD effects."
+        ),
+    )
+
+
+class PdEffectOptionResponse(BaseModel):
+    id: str
+    label: str
 
 
 class MetadataResponse(BaseModel):
@@ -91,6 +110,7 @@ class MetadataResponse(BaseModel):
     patient_flags: list[str]
     routes: list[str]
     release_types: list[str]
+    pd_effects: list[PdEffectOptionResponse]
 
 
 class DrugFormulationResponse(BaseModel):

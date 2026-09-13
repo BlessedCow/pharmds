@@ -1,0 +1,29 @@
+{
+  "id": "PD_HYPERKALEMIA_RISK_ADDITIVE",
+  "name": "Additive hyperkalemia risk",
+  "domain": "PD",
+  "severity": "caution",
+  "rule_class": "adjust_monitor",
+  "actions": [
+    "Review potassium-related risk factors and concurrent medications.",
+    "Monitor serum potassium when clinically appropriate.",
+    "Use additional caution in patients with kidney disease, diabetes, dehydration, or other hyperkalemia risk factors."
+  ],
+  "logic": {
+    "pd_overlap": {
+      "effect_id": "hyperkalemia_risk",
+      "min_magnitude": "medium"
+    },
+    "rationale": [
+      "Both drugs can contribute to hyperkalemia risk.",
+      "Combined effects may increase the likelihood of clinically important potassium elevation."
+    ]
+  },
+  "explanation_template": "{A_name} and {B_name} both contribute hyperkalemia risk. Combined use may increase potassium-related risk and may warrant patient-specific monitoring (educational).",
+  "references": [
+    {
+      "source": "Educational note",
+      "citation": "PD stacking: overlapping hyperkalemia risk may increase potassium-related adverse effects."
+    }
+  ]
+}
