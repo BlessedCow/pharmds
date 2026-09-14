@@ -16,6 +16,14 @@ export type DrugFormulation = {
   release_types: string[];
 };
 
+export type DrugDosageOption = {
+  route: string;
+  release_type: string;
+  dosage_form: string;
+  strength_value: number;
+  strength_unit: string;
+};
+
 export type DrugCatalogEntry = {
   id: string;
   generic_name: string;
@@ -23,6 +31,7 @@ export type DrugCatalogEntry = {
   aliases: string[];
   release_types: string[];
   formulations: DrugFormulation[];
+  dosage_options: DrugDosageOption[];
 };
 
 export type DrugCatalogResponse = {
@@ -33,6 +42,9 @@ export type AnalyzeDrugInput = {
   name: string;
   route?: string | null;
   release_type?: string | null;
+  strength_value?: number | null;
+  strength_unit?: string | null;
+  dosage_form?: string | null;
 };
 
 export type AnalyzeRequest = {
@@ -112,6 +124,7 @@ export type AnalyzeResponse = {
         release_type_source: string;
       };
       pk_timing_by_drug: Array<Record<string, string | null>>;
+      drug_inputs: Array<Record<string, unknown>>;
     };
     pairs: PairFinding[];
     pk_timing_context: Array<Record<string, unknown>>;

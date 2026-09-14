@@ -34,6 +34,15 @@ def _build_catalog_connection() -> sqlite3.Connection:
             route TEXT NOT NULL,
             release_type TEXT NOT NULL
         );
+
+        CREATE TABLE drug_dosage_option (
+            drug_id TEXT NOT NULL,
+            route TEXT NOT NULL,
+            release_type TEXT NOT NULL,
+            dosage_form TEXT NOT NULL,
+            strength_value REAL NOT NULL,
+            strength_unit TEXT NOT NULL
+        );
         """)
 
     conn.executemany(
@@ -85,6 +94,21 @@ def _build_catalog_connection() -> sqlite3.Connection:
             ("venlafaxine", "oral", "ir"),
             ("venlafaxine", "oral", "er"),
             ("vortioxetine", "oral", "ir"),
+        ],
+    )
+
+
+    conn.executemany(
+        """
+        INSERT INTO drug_dosage_option(
+            drug_id, route, release_type, dosage_form, strength_value, strength_unit
+        )
+        VALUES(?, ?, ?, ?, ?, ?)
+        """,
+        [
+            ("venlafaxine", "oral", "ir", "tablet", 25, "mg"),
+            ("venlafaxine", "oral", "er", "capsule", 75, "mg"),
+            ("vortioxetine", "oral", "ir", "tablet", 10, "mg"),
         ],
     )
 
@@ -175,3 +199,24 @@ def test_list_drug_catalog_includes_formulations():
         "er",
         "ir",
     )
+
+
+def test_list_drug_catalog_includes_dosage_options():
+    conn = _build_catalog_connection()
+    entries = {entry.id: entry for entry in list_drug_catalog(conn)}
+    options = entries["venlafaxine"].dosage_options
+    assert len(options) == 2
+    assert options[0].route == "oral"
+    assert options[0].release_type == "er"
+    assert options[0].dosage_form == "capsule"
+    assert options[0].strength_value == 75
+    assert options[0].strength_unit == "mg"
+
+
+def test_get_drug_catalog_entry_includes_dosage_options():
+    conn = _build_catalog_connection()
+    entry = get_drug_catalog_entry(conn, "vortioxetine")
+    assert entry is not None
+    assert len(entry.dosage_options) == 1
+    assert entry.dosage_options[0].strength_value == 10
+    assert entry.dosage_options[0].dosage_form == "tablet"

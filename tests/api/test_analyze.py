@@ -330,3 +330,48 @@ def test_analyze_rejects_unknown_pd_effect_filter() -> None:
             "definitely_not_a_pd_effect",
         ],
     }
+
+def test_analyze_preserves_selected_dosage_metadata() -> None:
+    client = TestClient(app)
+    response = client.post(
+        "/analyze",
+        json={
+            "drugs": [
+                {
+                    "name": "propranolol",
+                    "route": "oral",
+                    "release_type": "ir",
+                    "strength_value": 10,
+                    "strength_unit": "mg",
+                    "dosage_form": "tablet",
+                },
+                {
+                    "name": "vortioxetine",
+                    "route": "oral",
+                    "release_type": "ir",
+                    "strength_value": 20,
+                    "strength_unit": "mg",
+                    "dosage_form": "tablet",
+                },
+            ]
+        },
+    )
+    assert response.status_code == 200
+    assert response.json()["payload"]["input"]["drug_inputs"] == [
+        {
+            "drug_id": "propranolol",
+            "route": "oral",
+            "release_type": "ir",
+            "strength_value": 10.0,
+            "strength_unit": "mg",
+            "dosage_form": "tablet",
+        },
+        {
+            "drug_id": "vortioxetine",
+            "route": "oral",
+            "release_type": "ir",
+            "strength_value": 20.0,
+            "strength_unit": "mg",
+            "dosage_form": "tablet",
+        },
+    ]

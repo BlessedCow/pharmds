@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException, status
 from api.models import (
     DrugCatalogEntryResponse,
     DrugCatalogResponse,
+    DrugDosageOptionResponse,
     DrugFormulationResponse,
 )
 from app.cli import DB_PATH, connect
@@ -29,11 +30,19 @@ def _serialize_drug(
         formulations=[
             DrugFormulationResponse(
                 route=formulation.route,
-                release_types=list(
-                    formulation.release_types
-                ),
+                release_types=list(formulation.release_types),
             )
             for formulation in entry.formulations
+        ],
+        dosage_options=[
+            DrugDosageOptionResponse(
+                route=option.route,
+                release_type=option.release_type,
+                dosage_form=option.dosage_form,
+                strength_value=option.strength_value,
+                strength_unit=option.strength_unit,
+            )
+            for option in entry.dosage_options
         ],
     )
 

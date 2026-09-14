@@ -37,10 +37,29 @@ def _resolve_request_pk_timing_inputs(
     ]
 
 
+def _resolve_request_structured_drug_inputs(
+    request: AnalyzeRequest,
+) -> list[dict[str, object | None]] | None:
+    if request.drugs is None:
+        return None
+
+    return [
+        {
+            "route": drug.route,
+            "release_type": drug.release_type,
+            "strength_value": drug.strength_value,
+            "strength_unit": drug.strength_unit,
+            "dosage_form": drug.dosage_form,
+        }
+        for drug in request.drugs
+    ]
+
+
 @router.post("", response_model=AnalyzeResponse)
 def analyze_drugs(request: AnalyzeRequest) -> AnalyzeResponse:
     drug_names = _resolve_request_drug_names(request)
     pk_timing_inputs = _resolve_request_pk_timing_inputs(request)
+    structured_drug_inputs = _resolve_request_structured_drug_inputs(request)
 
     if request.pd_effects is not None:
         unsupported_pd_effects = sorted(
@@ -62,6 +81,7 @@ def analyze_drugs(request: AnalyzeRequest) -> AnalyzeResponse:
         route=request.route,
         release_type=request.release_type,
         pk_timing_inputs=pk_timing_inputs,
+        structured_drug_inputs=structured_drug_inputs,
         qt_risk=request.qt_risk,
         bleeding_risk=request.bleeding_risk,
         pd_effects=request.pd_effects,

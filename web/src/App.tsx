@@ -5,6 +5,7 @@ import { analyzeDrugs, fetchDrugCatalog, fetchMetadata } from "./api/client";
 import type {
   AnalyzeResponse,
   DrugCatalogEntry,
+  DrugDosageOption,
   MetadataResponse,
   PairFinding,
   RuleHit,
@@ -15,6 +16,9 @@ type DrugFormState = {
   route: string;
   releaseType: string;
   selectedDrugId: string | null;
+  strengthValue: number | null;
+  strengthUnit: string | null;
+  dosageForm: string | null;
 };
 
 type Page = "analyzer" | "drug-database";
@@ -25,12 +29,18 @@ const DEFAULT_DRUGS: DrugFormState[] = [
     route: "oral",
     releaseType: "er",
     selectedDrugId: "propranolol",
+    strengthValue: null,
+    strengthUnit: null,
+    dosageForm: null,
   },
   {
     name: "vortioxetine",
     route: "oral",
     releaseType: "ir",
     selectedDrugId: "vortioxetine",
+    strengthValue: null,
+    strengthUnit: null,
+    dosageForm: null,
   },
 ];
 
@@ -39,6 +49,9 @@ const EMPTY_DRUG: DrugFormState = {
   route: "oral",
   releaseType: "unknown",
   selectedDrugId: null,
+  strengthValue: null,
+  strengthUnit: null,
+  dosageForm: null,
 };
 
 function App() {
@@ -128,6 +141,9 @@ function App() {
           name: drug.selectedDrugId ?? drug.name.trim(),
           route: drug.route || null,
           release_type: drug.releaseType || null,
+          strength_value: drug.strengthValue,
+          strength_unit: drug.strengthUnit,
+          dosage_form: drug.dosageForm,
         })),
         domain,
         qt_risk: qtRisk,
@@ -346,7 +362,7 @@ function DrugDatabasePage({
             <h2 className="text-2xl font-semibold text-white">Drug Database</h2>
             <p className="max-w-3xl text-sm leading-6 text-slate-400">
               Browse the medications currently available to the PharmDS analysis
-              engine, including aliases and curated release types.
+              engine, including aliases, formulations, and curated strengths.
             </p>
           </div>
 
@@ -370,7 +386,7 @@ function DrugDatabasePage({
           />
         </label>
 
-        <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
           <label className="block text-sm font-medium text-slate-300">
             Drug class
             <select
@@ -505,6 +521,26 @@ function DrugCatalogCard({ drug }: { drug: DrugCatalogEntry }) {
                 {formatReleaseType(releaseType)}
               </span>
             ))}
+          </dd>
+        </div>
+
+        <div>
+          <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            Curated strengths
+          </dt>
+          <dd className="mt-2 flex flex-wrap gap-2">
+            {drug.dosage_options.length ? (
+              drug.dosage_options.map((option) => (
+                <span
+                  className="rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs text-slate-300"
+                  key={dosageOptionKey(option)}
+                >
+                  {formatDosageOption(option)}
+                </span>
+              ))
+            ) : (
+              <span className="text-sm text-slate-500">Not curated</span>
+            )}
           </dd>
         </div>
       </dl>
@@ -862,6 +898,24 @@ function DrugInputCard({
     ? selectedFormulation.release_types
     : ["unknown"];
 
+  const dosageOptions = (selectedCatalogDrug?.dosage_options ?? []).filter(
+    (option) =>
+      option.route === drug.route && option.release_type === drug.releaseType,
+  );
+
+  const selectedDosageKey =
+    drug.strengthValue === null ||
+    drug.strengthUnit === null ||
+    drug.dosageForm === null
+      ? ""
+      : dosageOptionKey({
+          route: drug.route,
+          release_type: drug.releaseType,
+          dosage_form: drug.dosageForm,
+          strength_value: drug.strengthValue,
+          strength_unit: drug.strengthUnit,
+        });
+
   const suggestions = getDrugSuggestions(drug.name, drugCatalog);
 
   return (
@@ -899,6 +953,9 @@ function DrugInputCard({
                 route: "unknown",
                 releaseType: "unknown",
                 selectedDrugId: null,
+                strengthValue: null,
+                strengthUnit: null,
+                dosageForm: null,
               });
             }}
             placeholder="vortioxetine"
@@ -931,6 +988,9 @@ function DrugInputCard({
                 route,
                 releaseType,
                 selectedDrugId: entry.id,
+                strengthValue: null,
+                strengthUnit: null,
+                dosageForm: null,
               });
             }}
             suggestions={suggestions}
@@ -967,6 +1027,9 @@ function DrugInputCard({
                 releaseType: nextReleaseTypes.includes(drug.releaseType)
                   ? drug.releaseType
                   : (nextReleaseTypes[0] ?? "unknown"),
+                strengthValue: null,
+                strengthUnit: null,
+                dosageForm: null,
               });
             }}
             value={drug.route}
@@ -987,6 +1050,9 @@ function DrugInputCard({
               onChange({
                 ...drug,
                 releaseType: event.target.value,
+                strengthValue: null,
+                strengthUnit: null,
+                dosageForm: null,
               })
             }
             value={drug.releaseType}
@@ -994,6 +1060,36 @@ function DrugInputCard({
             {releaseTypes.map((releaseType) => (
               <option key={releaseType} value={releaseType}>
                 {formatReleaseType(releaseType)}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="block text-sm font-medium text-slate-300">
+          Strength (optional)
+          <select
+            className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+            disabled={!dosageOptions.length}
+            onChange={(event) => {
+              const option = dosageOptions.find(
+                (candidate) => dosageOptionKey(candidate) === event.target.value,
+              );
+
+              onChange({
+                ...drug,
+                strengthValue: option?.strength_value ?? null,
+                strengthUnit: option?.strength_unit ?? null,
+                dosageForm: option?.dosage_form ?? null,
+              });
+            }}
+            value={selectedDosageKey}
+          >
+            <option value="">
+              {dosageOptions.length ? "Not specified" : "Not curated"}
+            </option>
+            {dosageOptions.map((option) => (
+              <option key={dosageOptionKey(option)} value={dosageOptionKey(option)}>
+                {formatDosageOption(option)}
               </option>
             ))}
           </select>
@@ -1611,6 +1707,20 @@ function formatDrugName(value: string): string {
   return value
     .replace(/_/g, " ")
     .replace(/\b\w/g, (letter: string) => letter.toUpperCase());
+}
+
+function dosageOptionKey(option: DrugDosageOption): string {
+  return [
+    option.route,
+    option.release_type,
+    option.dosage_form,
+    String(option.strength_value),
+    option.strength_unit,
+  ].join("|");
+}
+
+function formatDosageOption(option: DrugDosageOption): string {
+  return `${option.strength_value} ${option.strength_unit} ${option.dosage_form} · ${formatRoute(option.route)} ${formatReleaseType(option.release_type)}`;
 }
 
 function formatRoute(value: string): string {

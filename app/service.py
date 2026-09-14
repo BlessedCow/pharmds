@@ -115,6 +115,31 @@ def _build_pk_timing_entries(
     return entries
 
 
+def _build_structured_drug_input_entries(
+    *,
+    drug_ids: list[str],
+    structured_drug_inputs: list[dict[str, object | None]] | None,
+) -> list[dict[str, object | None]]:
+    if structured_drug_inputs is None:
+        return []
+
+    return [
+        {
+            "drug_id": drug_id,
+            "route": item.get("route"),
+            "release_type": item.get("release_type"),
+            "strength_value": item.get("strength_value"),
+            "strength_unit": item.get("strength_unit"),
+            "dosage_form": item.get("dosage_form"),
+        }
+        for drug_id, item in zip(
+            drug_ids,
+            structured_drug_inputs,
+            strict=False,
+        )
+    ]
+
+
 def _build_json_analyze_payload(
     *,
     facts: Any,
@@ -131,6 +156,7 @@ def _build_json_analyze_payload(
     route: str | None,
     release_type: str | None,
     pk_timing_inputs: list[dict[str, str | None]] | None,
+    structured_drug_inputs: list[dict[str, object | None]] | None = None,
 ) -> dict[str, Any]:
     """Build the JSON/API-oriented success payload."""
     payload = build_json_payload(
@@ -155,6 +181,10 @@ def _build_json_analyze_payload(
         release_type=release_type,
     )
     payload["input"]["pk_timing_by_drug"] = pk_timing_entries
+    payload["input"]["drug_inputs"] = _build_structured_drug_input_entries(
+        drug_ids=drug_ids,
+        structured_drug_inputs=structured_drug_inputs,
+    )
 
     payload["mechanism_pipeline"] = mechanism_pipeline_json
     payload["public_result_summaries"] = result_summaries_to_json_dicts(
@@ -264,6 +294,7 @@ def analyze_names(
     as_json_payload: bool = False,
     input_drug_text: str | None = None,
     pk_timing_inputs: list[dict[str, str | None]] | None = None,
+    structured_drug_inputs: list[dict[str, object | None]] | None = None,
 ) -> AnalyzeResult:
     """
     Analyze drug interactions from a list of drug strings.
@@ -358,6 +389,7 @@ def analyze_names(
                 route=route,
                 release_type=release_type,
                 pk_timing_inputs=pk_timing_inputs,
+                structured_drug_inputs=structured_drug_inputs,
             ),
         )
 

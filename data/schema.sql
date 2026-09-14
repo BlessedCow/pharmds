@@ -42,6 +42,28 @@ CREATE INDEX IF NOT EXISTS idx_drug_formulation_drug_id ON drug_formulation (dru
 
 CREATE INDEX IF NOT EXISTS idx_drug_formulation_route ON drug_formulation (route);
 
+-- Curated available strengths/forms. These are reference options, not prescribing recommendations.
+CREATE TABLE
+  IF NOT EXISTS drug_dosage_option (
+    drug_id TEXT NOT NULL,
+    route TEXT NOT NULL,
+    release_type TEXT NOT NULL,
+    dosage_form TEXT NOT NULL,
+    strength_value REAL NOT NULL CHECK (strength_value > 0),
+    strength_unit TEXT NOT NULL,
+    PRIMARY KEY (
+      drug_id,
+      route,
+      release_type,
+      dosage_form,
+      strength_value,
+      strength_unit
+    ),
+    FOREIGN KEY (drug_id) REFERENCES drug (id) ON DELETE CASCADE
+  );
+
+CREATE INDEX IF NOT EXISTS idx_drug_dosage_option_drug_id ON drug_dosage_option (drug_id);
+
 -- Enzymes (CYP, etc.)
 CREATE TABLE
   IF NOT EXISTS enzyme (

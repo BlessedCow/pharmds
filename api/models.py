@@ -19,6 +19,20 @@ class AnalyzeDrugInput(BaseModel):
         description="Optional release type for this drug's PK timing lookup.",
     )
 
+    strength_value: float | None = Field(
+        default=None,
+        gt=0,
+        description="Optional selected curated strength value.",
+    )
+    strength_unit: str | None = Field(
+        default=None,
+        description="Unit for the selected curated strength.",
+    )
+    dosage_form: str | None = Field(
+        default=None,
+        description="Dosage form for the selected curated strength.",
+    )
+
 
 class AnalyzeRequest(BaseModel):
     drug_names: list[str] | None = Field(
@@ -76,6 +90,7 @@ class AnalyzeInputPayload(BaseModel):
     patient_flags: dict[str, bool]
     pk_timing: AnalyzePkTimingInputPayload
     pk_timing_by_drug: list[dict[str, Any]] = Field(default_factory=list)
+    drug_inputs: list[dict[str, Any]] = Field(default_factory=list)
 
 class AnalyzePayload(BaseModel):
     schema_version: str
@@ -118,6 +133,14 @@ class DrugFormulationResponse(BaseModel):
     release_types: list[str]
 
 
+class DrugDosageOptionResponse(BaseModel):
+    route: str
+    release_type: str
+    dosage_form: str
+    strength_value: float
+    strength_unit: str
+
+
 class DrugCatalogEntryResponse(BaseModel):
     id: str
     generic_name: str
@@ -125,6 +148,7 @@ class DrugCatalogEntryResponse(BaseModel):
     aliases: list[str]
     release_types: list[str]
     formulations: list[DrugFormulationResponse]
+    dosage_options: list[DrugDosageOptionResponse]
 
 
 class DrugCatalogResponse(BaseModel):

@@ -14,6 +14,7 @@ def test_drugs_returns_catalog() -> None:
 
     assert "drugs" in body
     assert isinstance(body["drugs"], list)
+    assert "dosage_options" in body["drugs"][0]
     assert len(body["drugs"]) > 0
 
 
@@ -103,6 +104,7 @@ def test_get_drug_returns_single_catalog_entry() -> None:
         "er",
         "ir",
     ]
+    assert body["dosage_options"] == []
     assert body["formulations"] == [
         {
             "route": "oral",

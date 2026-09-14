@@ -198,6 +198,26 @@ def seed(conn: sqlite3.Connection) -> None:
                     ),
                 )
 
+        # Curated dosage / strength options
+        for dosage in d.get("dosage_options", []) or []:
+            upsert(
+                conn,
+                (
+                    "INSERT OR REPLACE INTO drug_dosage_option("
+                    "drug_id,route,release_type,dosage_form,"
+                    "strength_value,strength_unit"
+                    ") VALUES(?,?,?,?,?,?)"
+                ),
+                (
+                    drug_id,
+                    str(dosage["route"]).strip().lower(),
+                    str(dosage["release_type"]).strip().lower(),
+                    str(dosage["dosage_form"]).strip(),
+                    float(dosage["strength_value"]),
+                    str(dosage["strength_unit"]).strip(),
+                ),
+            )
+
         # Enzyme roles (FK to enzyme + drug)
         for r in d.get("enzymes", []) or []:
             upsert(

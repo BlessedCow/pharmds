@@ -42,6 +42,14 @@ _KNOWN_ENZYMES = {
 _DRUG_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_+-]*$")
 
 
+def known_enzyme_ids() -> tuple[str, ...]:
+    return tuple(sorted(_KNOWN_ENZYMES, key=str.casefold))
+
+
+def known_transporter_ids() -> tuple[str, ...]:
+    return tuple(sorted(load_transporters(), key=str.casefold))
+
+
 @dataclass(frozen=True)
 class CurationError:
     path: str
@@ -383,6 +391,128 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
                                 ),
                             )
                         )
+
+        # Dosage / strength options
+        dosage_options = d.get("dosage_options", [])
+        if dosage_options is None:
+            dosage_options = []
+        if not isinstance(dosage_options, list):
+            errors.append(
+                CurationError(
+                    prefix + ".dosage_options",
+                    "dosage_options must be a list.",
+                )
+            )
+            dosage_options = []
+
+        formulation_pairs: set[tuple[str, str]] = set()
+        if isinstance(formulations, list):
+            for formulation in formulations:
+                if not isinstance(formulation, dict):
+                    continue
+                route = formulation.get("route")
+                release_values = formulation.get("release_types")
+                if not isinstance(route, str) or not isinstance(release_values, list):
+                    continue
+                for release_value in release_values:
+                    if isinstance(release_value, str):
+                        formulation_pairs.add(
+                            (route.strip().lower(), release_value.strip().lower())
+                        )
+
+        seen_dosages: set[tuple[str, str, str, float, str]] = set()
+        for j, dosage in enumerate(dosage_options):
+            p2 = f"{prefix}.dosage_options[{j}]"
+            if not isinstance(dosage, dict):
+                errors.append(CurationError(p2, "dosage option must be an object."))
+                continue
+
+            route = dosage.get("route")
+            release_type = dosage.get("release_type")
+            dosage_form = dosage.get("dosage_form")
+            strength_value = dosage.get("strength_value")
+            strength_unit = dosage.get("strength_unit")
+
+            normalized_route = (
+                route.strip().lower() if isinstance(route, str) else ""
+            )
+            normalized_release = (
+                release_type.strip().lower()
+                if isinstance(release_type, str)
+                else ""
+            )
+
+            if normalized_route not in _ALLOWED_ROUTES:
+                errors.append(
+                    CurationError(
+                        p2 + ".route",
+                        f"route must be one of {sorted(_ALLOWED_ROUTES)}.",
+                    )
+                )
+            if normalized_release not in _ALLOWED_RELEASE_TYPES:
+                errors.append(
+                    CurationError(
+                        p2 + ".release_type",
+                        (
+                            "release_type must be one of "
+                            f"{sorted(_ALLOWED_RELEASE_TYPES)}."
+                        ),
+                    )
+                )
+            if (normalized_route, normalized_release) not in formulation_pairs:
+                errors.append(
+                    CurationError(
+                        p2,
+                        (
+                            "dosage route/release_type must match an existing "
+                            "formulation for this drug."
+                        ),
+                    )
+                )
+
+            if not isinstance(dosage_form, str) or not dosage_form.strip():
+                errors.append(
+                    CurationError(
+                        p2 + ".dosage_form",
+                        "dosage_form must be a non-empty string.",
+                    )
+                )
+            if (
+                isinstance(strength_value, bool)
+                or not isinstance(strength_value, (int, float))
+                or float(strength_value) <= 0
+            ):
+                errors.append(
+                    CurationError(
+                        p2 + ".strength_value",
+                        "strength_value must be a number greater than 0.",
+                    )
+                )
+                continue
+            if not isinstance(strength_unit, str) or not strength_unit.strip():
+                errors.append(
+                    CurationError(
+                        p2 + ".strength_unit",
+                        "strength_unit must be a non-empty string.",
+                    )
+                )
+                continue
+
+            key = (
+                normalized_route,
+                normalized_release,
+                str(dosage_form).strip().casefold(),
+                float(strength_value),
+                strength_unit.strip().casefold(),
+            )
+            if key in seen_dosages:
+                errors.append(
+                    CurationError(
+                        p2,
+                        "Duplicate dosage option for this drug.",
+                    )
+                )
+            seen_dosages.add(key)
 
         # Enzymes
         enzymes = d.get("enzymes", [])
