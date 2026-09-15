@@ -50,6 +50,12 @@ def _resolve_request_structured_drug_inputs(
             "strength_value": drug.strength_value,
             "strength_unit": drug.strength_unit,
             "dosage_form": drug.dosage_form,
+            "dose_value": drug.dose_value,
+            "dose_unit": drug.dose_unit,
+            "frequency": drug.frequency,
+            "schedule_type": drug.schedule_type,
+            "administrations_per_day": drug.administrations_per_day,
+            "max_administrations_per_day": drug.max_administrations_per_day,
         }
         for drug in request.drugs
     ]

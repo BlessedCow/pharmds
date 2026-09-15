@@ -323,4 +323,4 @@ def test_pairwise_comparison_harness_audit_doc_tracks_scope() -> None:
     assert "Known gaps" in audit_text
     assert "`PK_CYP3A4_STRONG_INHIB`" in audit_text
     assert "`PD_QT_ADDITIVE`" in audit_text
-    assert "No public CLI, Streamlit, or JSON output is changed" in audit_text
+    assert "No public CLI, web, or JSON output is changed" in audit_text

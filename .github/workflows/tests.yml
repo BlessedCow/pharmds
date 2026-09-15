@@ -4,16 +4,57 @@ on:
   push:
   pull_request:
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
-    strategy:
-      matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+jobs:
+  quality:
+    name: Static checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,cli]"
+
+      - name: Ruff
+        run: ruff check .
+
+      - name: Validate rule definitions
+        run: python -m rules.validate_rules
+
+      - name: Validate curated drug data
+        run: |
+          python -c "from data.curation.validate import assert_valid_drugs_curation; assert_valid_drugs_curation()"
+
+  backend:
+    name: Backend tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,13 +66,32 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev,cli]"
-          pip install pytest ruff
 
-      - name: Lint
-        run: ruff check .
-
-      - name: Validate rule definitions
-        run: python -m rules.validate_rules
-
-      - name: Tests
+      - name: Run backend tests
         run: pytest -q
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build

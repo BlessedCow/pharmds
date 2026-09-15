@@ -70,7 +70,8 @@ def rule_mechanisms(rule: Rule) -> list[str]:
         elif t_family == "OATP" or (t_id or "").startswith("OATP"):
             out.append("oatp")
         else:
-            # generic transporter tag so users can still filter even if family is new/unknown
+            # Generic transporter tag keeps filtering available even when
+            # the transporter family is new or unknown.
             out.append("transporter")
 
     if "pd_overlap" in L:
@@ -187,6 +188,65 @@ def _drug_has_pd_effect(
             return True
     return False
 
+
+
+
+def _dose_guard_matches(
+    facts: Facts,
+    *,
+    drug_id: str,
+    guard: dict[str, Any],
+) -> bool:
+    regimen = facts.regimen_doses.get(drug_id)
+    if regimen is None:
+        return False
+
+    unit = guard.get("unit")
+    if unit and regimen.dose_unit.casefold() != str(unit).casefold():
+        return False
+
+    schedule_type = guard.get("schedule_type")
+    if schedule_type and regimen.schedule_type != schedule_type:
+        return False
+
+    frequency_code = guard.get("frequency_code")
+    if frequency_code and regimen.frequency_code != str(frequency_code).casefold():
+        return False
+
+    timing_type = guard.get("timing_type")
+    if timing_type and regimen.timing_type != timing_type:
+        return False
+
+    daypart = guard.get("daypart")
+    if daypart and regimen.daypart != daypart:
+        return False
+
+    interval_hours = guard.get("interval_hours")
+    if interval_hours is not None and regimen.interval_hours != float(interval_hours):
+        return False
+
+    around_the_clock = guard.get("around_the_clock")
+    if around_the_clock is not None:
+        if regimen.around_the_clock is not bool(around_the_clock):
+            return False
+
+    min_per_dose = guard.get("min_per_dose")
+    if min_per_dose is not None and regimen.dose_value < float(min_per_dose):
+        return False
+
+    min_scheduled_daily = guard.get("min_scheduled_daily")
+    if min_scheduled_daily is not None:
+        daily = regimen.scheduled_daily_dose
+        if daily is None or daily < float(min_scheduled_daily):
+            return False
+
+    min_prn_max_daily = guard.get("min_prn_max_daily")
+    if min_prn_max_daily is not None:
+        daily = regimen.prn_max_daily_dose
+        if daily is None or daily < float(min_prn_max_daily):
+            return False
+
+    return True
 
 def _ti_is(facts: Facts, drug_id: str, ti: str) -> bool:
     d = facts.drugs.get(drug_id)
@@ -332,6 +392,22 @@ def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> RuleHit | None:
     # Name constraints
     if not _matches_name_constraints(L, a, b):
         return None
+
+    # Optional regimen-dose guard. Existing rules are unaffected unless they
+    # explicitly opt into this block.
+    if "dose" in L:
+        dose_guard = L["dose"]
+        side = str(dose_guard.get("drug", "A")).upper()
+        dose_drug_id = a if side == "A" else b if side == "B" else None
+        if dose_drug_id is None:
+            return None
+        if not _dose_guard_matches(
+            facts,
+            drug_id=dose_drug_id,
+            guard=dose_guard,
+        ):
+            return None
+        inputs["dose_drug"] = dose_drug_id
 
     # Therapeutic index guard
     if "A_ti" in L:

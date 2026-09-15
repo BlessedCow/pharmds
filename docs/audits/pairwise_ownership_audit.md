@@ -7,7 +7,7 @@ This audit identifies what the older pairwise rule path still owns before any mi
 1. `rules.engine.load_rules()` loads JSON rule definitions from `rules/rule_defs/`.
 2. `rules.engine.evaluate_all()` evaluates ordered drug pairs and returns `RuleHit` objects.
 3. `reasoning.combine.build_pair_reports()` groups `RuleHit` objects into `PairReport` objects.
-4. CLI, JSON, service, Rich, and Streamlit outputs consume those `PairReport` and `RuleHit` objects.
+4. CLI, JSON, service, Rich, and web outputs consume those `PairReport` and `RuleHit` objects.
 
 ## Pairwise PK behaviors owned by the old rule engine
 
@@ -77,8 +77,8 @@ Current PD overlap inventory:
 - Plain CLI pairwise summaries and details in `app/cli.py`.
 - JSON `pairs` output in `app/json_output.py`.
 - Service payload fields in `app/service.py`.
-- Streamlit pair summaries in `app/streamlit_ui/pair_summary.py`.
-- Streamlit result state in `app/streamlit_ui/result_state.py`.
+- Web pair summaries in the React results interface.
+- React result state derived from FastAPI response payloads.
 - Regimen summary construction in `reasoning.combine.build_regimen_summary()`.
 - Legacy public result summaries in `core/mechanisms/result_summary.py`.
 - Tests that assert pairwise JSON, CLI, service, regimen, and public summary contracts.
@@ -122,7 +122,7 @@ The old path should not be replaced until the mechanism path can preserve or int
 - Directional PK display semantics.
 - Pairwise JSON `pairs` contract stability.
 - CLI plain and Rich pairwise output stability.
-- Streamlit pair summary behavior.
+- Web pair summary behavior.
 - Service payload compatibility for `pair_reports` and public result summaries.
 - Regimen summary counts, top-pair ranking, and pairwise hit counts.
 - Legacy evidence rendering for `RuleHit` objects.

@@ -375,3 +375,52 @@ def test_analyze_preserves_selected_dosage_metadata() -> None:
             "dosage_form": "tablet",
         },
     ]
+
+
+def test_analyze_preserves_regimen_schedule_context() -> None:
+    client = TestClient(app)
+
+    response = client.post(
+        "/analyze",
+        json={
+            "drugs": [
+                {
+                    "name": "propranolol",
+                    "route": "oral",
+                    "release_type": "ir",
+                    "dose_value": 20,
+                    "dose_unit": "mg",
+                    "frequency": "BID",
+                    "schedule_type": "scheduled",
+                },
+                {
+                    "name": "vortioxetine",
+                    "route": "oral",
+                    "release_type": "ir",
+                    "dose_value": 10,
+                    "dose_unit": "mg",
+                    "frequency": "QD",
+                    "schedule_type": "prn",
+                    "max_administrations_per_day": 1,
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    drug_inputs = response.json()["payload"]["input"]["drug_inputs"]
+
+    assert drug_inputs[0]["dose_value"] == 20
+    assert drug_inputs[0]["frequency"] == "BID"
+    assert drug_inputs[0]["frequency_code"] == "bid"
+    assert drug_inputs[0]["timing_type"] == "daily_count"
+    assert drug_inputs[0]["schedule_type"] == "scheduled"
+    assert drug_inputs[0]["inferred_administrations_per_day"] == 2
+    assert not drug_inputs[0]["around_the_clock"]
+
+    assert drug_inputs[1]["dose_value"] == 10
+    assert drug_inputs[1]["frequency_code"] == "qd"
+    assert drug_inputs[1]["timing_type"] == "daily_count"
+    assert drug_inputs[1]["schedule_type"] == "prn"
+    assert drug_inputs[1]["max_administrations_per_day"] == 1
+    assert drug_inputs[1]["inferred_prn_max_administrations_per_day"] == 1

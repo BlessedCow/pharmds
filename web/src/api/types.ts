@@ -45,6 +45,12 @@ export type AnalyzeDrugInput = {
   strength_value?: number | null;
   strength_unit?: string | null;
   dosage_form?: string | null;
+  dose_value?: number | null;
+  dose_unit?: string | null;
+  frequency?: string | null;
+  schedule_type?: "scheduled" | "prn" | null;
+  administrations_per_day?: number | null;
+  max_administrations_per_day?: number | null;
 };
 
 export type AnalyzeRequest = {
@@ -140,4 +146,28 @@ export type AnalyzeResponse = {
 
 export type ApiErrorResponse = {
   detail?: unknown;
+};
+
+
+export type KnowledgeStatusResponse = {
+  enabled: boolean;
+  available: boolean;
+  base_url_configured: boolean;
+  detail?: string | null;
+  model?: string | null;
+};
+
+export type KnowledgeSource = {
+  title?: string | null;
+  citation?: string | null;
+  url?: string | null;
+  excerpt?: string | null;
+  score?: number | null;
+};
+
+export type KnowledgeQueryResponse = {
+  informational_only: true;
+  answer: string;
+  sources: KnowledgeSource[];
+  model?: string | null;
 };

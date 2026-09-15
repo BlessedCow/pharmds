@@ -2,8 +2,8 @@ import json
 from types import SimpleNamespace
 
 from app.service import (
+    _build_internal_analyze_payload,
     _build_json_analyze_payload,
-    _build_streamlit_analyze_payload,
     analyze_names,
     analyze_text,
 )
@@ -33,7 +33,7 @@ def test_service_json_payload_includes_pk_timing_context() -> None:
     )
 
 
-def test_analyze_text_streamlit_payload_includes_stable_top_level_keys():
+def test_analyze_text_internal_payload_includes_stable_top_level_keys():
     result = analyze_text(
         "clarithromycin fluconazole",
         as_json_payload=False,
@@ -59,7 +59,7 @@ def test_analyze_text_streamlit_payload_includes_stable_top_level_keys():
     }
 
 
-def test_analyze_text_streamlit_payload_includes_mechanism_summaries():
+def test_analyze_text_internal_payload_includes_mechanism_summaries():
     result = analyze_text(
         "clarithromycin fluconazole",
         as_json_payload=False,
@@ -318,7 +318,7 @@ def test_build_json_analyze_payload_converts_public_summaries_to_dicts():
     ]
 
 
-def test_build_streamlit_analyze_payload_preserves_ui_objects():
+def test_build_internal_analyze_payload_preserves_ui_objects():
     facts = object()
     pair_report = object()
     public_summary = object()
@@ -328,7 +328,7 @@ def test_build_streamlit_analyze_payload_preserves_ui_objects():
     )
     mechanism_pipeline_json = {"aggregate_concern_summaries": [{}]}
 
-    payload = _build_streamlit_analyze_payload(
+    payload = _build_internal_analyze_payload(
         facts=facts,
         drug_ids=["clarithromycin", "fluconazole"],
         pair_reports=[pair_report],

@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from core.enums import Domain, RuleClass, Severity
+from core.regimen import RegimenDose
 
 
 @dataclass(frozen=True)
@@ -50,6 +51,7 @@ class Facts:
     transporter_roles: dict[str, list[TransporterRole]] = field(default_factory=dict)
     pd_effects: dict[str, list[PDEffect]] = field(default_factory=dict)
     patient_flags: dict[str, bool] = field(default_factory=dict)
+    regimen_doses: dict[str, RegimenDose] = field(default_factory=dict)
 
 
 @dataclass

@@ -30,12 +30,13 @@ from core.pk_timing import (
     describe_pk_timing_context,
     describe_pk_timing_context_from_entries,
 )
+from core.regimen import RegimenDose
 
 
 @dataclass(frozen=True)
 class AnalyzeResult:
     """
-    Small typed wrapper so Streamlit callers have predictable keys.
+    Small typed wrapper so service callers have predictable keys.
 
     - ok: False when there is a user-correctable issue
     (too few drugs, unknown drugs, etc.)
@@ -115,6 +116,36 @@ def _build_pk_timing_entries(
     return entries
 
 
+def _regimen_from_structured_input(
+    item: dict[str, object | None],
+) -> RegimenDose | None:
+    dose_value = item.get("dose_value")
+    dose_unit = item.get("dose_unit")
+    if dose_value is None or not dose_unit:
+        return None
+
+    return RegimenDose(
+        dose_value=float(dose_value),
+        dose_unit=str(dose_unit),
+        frequency=(
+            str(item["frequency"])
+            if item.get("frequency")
+            else None
+        ),
+        schedule_type=str(item.get("schedule_type") or "scheduled"),
+        administrations_per_day=(
+            float(item["administrations_per_day"])
+            if item.get("administrations_per_day") is not None
+            else None
+        ),
+        max_administrations_per_day=(
+            float(item["max_administrations_per_day"])
+            if item.get("max_administrations_per_day") is not None
+            else None
+        ),
+    )
+
+
 def _build_structured_drug_input_entries(
     *,
     drug_ids: list[str],
@@ -123,8 +154,13 @@ def _build_structured_drug_input_entries(
     if structured_drug_inputs is None:
         return []
 
-    return [
-        {
+    entries: list[dict[str, object | None]] = []
+    for drug_id, item in zip(
+        drug_ids,
+        structured_drug_inputs,
+        strict=False,
+    ):
+        entry: dict[str, object | None] = {
             "drug_id": drug_id,
             "route": item.get("route"),
             "release_type": item.get("release_type"),
@@ -132,12 +168,36 @@ def _build_structured_drug_input_entries(
             "strength_unit": item.get("strength_unit"),
             "dosage_form": item.get("dosage_form"),
         }
-        for drug_id, item in zip(
-            drug_ids,
-            structured_drug_inputs,
-            strict=False,
-        )
-    ]
+        regimen = _regimen_from_structured_input(item)
+        if regimen is not None:
+            entry.update(
+                {
+                    "dose_value": regimen.dose_value,
+                    "dose_unit": regimen.dose_unit,
+                    "frequency": item.get("frequency"),
+                    "schedule_type": regimen.schedule_type,
+                    "administrations_per_day": item.get(
+                        "administrations_per_day"
+                    ),
+                    "max_administrations_per_day": item.get(
+                        "max_administrations_per_day"
+                    ),
+                    "frequency_code": regimen.frequency_code,
+                    "timing_type": regimen.timing_type,
+                    "interval_hours": regimen.interval_hours,
+                    "daypart": regimen.daypart,
+                    "meal_relation": regimen.meal_relation,
+                    "around_the_clock": regimen.around_the_clock,
+                    "inferred_administrations_per_day": (
+                        regimen.inferred_administrations_per_day
+                    ),
+                    "inferred_prn_max_administrations_per_day": (
+                        regimen.inferred_prn_max_administrations_per_day
+                    ),
+                }
+            )
+        entries.append(entry)
+    return entries
 
 
 def _build_json_analyze_payload(
@@ -218,7 +278,7 @@ def _build_json_analyze_payload(
     return payload
 
 
-def _build_streamlit_analyze_payload(
+def _build_internal_analyze_payload(
     *,
     facts: Any,
     drug_ids: list[str],
@@ -232,7 +292,7 @@ def _build_streamlit_analyze_payload(
     mechanism_pipeline_json: dict[str, Any],
     public_result_summaries: list[ResultSummary],
 ) -> dict[str, Any]:
-    """Build the Streamlit-oriented success payload."""
+    """Build the internal object-oriented success payload."""
     return {
         "facts": facts,
         "drug_ids": drug_ids,
@@ -343,6 +403,16 @@ def analyze_names(
 
     facts = load_facts(conn, drug_ids, patient_flags)
 
+    if structured_drug_inputs is not None:
+        for drug_id, item in zip(
+            drug_ids,
+            structured_drug_inputs,
+            strict=False,
+        ):
+            regimen = _regimen_from_structured_input(item)
+            if regimen is not None:
+                facts.regimen_doses[drug_id] = regimen
+
     selected, templates, pair_reports = build_runtime_pair_reports(
         SimpleNamespace(
             domain=domain,
@@ -395,7 +465,7 @@ def analyze_names(
 
     return AnalyzeResult(
         ok=True,
-        payload=_build_streamlit_analyze_payload(
+        payload=_build_internal_analyze_payload(
             facts=facts,
             drug_ids=drug_ids,
             pair_reports=pair_reports,

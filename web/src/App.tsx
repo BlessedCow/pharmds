@@ -1,12 +1,20 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 
-import { analyzeDrugs, fetchDrugCatalog, fetchMetadata } from "./api/client";
+import {
+  analyzeDrugs,
+  fetchDrugCatalog,
+  fetchKnowledgeStatus,
+  fetchMetadata,
+  queryKnowledge,
+} from "./api/client";
 import type {
   AnalyzeResponse,
   DrugCatalogEntry,
   DrugDosageOption,
   MetadataResponse,
+  KnowledgeQueryResponse,
+  KnowledgeStatusResponse,
   PairFinding,
   RuleHit,
 } from "./api/types";
@@ -19,9 +27,44 @@ type DrugFormState = {
   strengthValue: number | null;
   strengthUnit: string | null;
   dosageForm: string | null;
+  doseValue: number | null;
+  doseUnit: string | null;
+  frequency: string;
+  scheduleType: "scheduled" | "prn";
+  maxAdministrationsPerDay: number | null;
 };
 
-type Page = "analyzer" | "drug-database";
+type Page = "analyzer" | "drug-database" | "knowledge";
+
+const REGIMEN_FREQUENCY_OPTIONS = [
+  "QAM",
+  "QPM",
+  "QHS",
+  "HS",
+  "QD",
+  "daily",
+  "BID",
+  "TID",
+  "QID",
+  "Q2H",
+  "Q3H",
+  "Q4H",
+  "Q5H",
+  "Q6H",
+  "Q8H",
+  "Q12H",
+  "Q24H",
+  "Q48H",
+  "QOD",
+  "QWK",
+  "weekly",
+  "TIW",
+  "QMONTH",
+  "AC",
+  "PC",
+  "QAC",
+  "QPC",
+] as const;
 
 const DEFAULT_DRUGS: DrugFormState[] = [
   {
@@ -32,6 +75,11 @@ const DEFAULT_DRUGS: DrugFormState[] = [
     strengthValue: null,
     strengthUnit: null,
     dosageForm: null,
+    doseValue: null,
+    doseUnit: null,
+    frequency: "",
+    scheduleType: "scheduled",
+    maxAdministrationsPerDay: null,
   },
   {
     name: "vortioxetine",
@@ -41,6 +89,11 @@ const DEFAULT_DRUGS: DrugFormState[] = [
     strengthValue: null,
     strengthUnit: null,
     dosageForm: null,
+    doseValue: null,
+    doseUnit: null,
+    frequency: "",
+    scheduleType: "scheduled",
+    maxAdministrationsPerDay: null,
   },
 ];
 
@@ -52,6 +105,11 @@ const EMPTY_DRUG: DrugFormState = {
   strengthValue: null,
   strengthUnit: null,
   dosageForm: null,
+  doseValue: null,
+  doseUnit: null,
+  frequency: "",
+  scheduleType: "scheduled",
+  maxAdministrationsPerDay: null,
 };
 
 function App() {
@@ -144,6 +202,14 @@ function App() {
           strength_value: drug.strengthValue,
           strength_unit: drug.strengthUnit,
           dosage_form: drug.dosageForm,
+          dose_value: drug.doseValue,
+          dose_unit: drug.doseUnit,
+          frequency: drug.frequency || null,
+          schedule_type: drug.doseValue === null ? null : drug.scheduleType,
+          max_administrations_per_day:
+            drug.scheduleType === "prn"
+              ? drug.maxAdministrationsPerDay
+              : null,
         })),
         domain,
         qt_risk: qtRisk,
@@ -202,6 +268,11 @@ function App() {
               label="Drug Database"
               onClick={() => setPage("drug-database")}
             />
+            <NavButton
+              active={page === "knowledge"}
+              label="Knowledge"
+              onClick={() => setPage("knowledge")}
+            />
           </nav>
         </header>
 
@@ -246,12 +317,14 @@ function App() {
 
             <ResultsPanel analysis={analysis} error={analysisError} />
           </section>
-        ) : (
+        ) : page === "drug-database" ? (
           <DrugDatabasePage
             drugs={drugCatalog}
             error={drugCatalogError}
             isLoading={isDrugCatalogLoading}
           />
+        ) : (
+          <KnowledgePage />
         )}
       </section>
     </main>
@@ -279,6 +352,115 @@ function NavButton({
     >
       {label}
     </button>
+  );
+}
+
+function KnowledgePage() {
+  const [status, setStatus] = useState<KnowledgeStatusResponse | null>(null);
+  const [query, setQuery] = useState("");
+  const [result, setResult] = useState<KnowledgeQueryResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    void fetchKnowledgeStatus()
+      .then(setStatus)
+      .catch((caught: unknown) => {
+        setError(caught instanceof Error ? caught.message : "Status unavailable.");
+      });
+  }, []);
+
+  async function submitQuery() {
+    if (!query.trim()) return;
+    setLoading(true);
+    setError(null);
+    setResult(null);
+    try {
+      setResult(await queryKnowledge(query.trim()));
+    } catch (caught: unknown) {
+      setError(
+        caught instanceof Error ? caught.message : "Knowledge query failed.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+      <div className="space-y-2">
+        <h2 className="text-2xl font-semibold text-white">Knowledge</h2>
+        <p className="max-w-3xl text-sm leading-6 text-slate-400">
+          Optional remote RAG and language-model context. Information returned
+          here is non-authoritative and never changes PharmDS deterministic
+          interaction results.
+        </p>
+      </div>
+
+      <div className="mt-5 rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+        <p className="text-sm text-slate-300">
+          Service: {status?.available ? "Available" : "Unavailable"}
+          {status?.model ? ` · ${status.model}` : ""}
+        </p>
+        {status?.detail ? (
+          <p className="mt-1 text-xs text-slate-500">{status.detail}</p>
+        ) : null}
+      </div>
+
+      <textarea
+        className="mt-5 min-h-32 w-full rounded-2xl border border-slate-700 bg-slate-950 p-4 text-white outline-none transition focus:border-cyan-300"
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Ask for supporting drug information or public case material..."
+        value={query}
+      />
+      <button
+        className="mt-3 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 disabled:bg-slate-700 disabled:text-slate-400"
+        disabled={!status?.available || !query.trim() || loading}
+        onClick={() => void submitQuery()}
+        type="button"
+      >
+        {loading ? "Searching..." : "Search knowledge"}
+      </button>
+
+      {error ? <ErrorBanner message={error} /> : null}
+      {result ? (
+        <div className="mt-6 space-y-4">
+          <div className="rounded-2xl border border-amber-900/60 bg-amber-950/20 p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">
+              Informational only
+            </p>
+            <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-slate-300">
+              {result.answer}
+            </p>
+          </div>
+          {result.sources.length ? (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-white">Sources</h3>
+              {result.sources.map((source, index) => (
+                <div
+                  className="rounded-xl border border-slate-800 bg-slate-950/70 p-4"
+                  key={`${source.title ?? "source"}-${index}`}
+                >
+                  <p className="text-sm font-semibold text-slate-200">
+                    {source.title ?? source.citation ?? "Source"}
+                  </p>
+                  {source.citation && source.title ? (
+                    <p className="mt-1 text-xs text-slate-500">
+                      {source.citation}
+                    </p>
+                  ) : null}
+                  {source.excerpt ? (
+                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                      {source.excerpt}
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </section>
   );
 }
 
@@ -956,6 +1138,11 @@ function DrugInputCard({
                 strengthValue: null,
                 strengthUnit: null,
                 dosageForm: null,
+                doseValue: null,
+                doseUnit: null,
+                frequency: "",
+                scheduleType: "scheduled",
+                maxAdministrationsPerDay: null,
               });
             }}
             placeholder="vortioxetine"
@@ -991,6 +1178,11 @@ function DrugInputCard({
                 strengthValue: null,
                 strengthUnit: null,
                 dosageForm: null,
+                doseValue: null,
+                doseUnit: null,
+                frequency: "",
+                scheduleType: "scheduled",
+                maxAdministrationsPerDay: null,
               });
             }}
             suggestions={suggestions}
@@ -1030,6 +1222,11 @@ function DrugInputCard({
                 strengthValue: null,
                 strengthUnit: null,
                 dosageForm: null,
+                doseValue: null,
+                doseUnit: null,
+                frequency: "",
+                scheduleType: "scheduled",
+                maxAdministrationsPerDay: null,
               });
             }}
             value={drug.route}
@@ -1094,7 +1291,103 @@ function DrugInputCard({
             ))}
           </select>
         </label>
+
+        <label className="block text-sm font-medium text-slate-300">
+          Dose per administration (optional)
+          <div className="mt-2 flex gap-2">
+            <input
+              className="min-w-0 flex-1 rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+              min="0"
+              onChange={(event) =>
+                onChange({
+                  ...drug,
+                  doseValue: event.target.value
+                    ? Number(event.target.value)
+                    : null,
+                })
+              }
+              step="any"
+              type="number"
+              value={drug.doseValue ?? ""}
+            />
+            <input
+              className="w-24 rounded-xl border border-slate-700 bg-slate-900 px-3 py-3 text-white outline-none transition focus:border-cyan-300"
+              onChange={(event) =>
+                onChange({...drug, doseUnit: event.target.value || null})
+              }
+              placeholder={drug.strengthUnit ?? "mg"}
+              value={drug.doseUnit ?? ""}
+            />
+          </div>
+        </label>
+
+        <label className="block text-sm font-medium text-slate-300">
+          Frequency (optional)
+          <input
+            className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+            list={`regimen-frequency-options-${index}`}
+            onChange={(event) =>
+              onChange({...drug, frequency: event.target.value})
+            }
+            placeholder="QAM, QHS, TID, Q8H, Q4H PRN..."
+            value={drug.frequency}
+          />
+          <datalist id={`regimen-frequency-options-${index}`}>
+            {REGIMEN_FREQUENCY_OPTIONS.map((frequency) => (
+              <option key={frequency} value={frequency} />
+            ))}
+          </datalist>
+        </label>
+
+        <label className="block text-sm font-medium text-slate-300">
+          Schedule
+          <select
+            className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+            onChange={(event) =>
+              onChange({
+                ...drug,
+                scheduleType: event.target.value as "scheduled" | "prn",
+                maxAdministrationsPerDay:
+                  event.target.value === "prn"
+                    ? drug.maxAdministrationsPerDay
+                    : null,
+              })
+            }
+            value={drug.scheduleType}
+          >
+            <option value="scheduled">Scheduled</option>
+            <option value="prn">PRN</option>
+          </select>
+        </label>
+
+        {drug.scheduleType === "prn" ? (
+          <label className="block text-sm font-medium text-slate-300">
+            Maximum administrations/day (optional)
+            <input
+              className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
+              min="0"
+              onChange={(event) =>
+                onChange({
+                  ...drug,
+                  maxAdministrationsPerDay: event.target.value
+                    ? Number(event.target.value)
+                    : null,
+                })
+              }
+              step="any"
+              type="number"
+              value={drug.maxAdministrationsPerDay ?? ""}
+            />
+          </label>
+        ) : null}
       </div>
+      <p className="mt-3 text-xs leading-5 text-slate-500">
+        Regimen fields are optional. PharmDS keeps daypart schedules such as
+        QAM/QHS distinct from fixed intervals such as Q8H. TID is treated as a
+        scheduled daily count, not as Q8H. PRN frequency is preserved as a
+        ceiling rather than actual daily exposure. Custom frequency text is
+        retained; ambiguous BIW is not normalized automatically.
+      </p>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 """Internal adapter for comparing mechanism output to pairwise-style output.
 
-This module is intentionally not wired into CLI, Streamlit, or public JSON
+This module is intentionally not wired into CLI, web UI, or public JSON
 payloads. It only shapes mechanism pipeline results for migration comparison.
 """
 

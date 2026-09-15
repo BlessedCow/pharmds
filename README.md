@@ -640,49 +640,35 @@ Supported domains:
 
   
 
-## Streamlit App
+## Web App
 
-  
+PharmDS uses a React/Vite frontend with a FastAPI backend.
 
-If Streamlit is installed, PharmDS can also run as a lightweight web app.
-
-  
+Run the backend from the repository root:
 
 ```bash
-
-streamlit  run  streamlit_app.py
-
+uvicorn api.main:app --reload
 ```
 
-  
+Run the frontend from `web/`:
 
-The Streamlit interface provides:
+```bash
+npm install
+npm run dev
+```
 
-  
-
-- Drug input
-
-- Pairwise interaction summaries
-
-- Detailed hit output
-
-- Regimen-level summaries
-
-- Repeated PD risk domains
-
-- Top interaction pairs
-
-  
+The React interface provides medication selection, route/release and regimen
+inputs, pairwise PK/PD findings, clinical summaries, PK timing interpretation,
+and optional informational knowledge queries when the remote RAG service is
+configured.
 
 ---
-
-  
 
 ## Validation and Testing
 
   
 
-PharmDS includes validation and test coverage for the rule engine, curated data, service payloads, mechanism pipeline, CLI output, and Streamlit helpers.
+PharmDS includes validation and test coverage for the rule engine, curated data, service payloads, mechanism pipeline, CLI output, FastAPI responses, and React-facing payloads.
 
   
 
@@ -757,7 +743,7 @@ The project includes tests for:
 
 - CLI/API-style payload generation
 
-- Streamlit summary helpers  
+- FastAPI/React payload contracts  
 
 These tests are intended to protect against silent rule drift, noisy alerting, and accidental output schema regressions.
 
@@ -877,7 +863,8 @@ pharmds/
 ├── data/ Curated drug, enzyme, transporter, and PD-effect data
 ├── docs/ Contribution guides and design notes
 ├── tests/ Unit tests, golden scenarios, and negative/no-hit baselines
-├── streamlit_app.py Streamlit web interface
+├── web/ React/Vite web interface
+├── api/ FastAPI routes and models
 ├── README.md
 ├── ARCHITECTURE.md
 ├── ROADMAP.md

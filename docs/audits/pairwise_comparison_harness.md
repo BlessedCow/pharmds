@@ -12,7 +12,7 @@ mechanism pipeline concerns. It does not change public output ownership.
 - Mechanism output is represented by internal pairwise adapter concepts.
 - Exact parity scenarios are separated from known migration gaps.
 - Known gaps are explicit and intentional.
-- No public CLI, Streamlit, or JSON output is changed by this harness.
+- No public CLI, web, or JSON output is changed by this harness.
 
 ## Exact parity examples
 

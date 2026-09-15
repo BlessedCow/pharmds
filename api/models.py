@@ -32,6 +32,39 @@ class AnalyzeDrugInput(BaseModel):
         default=None,
         description="Dosage form for the selected curated strength.",
     )
+    dose_value: float | None = Field(
+        default=None,
+        gt=0,
+        description="Optional dose per administration for this regimen.",
+    )
+    dose_unit: str | None = Field(
+        default=None,
+        description="Unit for the regimen dose per administration.",
+    )
+    frequency: str | None = Field(
+        default=None,
+        description=(
+            "Optional regimen frequency. Recognized timing semantics include "
+            "daypart codes (QAM/QPM/QHS), daily-count codes (QD/BID/TID/QID), "
+            "fixed intervals such as Q4H/Q8H, weekly/calendar schedules, and "
+            "meal-relative codes. Unrecognized values are preserved as custom."
+        ),
+    )
+    schedule_type: str | None = Field(
+        default=None,
+        pattern="^(scheduled|prn)$",
+        description="Whether the regimen is scheduled or PRN.",
+    )
+    administrations_per_day: float | None = Field(
+        default=None,
+        gt=0,
+        description="Optional explicit scheduled administrations per day.",
+    )
+    max_administrations_per_day: float | None = Field(
+        default=None,
+        gt=0,
+        description="Optional maximum administrations per day for PRN use.",
+    )
 
 
 class AnalyzeRequest(BaseModel):
@@ -153,3 +186,30 @@ class DrugCatalogEntryResponse(BaseModel):
 
 class DrugCatalogResponse(BaseModel):
     drugs: list[DrugCatalogEntryResponse]
+
+class KnowledgeQueryRequest(BaseModel):
+    query: str = Field(min_length=1)
+    top_k: int = Field(default=5, ge=1, le=20)
+
+
+class KnowledgeSourceResponse(BaseModel):
+    title: str | None = None
+    citation: str | None = None
+    url: str | None = None
+    excerpt: str | None = None
+    score: float | None = None
+
+
+class KnowledgeStatusResponse(BaseModel):
+    enabled: bool
+    available: bool
+    base_url_configured: bool
+    detail: str | None = None
+    model: str | None = None
+
+
+class KnowledgeQueryResponse(BaseModel):
+    informational_only: bool = True
+    answer: str
+    sources: list[KnowledgeSourceResponse] = Field(default_factory=list)
+    model: str | None = None
