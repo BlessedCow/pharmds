@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import pytest
 
-from app.service import analyze_names
 from core.pd_effect_families import (
     PD_EFFECT_RULE_FAMILIES,
     canonical_pd_effect_family,
     pd_effects_share_family,
 )
+from tests.rules.pd_support import pd_rule_ids
 
 EXPECTED_FAMILIES = {
     "blood_pressure_increase": "hypertension",
@@ -61,38 +61,14 @@ def test_mapped_pd_effects_trigger_existing_rule_families(
     selected_effect: str,
     expected_rule_id: str,
 ) -> None:
-    result = analyze_names(
-        list(drugs),
-        domain="all",
-        pd_effects=[selected_effect],
-        as_json_payload=True,
-    )
-
-    assert result.ok
-
-    rule_ids = {
-        hit["rule_id"]
-        for pair in result.payload["pairs"]
-        for hit in pair["pd"]["hits"]
-    }
+    rule_ids = pd_rule_ids(drugs, pd_effects=[selected_effect])
 
     assert expected_rule_id in rule_ids
 
 
 def test_seizure_risk_selector_keeps_seizure_threshold_facts() -> None:
-    result = analyze_names(
-        ["bupropion", "amitriptyline"],
-        domain="all",
-        pd_effects=["seizure_risk"],
-        as_json_payload=True,
+    rule_ids = pd_rule_ids(
+        ("bupropion", "amitriptyline"), pd_effects=["seizure_risk"]
     )
-
-    assert result.ok
-
-    rule_ids = {
-        hit["rule_id"]
-        for pair in result.payload["pairs"]
-        for hit in pair["pd"]["hits"]
-    }
 
     assert "PD_SEIZURE_RISK_ADDITIVE" in rule_ids

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
+from app.cli import RULE_DIR
 from core.mechanisms.aggregation import (
     AGGREGATE_OBJECT_EXPOSURE_DECREASE,
     AGGREGATE_OBJECT_EXPOSURE_INCREASE,
@@ -11,6 +11,7 @@ from core.mechanisms.aggregation import (
 )
 from core.mechanisms.pipeline import run_mechanism_pipeline
 from rules.engine import evaluate_all, load_rules
+from tests.mechanisms.support import load_drug_facts
 
 REPRESENTATIVE_PAIRWISE_PARITY_CASES = [
     pytest.param(
@@ -80,12 +81,7 @@ REPRESENTATIVE_PAIRWISE_PARITY_CASES = [
 
 
 def _baseline_outputs(drug_names: list[str]):
-    conn = connect(DB_PATH)
-    try:
-        drug_ids = resolve_drug_ids(conn, drug_names)
-        facts = load_facts(conn, drug_ids, patient_flags={})
-    finally:
-        conn.close()
+    drug_ids, facts = load_drug_facts(drug_names)
 
     rule_hits = evaluate_all(load_rules(RULE_DIR), facts, drug_ids)
     pipeline = run_mechanism_pipeline(drug_ids, facts)
@@ -132,7 +128,12 @@ REPRESENTATIVE_EXPLICIT_PAIR_BASELINE_CASES = [
     pytest.param(
         ["doxycycline", "calcium carbonate"],
         {"PK_DOXYCYCLINE_CALCIUM_CARBONATE"},
-        set(),
+        {(
+            "object_exposure_decrease_cluster",
+            "doxycycline",
+            ("chelation_polyvalent_cation",),
+            None,
+        )},
         id="explicit-pair-doxycycline-calcium-carbonate",
     ),
     pytest.param(

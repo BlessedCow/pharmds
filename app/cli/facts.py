@@ -1,10 +1,18 @@
 from __future__ import annotations
 
+import json
 import sqlite3
 from pathlib import Path
 
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
-from core.models import Drug, EnzymeRole, Facts, PDEffect, TransporterRole
+from core.models import (
+    AbsorptionRole,
+    Drug,
+    EnzymeRole,
+    Facts,
+    PDEffect,
+    TransporterRole,
+)
 
 
 def connect(db_path: Path) -> sqlite3.Connection:
@@ -83,4 +91,26 @@ def load_facts(
             )
         )
 
+    _load_absorption_roles(facts, drug_ids)
     return facts
+
+
+def _load_absorption_roles(facts: Facts, drug_ids: list[str]) -> None:
+    path = (
+        Path(__file__).resolve().parents[2]
+        / "data"
+        / "curation"
+        / "absorption_roles.json"
+    )
+    content = json.loads(path.read_text(encoding="utf-8"))
+    selected = set(drug_ids)
+    for entry in content["roles"]:
+        drug_id: str = entry["drug_id"]
+        if drug_id not in selected:
+            continue
+        role = AbsorptionRole(
+            mechanism=entry["mechanism"],
+            target=entry["target"],
+            evidence_refs=tuple(entry.get("evidence_refs", [])),
+        )
+        facts.absorption_roles.setdefault(drug_id, []).append(role)

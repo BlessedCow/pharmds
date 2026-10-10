@@ -1,115 +1,39 @@
-# PharmDS Roadmap
+# Roadmap
 
-This document outlines planned and exploratory directions for the
-PharmDS project.\
-It is not a commitment or timeline, and priorities may change as the
-project evolves.
+**[Overview](README.md)** · **[Getting started](GETTING_STARTED.md)** · **[Architecture](ARCHITECTURE.md)**
 
-PharmDS is currently in **v0.x (active early development)**. Stability,
-APIs, and rule schemas may change.
+PharmDS is an educational project in active development. This board describes what exists and what to improve next; it does not assign release dates or promise clinical use.
 
-------------------------------------------------------------------------
+## Shipped foundation
 
-## Current State
+| Area | Current capability |
+| :--- | :--- |
+| **Interfaces** | React web app, FastAPI, command line tool, original curation GUI, and Curation Studio. |
+| **Catalog** | Curated drug facts, formulation matched strength options, sourced PK observations, and evidence records. |
+| **Interaction engine** | Deterministic enzyme, transporter, PD, explicit pair, and composite rules with pairwise details and regimen summaries. |
+| **Mechanism view** | Aggregate concerns and educational summaries alongside established pairwise findings. |
+| **Verification** | Curation, rule, mechanism, parity, and API tests; frontend production build. |
 
-PharmDS supports structured, deterministic PK and PD modeling with
-explainable rule evaluation.
+## Priority board
 
-### Implemented Capabilities
+| Priority | Work | What “done” would look like |
+| :---: | :--- | :--- |
+| **1** | **Source accuracy** | Strengths and PK observations match the exact product, formulation, dose or study condition, analyte, and source; ambiguities are recorded. |
+| **2** | **Interaction coverage** | High value relationships have sourced rules and positive **and negative** tests; enzyme and transporter terms stay consistent. |
+| **3** | **Result consistency** | Pairwise rule output and aggregate mechanism summaries agree on their shared facts and communicate severity clearly. |
+| **4** | **Curation workflow** | Both editors make route, release type, concentration unit, source, and PK context easier to verify before saving. |
+| **5** | **Project maintenance** | Historical coverage pages and examples are refreshed; generated artifacts stay local and canonical inputs remain clear. |
 
-### Pharmacokinetics (PK)
+Work on the two analysis paths should move in small, tested steps. Pairwise rule behavior remains authoritative for established pair reports until a specific handoff has passed parity checks. The [architecture](ARCHITECTURE.md#how-an-analysis-is-built) explains that boundary.
 
--   Phase I (CYP) interaction modeling\
--   Phase II (UGT) interaction modeling\
--   Transporter-aware PK (P-gp, BCRP, OATP)\
--   Composite mechanism detection (e.g., CYP + transporter effects)\
--   Directional modeling (affected vs interacting drug)
+## Explore later
 
-### Pharmacodynamics (PD)
+| Idea | Condition before adopting it |
+| :--- | :--- |
+| **Conditional regimen reasoning** | The user supplies an actual dose and schedule; product strength alone cannot fill them in. |
+| **Evidence and alert review** | Uncertainty and source conflicts remain visible without hiding underlying rule hits. |
+| **Educational exports and visualization** | Outputs retain references, assumptions, and the scope of each conclusion. |
 
--   Deterministic overlap logic using shared effect domains\
--   Additive QT prolongation detection\
--   Additive CNS depression detection\
--   Additive serotonergic stacking\
--   Additive stimulant and sympathomimetic stacking\
--   Cardiovascular axis modeling (hypertension, tachycardia, sympathetic
-    stimulation)
+## Scope guardrails
 
-### Output and UX
-
--   Rich formatted CLI output (`--format rich`)\
--   Domain filtering (`--domain`)\
--   Structured rule definitions with explicit severity and rule class\
--   Validation-driven seeding and reproducible database builds
-
-Current development prioritizes correctness, explainability, and
-reduction of alert fatigue.
-
-------------------------------------------------------------------------
-
-## Near-Term Focus (v0.x)
-
-These items improve stability and signal-to-noise quality.
-
--   Refine PD overlap tuning to reduce redundant alerts\
--   Improve rule combination and severity escalation logic\
--   Strengthen rule validation and test coverage\
--   Expand structured output formats (e.g., JSON mode for downstream
-    tooling)\
--   Improve CLI ergonomics and error handling\
--   Improve explanation template consistency across domains
-
-------------------------------------------------------------------------
-
-## Mid-Term Exploration (Pre--v1.0)
-
-These areas may be explored as the core stabilizes.
-
--   Optional patient-context modifiers:
-    -   Age
-    -   Renal function
-    -   Hepatic function
-    -   QT risk factors
--   Dose-aware or conditional interaction logic\
--   Rule grouping or domain clustering (e.g., suppress subdomains when
-    umbrella domain fires)\
--   Rule authoring and review tooling\
--   Initial Web UI for interactive exploration\
--   Internal ontology refinement and normalization improvements
-
-------------------------------------------------------------------------
-
-## Longer-Term Possibilities
-
-These items are speculative and dependent on scope and resources.
-
--   Broader drug coverage\
--   Formalized pharmacologic ontology layer\
--   Interaction graph visualization\
--   Educational export formats (teaching mode)\
--   Integration with curated external data sources (where permitted)\
--   Interoperability with other clinical or educational tools
-
-------------------------------------------------------------------------
-
-## Non-Goals
-
-To keep scope clear, PharmDS explicitly does **not** aim to:
-
--   Replace clinical judgment or prescribing decisions\
--   Act as a diagnostic or treatment recommendation system\
--   Provide patient-specific medical advice
-
-------------------------------------------------------------------------
-
-## Contribution Principles
-
-PharmDS prioritizes:
-
--   Explicit, traceable logic\
--   Deterministic behavior\
--   Explainability over black-box prediction\
--   Conservative safety defaults\
--   Structural correctness over breadth
-
-Contributions aligned with these principles are encouraged.
+The catalog is not a complete prescribing database. Source specific PK values and interaction rules do not account for every patient factor. PharmDS does not diagnose, select therapy, or calculate a safe individualized dose. See the [safety guidance](docs/safety.md) and [disclaimer](DISCLAIMER.txt).

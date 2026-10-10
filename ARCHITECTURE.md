@@ -1,81 +1,64 @@
-# Architecture Notes
+# Architecture
 
-## Interaction Analysis Paths
+**[Overview](README.md)** · **[Getting started](GETTING_STARTED.md)** · **[Roadmap](ROADMAP.md)**
 
-PharmDS currently has two overlapping interaction analysis paths:
+PharmDS has a curated data layer, a generated SQLite database, two analysis paths, and three ways to use the results. The pairwise rule engine and the newer mechanism pipeline both run today; their responsibilities are distinct.
 
-- The older rule engine path in `rules/`
-- The newer mechanism pipeline path in `core/mechanisms/`
+## System at a glance
 
-Both paths are still active. This is intentional.
+```mermaid
+flowchart TB
+    J["Curated JSON"] --> S["Seed and validate"]
+    S --> DB["Local SQLite"]
+    DB --> A["Analysis service"]
+    R["Rule definitions"] --> A
+    A --> P["Pairwise rule reports"]
+    A --> M["Aggregate mechanism summaries"]
+```
 
-## Older Rule Engine Path
+| Entry point | Code | Role |
+| :--- | :--- | :--- |
+| Browser | `web/` → `api/` | React and Vite interface; development proxy sends `/api` to port 8010. |
+| HTTP API | `api/main.py` | Drug metadata, analysis, and health routes; `/docs` shows the API reference. |
+| Command line | `app/cli/` | Analyze named substances and inspect detail or JSON output. |
+| Desktop editors | `tools/curation_gui.py`, `tools/curation_studio.py` | Edit and validate the same curated JSON, with backup behavior. |
 
-The older rule engine loads JSON rule definitions from `rules/rule_defs/` and evaluates them through `rules.engine`.
+`app/service.py` coordinates analysis for the interfaces. The API root `/` does not serve the browser app.
 
-Current service flow:
+## Sources of truth
 
-1. Resolve input drug names to drug IDs.
-2. Load structured drug facts.
-3. Load and filter rules by selected domains.
-4. Evaluate rules with `evaluate_all`.
-5. Apply composite rule logic from `rules.composite_rules`.
-6. Build pairwise reports and optional regimen summaries.
+| Input | Responsibility | Derived or local output |
+| :--- | :--- | :--- |
+| `data/curation/drugs.json` | Drug facts, routes, release types, and sourced strength options. | Drug rows and related facts in SQLite. |
+| `data/curation/pk_observations.json` | Source specific PK measurements and study context. | PK observation rows in SQLite. |
+| `data/evidence/` | Structured source records and evidence claims. | Evidence available to curation and analysis. |
+| `rules/rule_defs/` | Explicit interaction rules and their references. | Loaded rule objects at analysis time. |
 
-This path currently owns:
+Curation manifests and backfill files under `data/curation/` are inputs for import and review workflows. `reference/expanded_*.json` and `evidence_gap_report.json` are generated snapshots and reports. **`data/pharmds.sqlite3` is a generated read model, not the place for durable edits.** Both `data.seed_sqlite` and pytest delete and rebuild it from curation inputs.
 
-- Pairwise rule hits
-- PK and PD rule explanations
-- Directional PK interaction details
-- Rule-level severity and action class output
-- Rule references and suggested actions
-- Rich CLI pairwise detail output
-- Existing pairwise JSON payload fields
-- Regimen summaries built from pairwise reports
-- Legacy rule fallback summaries in public result summaries
+The two desktop editors share these source files. Each editor reads its own copy when launched, so simultaneous edits to the same medication can conflict.
 
-The rule engine remains the primary source for established pairwise interaction behavior.
+## How an analysis is built
 
-## Newer Mechanism Pipeline Path
+| Stage | Owner | Output |
+| :--- | :--- | :--- |
+| Resolve input and load facts | `app/` and `data/` | Drug IDs, structured facts, and optional regimen information. |
+| Evaluate established interactions | `rules/` and `reasoning/` | Directional PK and PD hits, severity, actions, references, detailed pair reports, and regimen summaries. |
+| Normalize and aggregate mechanisms | `core/mechanisms/` | Candidates, arbitration, concern policy, aggregate evidence, and educational summaries. |
+| Assemble public result | `app/service.py` | Aggregate summaries followed by established pairwise rule summaries. |
 
-The newer mechanism pipeline is centered in `core/mechanisms/pipeline.py`.
+The mechanism pipeline does not modify pairwise rule decisions. A future handoff of any behavior should be checked against the existing pairwise and audit tests before the old ownership is removed.
 
-Current pipeline flow:
+### Product strength, observed PK, and regimen input
 
-1. Convert facts into normalized mechanism effects.
-2. Find interaction candidates.
-3. Apply arbitration.
-4. Apply concern policy.
-5. Aggregate related concerns.
-6. Score concerns.
-7. Add preliminary educational severity annotations.
-8. Add aggregate evidence summaries.
-9. Build aggregate concern summaries.
+| Concept | Describes | Does not imply |
+| :--- | :--- | :--- |
+| Product strength | Labeled content of a particular dosage form and release type. | What a person actually administered. |
+| PK observation | A reported measurement with source, analyte, population, dose or conditions where stated, and statistic. | One universal value for all formulations or patients. |
+| Regimen input | An explicitly supplied dose and timing schedule. | A dose inferred from the selected strength. |
 
-This path currently owns:
+Educational timing calculations use only eligible half life observations. See [PK observations](docs/pk_observations.md) and [regimen timing](docs/regimen_timing.md) for the data model and its limits.
 
-- `mechanism_pipeline_json`
-- Mechanism debug payloads
-- Aggregate mechanism concerns
-- Aggregate severity annotations
-- Aggregate evidence summaries
-- Aggregate concern summaries
-- Public aggregate summaries shown before legacy rule summaries
+## Verification boundary
 
-The mechanism pipeline is currently read-only with respect to the older rule engine. It does not replace rule evaluation yet.
-
-## Current Output Ownership
-
-The service layer runs both paths during analysis.
-
-The older rule engine produces pairwise reports and regimen summaries. The newer mechanism pipeline produces normalized mechanism stages and aggregate summaries. Public result summaries combine both sources: aggregate summaries from the mechanism pipeline first, followed by legacy rule hit summaries from pairwise reports.
-
-This mixed output model is expected for now.
-
-## Migration Direction
-
-The intended direction is to gradually move more explanation, aggregation, evidence, and public summary behavior into the mechanism pipeline where it improves consistency and reduces duplication.
-
-That migration should be incremental. Existing rule behavior should be preserved unless a milestone explicitly changes it. The older rule engine should not be deleted yet because it still owns important pairwise behavior, CLI detail output, JSON compatibility, and tested rule semantics.
-
-Future work should prefer small, verified handoffs from the rule engine into the mechanism pipeline instead of a broad rewrite.
+Data and rule changes need curation validation, rule tests, and negative cases. The test suite also covers pairwise parity, mechanism output, and API contracts. Four audit Markdown files under `docs/audits/` are test baselines; the [Getting Started guide](GETTING_STARTED.md#find-the-right-document) identifies them. For commands, use the [checklist](GETTING_STARTED.md#check-your-changes).

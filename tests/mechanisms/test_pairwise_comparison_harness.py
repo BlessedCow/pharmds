@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import cast
 
 import pytest
 
-from app.cli import DB_PATH, connect, load_facts, resolve_drug_ids
 from app.service import analyze_names
 from core.mechanisms.pairwise_adapter import (
     PAIRWISE_ADAPTER_DOMAIN_PD,
@@ -14,6 +14,7 @@ from core.mechanisms.pairwise_adapter import (
     adapt_mechanism_pipeline_to_pairwise,
 )
 from core.mechanisms.pipeline import run_mechanism_pipeline
+from tests.mechanisms.support import load_drug_facts
 
 
 @dataclass(frozen=True)
@@ -206,12 +207,7 @@ def _old_pairwise_rule_ids_for(drug_names: tuple[str, ...]) -> set[str]:
 def _mechanism_pairwise_concerns_for(
     drug_names: tuple[str, ...],
 ) -> tuple[PairwiseMechanismConcern, ...]:
-    conn = connect(DB_PATH)
-    try:
-        drug_ids = resolve_drug_ids(conn, list(drug_names))
-        facts = load_facts(conn, drug_ids, patient_flags={})
-    finally:
-        conn.close()
+    drug_ids, facts = load_drug_facts(list(drug_names))
 
     pipeline = run_mechanism_pipeline(drug_ids, facts)
     return adapt_mechanism_pipeline_to_pairwise(pipeline)
@@ -283,12 +279,16 @@ def test_pairwise_comparison_harness_keeps_known_gap_inventory_explicit() -> Non
     known_old_only_rule_ids = {
         rule_id
         for param in KNOWN_GAP_SCENARIOS
-        for rule_id in param.values[0].known_old_only_rule_ids
+        for rule_id in cast(
+            PairwiseComparisonScenario, param.values[0]
+        ).known_old_only_rule_ids
     }
     known_mechanism_only_concepts = {
         concept
         for param in KNOWN_GAP_SCENARIOS
-        for concept in param.values[0].known_mechanism_only_concepts
+        for concept in cast(
+            PairwiseComparisonScenario, param.values[0]
+        ).known_mechanism_only_concepts
     }
 
     assert known_old_only_rule_ids == {
@@ -324,3 +324,21 @@ def test_pairwise_comparison_harness_audit_doc_tracks_scope() -> None:
     assert "`PK_CYP3A4_STRONG_INHIB`" in audit_text
     assert "`PD_QT_ADDITIVE`" in audit_text
     assert "No public CLI, web, or JSON output is changed" in audit_text
+
+@pytest.mark.parametrize(
+    "scenario",
+    EXACT_PARITY_SCENARIOS + KNOWN_GAP_SCENARIOS,
+)
+def test_pairwise_comparison_is_input_order_invariant(
+    scenario: PairwiseComparisonScenario,
+) -> None:
+    """Both engines must find the same concerns in either input order."""
+    original_names = scenario.drug_names
+    reversed_names = tuple(reversed(original_names))
+
+    assert _old_pairwise_rule_ids_for(original_names) == (
+        _old_pairwise_rule_ids_for(reversed_names)
+    )
+    assert _mechanism_concepts_for(original_names) == (
+        _mechanism_concepts_for(reversed_names)
+    )

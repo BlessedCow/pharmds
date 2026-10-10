@@ -17,6 +17,9 @@ class DrugDosageOption:
     dosage_form: str
     strength_value: float
     strength_unit: str
+    product_name: str | None = None
+    composition: str | None = None
+    source_url: str | None = None
 
 
 @dataclass(frozen=True)
@@ -180,15 +183,27 @@ def _dosage_from_row(row: sqlite3.Row) -> DrugDosageOption:
         dosage_form=row["dosage_form"],
         strength_value=float(row["strength_value"]),
         strength_unit=row["strength_unit"],
+        product_name=row["product_name"],
+        composition=row["composition"],
+        source_url=row["source_url"],
+    )
+
+
+def _dosage_metadata_select(conn: sqlite3.Connection) -> str:
+    columns = {row[1] for row in conn.execute("PRAGMA table_info(drug_dosage_option)")}
+    return ", ".join(
+        column if column in columns else f"NULL AS {column}"
+        for column in ("product_name", "composition", "source_url")
     )
 
 
 def _load_dosage_options(
     conn: sqlite3.Connection,
 ) -> dict[str, tuple[DrugDosageOption, ...]]:
-    rows = conn.execute("""
+    metadata = _dosage_metadata_select(conn)
+    rows = conn.execute(f"""
         SELECT drug_id, route, release_type, dosage_form,
-               strength_value, strength_unit
+               strength_value, strength_unit, {metadata}
         FROM drug_dosage_option
         ORDER BY drug_id, route COLLATE NOCASE, release_type COLLATE NOCASE,
                  dosage_form COLLATE NOCASE, strength_value,
@@ -204,10 +219,11 @@ def _load_dosage_options_for_drug(
     conn: sqlite3.Connection,
     drug_id: str,
 ) -> tuple[DrugDosageOption, ...]:
+    metadata = _dosage_metadata_select(conn)
     rows = conn.execute(
-        """
+        f"""
         SELECT route, release_type, dosage_form,
-               strength_value, strength_unit
+               strength_value, strength_unit, {metadata}
         FROM drug_dosage_option
         WHERE drug_id = ?
         ORDER BY route COLLATE NOCASE, release_type COLLATE NOCASE,

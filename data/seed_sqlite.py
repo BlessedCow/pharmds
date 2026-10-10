@@ -44,7 +44,12 @@ def upsert(conn: sqlite3.Connection, sql: str, params: tuple) -> None:
         raise
 
 
-def seed(conn: sqlite3.Connection) -> None:
+def seed(
+    conn: sqlite3.Connection,
+    *,
+    pk_curation_path: Path | None = None,
+    only_drug_ids: set[str] | None = None,
+) -> None:
     conn.execute("PRAGMA foreign_keys = ON;")
 
     # Enzymes (lookup)
@@ -140,6 +145,8 @@ def seed(conn: sqlite3.Connection) -> None:
 
     for d in drugs:
         drug_id = d["id"]
+        if only_drug_ids is not None and drug_id not in only_drug_ids:
+            continue
 
         # Parent drug row first (FK parent for aliases/roles/pd_effects/parameters)
         upsert(
@@ -205,8 +212,8 @@ def seed(conn: sqlite3.Connection) -> None:
                 (
                     "INSERT OR REPLACE INTO drug_dosage_option("
                     "drug_id,route,release_type,dosage_form,"
-                    "strength_value,strength_unit"
-                    ") VALUES(?,?,?,?,?,?)"
+                    "strength_value,strength_unit,product_name,composition,source_url"
+                    ") VALUES(?,?,?,?,?,?,?,?,?)"
                 ),
                 (
                     drug_id,
@@ -215,6 +222,9 @@ def seed(conn: sqlite3.Connection) -> None:
                     str(dosage["dosage_form"]).strip(),
                     float(dosage["strength_value"]),
                     str(dosage["strength_unit"]).strip(),
+                    dosage.get("product_name"),
+                    dosage.get("composition"),
+                    dosage.get("source_url"),
                 ),
             )
 
@@ -286,6 +296,17 @@ def seed(conn: sqlite3.Connection) -> None:
                     params.get("notes"),
                 ),
             )
+
+    from data.curation.pk_observations import load_pk_curation
+
+    sources, observations = (
+        load_pk_curation(pk_curation_path)
+        if pk_curation_path is not None
+        else load_pk_curation()
+    )
+    from data.pk_observation_seed import upsert_pk_observations
+
+    upsert_pk_observations(conn, sources, observations)
 
 
 def main() -> None:

@@ -1,0 +1,25 @@
+{
+  "id": "PK_SIMVASTATIN_GRAPEFRUIT_JUICE",
+  "name": "Grapefruit juice may raise simvastatin exposure",
+  "domain": "PK",
+  "severity": "caution",
+  "rule_class": "caution",
+  "tags": ["exposure_increase", "quantity_dependent"],
+  "actions": [
+    "Ask about grapefruit juice amount and frequency before interpreting this pair.",
+    "Avoid large quantities of grapefruit juice (more than one quart daily) with simvastatin, as directed in the product label."
+  ],
+  "logic": {
+    "drug_pair": {"a": "simvastatin", "b": "grapefruit_juice"},
+    "rationale": [
+      "Grapefruit juice can inhibit intestinal CYP3A and increase simvastatin exposure.",
+      "The effect varies markedly with grapefruit juice quantity and preparation; a selected pair does not establish intake."
+    ]
+  },
+  "explanation_template": "Grapefruit juice can raise simvastatin exposure and muscle toxicity risk, especially with large quantities. The amount consumed is needed to interpret this interaction.",
+  "references": [{
+    "source": "DailyMed, Simvastatin Tablets, Drug Interactions and Clinical Pharmacology",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7fce939e-c38e-497f-ba3f-e7b6ba44bfd9",
+    "citation": "Avoid more than one quart of grapefruit juice daily with simvastatin; pharmacokinetic effects vary by quantity."
+  }]
+}

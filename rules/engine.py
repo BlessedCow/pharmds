@@ -109,18 +109,18 @@ def load_rules(rule_dir: Path) -> list[Rule]:
                 tags=raw.get("tags", []),
             )
         except KeyError as e:
-            raise ValueError(
-                f"Rule file '{p.name}' missing required key: {e}"
-            ) from e
+            raise ValueError(f"Rule file '{p.name}' missing required key: {e}") from e
 
         rules.append(rule)
 
     return rules
 
+
 def _matches_drug_pair(drug_pair: dict, facts: Facts) -> bool:
     needed = {drug_pair["a"], drug_pair["b"]}
     present = {d.id for d in facts.drugs}
     return needed.issubset(present)
+
 
 def _strength_ok(
     actual: str | None, required: str | None, allowed: list[str] | None = None
@@ -189,8 +189,6 @@ def _drug_has_pd_effect(
     return False
 
 
-
-
 def _dose_guard_matches(
     facts: Facts,
     *,
@@ -248,6 +246,7 @@ def _dose_guard_matches(
 
     return True
 
+
 def _ti_is(facts: Facts, drug_id: str, ti: str) -> bool:
     d = facts.drugs.get(drug_id)
     return bool(d and d.therapeutic_index == ti)
@@ -279,6 +278,7 @@ def _transporter_ids_for_family(family: str) -> list[str]:
 
     return ids
 
+
 def _matches_name_constraints(logic: dict[str, Any], a: str, b: str) -> bool:
     a_name = a.lower()
     b_name = b.lower()
@@ -304,6 +304,7 @@ def _matches_name_constraints(logic: dict[str, Any], a: str, b: str) -> bool:
         return False
 
     return True
+
 
 def evaluate_rule(rule: Rule, facts: Facts, a: str, b: str) -> RuleHit | None:
     """
@@ -456,13 +457,30 @@ def evaluate_all(rules: list[Rule], facts: Facts, drug_ids: list[str]) -> list[R
         for h in hits
         if h.rule_id == "PD_QT_PROLONGATION_ADDITIVE_HIGH"
     }
+    named_avoid_ids = {
+        rule.id
+        for rule in rules
+        if rule.rule_class == RuleClass.avoid and "drug_pair" in rule.logic
+    }
+    labeled_avoid_exposure_pairs = {
+        tuple(sorted((h.inputs["A"], h.inputs["B"])))
+        for h in hits
+        if h.rule_id in named_avoid_ids
+        and ({"exposure_decrease", "exposure_increase"} & set(h.tags))
+    }
 
     filtered: list[RuleHit] = []
     for h in hits:
         pair = tuple(sorted((h.inputs.get("A"), h.inputs.get("B"))))
         if h.rule_id == "PD_QT_ADDITIVE" and pair in high_qt_pairs:
             continue
+        # A label-specific avoid instruction takes precedence over generic
+        # CYP3A4 advice to consider alternatives or monitor.
+        if (
+            h.rule_id in {"PK_CYP3A4_STRONG_INDUC", "PK_CYP3A4_STRONG_INHIB"}
+            and pair in labeled_avoid_exposure_pairs
+        ):
+            continue
         filtered.append(h)
 
     return filtered
-

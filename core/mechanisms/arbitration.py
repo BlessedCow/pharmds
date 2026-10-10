@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from core.mechanisms.candidates import (
+    CANDIDATE_ABSORPTION_INTERFERENCE,
     CANDIDATE_ENZYME_INDUCTION,
     CANDIDATE_ENZYME_INHIBITION,
     CANDIDATE_PD_SHARED_EFFECT,
@@ -67,10 +68,7 @@ def arbitrate_candidates(
     candidates: list[InteractionCandidate],
 ) -> list[ArbitrationResult]:
     """Convert interaction candidates into arbitration scaffold results."""
-    results = [
-        candidate_to_arbitration_result(candidate)
-        for candidate in candidates
-    ]
+    results = [candidate_to_arbitration_result(candidate) for candidate in candidates]
 
     return dedupe_arbitration_results(results)
 
@@ -99,6 +97,7 @@ def _concern_for_candidate_type(candidate_type: str) -> str:
         return CONCERN_EXPOSURE_INCREASE
 
     if candidate_type in {
+        CANDIDATE_ABSORPTION_INTERFERENCE,
         CANDIDATE_ENZYME_INDUCTION,
         CANDIDATE_TRANSPORTER_INDUCTION,
     }:

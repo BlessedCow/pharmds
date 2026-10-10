@@ -51,6 +51,9 @@ CREATE TABLE
     dosage_form TEXT NOT NULL,
     strength_value REAL NOT NULL CHECK (strength_value > 0),
     strength_unit TEXT NOT NULL,
+    product_name TEXT,
+    composition TEXT,
+    source_url TEXT,
     PRIMARY KEY (
       drug_id,
       route,
@@ -128,3 +131,39 @@ CREATE TABLE
     half_life_bucket TEXT CHECK (half_life_bucket IN ('short', 'medium', 'long')) NULL,
     notes TEXT
   );
+
+-- Sourced measurements are distinct from drug attributes and prescribed regimens.
+CREATE TABLE IF NOT EXISTS pk_source (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  url TEXT NOT NULL,
+  evidence_type TEXT NOT NULL,
+  revision_date TEXT
+);
+
+CREATE TABLE IF NOT EXISTS pk_observation (
+  id TEXT PRIMARY KEY,
+  drug_id TEXT NOT NULL REFERENCES drug (id) ON DELETE CASCADE,
+  route TEXT NOT NULL,
+  release_type TEXT NOT NULL,
+  metric TEXT NOT NULL CHECK (metric IN (
+    'half_life', 'tmax', 'bioavailability', 'cmax', 'auc'
+  )),
+  min_value REAL NOT NULL CHECK (min_value >= 0),
+  max_value REAL NOT NULL CHECK (max_value >= min_value),
+  unit TEXT NOT NULL,
+  population TEXT NOT NULL,
+  analyte TEXT NOT NULL,
+  administration_condition TEXT NOT NULL,
+  source_id TEXT NOT NULL REFERENCES pk_source (id),
+  dose_value REAL CHECK (dose_value > 0),
+  dose_unit TEXT,
+  notes TEXT,
+  math_eligible INTEGER NOT NULL DEFAULT 0 CHECK (math_eligible IN (0, 1)),
+  CHECK ((dose_value IS NULL) = (dose_unit IS NULL)),
+  FOREIGN KEY (drug_id, route, release_type)
+    REFERENCES drug_formulation (drug_id, route, release_type) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_pk_observation_formulation
+  ON pk_observation (drug_id, route, release_type, metric);

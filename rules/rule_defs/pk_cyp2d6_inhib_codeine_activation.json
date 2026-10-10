@@ -1,0 +1,33 @@
+{
+  "id": "PK_CYP2D6_INHIB_CODEINE_ACTIVATION",
+  "name": "CYP2D6 inhibition reduces codeine activation to morphine",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["activation_decrease", "reduced_efficacy"],
+  "actions": [
+    "Evaluate analgesic response and signs of withdrawal when a CYP2D6 inhibitor is added or removed.",
+    "Consider an analgesic that does not require CYP2D6 activation when appropriate."
+  ],
+  "logic": {
+    "enzyme": {
+      "id": "CYP2D6",
+      "A_role": "substrate",
+      "B_role": "inhibitor",
+      "B_strength_in": ["moderate", "strong"]
+    },
+    "A_name_is": "codeine",
+    "rationale": [
+      "Codeine requires CYP2D6 conversion to morphine for much of its analgesic effect.",
+      "CYP2D6 inhibition increases parent codeine but decreases morphine formation."
+    ]
+  },
+  "explanation_template": "{B_name} inhibits CYP2D6 conversion of codeine to morphine. Codeine levels may rise while active morphine levels fall, reducing analgesia or precipitating withdrawal in a dependent patient.",
+  "references": [
+    {
+      "source": "DailyMed, Codeine Sulfate Tablets, Drug Interactions",
+      "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=010905f9-3bcb-4b50-9fe8-a3ad0010f14c",
+      "citation": "CYP2D6 inhibitors increase codeine concentration and decrease active morphine, potentially reducing analgesia."
+    }
+  ]
+}

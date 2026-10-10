@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -182,6 +183,31 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
                 )
             seen_aliases[a] = drug_id
 
+        brands = d.get("brand_names", [])
+        if not isinstance(brands, list):
+            errors.append(
+                CurationError(prefix + ".brand_names", "brand_names must be a list.")
+            )
+        else:
+            normalized_brands: list[str] = []
+            for brand in brands:
+                if not isinstance(brand, str) or not brand.strip():
+                    errors.append(
+                        CurationError(
+                            prefix + ".brand_names",
+                            "Brand name must be a non-empty string.",
+                        )
+                    )
+                    continue
+                normalized_brands.append(brand.strip().casefold())
+            if len(normalized_brands) != len(set(normalized_brands)):
+                errors.append(
+                    CurationError(
+                        prefix + ".brand_names",
+                        "Duplicate brand names within the same drug.",
+                    )
+                )
+
         # Release types
         release_types = d.get("release_types")
 
@@ -327,7 +353,7 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
                         errors.append(
                             CurationError(
                                 formulation_prefix + ".release_types",
-                                ("release_types must contain at least " "one value."),
+                                ("release_types must contain at least one value."),
                             )
                         )
                         continue
@@ -342,7 +368,7 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
                             errors.append(
                                 CurationError(
                                     formulation_prefix + ".release_types",
-                                    ("release type must be a " "non-empty string."),
+                                    ("release type must be a non-empty string."),
                                 )
                             )
                             continue
@@ -370,7 +396,7 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
                         errors.append(
                             CurationError(
                                 formulation_prefix + ".release_types",
-                                ("Duplicate release types for this " "formulation."),
+                                ("Duplicate release types for this formulation."),
                             )
                         )
 
@@ -432,14 +458,32 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
             dosage_form = dosage.get("dosage_form")
             strength_value = dosage.get("strength_value")
             strength_unit = dosage.get("strength_unit")
+            for optional_key in ("product_name", "composition"):
+                optional_value = dosage.get(optional_key)
+                if optional_value is not None and (
+                    not isinstance(optional_value, str) or not optional_value.strip()
+                ):
+                    errors.append(
+                        CurationError(
+                            p2 + "." + optional_key,
+                            optional_key + " must be non-empty text when supplied.",
+                        )
+                    )
+            source_url = dosage.get("source_url")
+            if source_url is not None and (
+                not isinstance(source_url, str)
+                or not source_url.startswith("https://")
+                or not source_url.split("/", 3)[2]
+            ):
+                errors.append(
+                    CurationError(
+                        p2 + ".source_url", "source_url must be an HTTPS URL."
+                    )
+                )
 
-            normalized_route = (
-                route.strip().lower() if isinstance(route, str) else ""
-            )
+            normalized_route = route.strip().lower() if isinstance(route, str) else ""
             normalized_release = (
-                release_type.strip().lower()
-                if isinstance(release_type, str)
-                else ""
+                release_type.strip().lower() if isinstance(release_type, str) else ""
             )
 
             if normalized_route not in _ALLOWED_ROUTES:
@@ -480,6 +524,7 @@ def validate_drugs_curation(path: Path = DEFAULT_PATH) -> list[CurationError]:
             if (
                 isinstance(strength_value, bool)
                 or not isinstance(strength_value, (int, float))
+                or not math.isfinite(float(strength_value))
                 or float(strength_value) <= 0
             ):
                 errors.append(

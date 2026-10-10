@@ -1,33 +1,15 @@
-from app.cli import DB_PATH, connect, load_facts, resolve_drug_ids
-from core.mechanisms import (
-    mechanism_pipeline_to_json_dict,
-    run_mechanism_pipeline,
-)
+from __future__ import annotations
 
+from typing import Any
 
-def _pipeline_payload_for(
-    names: list[str],
-    patient_flags: dict[str, bool] | None = None,
-):
-    conn = connect(DB_PATH)
-    drug_ids = resolve_drug_ids(conn, names)
-    facts = load_facts(
-        conn,
-        drug_ids,
-        patient_flags=patient_flags
-        or {
-            "qt_risk": False,
-            "bleeding_risk": False,
-        },
-    )
-    pipeline = run_mechanism_pipeline(drug_ids, facts)
-    return mechanism_pipeline_to_json_dict(pipeline)
+from tests.mechanisms.support import pipeline_payload_for
+
 
 def _aggregate_summary_by(
-    payload: dict,
+    payload: dict[str, Any],
     aggregate_type: str,
     anchor: str,
-) -> dict:
+) -> dict[str, Any]:
     return next(
         summary
         for summary in payload["aggregate_concern_summaries"]
@@ -38,7 +20,7 @@ def _aggregate_summary_by(
     )
 
 
-def _assert_aggregate_summary_json_shape(summary: dict):
+def _assert_aggregate_summary_json_shape(summary: dict[str, Any]) -> None:
     assert set(summary) == {
         "aggregate",
         "severity_annotation",
@@ -78,7 +60,7 @@ def _assert_aggregate_summary_json_shape(summary: dict):
     assert isinstance(summary["narrative"], str)
     
 def test_bupropion_vortioxetine_fluconazole_json_snapshot():
-    payload = _pipeline_payload_for(
+    payload = pipeline_payload_for(
         ["bupropion", "vortioxetine", "fluconazole"],
     )
 
@@ -193,7 +175,7 @@ def test_bupropion_vortioxetine_fluconazole_json_snapshot():
 
 
 def test_bupropion_vortioxetine_json_snapshot():
-    payload = _pipeline_payload_for(["bupropion", "vortioxetine"])
+    payload = pipeline_payload_for(["bupropion", "vortioxetine"])
 
     exposure_clusters = [
         item
@@ -232,7 +214,7 @@ def test_bupropion_vortioxetine_json_snapshot():
     assert severity_annotations[0]["scored"]["confidence"] == "high"
 
 def test_clarithromycin_fluconazole_aggregate_summary_json_snapshot():
-    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+    payload = pipeline_payload_for(["clarithromycin", "fluconazole"])
 
     assert len(payload["aggregate_concern_summaries"]) == 4
 
@@ -309,7 +291,7 @@ def test_clarithromycin_fluconazole_aggregate_summary_json_snapshot():
 
 
 def test_bupropion_vortioxetine_aggregate_summary_json_snapshot():
-    payload = _pipeline_payload_for(["bupropion", "vortioxetine"])
+    payload = pipeline_payload_for(["bupropion", "vortioxetine"])
 
     assert len(payload["aggregate_concern_summaries"]) == 1
 
@@ -361,7 +343,7 @@ def test_bupropion_vortioxetine_aggregate_summary_json_snapshot():
 
 
 def test_alcohol_clonazepam_aggregate_summary_json_snapshot():
-    payload = _pipeline_payload_for(["alcohol", "clonazepam"])
+    payload = pipeline_payload_for(["alcohol", "clonazepam"])
 
     assert len(payload["aggregate_concern_summaries"]) == 5
 
@@ -444,7 +426,7 @@ def test_alcohol_clonazepam_aggregate_summary_json_snapshot():
 
 
 def test_qt_risk_aggregate_summary_json_snapshot():
-    payload = _pipeline_payload_for(
+    payload = pipeline_payload_for(
         ["clarithromycin", "fluconazole"],
         patient_flags={
             "qt_risk": True,
@@ -468,7 +450,7 @@ def test_qt_risk_aggregate_summary_json_snapshot():
     assert "QT-related concerns may be more relevant" in qt_summary["narrative"]
     
 def test_mechanism_pipeline_json_top_level_contract():
-    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+    payload = pipeline_payload_for(["clarithromycin", "fluconazole"])
 
     assert set(payload) == {
         "effects",
@@ -488,7 +470,7 @@ def test_mechanism_pipeline_json_top_level_contract():
 
 
 def test_mechanism_pipeline_json_nested_contracts():
-    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+    payload = pipeline_payload_for(["clarithromycin", "fluconazole"])
 
     assert payload["effects"]
     assert set(payload["effects"][0]) == {
@@ -548,7 +530,7 @@ def test_mechanism_pipeline_json_nested_contracts():
     }    
     
 def test_mechanism_pipeline_json_scored_and_annotation_contracts():
-    payload = _pipeline_payload_for(["clarithromycin", "fluconazole"])
+    payload = pipeline_payload_for(["clarithromycin", "fluconazole"])
 
     assert payload["arbitration_results"]
     assert set(payload["arbitration_results"][0]) == {

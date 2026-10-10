@@ -172,6 +172,9 @@ class DrugDosageOptionResponse(BaseModel):
     dosage_form: str
     strength_value: float
     strength_unit: str
+    product_name: str | None = None
+    composition: str | None = None
+    source_url: str | None = None
 
 
 class DrugCatalogEntryResponse(BaseModel):
@@ -187,29 +190,60 @@ class DrugCatalogEntryResponse(BaseModel):
 class DrugCatalogResponse(BaseModel):
     drugs: list[DrugCatalogEntryResponse]
 
-class KnowledgeQueryRequest(BaseModel):
-    query: str = Field(min_length=1)
-    top_k: int = Field(default=5, ge=1, le=20)
+
+class PKSourceResponse(BaseModel):
+    id: str
+    title: str
+    url: str
+    evidence_type: str
+    revision_date: str | None
 
 
-class KnowledgeSourceResponse(BaseModel):
-    title: str | None = None
-    citation: str | None = None
-    url: str | None = None
-    excerpt: str | None = None
-    score: float | None = None
+class PKObservationResponse(BaseModel):
+    id: str
+    drug_id: str
+    route: str
+    release_type: str
+    metric: str
+    min_value: float
+    max_value: float
+    unit: str
+    population: str
+    analyte: str
+    administration_condition: str
+    dose_value: float | None
+    dose_unit: str | None
+    notes: str | None
+    math_eligible: bool
+    source: PKSourceResponse
 
 
-class KnowledgeStatusResponse(BaseModel):
-    enabled: bool
-    available: bool
-    base_url_configured: bool
-    detail: str | None = None
-    model: str | None = None
+class PKObservationsResponse(BaseModel):
+    drug_id: str
+    observations: list[PKObservationResponse]
 
 
-class KnowledgeQueryResponse(BaseModel):
-    informational_only: bool = True
-    answer: str
-    sources: list[KnowledgeSourceResponse] = Field(default_factory=list)
-    model: str | None = None
+class PKCalculationInputResponse(BaseModel):
+    name: str
+    value: float
+    unit: str
+
+
+class PKCalculationTraceResponse(BaseModel):
+    calculation: str
+    formula: str
+    substitutions: str
+    inputs: list[PKCalculationInputResponse]
+    elimination_rate_per_hour: float
+    result: float
+    result_unit: str
+    assumptions: list[str]
+    limitations: list[str]
+    source_ids: list[str]
+
+
+class PKObservationMathResponse(BaseModel):
+    observation: PKObservationResponse
+    elapsed_hours: float
+    traces: list[PKCalculationTraceResponse]
+

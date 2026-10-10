@@ -5,10 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from app.cli import DB_PATH, connect, load_facts, resolve_drug_ids
 from app.service import analyze_names
 from core.mechanisms.aggregation import AGGREGATE_OBJECT_EXPOSURE_INCREASE
-from core.mechanisms.pipeline import run_mechanism_pipeline
+from tests.mechanisms.support import pipeline_for
 
 
 @dataclass(frozen=True)
@@ -100,21 +99,10 @@ def _payload_rule_ids_by_domain(
     return pk_rule_ids, pd_rule_ids
 
 
-def _pipeline_for(drug_names: tuple[str, ...]):
-    conn = connect(DB_PATH)
-    try:
-        drug_ids = resolve_drug_ids(conn, list(drug_names))
-        facts = load_facts(conn, drug_ids, patient_flags={})
-    finally:
-        conn.close()
-
-    return run_mechanism_pipeline(drug_ids, facts)
-
-
 def _object_exposure_aggregate_keys(
     drug_names: tuple[str, ...],
 ) -> set[tuple[str, tuple[str, ...]]]:
-    pipeline = _pipeline_for(drug_names)
+    pipeline = pipeline_for(drug_names)
 
     return {
         (aggregate.anchor, aggregate.targets)
@@ -159,7 +147,7 @@ def test_pk_to_pd_composite_remains_old_rule_output_not_mechanism_policy_output(
     pk_rule_ids, pd_rule_ids = _payload_rule_ids_by_domain(
         ("alprazolam", "clarithromycin"),
     )
-    pipeline = _pipeline_for(("alprazolam", "clarithromycin"))
+    pipeline = pipeline_for(("alprazolam", "clarithromycin"))
 
     assert "PK_CYP3A4_STRONG_INHIB" in pk_rule_ids
     assert "COMP_PK_UP_CNS_DEP" in pd_rule_ids

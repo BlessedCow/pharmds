@@ -4,18 +4,18 @@ import { useEffect, useMemo, useState } from "react";
 import {
   analyzeDrugs,
   fetchDrugCatalog,
-  fetchKnowledgeStatus,
   fetchMetadata,
-  queryKnowledge,
+  fetchPKObservationMath,
+  fetchPKObservations,
 } from "./api/client";
 import type {
   AnalyzeResponse,
   DrugCatalogEntry,
   DrugDosageOption,
   MetadataResponse,
-  KnowledgeQueryResponse,
-  KnowledgeStatusResponse,
   PairFinding,
+  PKObservation,
+  PKObservationMathResponse,
   RuleHit,
 } from "./api/types";
 
@@ -27,14 +27,12 @@ type DrugFormState = {
   strengthValue: number | null;
   strengthUnit: string | null;
   dosageForm: string | null;
-  doseValue: number | null;
-  doseUnit: string | null;
   frequency: string;
   scheduleType: "scheduled" | "prn";
   maxAdministrationsPerDay: number | null;
 };
 
-type Page = "analyzer" | "drug-database" | "knowledge";
+type Page = "analyzer" | "drug-database";
 
 const REGIMEN_FREQUENCY_OPTIONS = [
   "QAM",
@@ -75,8 +73,6 @@ const DEFAULT_DRUGS: DrugFormState[] = [
     strengthValue: null,
     strengthUnit: null,
     dosageForm: null,
-    doseValue: null,
-    doseUnit: null,
     frequency: "",
     scheduleType: "scheduled",
     maxAdministrationsPerDay: null,
@@ -89,8 +85,6 @@ const DEFAULT_DRUGS: DrugFormState[] = [
     strengthValue: null,
     strengthUnit: null,
     dosageForm: null,
-    doseValue: null,
-    doseUnit: null,
     frequency: "",
     scheduleType: "scheduled",
     maxAdministrationsPerDay: null,
@@ -105,8 +99,6 @@ const EMPTY_DRUG: DrugFormState = {
   strengthValue: null,
   strengthUnit: null,
   dosageForm: null,
-  doseValue: null,
-  doseUnit: null,
   frequency: "",
   scheduleType: "scheduled",
   maxAdministrationsPerDay: null,
@@ -202,10 +194,8 @@ function App() {
           strength_value: drug.strengthValue,
           strength_unit: drug.strengthUnit,
           dosage_form: drug.dosageForm,
-          dose_value: drug.doseValue,
-          dose_unit: drug.doseUnit,
           frequency: drug.frequency || null,
-          schedule_type: drug.doseValue === null ? null : drug.scheduleType,
+          schedule_type: drug.scheduleType,
           max_administrations_per_day:
             drug.scheduleType === "prn"
               ? drug.maxAdministrationsPerDay
@@ -268,11 +258,6 @@ function App() {
               label="Drug Database"
               onClick={() => setPage("drug-database")}
             />
-            <NavButton
-              active={page === "knowledge"}
-              label="Knowledge"
-              onClick={() => setPage("knowledge")}
-            />
           </nav>
         </header>
 
@@ -317,14 +302,12 @@ function App() {
 
             <ResultsPanel analysis={analysis} error={analysisError} />
           </section>
-        ) : page === "drug-database" ? (
+        ) : (
           <DrugDatabasePage
             drugs={drugCatalog}
             error={drugCatalogError}
             isLoading={isDrugCatalogLoading}
           />
-        ) : (
-          <KnowledgePage />
         )}
       </section>
     </main>
@@ -352,115 +335,6 @@ function NavButton({
     >
       {label}
     </button>
-  );
-}
-
-function KnowledgePage() {
-  const [status, setStatus] = useState<KnowledgeStatusResponse | null>(null);
-  const [query, setQuery] = useState("");
-  const [result, setResult] = useState<KnowledgeQueryResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    void fetchKnowledgeStatus()
-      .then(setStatus)
-      .catch((caught: unknown) => {
-        setError(caught instanceof Error ? caught.message : "Status unavailable.");
-      });
-  }, []);
-
-  async function submitQuery() {
-    if (!query.trim()) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    try {
-      setResult(await queryKnowledge(query.trim()));
-    } catch (caught: unknown) {
-      setError(
-        caught instanceof Error ? caught.message : "Knowledge query failed.",
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return (
-    <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
-      <div className="space-y-2">
-        <h2 className="text-2xl font-semibold text-white">Knowledge</h2>
-        <p className="max-w-3xl text-sm leading-6 text-slate-400">
-          Optional remote RAG and language-model context. Information returned
-          here is non-authoritative and never changes PharmDS deterministic
-          interaction results.
-        </p>
-      </div>
-
-      <div className="mt-5 rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-        <p className="text-sm text-slate-300">
-          Service: {status?.available ? "Available" : "Unavailable"}
-          {status?.model ? ` · ${status.model}` : ""}
-        </p>
-        {status?.detail ? (
-          <p className="mt-1 text-xs text-slate-500">{status.detail}</p>
-        ) : null}
-      </div>
-
-      <textarea
-        className="mt-5 min-h-32 w-full rounded-2xl border border-slate-700 bg-slate-950 p-4 text-white outline-none transition focus:border-cyan-300"
-        onChange={(event) => setQuery(event.target.value)}
-        placeholder="Ask for supporting drug information or public case material..."
-        value={query}
-      />
-      <button
-        className="mt-3 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 disabled:bg-slate-700 disabled:text-slate-400"
-        disabled={!status?.available || !query.trim() || loading}
-        onClick={() => void submitQuery()}
-        type="button"
-      >
-        {loading ? "Searching..." : "Search knowledge"}
-      </button>
-
-      {error ? <ErrorBanner message={error} /> : null}
-      {result ? (
-        <div className="mt-6 space-y-4">
-          <div className="rounded-2xl border border-amber-900/60 bg-amber-950/20 p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">
-              Informational only
-            </p>
-            <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-slate-300">
-              {result.answer}
-            </p>
-          </div>
-          {result.sources.length ? (
-            <div className="space-y-3">
-              <h3 className="font-semibold text-white">Sources</h3>
-              {result.sources.map((source, index) => (
-                <div
-                  className="rounded-xl border border-slate-800 bg-slate-950/70 p-4"
-                  key={`${source.title ?? "source"}-${index}`}
-                >
-                  <p className="text-sm font-semibold text-slate-200">
-                    {source.title ?? source.citation ?? "Source"}
-                  </p>
-                  {source.citation && source.title ? (
-                    <p className="mt-1 text-xs text-slate-500">
-                      {source.citation}
-                    </p>
-                  ) : null}
-                  {source.excerpt ? (
-                    <p className="mt-2 text-sm leading-6 text-slate-400">
-                      {source.excerpt}
-                    </p>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </div>
-      ) : null}
-    </section>
   );
 }
 
@@ -649,6 +523,26 @@ function DrugDatabasePage({
 }
 
 function DrugCatalogCard({ drug }: { drug: DrugCatalogEntry }) {
+  const [showPK, setShowPK] = useState(false);
+  const [observations, setObservations] = useState<PKObservation[] | null>(null);
+  const [pkError, setPKError] = useState<string | null>(null);
+
+  async function togglePK() {
+    if (showPK) {
+      setShowPK(false);
+      return;
+    }
+    setShowPK(true);
+    if (observations !== null) return;
+    setPKError(null);
+    try {
+      const response = await fetchPKObservations(drug.id);
+      setObservations(response.observations);
+    } catch (error) {
+      setPKError(error instanceof Error ? error.message : "PK observations unavailable.");
+    }
+  }
+
   return (
     <article className="rounded-3xl border border-slate-800 bg-slate-900 p-6">
       <div className="space-y-1">
@@ -718,6 +612,16 @@ function DrugCatalogCard({ drug }: { drug: DrugCatalogEntry }) {
                   key={dosageOptionKey(option)}
                 >
                   {formatDosageOption(option)}
+                  {option.source_url ? (
+                    <a
+                      className="ml-2 text-cyan-300 underline"
+                      href={option.source_url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Source
+                    </a>
+                  ) : null}
                 </span>
               ))
             ) : (
@@ -726,7 +630,155 @@ function DrugCatalogCard({ drug }: { drug: DrugCatalogEntry }) {
           </dd>
         </div>
       </dl>
+      <button
+        aria-expanded={showPK}
+        className="mt-6 rounded-xl border border-cyan-800 px-4 py-2 text-sm font-semibold text-cyan-200 hover:border-cyan-400"
+        onClick={() => void togglePK()}
+        type="button"
+      >
+        {showPK ? "Hide sourced PK" : "View sourced PK"}
+      </button>
+      {showPK ? (
+        <div className="mt-4 space-y-3 border-t border-slate-800 pt-4">
+          {pkError ? <ErrorBanner message={pkError} /> : null}
+          {!pkError && observations === null ? (
+            <p className="text-sm text-slate-400">Loading observations...</p>
+          ) : null}
+          {observations?.length === 0 ? (
+            <p className="text-sm text-slate-400">
+              No source-linked PK observations curated for this drug yet.
+            </p>
+          ) : null}
+          {observations?.map((observation) => (
+            <PKObservationCard key={observation.id} observation={observation} />
+          ))}
+        </div>
+      ) : null}
     </article>
+  );
+}
+
+function PKObservationCard({ observation }: { observation: PKObservation }) {
+  const [showMath, setShowMath] = useState(false);
+  const [elapsed, setElapsed] = useState("24");
+  const [math, setMath] = useState<PKObservationMathResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const numericElapsed = Number(elapsed);
+  const validElapsed = elapsed.trim() !== "" && Number.isFinite(numericElapsed)
+    && numericElapsed >= 0 && numericElapsed <= 100000;
+  const canCalculate = observation.math_eligible
+    && observation.metric === "half_life"
+    && observation.min_value > 0
+    && observation.min_value === observation.max_value;
+
+  async function calculate() {
+    if (!validElapsed) return;
+    setError(null);
+    setMath(null);
+    try {
+      setMath(await fetchPKObservationMath(
+        observation.drug_id, observation.id, numericElapsed,
+      ));
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Calculation unavailable.");
+    }
+  }
+
+  const measured = observation.min_value === observation.max_value
+    ? `${observation.min_value} ${observation.unit}`
+    : `${observation.min_value}–${observation.max_value} ${observation.unit}`;
+
+  return (
+    <div className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4 text-sm text-slate-300">
+      <p className="font-semibold text-white">
+        {observation.metric.replace(/_/g, " ")}: {measured}
+      </p>
+      <p className="mt-2">
+        {observation.analyte} · {observation.route} {observation.release_type.toUpperCase()}
+      </p>
+      <p className="mt-1 text-slate-400">
+        {observation.population}; {observation.administration_condition}
+      </p>
+      {observation.dose_value !== null ? (
+        <p className="mt-1 text-slate-400">
+          Study dose: {observation.dose_value} {observation.dose_unit}
+        </p>
+      ) : null}
+      {observation.notes ? <p className="mt-2">{observation.notes}</p> : null}
+      <a
+        className="mt-3 inline-block break-words text-cyan-300 underline"
+        href={observation.source.url}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {observation.source.title}
+      </a>
+      {observation.source.revision_date ? (
+        <p className="mt-1 text-xs text-slate-500">
+          Label revision: {observation.source.revision_date}
+        </p>
+      ) : null}
+      {canCalculate ? (
+        <div className="mt-4 border-t border-slate-800 pt-3">
+          <button
+            aria-expanded={showMath}
+            className="font-medium text-cyan-200 underline"
+            onClick={() => {
+              setShowMath(!showMath);
+              setMath(null);
+            }}
+            type="button"
+          >
+            {showMath ? "Hide the math" : "Show the math"}
+          </button>
+          {showMath ? (
+            <div className="mt-3 space-y-3">
+              <p className="text-slate-400">
+                Idealized first-order illustration using the sourced summary
+                half-life. It is not a patient concentration or dosing estimate.
+              </p>
+              <label className="block">
+                Elapsed time (hours)
+                <input
+                  className="mt-1 block w-32 rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-white"
+                  min="0"
+                  max="100000"
+                  onChange={(event) => {
+                    setElapsed(event.target.value);
+                    setMath(null);
+                  }}
+                  step="any"
+                  type="number"
+                  value={elapsed}
+                />
+              </label>
+              <button
+                className="rounded-lg bg-cyan-800 px-3 py-2 font-semibold text-white disabled:opacity-50"
+                disabled={!validElapsed}
+                onClick={() => void calculate()}
+                type="button"
+              >
+                Calculate
+              </button>
+              {error ? <p role="alert" className="text-rose-300">{error}</p> : null}
+              {math?.traces.map((trace) => (
+                <div className="space-y-1 border-t border-slate-800 pt-3" key={trace.calculation}>
+                  <p className="font-semibold text-white">
+                    {trace.calculation.replace(/_/g, " ")}: {(trace.result * 100).toFixed(1)}%
+                  </p>
+                  <p>Formula: {trace.formula}</p>
+                  <p>Substitution: {trace.substitutions}</p>
+                  <p>Elimination rate: {trace.elimination_rate_per_hour.toPrecision(4)} per hour</p>
+                  <p className="text-slate-400">Assumption: {trace.assumptions.join("; ")}</p>
+                  <p className="text-slate-400">{trace.limitations.join(" ")}</p>
+                  <p className="text-xs text-slate-500">Source ID: {trace.source_ids.join(", ")}</p>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -777,6 +829,14 @@ function AnalyzeForm({
 }) {
   return (
     <section className="h-fit rounded-3xl border border-slate-800 bg-slate-900 p-6 shadow-2xl shadow-slate-950/50">
+      <button
+        className="mb-6 w-full rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+        disabled={!canSubmit || isAnalyzing}
+        onClick={onAnalyze}
+        type="button"
+      >
+        {isAnalyzing ? "Analyzing..." : "Analyze medications"}
+      </button>
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold text-white">Medications</h2>
         <p className="text-sm leading-6 text-slate-400">
@@ -828,14 +888,6 @@ function AnalyzeForm({
         selectedEffects={selectedPdEffects}
       />
 
-      <button
-        className="mt-4 w-full rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
-        disabled={!canSubmit || isAnalyzing}
-        onClick={onAnalyze}
-        type="button"
-      >
-        {isAnalyzing ? "Analyzing..." : "Analyze medications"}
-      </button>
     </section>
   );
 }
@@ -902,31 +954,45 @@ function PdEffectControls({
   selectedEffects: string[];
 }) {
   const effects = metadata?.pd_effects ?? [];
+  const [expanded, setExpanded] = useState(false);
 
   function toggleEffect(effectId: string, checked: boolean) {
-    onModeChange("specific");
-
     if (checked) {
+      onModeChange("specific");
       onSelectedEffectsChange(
         Array.from(new Set([...selectedEffects, effectId])),
       );
       return;
     }
 
-    onSelectedEffectsChange(
-      selectedEffects.filter((selected) => selected !== effectId),
-    );
+    const remaining = selectedEffects.filter((selected) => selected !== effectId);
+    onSelectedEffectsChange(remaining);
+    if (!remaining.length) onModeChange("all");
   }
 
   return (
     <section className="mt-6 rounded-2xl border border-slate-800 bg-slate-950/70 p-5">
-      <div className="space-y-2">
-        <h3 className="font-semibold text-white">PD Effects</h3>
-        <p className="text-sm leading-6 text-slate-400">
-          Analyze all supported pharmacodynamic effects or limit the analysis
-          to specific effects.
-        </p>
-      </div>
+      <button
+        aria-expanded={expanded}
+        aria-controls="pd-effect-selection"
+        className="flex w-full items-center justify-between gap-3 text-left text-white"
+        onClick={() => setExpanded((value) => !value)}
+        type="button"
+      >
+        <span className="font-semibold">PD Effects</span>
+        <span aria-hidden="true" className="text-xl text-cyan-300">
+          {expanded ? "−" : "+"}
+        </span>
+      </button>
+      <p className="mt-1 text-xs text-slate-400">
+        {mode === "all" ? "All Effects" : `${selectedEffects.length} specific effects`}
+      </p>
+
+      {expanded ? <div id="pd-effect-selection">
+      <p className="mt-3 text-sm leading-6 text-slate-400">
+        Analyze all supported pharmacodynamic effects or limit the analysis
+        to specific effects.
+      </p>
 
       <label className="mt-4 block text-sm font-medium text-slate-300">
         Effect selection
@@ -1008,6 +1074,7 @@ function PdEffectControls({
       >
         Reset Selection
       </button>
+      </div> : null}
     </section>
   );
 }
@@ -1138,8 +1205,6 @@ function DrugInputCard({
                 strengthValue: null,
                 strengthUnit: null,
                 dosageForm: null,
-                doseValue: null,
-                doseUnit: null,
                 frequency: "",
                 scheduleType: "scheduled",
                 maxAdministrationsPerDay: null,
@@ -1178,8 +1243,6 @@ function DrugInputCard({
                 strengthValue: null,
                 strengthUnit: null,
                 dosageForm: null,
-                doseValue: null,
-                doseUnit: null,
                 frequency: "",
                 scheduleType: "scheduled",
                 maxAdministrationsPerDay: null,
@@ -1222,8 +1285,6 @@ function DrugInputCard({
                 strengthValue: null,
                 strengthUnit: null,
                 dosageForm: null,
-                doseValue: null,
-                doseUnit: null,
                 frequency: "",
                 scheduleType: "scheduled",
                 maxAdministrationsPerDay: null,
@@ -1262,7 +1323,7 @@ function DrugInputCard({
           </select>
         </label>
 
-        <label className="block text-sm font-medium text-slate-300">
+        <label className="block text-sm font-medium text-slate-300 md:col-span-2">
           Strength (optional)
           <select
             className="mt-2 w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
@@ -1290,35 +1351,21 @@ function DrugInputCard({
               </option>
             ))}
           </select>
-        </label>
-
-        <label className="block text-sm font-medium text-slate-300">
-          Dose per administration (optional)
-          <div className="mt-2 flex gap-2">
-            <input
-              className="min-w-0 flex-1 rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none transition focus:border-cyan-300"
-              min="0"
-              onChange={(event) =>
-                onChange({
-                  ...drug,
-                  doseValue: event.target.value
-                    ? Number(event.target.value)
-                    : null,
-                })
-              }
-              step="any"
-              type="number"
-              value={drug.doseValue ?? ""}
-            />
-            <input
-              className="w-24 rounded-xl border border-slate-700 bg-slate-900 px-3 py-3 text-white outline-none transition focus:border-cyan-300"
-              onChange={(event) =>
-                onChange({...drug, doseUnit: event.target.value || null})
-              }
-              placeholder={drug.strengthUnit ?? "mg"}
-              value={drug.doseUnit ?? ""}
-            />
-          </div>
+          {selectedDosageKey ? (() => {
+            const selected = dosageOptions.find(
+              (option) => dosageOptionKey(option) === selectedDosageKey,
+            );
+            return selected?.source_url ? (
+              <a
+                className="mt-1 block text-xs text-cyan-300 underline"
+                href={selected.source_url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Product strength source
+              </a>
+            ) : null;
+          })() : null}
         </label>
 
         <label className="block text-sm font-medium text-slate-300">
@@ -1382,13 +1429,88 @@ function DrugInputCard({
         ) : null}
       </div>
       <p className="mt-3 text-xs leading-5 text-slate-500">
-        Regimen fields are optional. PharmDS keeps daypart schedules such as
-        QAM/QHS distinct from fixed intervals such as Q8H. TID is treated as a
-        scheduled daily count, not as Q8H. PRN frequency is preserved as a
-        ceiling rather than actual daily exposure. Custom frequency text is
-        retained; ambiguous BIW is not normalized automatically.
+        Strength identifies the labeled amount per unit or concentration, not
+        the amount administered. PharmDS does not infer a regimen dose or
+        calculate a daily dose from this selection. Frequency and PRN context
+        are retained; the sourced PK measurements are independent of them.
       </p>
+      {selectedCatalogDrug && drug.route !== "unknown"
+        && drug.releaseType !== "unknown" ? (
+          <FormulationPKPanel
+            drugId={selectedCatalogDrug.id}
+            key={`${selectedCatalogDrug.id}:${drug.route}:${drug.releaseType}`}
+            releaseType={drug.releaseType}
+            route={drug.route}
+          />
+        ) : null}
     </div>
+  );
+}
+
+function FormulationPKPanel({
+  drugId,
+  releaseType,
+  route,
+}: {
+  drugId: string;
+  releaseType: string;
+  route: string;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const [observations, setObservations] = useState<PKObservation[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function toggle() {
+    if (expanded) {
+      setExpanded(false);
+      return;
+    }
+    setExpanded(true);
+    if (observations !== null) return;
+    setError(null);
+    try {
+      const response = await fetchPKObservations(drugId);
+      setObservations(response.observations.filter(
+        (observation) => observation.route === route
+          && observation.release_type === releaseType,
+      ));
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "PK observations unavailable.");
+    }
+  }
+
+  return (
+    <section className="mt-5 border-t border-slate-800 pt-4">
+      <button
+        aria-expanded={expanded}
+        className="text-sm font-semibold text-cyan-200 underline"
+        onClick={() => void toggle()}
+        type="button"
+      >
+        {expanded ? "Hide sourced PK for this formulation" : "View sourced PK for this formulation"}
+      </button>
+      {expanded ? (
+        <div className="mt-3 space-y-3">
+          <p className="text-xs leading-5 text-slate-400">
+            Label and study measurements for {formatRoute(route)} {formatReleaseType(releaseType)}.
+            They are not calculated from the dose or schedule entered above and
+            do not change the interaction analysis.
+          </p>
+          {error ? <ErrorBanner message={error} /> : null}
+          {!error && observations === null ? (
+            <p className="text-sm text-slate-400">Loading observations...</p>
+          ) : null}
+          {observations?.length === 0 ? (
+            <p className="text-sm text-slate-400">
+              No source-linked PK observations curated for this formulation yet.
+            </p>
+          ) : null}
+          {observations?.map((observation) => (
+            <PKObservationCard key={observation.id} observation={observation} />
+          ))}
+        </div>
+      ) : null}
+    </section>
   );
 }
 
@@ -2002,7 +2124,9 @@ function formatDrugName(value: string): string {
     .replace(/\b\w/g, (letter: string) => letter.toUpperCase());
 }
 
-function dosageOptionKey(option: DrugDosageOption): string {
+function dosageOptionKey(option: Pick<DrugDosageOption,
+  "route" | "release_type" | "dosage_form" | "strength_value" | "strength_unit"
+>): string {
   return [
     option.route,
     option.release_type,
@@ -2013,7 +2137,9 @@ function dosageOptionKey(option: DrugDosageOption): string {
 }
 
 function formatDosageOption(option: DrugDosageOption): string {
-  return `${option.strength_value} ${option.strength_unit} ${option.dosage_form} · ${formatRoute(option.route)} ${formatReleaseType(option.release_type)}`;
+  const product = option.product_name ? ` · ${option.product_name}` : "";
+  const composition = option.composition ? ` · ${option.composition}` : "";
+  return `${option.strength_value} ${option.strength_unit} ${option.dosage_form} · ${formatRoute(option.route)} ${formatReleaseType(option.release_type)}${product}${composition}`;
 }
 
 function formatRoute(value: string): string {

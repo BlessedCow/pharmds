@@ -22,6 +22,9 @@ export type DrugDosageOption = {
   dosage_form: string;
   strength_value: number;
   strength_unit: string;
+  product_name: string | null;
+  composition: string | null;
+  source_url: string | null;
 };
 
 export type DrugCatalogEntry = {
@@ -36,6 +39,55 @@ export type DrugCatalogEntry = {
 
 export type DrugCatalogResponse = {
   drugs: DrugCatalogEntry[];
+};
+
+export type PKObservation = {
+  id: string;
+  drug_id: string;
+  route: string;
+  release_type: string;
+  metric: string;
+  min_value: number;
+  max_value: number;
+  unit: string;
+  population: string;
+  analyte: string;
+  administration_condition: string;
+  dose_value: number | null;
+  dose_unit: string | null;
+  notes: string | null;
+  math_eligible: boolean;
+  source: {
+    id: string;
+    title: string;
+    url: string;
+    evidence_type: string;
+    revision_date: string | null;
+  };
+};
+
+export type PKObservationsResponse = {
+  drug_id: string;
+  observations: PKObservation[];
+};
+
+export type PKCalculationTrace = {
+  calculation: string;
+  formula: string;
+  substitutions: string;
+  inputs: Array<{ name: string; value: number; unit: string }>;
+  elimination_rate_per_hour: number;
+  result: number;
+  result_unit: string;
+  assumptions: string[];
+  limitations: string[];
+  source_ids: string[];
+};
+
+export type PKObservationMathResponse = {
+  observation: PKObservation;
+  elapsed_hours: number;
+  traces: PKCalculationTrace[];
 };
 
 export type AnalyzeDrugInput = {
@@ -149,25 +201,3 @@ export type ApiErrorResponse = {
 };
 
 
-export type KnowledgeStatusResponse = {
-  enabled: boolean;
-  available: boolean;
-  base_url_configured: boolean;
-  detail?: string | null;
-  model?: string | null;
-};
-
-export type KnowledgeSource = {
-  title?: string | null;
-  citation?: string | null;
-  url?: string | null;
-  excerpt?: string | null;
-  score?: number | null;
-};
-
-export type KnowledgeQueryResponse = {
-  informational_only: true;
-  answer: string;
-  sources: KnowledgeSource[];
-  model?: string | null;
-};

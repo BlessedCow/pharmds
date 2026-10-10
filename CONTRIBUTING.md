@@ -12,9 +12,9 @@ QUICK START (DEV)
 
 ```
 python -m pip install -U pip
-pip install -e .
-ruff check .
-pytest
+pip install -r requirements-dev.txt
+python -m ruff check .
+python -m pytest -n auto -q
 ```
 
 If CI fails due to Python version, check pyproject.toml (requires-python).
@@ -92,9 +92,9 @@ HOW TO ADD A TEST
 Tests use pytest.
 
 Locations:
-- tests/test_golden_scenarios.py (positive anchors)
-- tests/test_negative_scenarios.py (false-positive prevention)
-- tests/test_scenarios.py (general scenarios)
+- tests/rules/test_golden_scenarios.py (positive anchors)
+- tests/rules/test_negative_scenarios.py (false-positive prevention)
+- tests/rules/test_scenarios.py (general scenarios)
 
 Good tests:
 - assert on rule_id

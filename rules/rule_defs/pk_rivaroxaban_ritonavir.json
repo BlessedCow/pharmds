@@ -1,0 +1,19 @@
+{
+  "id": "PK_RIVAROXABAN_RITONAVIR",
+  "name": "Avoid rivaroxaban with ritonavir",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "avoid",
+  "tags": ["exposure_increase", "bleeding_risk"],
+  "actions": ["Avoid concomitant rivaroxaban and ritonavir as directed in the rivaroxaban label."],
+  "logic": {
+    "drug_pair": {"a": "rivaroxaban", "b": "ritonavir"},
+    "rationale": ["Ritonavir inhibits both CYP3A4 and P-gp, increasing rivaroxaban exposure and bleeding risk."]
+  },
+  "explanation_template": "Ritonavir can raise rivaroxaban exposure through combined CYP3A4 and P-gp inhibition. The rivaroxaban label says to avoid this combination.",
+  "references": [{
+    "source": "DailyMed, Xarelto (Rivaroxaban), Drug Interactions 7.2",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=38b11f5d-f0fc-46dc-aef1-ea31872bb621",
+    "citation": "Avoid rivaroxaban with combined P-gp and strong CYP3A inhibitors such as ritonavir."
+  }]
+}

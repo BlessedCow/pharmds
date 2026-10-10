@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from typing import Literal
+
 import pytest
 
 from app.cli import RULE_DIR, _parse_domain_selection, filter_rules_for_selected_domains
-from app.service import analyze_names
 from rules.engine import load_rules, rule_mechanisms
+from tests.rules.pd_support import pairwise_rule_ids
 
 NAMED_PAIR_RULE_CASES = [
     pytest.param(
@@ -45,16 +47,10 @@ NAMED_PAIR_RULE_CASES = [
 ]
 
 
-def _pk_rule_ids_for(drug_names: list[str], *, domain: str = "all") -> set[str]:
-    result = analyze_names(drug_names, domain=domain, as_json_payload=True)
-
-    assert result.ok
-
-    return {
-        hit["rule_id"]
-        for pair in result.payload["pairs"]
-        for hit in pair["pk"]["hits"]
-    }
+def _pk_rule_ids_for(
+    drug_names: list[str], *, domain: Literal["all", "pk", "pd"] = "all"
+) -> set[str]:
+    return pairwise_rule_ids(drug_names, domain=domain, finding_domain="pk")
 
 
 @pytest.mark.parametrize(("drug_names", "rule_id"), NAMED_PAIR_RULE_CASES)

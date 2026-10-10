@@ -1,0 +1,22 @@
+{
+  "id": "PK_TIZANIDINE_CIPROFLOXACIN",
+  "name": "Ciprofloxacin and tizanidine are contraindicated",
+  "domain": "PK",
+  "severity": "contraindicated",
+  "rule_class": "avoid",
+  "tags": ["exposure_increase", "hypotension_risk", "sedation_risk"],
+  "actions": ["Do not coadminister ciprofloxacin and tizanidine; use an alternative."],
+  "logic": {
+    "drug_pair": {"a": "tizanidine", "b": "ciprofloxacin"},
+    "rationale": [
+      "Ciprofloxacin inhibits CYP1A2-mediated tizanidine clearance.",
+      "The labeled combination is contraindicated due to hypotension and sedation."
+    ]
+  },
+  "explanation_template": "Ciprofloxacin inhibits tizanidine metabolism through CYP1A2. This combination is contraindicated because tizanidine exposure can rise markedly, causing hypotension and sedation.",
+  "references": [{
+    "source": "DailyMed, Ciprofloxacin Tablets, Contraindications and Drug Interactions",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=888dc7f9-ad9c-4c00-8d50-8ddfd9bd27c0",
+    "citation": "Concomitant ciprofloxacin and tizanidine is contraindicated."
+  }]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "PK_APIXABAN_ST_JOHNS_WORT",
+  "name": "Avoid apixaban with St. John's wort",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "avoid",
+  "tags": ["exposure_decrease", "thromboembolism_risk"],
+  "actions": ["Avoid concomitant apixaban and St. John's wort as directed in the apixaban label."],
+  "logic": {
+    "drug_pair": {"a": "apixaban", "b": "st_johns_wort"},
+    "rationale": ["St. John's wort induces both CYP3A4 and P-gp, reducing apixaban exposure and potentially increasing thromboembolic risk."]
+  },
+  "explanation_template": "St. John's wort can lower apixaban exposure through combined CYP3A4 and P-gp induction. The apixaban label says to avoid this combination.",
+  "references": [{
+    "source": "DailyMed, Eliquis (Apixaban), Drug Interactions 7.2",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7be1f4c1-bb2f-4ded-ae9a-515d2a22f93e",
+    "citation": "Avoid apixaban with combined P-gp and strong CYP3A4 inducers, including St. John's wort."
+  }]
+}

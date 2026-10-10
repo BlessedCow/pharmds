@@ -8,6 +8,8 @@ from core.evidence.pd_interaction_traces import (
 )
 from core.mechanisms.effects import MechanismEffect
 from core.mechanisms.registry import (
+    MECHANISM_ABSORPTION_INTERFERENCE,
+    MECHANISM_ABSORPTION_SUSCEPTIBLE,
     MECHANISM_ENZYME_INDUCTION,
     MECHANISM_ENZYME_INHIBITION,
     MECHANISM_ENZYME_SUBSTRATE,
@@ -22,6 +24,7 @@ CANDIDATE_ENZYME_INDUCTION = "ENZYME_INDUCTION_EXPOSURE"
 CANDIDATE_TRANSPORTER_INHIBITION = "TRANSPORTER_INHIBITION_EXPOSURE"
 CANDIDATE_TRANSPORTER_INDUCTION = "TRANSPORTER_INDUCTION_EXPOSURE"
 CANDIDATE_PD_SHARED_EFFECT = "PD_SHARED_EFFECT"
+CANDIDATE_ABSORPTION_INTERFERENCE = "ABSORPTION_INTERFERENCE_EXPOSURE"
 
 
 @dataclass(frozen=True)
@@ -72,8 +75,52 @@ def find_interaction_candidates(
     candidates.extend(_find_enzyme_candidates(effects))
     candidates.extend(_find_transporter_candidates(effects))
     candidates.extend(_find_shared_pd_effect_candidates(effects))
+    candidates.extend(_find_absorption_candidates(effects))
 
     return dedupe_interaction_candidates(candidates)
+
+
+def _find_absorption_candidates(
+    effects: list[MechanismEffect],
+) -> list[InteractionCandidate]:
+    """Match explicit absorption susceptibility to a matching interference class."""
+    susceptible = [
+        effect
+        for effect in effects
+        if effect.mechanism == MECHANISM_ABSORPTION_SUSCEPTIBLE
+    ]
+    interfering = [
+        effect
+        for effect in effects
+        if effect.mechanism == MECHANISM_ABSORPTION_INTERFERENCE
+    ]
+    candidates: list[InteractionCandidate] = []
+    for agent in interfering:
+        for substrate in susceptible:
+            if agent.source_drug == substrate.source_drug:
+                continue
+            if agent.target != substrate.target:
+                continue
+            candidates.append(
+                InteractionCandidate(
+                    candidate_type=CANDIDATE_ABSORPTION_INTERFERENCE,
+                    precipitant_drug=agent.source_drug,
+                    object_drug=substrate.source_drug,
+                    target=agent.target,
+                    mechanism=agent.mechanism,
+                    object_mechanism=substrate.mechanism,
+                    explanation=(
+                        f"{agent.source_drug} may reduce {substrate.source_drug} "
+                        f"absorption through {agent.target}."
+                    ),
+                    metadata={
+                        "evidence_refs": sorted(
+                            set(agent.evidence_refs) | set(substrate.evidence_refs)
+                        ),
+                    },
+                )
+            )
+    return candidates
 
 
 def _find_enzyme_candidates(
@@ -82,19 +129,13 @@ def _find_enzyme_candidates(
     candidates: list[InteractionCandidate] = []
 
     substrates = [
-        effect
-        for effect in effects
-        if effect.mechanism == MECHANISM_ENZYME_SUBSTRATE
+        effect for effect in effects if effect.mechanism == MECHANISM_ENZYME_SUBSTRATE
     ]
     inhibitors = [
-        effect
-        for effect in effects
-        if effect.mechanism == MECHANISM_ENZYME_INHIBITION
+        effect for effect in effects if effect.mechanism == MECHANISM_ENZYME_INHIBITION
     ]
     inducers = [
-        effect
-        for effect in effects
-        if effect.mechanism == MECHANISM_ENZYME_INDUCTION
+        effect for effect in effects if effect.mechanism == MECHANISM_ENZYME_INDUCTION
     ]
 
     for inhibitor in inhibitors:
@@ -222,14 +263,14 @@ def _find_shared_pd_effect_candidates(
     candidates: list[InteractionCandidate] = []
 
     pd_effects = [
-        effect
-        for effect in effects
-        if effect.mechanism == MECHANISM_PD_EFFECT
+        effect for effect in effects if effect.mechanism == MECHANISM_PD_EFFECT
     ]
 
     for left_index, left in enumerate(pd_effects):
-        for right in pd_effects[left_index + 1:]:
+        for right in pd_effects[left_index + 1 :]:
             if left.source_drug == right.source_drug:
+                continue
+            if left.effect_id is None or right.effect_id is None:
                 continue
             if left.effect_id != right.effect_id:
                 continue
@@ -245,8 +286,7 @@ def _find_shared_pd_effect_candidates(
                     mechanism=MECHANISM_PD_EFFECT,
                     object_mechanism=MECHANISM_PD_EFFECT,
                     explanation=(
-                        f"{first} and {second} both contribute to "
-                        f"{left.effect_id}."
+                        f"{first} and {second} both contribute to " f"{left.effect_id}."
                     ),
                     metadata={
                         "evidence_trace": build_additive_pd_effect_evidence_trace(

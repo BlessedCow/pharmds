@@ -23,7 +23,7 @@
     },
     "min_fraction_metabolized": 0.3,
     "min_inhibitor_strength": "moderate",
-    "A_name_not_is": ["tramadol"],
+    "A_name_not_is": ["tramadol", "codeine"],
     "rationale": [
       "{B_name} inhibits CYP2D6.",
       "{A_name} is a CYP2D6 substrate.",

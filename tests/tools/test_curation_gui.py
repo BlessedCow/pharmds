@@ -8,14 +8,15 @@ from tools.curation_gui import (
     canonical_pd_effect_ids,
     duplicate_pd_effect_ids,
     find_identity_conflicts,
+    format_strength_unit,
+    is_oral_liquid_form,
     split_aliases,
+    split_liquid_unit,
 )
 
 
 def test_split_aliases_trims_and_deduplicates_case_insensitively() -> None:
-    assert split_aliases(
-        "Wellbutrin, Zyban, wellbutrin,  "
-    ) == ["Wellbutrin", "Zyban"]
+    assert split_aliases("Wellbutrin, Zyban, wellbutrin,  ") == ["Wellbutrin", "Zyban"]
 
 
 def test_identity_index_contains_id_generic_name_and_aliases() -> None:
@@ -134,3 +135,21 @@ def test_canonical_pd_effect_ids_include_current_core_effects(
     assert "sedation" in effects
     assert "QT_prolongation" in effects
     assert len(effects) == len(set(effects))
+
+
+def test_oral_liquid_strength_editor_round_trips_existing_units() -> None:
+    for unit, expected in (
+        ("mg/mL", ("mg", "1")),
+        ("mg/5mL", ("mg", "5")),
+        ("mg/2.5 mL", ("mg", "2.5")),
+    ):
+        split = split_liquid_unit(unit)
+        assert split == expected
+        assert format_strength_unit(*split, is_liquid=True) in {
+            "mg/mL",
+            "mg/5 mL",
+            "mg/2.5 mL",
+        }
+    assert split_liquid_unit("mg") is None
+    assert is_oral_liquid_form("oral suspension", "oral")
+    assert not is_oral_liquid_form("injection", "iv")

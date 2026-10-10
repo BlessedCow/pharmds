@@ -1,0 +1,19 @@
+{
+  "id": "PK_RIVAROXABAN_ST_JOHNS_WORT",
+  "name": "Avoid rivaroxaban with St. John's wort",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "avoid",
+  "tags": ["exposure_decrease", "thromboembolism_risk"],
+  "actions": ["Avoid concomitant rivaroxaban and St. John's wort as directed in the rivaroxaban label."],
+  "logic": {
+    "drug_pair": {"a": "rivaroxaban", "b": "st_johns_wort"},
+    "rationale": ["St. John's wort induces CYP3A4 and P-gp and can reduce rivaroxaban exposure."]
+  },
+  "explanation_template": "St. John's wort can lower rivaroxaban exposure through combined CYP3A4 and P-gp induction. The rivaroxaban label says to avoid this combination.",
+  "references": [{
+    "source": "DailyMed, Xarelto (Rivaroxaban), Drug Interactions",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=38b11f5d-f0fc-46dc-aef1-ea31872bb621",
+    "citation": "Avoid rivaroxaban with combined P-gp and strong CYP3A4 inducers, including St. John's wort."
+  }]
+}

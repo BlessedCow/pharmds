@@ -21,6 +21,18 @@ The mechanism pipeline remains read-only here. This audit does not migrate owner
 | `PK_METHADONE_CARBAMAZEPINE` | methadone plus carbamazepine | Generic enzyme induction candidates and shared CNS depression coverage. | `generic_pk_with_pair_policy` | Pair-specific handling for reduced methadone exposure and possible withdrawal or reduced opioid effect. |
 | `PK_METHADONE_FLUOXETINE` | methadone plus fluoxetine | Generic CYP2D6 inhibition candidate and shared serotonergic coverage. | `generic_pk_with_pair_policy` | Pair-specific handling for increased methadone exposure and opioid toxicity-related concern. |
 | `PK_VIBEGRON_DIGOXIN` | vibegron plus digoxin | No current generic mechanism candidate. | `pair_policy_only` | Curated pair-specific handling for increased digoxin exposure. |
+| `PK_DIAZEPAM_FLUVOXAMINE` | diazepam plus fluvoxamine | Generic CYP2C19 and CYP3A inhibition candidates. | `generic_pk_with_pair_policy` | Labeled coadministration warning and prolonged sedation are specific to this pair. |
+| `PK_TIZANIDINE_CIPROFLOXACIN` | tizanidine plus ciprofloxacin | Generic CYP1A2 inhibition candidate. | `generic_pk_with_pair_policy` | Labeled contraindication supersedes dose reduction advice. |
+| `PK_TIZANIDINE_FLUVOXAMINE` | tizanidine plus fluvoxamine | Generic CYP1A2 inhibition candidate. | `generic_pk_with_pair_policy` | Labeled contraindication supersedes dose reduction advice. |
+| `PK_THEOPHYLLINE_TOBACCO_SMOKE` | theophylline plus tobacco smoke | Generic CYP1A2 induction candidate; no existing named-pair rule. | `generic_pk_with_pair_policy` | Smoking cessation reverses induction; theophylline serum concentration monitoring is specific to this pair. Nicotine gum does not reproduce the effect. |
+| `PK_CLOZAPINE_TOBACCO_SMOKE` | clozapine plus tobacco smoke | Generic CYP1A2 induction candidate. | `generic_pk_with_pair_policy` | Clozapine labeling calls for reassessment when a patient stops smoking. |
+| `PK_SIMVASTATIN_GRAPEFRUIT_JUICE` | simvastatin plus grapefruit juice | Generic CYP3A inhibition candidate. | `generic_pk_with_pair_policy` | The labeled advice depends on juice quantity; a static pair does not establish consumption. |
+| `PK_APIXABAN_ST_JOHNS_WORT` | apixaban plus St. John's wort | Generic CYP3A4 and P-gp induction candidates. | `generic_pk_with_pair_policy` | Apixaban labeling says to avoid combined strong CYP3A4/P-gp inducers. |
+| `PK_RIVAROXABAN_ST_JOHNS_WORT` | rivaroxaban plus St. John's wort | Generic CYP3A4 and P-gp induction candidates. | `generic_pk_with_pair_policy` | Rivaroxaban labeling says to avoid combined strong CYP3A4/P-gp inducers. |
+| `PK_APIXABAN_PHENYTOIN` | apixaban plus phenytoin | Generic CYP3A4 induction candidate; phenytoin's P-gp role is not curated. | `generic_pk_with_pair_policy` | The apixaban label explicitly names phenytoin in its avoid guidance. |
+| `PK_RIVAROXABAN_PHENYTOIN` | rivaroxaban plus phenytoin | Generic CYP3A4 induction candidate; phenytoin's P-gp role is not curated. | `generic_pk_with_pair_policy` | The rivaroxaban label explicitly names phenytoin in its avoid guidance. |
+| `PK_RIVAROXABAN_KETOCONAZOLE` | rivaroxaban plus ketoconazole | Generic CYP3A4 inhibition candidate. | `generic_pk_with_pair_policy` | The rivaroxaban label says to avoid combined strong CYP3A4/P-gp inhibitors and explicitly names ketoconazole. |
+| `PK_RIVAROXABAN_RITONAVIR` | rivaroxaban plus ritonavir | Generic CYP3A4 inhibition candidate. | `generic_pk_with_pair_policy` | The rivaroxaban label says to avoid combined strong CYP3A4/P-gp inhibitors and explicitly names ritonavir. |
 
 ## Migration implication
 

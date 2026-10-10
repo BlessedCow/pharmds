@@ -4,15 +4,16 @@ from dataclasses import dataclass
 
 import pytest
 
-from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
+from app.cli import RULE_DIR
 from app.service import analyze_names
 from core.mechanisms.candidates import CANDIDATE_PD_SHARED_EFFECT
-from core.mechanisms.pipeline import run_mechanism_pipeline
 from core.mechanisms.policy import (
     POLICY_SAFETY_CONCERN,
     POLICY_TOLERABILITY_CONCERN,
 )
 from rules.engine import evaluate_all, load_rules
+from tests.mechanisms.support import load_drug_facts, pipeline_for
+from tests.rules.pd_support import pd_rule_ids
 
 
 @dataclass(frozen=True)
@@ -133,14 +134,7 @@ PD_THRESHOLD_SUPPRESSION_AUDIT_DOC = (
 )
 
 def _facts_for(drug_names: tuple[str, ...]):
-    conn = connect(DB_PATH)
-    try:
-        drug_ids = resolve_drug_ids(conn, list(drug_names))
-        facts = load_facts(conn, drug_ids, patient_flags={})
-    finally:
-        conn.close()
-
-    return drug_ids, facts
+    return load_drug_facts(drug_names)
 
 
 def _rule_ids_for(drug_names: tuple[str, ...]) -> set[str]:
@@ -159,13 +153,7 @@ def _json_payload_for(drug_names: tuple[str, ...]) -> dict:
 
 
 def _json_pd_rule_ids_for(drug_names: tuple[str, ...]) -> set[str]:
-    payload = _json_payload_for(drug_names)
-
-    return {
-        hit["rule_id"]
-        for pair in payload["pairs"]
-        for hit in pair["pd"]["hits"]
-    }
+    return pd_rule_ids(drug_names)
 
 
 def _json_pipeline_policy_effect_ids_for(
@@ -179,15 +167,10 @@ def _json_pipeline_policy_effect_ids_for(
         if policy["effect_id"] is not None
     ]
 
-def _pipeline_for(drug_names: tuple[str, ...]):
-    drug_ids, facts = _facts_for(drug_names)
-    return run_mechanism_pipeline(drug_ids, facts)
-
-
 def _pipeline_policy_effect_keys(
     drug_names: tuple[str, ...],
 ) -> set[tuple[str, str, str, str]]:
-    pipeline = _pipeline_for(drug_names)
+    pipeline = pipeline_for(drug_names)
     return {
         (
             policy.policy_concern,
@@ -203,7 +186,7 @@ def _pipeline_policy_effect_keys(
 def _pipeline_candidate_effect_keys(
     drug_names: tuple[str, ...],
 ) -> set[tuple[str, str, str, str]]:
-    pipeline = _pipeline_for(drug_names)
+    pipeline = pipeline_for(drug_names)
     return {
         (
             candidate.candidate_type,

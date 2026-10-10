@@ -1,0 +1,3913 @@
+{
+  "version": 1,
+  "drugs": [
+    {
+      "id": "fluvoxamine",
+      "generic_name": "fluvoxamine",
+      "drug_class": "SSRI",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Luvox"
+      ],
+      "release_types": [
+        "ir",
+        "er"
+      ],
+      "notes": "Fluvoxamine inhibits CYP1A2 and CYP2C19 and can markedly raise exposure to sensitive substrates including theophylline. It increases serotonin signaling; other serotonergic agents and MAO inhibitors increase serotonin syndrome risk. SSRI associated bleeding risk rises with antiplatelets or anticoagulants. Interactions can remain clinically important even at ordinary prescribed doses.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "weak"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor",
+          "strength": "weak"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "SERT",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "serotonergic"
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonin syndrome"
+        },
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "bleeding"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 25,
+          "strength_unit": "mg",
+          "product_name": "Fluvoxamine maleate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0b107225-ed5a-4461-9184-f3f2bad1892f"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 50,
+          "strength_unit": "mg",
+          "product_name": "Fluvoxamine maleate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0b107225-ed5a-4461-9184-f3f2bad1892f"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Fluvoxamine maleate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0b107225-ed5a-4461-9184-f3f2bad1892f"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "capsule",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Fluvoxamine maleate extended-release capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4527a684-51c0-1858-e063-6394a90a2631"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "capsule",
+          "strength_value": 150,
+          "strength_unit": "mg",
+          "product_name": "Fluvoxamine maleate extended-release capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4527a684-51c0-1858-e063-6394a90a2631"
+        }
+      ]
+    },
+    {
+      "id": "omeprazole",
+      "generic_name": "omeprazole",
+      "drug_class": "proton pump inhibitor",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Prilosec"
+      ],
+      "release_types": [
+        "dr"
+      ],
+      "notes": "Delayed release omeprazole suppresses gastric acid through irreversible proton pump inhibition. It is metabolized mainly by CYP2C19 and CYP3A4 and inhibits CYP2C19; reduced activation of clopidogrel is a labeled interaction. Gastric pH changes can also alter absorption of pH dependent drugs.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inhibitor",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "dr"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "capsule",
+          "strength_value": 10,
+          "strength_unit": "mg",
+          "product_name": "Omeprazole delayed-release capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0fb314cb-6291-422c-98ff-24d8449992f6"
+        },
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "capsule",
+          "strength_value": 20,
+          "strength_unit": "mg",
+          "product_name": "Omeprazole delayed-release capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0fb314cb-6291-422c-98ff-24d8449992f6"
+        },
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "capsule",
+          "strength_value": 40,
+          "strength_unit": "mg",
+          "product_name": "Omeprazole delayed-release capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0fb314cb-6291-422c-98ff-24d8449992f6"
+        },
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "granules for oral suspension",
+          "strength_value": 2.5,
+          "strength_unit": "mg",
+          "product_name": "Prilosec delayed-release oral suspension packet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d970b074-957a-4036-92d3-1712386f3858"
+        },
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "granules for oral suspension",
+          "strength_value": 10,
+          "strength_unit": "mg",
+          "product_name": "Prilosec delayed-release oral suspension packet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d970b074-957a-4036-92d3-1712386f3858"
+        }
+      ]
+    },
+    {
+      "id": "pantoprazole",
+      "generic_name": "pantoprazole",
+      "drug_class": "proton pump inhibitor",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Protonix"
+      ],
+      "release_types": [
+        "dr",
+        "ir"
+      ],
+      "notes": "Pantoprazole delayed release suppresses gastric acid and is metabolized mainly through CYP2C19, with other pathways including CYP3A4. Its CYP inhibition profile differs from omeprazole; avoid assigning the latter’s interaction strength. Acid suppression can affect drugs whose absorption depends on gastric pH.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "dr"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "tablet",
+          "strength_value": 20,
+          "strength_unit": "mg",
+          "product_name": "Pantoprazole delayed-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fa2bee95-97db-e651-e053-6294a90a72f5"
+        },
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "tablet",
+          "strength_value": 40,
+          "strength_unit": "mg",
+          "product_name": "Pantoprazole delayed-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fa2bee95-97db-e651-e053-6294a90a72f5"
+        },
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "granules for oral suspension",
+          "strength_value": 40,
+          "strength_unit": "mg",
+          "product_name": "Pantoprazole delayed-release oral suspension packet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=90963a38-f629-45a4-bddd-9e13a55fe0f7"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "powder for injection (vial)",
+          "strength_value": 40,
+          "strength_unit": "mg",
+          "product_name": "Pantoprazole sodium single-dose vial, before reconstitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d9fcf6a2-3788-4955-84d9-3c319b13267c"
+        }
+      ]
+    },
+    {
+      "id": "ciprofloxacin",
+      "generic_name": "ciprofloxacin",
+      "drug_class": "fluoroquinolone antibiotic",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Cipro"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Ciprofloxacin inhibits CYP1A2; coadministration with tizanidine is contraindicated and theophylline exposure can increase. It has QT and tendon, neuropathy, and CNS warnings in labeling. Oral absorption falls with polyvalent cations; these interactions are not CYP effects. The selected tablets represent labeled strengths, not all available fluoroquinolone formulations.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "inhibitor",
+          "strength": "moderate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "moderate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "QT prolongation"
+        },
+        {
+          "effect_id": "seizure_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "seizure risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 250,
+          "strength_unit": "mg",
+          "product_name": "Ciprofloxacin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c47250c2-bece-46b5-8b3b-b7c97d9005d8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 500,
+          "strength_unit": "mg",
+          "product_name": "Ciprofloxacin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c47250c2-bece-46b5-8b3b-b7c97d9005d8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 750,
+          "strength_unit": "mg",
+          "product_name": "Ciprofloxacin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c47250c2-bece-46b5-8b3b-b7c97d9005d8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 250,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Ciprofloxacin oral suspension after reconstitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=905503ef-4277-44ca-aa4a-5a969a041e16"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 500,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Ciprofloxacin oral suspension after reconstitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=905503ef-4277-44ca-aa4a-5a969a041e16"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "premixed infusion",
+          "strength_value": 2,
+          "strength_unit": "mg/mL",
+          "product_name": "Ciprofloxacin in dextrose 200 mg/100 mL or 400 mg/200 mL",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f406e796-17d9-4465-b8a7-00d966a4ba74"
+        }
+      ]
+    },
+    {
+      "id": "itraconazole",
+      "generic_name": "itraconazole",
+      "drug_class": "azole antifungal",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Sporanox"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Itraconazole is a potent CYP3A4 inhibitor and inhibits P-gp. The capsule and oral solution have different absorption and should not be treated as interchangeable. Strong interaction potential and heart failure/hepatic warnings require product specific review. The two listed formulations retain distinct product sources and dosage forms.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Itraconazole capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=23126370-8d6a-4027-bd8f-860e2776ba3a"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "solution",
+          "strength_value": 10,
+          "strength_unit": "mg/mL",
+          "product_name": "Itraconazole oral solution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=da63870d-b426-4e49-9591-5bb51f962e66"
+        }
+      ]
+    },
+    {
+      "id": "ketoconazole",
+      "generic_name": "ketoconazole",
+      "drug_class": "azole antifungal",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Oral ketoconazole is a strong CYP3A4 inhibitor and has substantial hepatic and adrenal toxicity warnings. This entry refers to the oral systemic tablet, not topical ketoconazole products, whose systemic exposure differs. Gastric acidity affects oral absorption. The oral formulation has restricted clinical use because of serious toxicity.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 200,
+          "strength_unit": "mg",
+          "product_name": "Ketoconazole oral tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=369f31da-d3c3-49b8-956f-f70598760164"
+        }
+      ]
+    },
+    {
+      "id": "ritonavir",
+      "generic_name": "ritonavir",
+      "drug_class": "antiretroviral pharmacokinetic enhancer",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Norvir"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Ritonavir strongly inhibits CYP3A4 and inhibits P-gp; its chronic enzyme induction effects depend on pathway and regimen. Its boosting use can substantially change exposure to CYP3A substrates and its own interaction profile is not interchangeable with cobicistat. Review the complete regimen and label.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Ritonavir tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4633c6ba-168d-426f-acae-7843e167743a"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral solution",
+          "strength_value": 80,
+          "strength_unit": "mg/mL",
+          "product_name": "Norvir oral solution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bc00d131-afc3-457f-b18f-065775af6f1c"
+        }
+      ]
+    },
+    {
+      "id": "cobicistat",
+      "generic_name": "cobicistat",
+      "drug_class": "pharmacokinetic enhancer",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Tybost"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Cobicistat inhibits CYP3A4 to boost selected antiretrovirals; it has no standalone antiviral activity. Inhibition of transporters can alter drug exposure and serum creatinine may rise through tubular transport without corresponding loss of filtration. Interactions depend on the complete treatment regimen.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor",
+          "strength": "weak"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 90,
+          "strength_unit": "mg",
+          "product_name": "Tybost tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3784c35c-e87f-410c-900b-8fd6313c6010"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 150,
+          "strength_unit": "mg",
+          "product_name": "Tybost tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3784c35c-e87f-410c-900b-8fd6313c6010"
+        }
+      ]
+    },
+    {
+      "id": "phenytoin",
+      "generic_name": "phenytoin",
+      "drug_class": "antiepileptic",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [
+        "Dilantin"
+      ],
+      "release_types": [
+        "er",
+        "ir"
+      ],
+      "notes": "Phenytoin is metabolized principally by CYP2C9 with CYP2C19 contribution and induces several drug metabolizing enzymes. Saturable metabolism means small dose changes can cause disproportionate concentration changes, so a single half life is unsuitable for simple exposure modeling. Serum concentrations and clinically relevant interactions require monitoring.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inducer",
+          "strength": "strong"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inducer"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inducer",
+          "strength": "moderate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "CNS depression"
+        },
+        {
+          "effect_id": "seizure_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "Abrupt withdrawal can provoke seizures."
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "er",
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "capsule",
+          "strength_value": 30,
+          "strength_unit": "mg",
+          "product_name": "Phenytoin sodium extended capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=363cd347-d25e-42b9-9ce7-30642f3cb353"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "capsule",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Phenytoin sodium extended capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=363cd347-d25e-42b9-9ce7-30642f3cb353"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "chewable tablet",
+          "strength_value": 50,
+          "strength_unit": "mg",
+          "product_name": "Phenytoin Infatabs, free acid",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0d240b2b-bc5c-4989-a20b-54ed37a09a4f"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 125,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Phenytoin suspension, free acid",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=093fd736-5971-47af-b4ef-08c1696cebe8"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "injection",
+          "strength_value": 50,
+          "strength_unit": "mg/mL",
+          "product_name": "Phenytoin sodium injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=035a8d4e-2063-4240-83cb-d7eebcabe301"
+        }
+      ]
+    },
+    {
+      "id": "phenobarbital",
+      "generic_name": "phenobarbital",
+      "drug_class": "barbiturate",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Phenobarbital is a long acting barbiturate and potent enzyme inducer. It depresses the CNS and can add to opioid or other sedative respiratory depression. Abrupt discontinuation after regular use can precipitate serious withdrawal, including seizures. Its long elimination time can prolong interactions after dose changes.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inducer",
+          "strength": "moderate"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inducer"
+        },
+        {
+          "enzyme_id": "CYP2C19",
+          "role": "inducer"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "CNS depression"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "respiratory depression"
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "withdrawal risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 15,
+          "strength_unit": "mg",
+          "product_name": "Phenobarbital tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8f02e85a-6dca-467d-b2bf-ab2f9fa9ef3b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 30,
+          "strength_unit": "mg",
+          "product_name": "Phenobarbital tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8f02e85a-6dca-467d-b2bf-ab2f9fa9ef3b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 60,
+          "strength_unit": "mg",
+          "product_name": "Phenobarbital tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8f02e85a-6dca-467d-b2bf-ab2f9fa9ef3b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Phenobarbital tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8f02e85a-6dca-467d-b2bf-ab2f9fa9ef3b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "elixir",
+          "strength_value": 20,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Phenobarbital oral elixir",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=057992c1-29a0-4229-9c30-d787cb632eac"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "injection",
+          "strength_value": 65,
+          "strength_unit": "mg/mL",
+          "product_name": "Phenobarbital sodium injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=50e73787-ede1-4839-aaa5-806e25f18b1a"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "injection",
+          "strength_value": 130,
+          "strength_unit": "mg/mL",
+          "product_name": "Phenobarbital sodium injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=50e73787-ede1-4839-aaa5-806e25f18b1a"
+        }
+      ]
+    },
+    {
+      "id": "codeine",
+      "generic_name": "codeine",
+      "drug_class": "opioid analgesic",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Codeine requires CYP2D6 conversion to morphine for much of its analgesic activity; genetic variation and CYP2D6 inhibition can change effect. CYP3A4 also forms norcodeine. Opioid respiratory depression, sedation, dependence, and withdrawal are major risks; CYP2D6 ultrarapid metabolism can increase morphine exposure.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "CNS depression"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "respiratory depression"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation"
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "withdrawal risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": true,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 15,
+          "strength_unit": "mg",
+          "product_name": "Codeine sulfate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5819bdf7-300e-45b8-8f3a-447b53656293"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 30,
+          "strength_unit": "mg",
+          "product_name": "Codeine sulfate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5819bdf7-300e-45b8-8f3a-447b53656293"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 60,
+          "strength_unit": "mg",
+          "product_name": "Codeine sulfate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5819bdf7-300e-45b8-8f3a-447b53656293"
+        }
+      ]
+    },
+    {
+      "id": "morphine",
+      "generic_name": "morphine",
+      "drug_class": "opioid analgesic",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "ir",
+        "er"
+      ],
+      "notes": "Morphine is glucuronidated primarily to morphine-3-glucuronide and active morphine-6-glucuronide; renal dysfunction can increase metabolite exposure. Opioid respiratory depression and sedation are additive with other CNS depressants. Dependence and withdrawal risk rise with repeated exposure. Metabolite accumulation and altered respiration merit particular attention in renal impairment.",
+      "enzymes": [
+        {
+          "enzyme_id": "UGT2B7",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "CNS depression"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "respiratory depression"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation"
+        },
+        {
+          "effect_id": "withdrawal_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "withdrawal risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "short"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 15,
+          "strength_unit": "mg",
+          "product_name": "Morphine sulfate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=905cd842-2c86-4318-a6c4-92f49de145b3"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 30,
+          "strength_unit": "mg",
+          "product_name": "Morphine sulfate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=905cd842-2c86-4318-a6c4-92f49de145b3"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 15,
+          "strength_unit": "mg",
+          "product_name": "Morphine sulfate extended-release tablet; 100/200 mg for opioid-tolerant patients",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c94d9da6-7a12-44ee-a38f-3323ee27842c"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 30,
+          "strength_unit": "mg",
+          "product_name": "Morphine sulfate extended-release tablet; 100/200 mg for opioid-tolerant patients",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c94d9da6-7a12-44ee-a38f-3323ee27842c"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 60,
+          "strength_unit": "mg",
+          "product_name": "Morphine sulfate extended-release tablet; 100/200 mg for opioid-tolerant patients",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c94d9da6-7a12-44ee-a38f-3323ee27842c"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Morphine sulfate extended-release tablet; 100/200 mg for opioid-tolerant patients",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c94d9da6-7a12-44ee-a38f-3323ee27842c"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 200,
+          "strength_unit": "mg",
+          "product_name": "Morphine sulfate extended-release tablet; 100/200 mg for opioid-tolerant patients",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c94d9da6-7a12-44ee-a38f-3323ee27842c"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral solution",
+          "strength_value": 2,
+          "strength_unit": "mg/mL",
+          "product_name": "Morphine sulfate oral solution (10 or 20 mg per 5 mL)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=839923b4-4b4c-4745-baa5-4d27d4dbb5e7"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral solution",
+          "strength_value": 4,
+          "strength_unit": "mg/mL",
+          "product_name": "Morphine sulfate oral solution (10 or 20 mg per 5 mL)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=839923b4-4b4c-4745-baa5-4d27d4dbb5e7"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral solution",
+          "strength_value": 20,
+          "strength_unit": "mg/mL",
+          "product_name": "Morphine sulfate concentrated oral solution; opioid-tolerant adults only",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bb6b3439-9f0c-45f5-bf6f-c7a971af0a8f"
+        }
+      ]
+    },
+    {
+      "id": "dextromethorphan",
+      "generic_name": "dextromethorphan",
+      "drug_class": "antitussive",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Delsym"
+      ],
+      "release_types": [
+        "er",
+        "ir"
+      ],
+      "notes": "Dextromethorphan is converted by CYP2D6 to active dextrorphan; CYP2D6 inhibition substantially alters parent exposure. It can contribute to serotonin toxicity with MAO inhibitors or serotonergic drugs, and abuse can cause dissociative or CNS effects. The linked polistirex suspension is extended release.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonergic"
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonin syndrome"
+        },
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "CNS depression"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "er",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "suspension",
+          "strength_value": 6,
+          "strength_unit": "mg/mL",
+          "product_name": "Delsym polistirex (30 mg/5 mL)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e3e1d126-76c2-4776-8ce0-449625b7e6ba"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral solution",
+          "strength_value": 15,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Dextromethorphan HBr single-ingredient cough liquid",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b2ebfeb3-e248-40bf-81d3-81c5fb532dbe"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "liquid-filled capsule",
+          "strength_value": 15,
+          "strength_unit": "mg",
+          "product_name": "Dextromethorphan HBr liquid-filled capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5a5dde85-8785-8149-e063-6294a90a4d57"
+        }
+      ]
+    },
+    {
+      "id": "metoprolol",
+      "generic_name": "metoprolol",
+      "drug_class": "beta blocker",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Lopressor"
+      ],
+      "release_types": [
+        "ir",
+        "er"
+      ],
+      "notes": "Metoprolol is mainly metabolized by CYP2D6; strong inhibitors can raise concentrations and enhance beta blockade. Bradycardia and hypotension may add to other rate slowing agents. This strength set refers specifically to immediate release metoprolol tartrate. Extended release succinate is a separate formulation and is not represented by these tartrate strengths.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "bradycardia"
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "orthostatic hypotension"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 25,
+          "strength_unit": "mg",
+          "product_name": "Metoprolol tartrate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dfa37282-2793-4032-a817-dcf3bf5a641f"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 50,
+          "strength_unit": "mg",
+          "product_name": "Metoprolol tartrate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dfa37282-2793-4032-a817-dcf3bf5a641f"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Metoprolol tartrate tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dfa37282-2793-4032-a817-dcf3bf5a641f"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 25,
+          "strength_unit": "mg",
+          "product_name": "Metoprolol succinate extended-release tablet (tartrate-equivalent labeled strength)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4136f1e3-b8f4-cb6c-e063-6294a90a03c2"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 50,
+          "strength_unit": "mg",
+          "product_name": "Metoprolol succinate extended-release tablet (tartrate-equivalent labeled strength)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4136f1e3-b8f4-cb6c-e063-6294a90a03c2"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Metoprolol succinate extended-release tablet (tartrate-equivalent labeled strength)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4136f1e3-b8f4-cb6c-e063-6294a90a03c2"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 200,
+          "strength_unit": "mg",
+          "product_name": "Metoprolol succinate extended-release tablet (tartrate-equivalent labeled strength)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4136f1e3-b8f4-cb6c-e063-6294a90a03c2"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "injection",
+          "strength_value": 1,
+          "strength_unit": "mg/mL",
+          "product_name": "Metoprolol tartrate 5 mg/5 mL injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1e787808-b3e0-417a-b333-80619d15432b"
+        }
+      ]
+    },
+    {
+      "id": "simvastatin",
+      "generic_name": "simvastatin",
+      "drug_class": "statin",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Zocor"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Simvastatin is a lactone prodrug activated to simvastatin acid. It is sensitive to strong CYP3A4 inhibitors, and transporter effects can further increase systemic statin acid exposure. Myopathy and rhabdomyolysis risk rises with concentration; the 80 mg strength has special use restrictions.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "OATP1B1",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": true,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 5,
+          "strength_unit": "mg",
+          "product_name": "Simvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4277e75a-7f3b-4f35-ae56-0bbe095586a5"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 10,
+          "strength_unit": "mg",
+          "product_name": "Simvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4277e75a-7f3b-4f35-ae56-0bbe095586a5"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 20,
+          "strength_unit": "mg",
+          "product_name": "Simvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4277e75a-7f3b-4f35-ae56-0bbe095586a5"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 40,
+          "strength_unit": "mg",
+          "product_name": "Simvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4277e75a-7f3b-4f35-ae56-0bbe095586a5"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 80,
+          "strength_unit": "mg",
+          "product_name": "Simvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4277e75a-7f3b-4f35-ae56-0bbe095586a5"
+        }
+      ]
+    },
+    {
+      "id": "atorvastatin",
+      "generic_name": "atorvastatin",
+      "drug_class": "statin",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Lipitor"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Atorvastatin is metabolized by CYP3A4 and transported by hepatic OATP1B1 and efflux transporters. Strong CYP3A and transporter inhibitors can increase systemic exposure and myopathy risk. Dose and interaction handling differ from simvastatin despite the shared class. The four listed strengths are product strengths rather than prescribed regimens.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "OATP1B1",
+          "role": "substrate"
+        },
+        {
+          "transporter_id": "BCRP",
+          "role": "substrate"
+        },
+        {
+          "transporter_id": "P-gp",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 10,
+          "strength_unit": "mg",
+          "product_name": "Atorvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=51730b09-24e8-41c8-9fec-813f8a64b433"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 20,
+          "strength_unit": "mg",
+          "product_name": "Atorvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=51730b09-24e8-41c8-9fec-813f8a64b433"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 40,
+          "strength_unit": "mg",
+          "product_name": "Atorvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=51730b09-24e8-41c8-9fec-813f8a64b433"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 80,
+          "strength_unit": "mg",
+          "product_name": "Atorvastatin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=51730b09-24e8-41c8-9fec-813f8a64b433"
+        }
+      ]
+    },
+    {
+      "id": "apixaban",
+      "generic_name": "apixaban",
+      "drug_class": "factor Xa inhibitor",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [
+        "Eliquis"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Apixaban is a CYP3A4 and P-gp substrate with anticoagulant bleeding risk. Combined strong CYP3A4/P-gp inhibitors or inducers can change exposure; management depends on indication and dose. A fraction is eliminated renally, and bleeding risk adds to antiplatelets and other anticoagulants.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "substrate"
+        },
+        {
+          "transporter_id": "BCRP",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "bleeding"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 2.5,
+          "strength_unit": "mg",
+          "product_name": "Eliquis tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7be1f4c1-bb2f-4ded-ae9a-515d2a22f93e"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 5,
+          "strength_unit": "mg",
+          "product_name": "Eliquis tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7be1f4c1-bb2f-4ded-ae9a-515d2a22f93e"
+        }
+      ]
+    },
+    {
+      "id": "rivaroxaban",
+      "generic_name": "rivaroxaban",
+      "drug_class": "factor Xa inhibitor",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [
+        "Xarelto"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Rivaroxaban is a CYP3A4/2J2 and P-gp/BCRP substrate with additive bleeding risk from antiplatelets and anticoagulants. Strong combined enzyme and transporter modifiers alter exposure. Oral 15 and 20 mg tablets have food dependent absorption, unlike some lower strengths. Renal function and indication are essential to interpret any interaction.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "substrate"
+        },
+        {
+          "transporter_id": "BCRP",
+          "role": "substrate"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "bleeding"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 2.5,
+          "strength_unit": "mg",
+          "product_name": "Xarelto tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d0e105f6-28f3-45ee-83bd-7d458835242b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 10,
+          "strength_unit": "mg",
+          "product_name": "Xarelto tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d0e105f6-28f3-45ee-83bd-7d458835242b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 15,
+          "strength_unit": "mg",
+          "product_name": "Xarelto tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d0e105f6-28f3-45ee-83bd-7d458835242b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 20,
+          "strength_unit": "mg",
+          "product_name": "Xarelto tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d0e105f6-28f3-45ee-83bd-7d458835242b"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 1,
+          "strength_unit": "mg/mL",
+          "product_name": "Xarelto oral suspension after reconstitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=10db92f9-2300-4a80-836b-673e1ae91610"
+        }
+      ]
+    },
+    {
+      "id": "aspirin",
+      "generic_name": "aspirin",
+      "drug_class": "antiplatelet salicylate",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Bayer"
+      ],
+      "release_types": [
+        "dr",
+        "ir"
+      ],
+      "notes": "Aspirin irreversibly inhibits platelet COX-1 and increases bleeding risk, including when combined with anticoagulants or other antiplatelets. At analgesic doses gastrointestinal toxicity and salicylate toxicity matter. The sourced strength is a delayed release 81 mg tablet; release matters for onset.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "bleeding",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "bleeding"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "dr",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "tablet",
+          "strength_value": 81,
+          "strength_unit": "mg",
+          "product_name": "Aspirin delayed-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=72b16a5c-825f-4f3f-a8b3-b723e4242da7"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 325,
+          "strength_unit": "mg",
+          "product_name": "Aspirin regular-strength tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=98c30922-c48c-471a-a72e-50020a11da98"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "chewable tablet",
+          "strength_value": 81,
+          "strength_unit": "mg",
+          "product_name": "Aspirin chewable tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=54e4ae54-caf8-4105-8428-256f56a2f68f"
+        },
+        {
+          "route": "oral",
+          "release_type": "dr",
+          "dosage_form": "tablet",
+          "strength_value": 325,
+          "strength_unit": "mg",
+          "product_name": "Aspirin delayed-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2e277c52-64ae-4070-b761-3383dd059484"
+        }
+      ]
+    },
+    {
+      "id": "acetaminophen",
+      "generic_name": "acetaminophen",
+      "drug_class": "analgesic antipyretic",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "paracetamol"
+      ],
+      "brand_names": [
+        "Tylenol"
+      ],
+      "release_types": [
+        "ir",
+        "er"
+      ],
+      "notes": "Acetaminophen is primarily conjugated; a minor oxidative pathway forms NAPQI, normally detoxified by glutathione. Excess exposure can cause severe liver injury, and combination products can unintentionally duplicate dosing. CYP2E1 is implicated but is not yet a modeled enzyme in this catalog.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir",
+            "er"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 500,
+          "strength_unit": "mg",
+          "product_name": "Acetaminophen tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e817bc4a-43ef-4126-b903-aabd1390cd0c"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 325,
+          "strength_unit": "mg",
+          "product_name": "Acetaminophen regular-strength tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=441d1bde-d677-fab7-e063-6394a90aaad4"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 650,
+          "strength_unit": "mg",
+          "product_name": "Acetaminophen 8-hour extended-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0035a4fd-8dd5-4534-a1b5-f510d637f721"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 160,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Children's acetaminophen oral suspension",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=190bb2dc-92b4-4b59-a47f-a0251df8261c"
+        }
+      ]
+    },
+    {
+      "id": "linezolid",
+      "generic_name": "linezolid",
+      "drug_class": "oxazolidinone antibiotic",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Zyvox"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Linezolid is a reversible nonselective monoamine oxidase inhibitor; serotonergic drugs and sympathomimetics can create clinically important PD interactions. Serotonin syndrome, myelosuppression, and neuropathy are label warnings. It is not a clinically significant CYP inhibitor/inducer. Different dosage forms exist, and the listed tablet strength is product specific.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "serotonin syndrome"
+        },
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonergic"
+        },
+        {
+          "effect_id": "blood_pressure_increase",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "blood pressure increase"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 600,
+          "strength_unit": "mg",
+          "product_name": "Zyvox tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e70e63b-bfd5-478d-a8ee-8ba22c9efabd"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 100,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Zyvox oral suspension after constitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e70e63b-bfd5-478d-a8ee-8ba22c9efabd"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "premixed infusion",
+          "strength_value": 2,
+          "strength_unit": "mg/mL",
+          "product_name": "Zyvox injection 200 mg/100 mL or 600 mg/300 mL",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e70e63b-bfd5-478d-a8ee-8ba22c9efabd"
+        }
+      ]
+    },
+    {
+      "id": "amiodarone",
+      "generic_name": "amiodarone",
+      "drug_class": "antiarrhythmic",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [
+        "Pacerone"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Amiodarone and its active metabolite have very long, variable persistence. It prolongs QT and inhibits P-gp and several CYP pathways; interactions may continue after discontinuation. Pulmonary, hepatic, thyroid, and bradycardic toxicities require specific monitoring. Its long persistence makes a simple short washout assumption unreliable.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "substrate"
+        },
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor"
+        },
+        {
+          "enzyme_id": "CYP2C9",
+          "role": "inhibitor"
+        },
+        {
+          "enzyme_id": "CYP2D6",
+          "role": "inhibitor"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inhibitor"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "QT prolongation"
+        },
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "bradycardia"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 200,
+          "strength_unit": "mg",
+          "product_name": "Amiodarone tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d42293e9-07fa-41b4-a08b-2e388f5b1e13"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Amiodarone hydrochloride tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=28cd0224-3569-4308-bd40-480bc4230503"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 400,
+          "strength_unit": "mg",
+          "product_name": "Amiodarone hydrochloride tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=28cd0224-3569-4308-bd40-480bc4230503"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "injection",
+          "strength_value": 50,
+          "strength_unit": "mg/mL",
+          "product_name": "Amiodarone hydrochloride injection, 150 mg/3 mL vial",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=51772745-9ea9-42cd-97e6-7266f41ae3ca"
+        }
+      ]
+    },
+    {
+      "id": "sotalol",
+      "generic_name": "sotalol",
+      "drug_class": "class III antiarrhythmic beta blocker",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [
+        "Betapace"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Sotalol combines nonselective beta blockade with concentration dependent QT prolongation and torsades risk. Renal elimination and baseline QT and electrolytes govern monitored initiation and dose interval. Additive bradycardia or QT effects can occur with other agents. The listed tablet strengths do not determine a safe initiation schedule.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "QT prolongation"
+        },
+        {
+          "effect_id": "bradycardia",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "bradycardia"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 80,
+          "strength_unit": "mg",
+          "product_name": "Sotalol hydrochloride tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6674d53a-7137-4822-8841-4982f702a1b8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 120,
+          "strength_unit": "mg",
+          "product_name": "Sotalol hydrochloride tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6674d53a-7137-4822-8841-4982f702a1b8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 160,
+          "strength_unit": "mg",
+          "product_name": "Sotalol hydrochloride tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6674d53a-7137-4822-8841-4982f702a1b8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 240,
+          "strength_unit": "mg",
+          "product_name": "Sotalol hydrochloride tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6674d53a-7137-4822-8841-4982f702a1b8"
+        }
+      ]
+    },
+    {
+      "id": "dofetilide",
+      "generic_name": "dofetilide",
+      "drug_class": "class III antiarrhythmic",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [
+        "Tikosyn"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Dofetilide has dose dependent QT prolongation and torsades risk; initiation or reinitiation requires inpatient ECG monitoring. Renal clearance determines dose and many drugs that inhibit renal cation transport are contraindicated. The present transporter vocabulary does not encode OCT2/MATE1, so the renal interaction is documented in notes.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "QT prolongation"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 125,
+          "strength_unit": "mcg",
+          "product_name": "Dofetilide capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0cb2ef7d-e35b-483b-9985-cfef99d7b96f"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 250,
+          "strength_unit": "mcg",
+          "product_name": "Dofetilide capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0cb2ef7d-e35b-483b-9985-cfef99d7b96f"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 500,
+          "strength_unit": "mcg",
+          "product_name": "Dofetilide capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0cb2ef7d-e35b-483b-9985-cfef99d7b96f"
+        }
+      ]
+    },
+    {
+      "id": "procainamide",
+      "generic_name": "procainamide",
+      "drug_class": "class Ia antiarrhythmic",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Procainamide is acetylated to active N-acetylprocainamide and both species can accumulate with reduced renal function. QT prolongation, hypotension, and lupus like reactions are important risks. The linked 100 mg/mL injection is a concentration, not a bolus dose. The active metabolite has its own elimination and electrophysiologic effects.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "QT prolongation"
+        },
+        {
+          "effect_id": "orthostatic_hypotension",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "orthostatic hypotension"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": true,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "injection",
+          "strength_value": 100,
+          "strength_unit": "mg/mL",
+          "product_name": "Procainamide hydrochloride injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d7cb1594-61cf-41c4-9007-1ee28aa69c50"
+        }
+      ]
+    },
+    {
+      "id": "azithromycin",
+      "generic_name": "azithromycin",
+      "drug_class": "macrolide antibiotic",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Zithromax"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Azithromycin has a long terminal tissue distribution phase and can prolong QT. Its CYP3A4 inhibition is materially less than erythromycin/clarithromycin and is not entered as a strong inhibitor. Cardiac risk is more relevant in patients with other QT drugs or predisposition.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "QT_prolongation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "QT prolongation"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 250,
+          "strength_unit": "mg",
+          "product_name": "Azithromycin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d5c95c30-564f-4b67-ac6d-9179cdfaa5a8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 500,
+          "strength_unit": "mg",
+          "product_name": "Azithromycin tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d5c95c30-564f-4b67-ac6d-9179cdfaa5a8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 600,
+          "strength_unit": "mg",
+          "product_name": "Azithromycin tablet, 600 mg",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=90e65b83-32d6-40bc-be5d-19fbec051bdf"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 100,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Azithromycin for oral suspension after reconstitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=99e5bd22-a721-4e2e-a46c-d61a53c25c3d"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral suspension",
+          "strength_value": 200,
+          "strength_unit": "mg/5 mL",
+          "product_name": "Azithromycin for oral suspension after reconstitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=99e5bd22-a721-4e2e-a46c-d61a53c25c3d"
+        },
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "powder for injection (vial)",
+          "strength_value": 500,
+          "strength_unit": "mg",
+          "product_name": "Azithromycin injection 500 mg single-dose vial, before reconstitution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c8d012c4-f411-4484-a618-7597599ea621"
+        }
+      ]
+    },
+    {
+      "id": "theophylline",
+      "generic_name": "theophylline",
+      "drug_class": "methylxanthine bronchodilator",
+      "therapeutic_index": "narrow",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "er",
+        "ir"
+      ],
+      "notes": "Theophylline has a narrow concentration range and CYP1A2 dependent clearance. Tobacco smoke increases clearance while cessation can rapidly raise concentrations; nicotine replacement does not reproduce smoke induction. CYP1A2 inhibitors such as ciprofloxacin and fluvoxamine can increase toxicity risk; serum levels matter.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "seizure_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "seizure risk"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "tachycardia risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "er",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "Theophylline extended-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=699a4e05-95cb-4b28-8927-d97a4afbf463"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 200,
+          "strength_unit": "mg",
+          "product_name": "Theophylline extended-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=699a4e05-95cb-4b28-8927-d97a4afbf463"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 300,
+          "strength_unit": "mg",
+          "product_name": "Theophylline extended-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=699a4e05-95cb-4b28-8927-d97a4afbf463"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 400,
+          "strength_unit": "mg",
+          "product_name": "Theophylline 24-hour extended-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=56fc2167-ceb6-4e3e-8ff7-5e400dfbd533"
+        },
+        {
+          "route": "oral",
+          "release_type": "er",
+          "dosage_form": "tablet",
+          "strength_value": 600,
+          "strength_unit": "mg",
+          "product_name": "Theophylline 24-hour extended-release tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=56fc2167-ceb6-4e3e-8ff7-5e400dfbd533"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "oral solution",
+          "strength_value": 80,
+          "strength_unit": "mg/15 mL",
+          "product_name": "Theophylline anhydrous oral solution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e2716dac-8b23-4e06-bc3e-4dd76b7c813e"
+        }
+      ]
+    },
+    {
+      "id": "tobacco_smoke",
+      "generic_name": "tobacco smoke",
+      "drug_class": "combustion exposure",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "Polycyclic aromatic hydrocarbons from burned tobacco induce CYP1A2 and increase clearance of theophylline and some other substrates. Stopping smoking reverses induction and can raise drug exposure. This represents combustion smoke, distinct from nicotine or nicotine replacement; no fixed medication strength is assigned.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "inducer",
+          "strength": "moderate",
+          "notes": "Combustion exposure, not nicotine itself; magnitude varies by exposure."
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      },
+      "formulations": [
+        {
+          "route": "inhaled",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "st_johns_wort",
+      "generic_name": "St. John's wort",
+      "drug_class": "botanical extract",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "hypericum perforatum"
+      ],
+      "brand_names": [],
+      "release_types": [
+        "unknown",
+        "ir"
+      ],
+      "notes": "Hyperforin containing St. John’s wort extracts can strongly induce CYP3A4 and intestinal P-gp, reducing exposure to many medicines; potency varies with extract composition. The botanical also has serotonergic interaction concerns. No universal strength is assigned because preparations and hyperforin content differ.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inducer",
+          "strength": "strong"
+        }
+      ],
+      "transporters": [
+        {
+          "transporter_id": "P-gp",
+          "role": "inducer"
+        }
+      ],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonergic"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 300,
+          "strength_unit": "mg",
+          "product_name": "NOW St. John's Wort extract capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/st-johns-wort-300-mg-veg-capsules",
+          "composition": "Hypericum perforatum herb extract, minimum 0.3% hypericin (0.9 mg per capsule)"
+        }
+      ]
+    },
+    {
+      "id": "l_methylfolate",
+      "generic_name": "L-methylfolate",
+      "drug_class": "reduced folate medical food",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "levomefolate"
+      ],
+      "brand_names": [
+        "Deplin"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "L-methylfolate is an active reduced folate used in some medical food products and studied as adjunctive therapy in SSRI resistant depression. It is not a CYP inhibitor or a substitute for an antidepressant mechanism. The two strengths below are product quantities, not a general dose recommendation.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 7.5,
+          "strength_unit": "mg",
+          "product_name": "L-methylfolate calcium tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13eb8bf0-5227-455c-9660-b02abee04676"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 15,
+          "strength_unit": "mg",
+          "product_name": "L-methylfolate calcium tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13eb8bf0-5227-455c-9660-b02abee04676"
+        }
+      ]
+    },
+    {
+      "id": "melatonin",
+      "generic_name": "melatonin",
+      "drug_class": "hormone supplement",
+      "therapeutic_index": "wide",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Melatonin acts at MT1 and MT2 receptors and can cause drowsiness. CYP1A2 metabolism makes the fluvoxamine interaction particularly important. Supplement formulations vary; the listed 3 and 5 mg tablets are tied to one product label. Other marketed supplements have different strengths and quality attributes.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP1A2",
+          "role": "substrate"
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 3,
+          "strength_unit": "mg",
+          "product_name": "Melatonin dietary supplement tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=92b2ccdc-2eed-4307-af45-da455f557cf8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 5,
+          "strength_unit": "mg",
+          "product_name": "Melatonin dietary supplement tablet",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=92b2ccdc-2eed-4307-af45-da455f557cf8"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 1,
+          "strength_unit": "mg",
+          "product_name": "NOW Melatonin 1 mg tablet",
+          "source_url": "https://www.nowfoods.com/products/supplements/melatonin-1-mg-tablets"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 10,
+          "strength_unit": "mg",
+          "product_name": "NOW Melatonin 10 mg capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/melatonin-extra-strength-10-mg-veg-capsules"
+        }
+      ]
+    },
+    {
+      "id": "valerian",
+      "generic_name": "valerian",
+      "drug_class": "botanical supplement",
+      "therapeutic_index": "wide",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown",
+        "ir"
+      ],
+      "notes": "Valerian root extracts differ in plant part, extraction method, and valerenic acid content. Clinical sleep studies have mixed results; sedation may add to other CNS depressants. No uniform extract strength or clinically validated CYP assignment is implied. A placebo-controlled trial in older women did not demonstrate improved insomnia outcomes.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "sedation"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 500,
+          "strength_unit": "mg",
+          "product_name": "NOW Valerian Root capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/valerian-root-500-mg-veg-capsules",
+          "composition": "Valeriana officinalis root, unstandardized powder"
+        }
+      ]
+    },
+    {
+      "id": "kava",
+      "generic_name": "kava",
+      "drug_class": "botanical supplement",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown",
+        "ir"
+      ],
+      "notes": "Kava root preparations contain variable kavalactone concentrations. A 16-week trial of a standardized aqueous extract studied 120 mg kavalactones twice daily and did not find efficacy for generalized anxiety disorder; this trial amount is not a product strength. Sedation and hepatic safety vary with preparation.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "CNS depression"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sedation"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 250,
+          "strength_unit": "mg",
+          "product_name": "NOW Kava Kava Extract capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/kava-kava-extract-veg-capsules",
+          "composition": "Piper methysticum root extract with modified corn starch; minimum 30% kavalactones in listed extract mixture"
+        }
+      ]
+    },
+    {
+      "id": "five_htp",
+      "generic_name": "5-HTP",
+      "drug_class": "serotonin precursor supplement",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "5-hydroxytryptophan"
+      ],
+      "brand_names": [],
+      "release_types": [
+        "unknown",
+        "ir"
+      ],
+      "notes": "5-hydroxytryptophan is converted to serotonin; studies of oral challenge formulations demonstrate serotonergic effects. Combining precursors with MAO inhibitors or serotonergic medicines can increase serotonin toxicity concern. Supplement potency and product quality vary; no clinical product strength is inferred from experimental doses.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonergic"
+        },
+        {
+          "effect_id": "serotonin_syndrome",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "serotonin syndrome"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 50,
+          "strength_unit": "mg",
+          "product_name": "NOW 5-HTP 50 mg capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/5-htp-50-mg-veg-capsules",
+          "composition": "5-hydroxytryptophan from Griffonia simplicifolia seed extract"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "NOW 5-HTP 100 mg capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/5-htp-100-mg-veg-capsule",
+          "composition": "5-hydroxytryptophan from Griffonia simplicifolia seed extract"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 200,
+          "strength_unit": "mg",
+          "product_name": "NOW 5-HTP double-strength capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/5-htp-double-strength-200-mg-veg-capsules",
+          "composition": "5-hydroxytryptophan from Griffonia simplicifolia seed extract"
+        }
+      ]
+    },
+    {
+      "id": "tryptophan",
+      "generic_name": "L-tryptophan",
+      "drug_class": "essential amino acid supplement",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown",
+        "ir"
+      ],
+      "notes": "L-tryptophan is a precursor to 5-HTP and serotonin but also enters the kynurenine pathway. Oral administration can change circulating serotonin related biomarkers; effects depend on diet and formulation. Treat coadministration with serotonergic agents as a potential PD concern, without assigning a fixed inhibitor potency.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "serotonergic"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 500,
+          "strength_unit": "mg",
+          "product_name": "NOW L-Tryptophan capsule",
+          "source_url": "https://www.nowfoods.com/products/supplements/l-tryptophan-500-mg-veg-capsules",
+          "composition": "Free-form L-tryptophan"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "tablet",
+          "strength_value": 1000,
+          "strength_unit": "mg",
+          "product_name": "NOW L-Tryptophan double-strength tablet",
+          "source_url": "https://www.nowfoods.com/products/supplements/l-tryptophan-double-strength-1000-mg-tablets",
+          "composition": "L-tryptophan"
+        }
+      ]
+    },
+    {
+      "id": "ginseng",
+      "generic_name": "Ginseng (Panax spp.)",
+      "drug_class": "botanical supplement",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown",
+        "ir"
+      ],
+      "notes": "Ginseng is not one standardized product: Panax species and ginsenoside content vary. Clinical warfarin interaction findings differ by preparation and population, so no universal CYP or bleeding rule is assigned. Specify species, root/extract, and ginsenoside content before adding a sourced strength.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 500,
+          "strength_unit": "mg",
+          "product_name": "NOW Panax Ginseng root capsule; 1,000 mg per 2-capsule serving",
+          "source_url": "https://www.nowfoods.com/products/supplements/panax-ginseng-500-mg-veg-capsules",
+          "composition": "Panax ginseng root powder, not standardized to a ginsenoside percentage"
+        }
+      ]
+    },
+    {
+      "id": "coq10",
+      "generic_name": "CoQ10",
+      "drug_class": "coenzyme supplement",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "ubiquinone"
+      ],
+      "brand_names": [],
+      "release_types": [
+        "unknown",
+        "ir"
+      ],
+      "notes": "Coenzyme Q10 is an endogenous mitochondrial electron carrier available in different supplement formulations. A randomized crossover study found no significant warfarin effect for the studied preparation; do not generalize a strong interaction from case reports. No CYP or fixed product strength is assigned here.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown",
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "softgel",
+          "strength_value": 100,
+          "strength_unit": "mg",
+          "product_name": "NOW CoQ10 100 mg softgel",
+          "source_url": "https://www.nowfoods.com/products/supplements/coq10-100-mg-softgels",
+          "composition": "Coenzyme Q10 (ubiquinone)"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "capsule",
+          "strength_value": 200,
+          "strength_unit": "mg",
+          "product_name": "CoQ10 200 mg dietary supplement capsule",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6d1a7271-4396-40e2-a320-36b7f040f451",
+          "composition": "Coenzyme Q10 (ubiquinone)"
+        }
+      ]
+    },
+    {
+      "id": "grapefruit_juice",
+      "generic_name": "grapefruit juice",
+      "drug_class": "dietary CYP modulator",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "Grapefruit juice inhibits intestinal CYP3A4 and may increase exposure to selected oral substrates; magnitude depends on cultivar, quantity, timing, and substrate. This is an intestinal first pass interaction, not a systemic CYP3A4 inhibitor strength for every route. It has no standardized medication strength.",
+      "enzymes": [
+        {
+          "enzyme_id": "CYP3A4",
+          "role": "inhibitor",
+          "notes": "Predominantly intestinal; variable juice exposure and oral substrate dependence."
+        }
+      ],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "n_acetylcysteine",
+      "generic_name": "N-acetylcysteine",
+      "drug_class": "mucolytic antidote",
+      "therapeutic_index": "wide",
+      "aliases": [
+        "acetylcysteine",
+        "NAC"
+      ],
+      "brand_names": [
+        "Acetadote"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "N-acetylcysteine replenishes glutathione and is used for acetaminophen poisoning; the linked 200 mg/mL product is intravenous. Oral pharmacokinetics and bioavailability vary by dose and preparation. The product concentration is not a treatment dose and does not imply oral equivalence. Clinical treatment regimens depend on indication and route.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "iv",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        },
+        {
+          "route": "inhaled",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "iv",
+          "release_type": "ir",
+          "dosage_form": "injection",
+          "strength_value": 200,
+          "strength_unit": "mg/mL",
+          "product_name": "Acetylcysteine injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6588c28d-0515-4cdf-99d3-c4ad3fd0976c"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "solution",
+          "strength_value": 100,
+          "strength_unit": "mg/mL",
+          "product_name": "Acetylcysteine 10% or 20% solution; not for injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5558a5f5-e821-473b-7d8a-5d33d09f0586"
+        },
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "solution",
+          "strength_value": 200,
+          "strength_unit": "mg/mL",
+          "product_name": "Acetylcysteine 10% or 20% solution; not for injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5558a5f5-e821-473b-7d8a-5d33d09f0586"
+        },
+        {
+          "route": "inhaled",
+          "release_type": "ir",
+          "dosage_form": "solution",
+          "strength_value": 100,
+          "strength_unit": "mg/mL",
+          "product_name": "Acetylcysteine 10% or 20% solution; not for injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5558a5f5-e821-473b-7d8a-5d33d09f0586"
+        },
+        {
+          "route": "inhaled",
+          "release_type": "ir",
+          "dosage_form": "solution",
+          "strength_value": 200,
+          "strength_unit": "mg/mL",
+          "product_name": "Acetylcysteine 10% or 20% solution; not for injection",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5558a5f5-e821-473b-7d8a-5d33d09f0586"
+        }
+      ]
+    },
+    {
+      "id": "psilocybin",
+      "generic_name": "psilocybin",
+      "drug_class": "serotonergic psychedelic",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "Psilocybin is converted to active psilocin. Controlled oral human studies quantified psilocin exposure after 15, 25, and 30 mg psilocybin; these are research doses rather than marketed strengths. Effects arise mainly through 5-HT2A receptor agonism; human CYP fraction assignments are not established here.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "serotonergic"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "tachycardia risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": true,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "psilocin",
+      "generic_name": "psilocin",
+      "drug_class": "active psychedelic metabolite",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "Psilocin is the active metabolite measured after oral psilocybin in human trials. Plasma psilocin exposure depends on psilocybin administration and metabolism; parent and metabolite must remain separate analytes in PK observations. No commercial psilocin strength is implied by psilocybin trial doses.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "serotonergic"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": true,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "ghb",
+      "generic_name": "GHB (oxybate)",
+      "drug_class": "CNS depressant oxybate",
+      "therapeutic_index": "narrow",
+      "aliases": [
+        "gamma-hydroxybutyrate"
+      ],
+      "brand_names": [
+        "Xyrem"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "GHB is the active oxybate moiety of prescription sodium oxybate and has nonlinear pharmacokinetics. Sodium oxybate solution contains 500 mg/mL sodium oxybate, equivalent to 413 mg/mL oxybate; the salt and active moiety must not be confused. Respiratory depression is strongly additive with alcohol and other depressants.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "CNS depression"
+        },
+        {
+          "effect_id": "respiratory_depression",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "respiratory depression"
+        },
+        {
+          "effect_id": "sedation",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "sedation"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "oral",
+          "release_type": "ir",
+          "dosage_form": "solution",
+          "strength_value": 500,
+          "strength_unit": "mg/mL",
+          "product_name": "Xyrem sodium oxybate solution",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=926eb076-a4a8-45e4-91ef-411f0aa4f3ca",
+          "composition": "500 mg/mL sodium oxybate salt equals 413 mg/mL oxybate moiety; never interpret this as GHB free acid concentration."
+        }
+      ]
+    },
+    {
+      "id": "nitrous_oxide",
+      "generic_name": "Nitrous oxide",
+      "drug_class": "inhaled anesthetic",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Nitrous oxide produces acute dissociative/anesthetic effects and inactivates cobalamin dependent methionine synthase. Repeated exposure can cause functional vitamin B12 deficiency and neurological injury. A fixed gas strength is not assigned because delivered concentration depends on apparatus and clinical setting. Clinical delivery should be understood separately from unsupervised exposure.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "CNS_depression",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "CNS depression"
+        },
+        {
+          "effect_id": "neurotoxicity_risk",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "neurotoxicity risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "short"
+      },
+      "formulations": [
+        {
+          "route": "inhaled",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "pcp",
+      "generic_name": "Phencyclidine (PCP)",
+      "drug_class": "dissociative",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "Phencyclidine blocks the NMDA receptor channel in primary electrophysiology experiments. This can produce dissociation, agitation, and cardiovascular effects; composition and actual exposure outside controlled studies are unpredictable. No common dose or universal CYP profile is assigned. The cited laboratory evidence establishes receptor action, not a predictable human dose response.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "neurotoxicity_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "neurotoxicity risk"
+        },
+        {
+          "effect_id": "blood_pressure_increase",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "blood pressure increase"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "unknown",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "mescaline",
+      "generic_name": "mescaline",
+      "drug_class": "serotonergic psychedelic",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "Mescaline is a serotonergic psychedelic. A controlled oral study examined 100, 200, 400, and 800 mg mescaline under monitored research conditions; those experimental amounts are not marketed strengths. Responses and adverse effects varied with dose, and no established clinically actionable CYP interaction is assigned.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "serotonergic",
+          "direction": "increase",
+          "magnitude": "high",
+          "mechanism_note": "serotonergic"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "tachycardia risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "long"
+      },
+      "formulations": [
+        {
+          "route": "oral",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "synthetic_cannabinoids",
+      "generic_name": "Synthetic cannabinoids (class)",
+      "drug_class": "heterogeneous cannabinoid agonist class",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "Synthetic cannabinoids are chemically diverse, so a class wide CYP substrate fraction, strength, and half life would be misleading. JWH-018 and AM-2201 studies implicate CYP2C9/CYP1A2 and active hydroxylated metabolites for those compounds only. Specify the exact chemical before adding PK or product strengths.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "tachycardia risk"
+        },
+        {
+          "effect_id": "neurotoxicity_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "neurotoxicity risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "unknown",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "oxymetazoline_hydrochloride",
+      "generic_name": "oxymetazoline hydrochloride",
+      "drug_class": "nasal alpha adrenergic agonist",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Afrin"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Oxymetazoline hydrochloride locally constricts nasal mucosal vessels. The sourced 0.05% spray corresponds to 0.5 mg/mL and prolonged use can cause rebound congestion. Systemic sympathomimetic effects are possible, but topical exposure should not be treated like oral stimulants. The percentage has been converted to mass per volume for the strength selector.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sympathomimetic_activity",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "sympathomimetic activity"
+        },
+        {
+          "effect_id": "blood_pressure_increase",
+          "direction": "increase",
+          "magnitude": "low",
+          "mechanism_note": "blood pressure increase"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "intranasal",
+          "release_type": "ir",
+          "dosage_form": "spray",
+          "strength_value": 0.5,
+          "strength_unit": "mg/mL",
+          "product_name": "Afrin Original nasal spray (0.05%)",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ecfa14b8-a3f3-4569-b489-c9e1a51cf09e"
+        }
+      ]
+    },
+    {
+      "id": "one_allyltheobromine",
+      "generic_name": "1-Allyltheobromine",
+      "drug_class": "investigational xanthine derivative",
+      "therapeutic_index": "moderate",
+      "aliases": [
+        "allyltheobromine"
+      ],
+      "brand_names": [],
+      "release_types": [
+        "unknown"
+      ],
+      "notes": "FDA substance registry confirms 1-allyltheobromine identity (UNII 4JG7O04XYX). A historical 1946 primary pharmacology study reported animal effects and a few human exposures, but modern product strength, human PK, and interaction data are insufficient for a quantitative catalog assignment. Mechanism must not be copied from caffeine or theophylline.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "unknown",
+          "release_types": [
+            "unknown"
+          ]
+        }
+      ],
+      "dosage_options": []
+    },
+    {
+      "id": "propylhexedrine",
+      "generic_name": "propylhexedrine",
+      "drug_class": "nasal sympathomimetic decongestant",
+      "therapeutic_index": "moderate",
+      "aliases": [],
+      "brand_names": [
+        "Benzedrex"
+      ],
+      "release_types": [
+        "ir"
+      ],
+      "notes": "Propylhexedrine is an OTC nasal inhalant for temporary congestion relief. The linked Benzedrex inhaler contains 175 mg total propylhexedrine; this is container content, not a measured mg per inhalation. Misuse by nonnasal routes can cause severe cardiovascular or neurologic toxicity and cannot be extrapolated from labeled intranasal use.",
+      "enzymes": [],
+      "transporters": [],
+      "pd_effects": [
+        {
+          "effect_id": "sympathomimetic_activity",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "sympathomimetic activity"
+        },
+        {
+          "effect_id": "blood_pressure_increase",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "blood pressure increase"
+        },
+        {
+          "effect_id": "tachycardia_risk",
+          "direction": "increase",
+          "magnitude": "medium",
+          "mechanism_note": "tachycardia risk"
+        }
+      ],
+      "parameters": {
+        "prodrug": false,
+        "active_metabolite": false,
+        "renal_clearance_flag": false,
+        "half_life_bucket": "medium"
+      },
+      "formulations": [
+        {
+          "route": "intranasal",
+          "release_types": [
+            "ir"
+          ]
+        }
+      ],
+      "dosage_options": [
+        {
+          "route": "intranasal",
+          "release_type": "ir",
+          "dosage_form": "nasal inhaler",
+          "strength_value": 175,
+          "strength_unit": "mg/inhaler",
+          "product_name": "Benzedrex nasal inhaler",
+          "composition": "Total drug content per labeled inhaler; no per-inhalation mass is specified.",
+          "source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=00d8c237-3eee-1d9f-e063-6394a90aeb86"
+        }
+      ]
+    }
+  ],
+  "evidence_by_drug": {
+    "fluvoxamine": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0b107225-ed5a-4461-9184-f3f2bad1892f",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "omeprazole": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0fb314cb-6291-422c-98ff-24d8449992f6",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "pantoprazole": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fa2bee95-97db-e651-e053-6294a90a72f5",
+      "additional_source_urls": []
+    },
+    "ciprofloxacin": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c47250c2-bece-46b5-8b3b-b7c97d9005d8",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "itraconazole": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=23126370-8d6a-4027-bd8f-860e2776ba3a",
+      "additional_source_urls": []
+    },
+    "ketoconazole": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=369f31da-d3c3-49b8-956f-f70598760164",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "ritonavir": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4633c6ba-168d-426f-acae-7843e167743a",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "cobicistat": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3784c35c-e87f-410c-900b-8fd6313c6010",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "phenytoin": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=363cd347-d25e-42b9-9ce7-30642f3cb353",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "phenobarbital": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8f02e85a-6dca-467d-b2bf-ab2f9fa9ef3b",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "codeine": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5819bdf7-300e-45b8-8f3a-447b53656293",
+      "additional_source_urls": []
+    },
+    "morphine": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=905cd842-2c86-4318-a6c4-92f49de145b3",
+      "additional_source_urls": []
+    },
+    "dextromethorphan": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e3e1d126-76c2-4776-8ce0-449625b7e6ba",
+      "additional_source_urls": []
+    },
+    "metoprolol": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dfa37282-2793-4032-a817-dcf3bf5a641f",
+      "additional_source_urls": []
+    },
+    "simvastatin": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4277e75a-7f3b-4f35-ae56-0bbe095586a5",
+      "additional_source_urls": []
+    },
+    "atorvastatin": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=51730b09-24e8-41c8-9fec-813f8a64b433",
+      "additional_source_urls": []
+    },
+    "apixaban": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7be1f4c1-bb2f-4ded-ae9a-515d2a22f93e",
+      "additional_source_urls": []
+    },
+    "rivaroxaban": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d0e105f6-28f3-45ee-83bd-7d458835242b",
+      "additional_source_urls": []
+    },
+    "aspirin": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=72b16a5c-825f-4f3f-a8b3-b723e4242da7",
+      "additional_source_urls": []
+    },
+    "acetaminophen": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e817bc4a-43ef-4126-b903-aabd1390cd0c",
+      "additional_source_urls": []
+    },
+    "linezolid": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e70e63b-bfd5-478d-a8ee-8ba22c9efabd",
+      "additional_source_urls": []
+    },
+    "amiodarone": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d42293e9-07fa-41b4-a08b-2e388f5b1e13",
+      "additional_source_urls": []
+    },
+    "sotalol": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6674d53a-7137-4822-8841-4982f702a1b8",
+      "additional_source_urls": []
+    },
+    "dofetilide": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0cb2ef7d-e35b-483b-9985-cfef99d7b96f",
+      "additional_source_urls": []
+    },
+    "procainamide": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d7cb1594-61cf-41c4-9007-1ee28aa69c50",
+      "additional_source_urls": []
+    },
+    "azithromycin": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d5c95c30-564f-4b67-ac6d-9179cdfaa5a8",
+      "additional_source_urls": []
+    },
+    "theophylline": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=699a4e05-95cb-4b28-8927-d97a4afbf463",
+      "additional_source_urls": []
+    },
+    "tobacco_smoke": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=699a4e05-95cb-4b28-8927-d97a4afbf463",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "st_johns_wort": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/11849198/",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "l_methylfolate": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13eb8bf0-5227-455c-9660-b02abee04676",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/23212058/"
+      ]
+    },
+    "melatonin": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=92b2ccdc-2eed-4307-af45-da455f557cf8",
+      "additional_source_urls": []
+    },
+    "valerian": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/18482867/",
+      "additional_source_urls": []
+    },
+    "kava": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/31813230/",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/23635869/"
+      ]
+    },
+    "five_htp": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/18308795/",
+      "additional_source_urls": []
+    },
+    "tryptophan": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/7247625/",
+      "additional_source_urls": []
+    },
+    "ginseng": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/18637764/",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/19913311/"
+      ]
+    },
+    "coq10": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/12083489/",
+      "additional_source_urls": []
+    },
+    "grapefruit_juice": {
+      "primary_source_url": "https://www.fda.gov/consumers/consumer-updates/grapefruit-juice-and-some-drugs-dont-mix",
+      "additional_source_urls": []
+    },
+    "n_acetylcysteine": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6588c28d-0515-4cdf-99d3-c4ad3fd0976c",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/2328298/"
+      ]
+    },
+    "psilocybin": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/36507738/",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/28353056/"
+      ]
+    },
+    "psilocin": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/36507738/",
+      "additional_source_urls": []
+    },
+    "ghb": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=926eb076-a4a8-45e4-91ef-411f0aa4f3ca",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/26659543/"
+      ]
+    },
+    "nitrous_oxide": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/7198880/",
+      "additional_source_urls": []
+    },
+    "pcp": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/2456947/",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/25502414/"
+      ]
+    },
+    "mescaline": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/39349427/",
+      "additional_source_urls": []
+    },
+    "synthetic_cannabinoids": {
+      "primary_source_url": "https://pubmed.ncbi.nlm.nih.gov/22904561/",
+      "additional_source_urls": [
+        "https://pubmed.ncbi.nlm.nih.gov/29522717/",
+        "https://pubmed.ncbi.nlm.nih.gov/22575211/",
+        "https://pubmed.ncbi.nlm.nih.gov/37572408/"
+      ]
+    },
+    "oxymetazoline_hydrochloride": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ecfa14b8-a3f3-4569-b489-c9e1a51cf09e",
+      "additional_source_urls": []
+    },
+    "one_allyltheobromine": {
+      "primary_source_url": "https://precision.fda.gov/ginas/app/ui/substances/73d02bbf-a68a-443b-a388-d14dc3c8ada6",
+      "additional_source_urls": [
+        "https://www.sciencedirect.com/science/article/abs/pii/S0022356525078152"
+      ]
+    },
+    "propylhexedrine": {
+      "primary_source_url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=00d8c237-3eee-1d9f-e063-6394a90aeb86",
+      "additional_source_urls": [
+        "https://www.fda.gov/drugs/drug-safety-and-availability/fda-warns-abuse-and-misuse-nasal-decongestant-propylhexedrine-causes-serious-harm"
+      ]
+    }
+  },
+  "method": "Product strengths are linked to their own labels; experimental exposures and botanical mixtures have no inferred product strength."
+}

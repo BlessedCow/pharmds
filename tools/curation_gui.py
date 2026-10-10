@@ -11,7 +11,9 @@ from pathlib import Path
 from tkinter import (
     END,
     BooleanVar,
+    Canvas,
     PanedWindow,
+    Scrollbar,
     StringVar,
     Tk,
     messagebox,
@@ -22,11 +24,14 @@ from tkinter.scrolledtext import ScrolledText
 import core.constants as constants
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.formulations import RELEASE_TYPE_OPTIONS, ROUTE_OPTIONS
+from data.curation.pk_observations import DEFAULT_PATH as PK_PATH
+from data.curation.pk_observations import load_pk_curation
 from data.curation.validate import (
     known_enzyme_ids,
     known_transporter_ids,
     validate_drugs_curation,
 )
+from tools.pk_curation_tab import PKCurationTab
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DRUGS_PATH = REPO_ROOT / "data" / "curation" / "drugs.json"
@@ -50,6 +55,43 @@ DOSAGE_FORM_OPTIONS = (
     "other",
 )
 DRUG_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_+-]*$")
+LIQUID_UNIT_RE = re.compile(
+    r"^(.+?)\s*/\s*(?:(\d+(?:\.\d+)?)\s*)?mL$",
+    re.IGNORECASE,
+)
+LIQUID_UNIT_OPTIONS = ("mg", "mcg", "g", "mg CBD", "mg THC")
+SOLID_UNIT_OPTIONS = ("mg", "mcg", "g", "%", "mEq", "mg/mL")
+VOLUME_OPTIONS = ("1", "2", "2.5", "5", "10", "15", "30")
+
+
+def is_oral_liquid_form(dosage_form: str, route: str) -> bool:
+    return route == "oral" and any(
+        word in dosage_form.casefold()
+        for word in ("solution", "suspension", "concentrate", "syrup", "liquid")
+    )
+
+
+def split_liquid_unit(unit: str) -> tuple[str, str] | None:
+    match = LIQUID_UNIT_RE.fullmatch(unit.strip())
+    if not match:
+        return None
+    return match.group(1).strip(), match.group(2) or "1"
+
+
+def format_strength_unit(unit: str, volume: str, *, is_liquid: bool) -> str:
+    unit = unit.strip()
+    if not is_liquid:
+        return unit
+    if not unit or "/" in unit:
+        raise ValueError("Choose the amount unit separately from the mL volume.")
+    try:
+        denominator = float(volume.strip())
+    except ValueError as error:
+        raise ValueError("Volume must be a positive number in mL.") from error
+    if not 0 < denominator <= 1000:
+        raise ValueError("Volume must be between 0 and 1000 mL.")
+    volume_text = f"{denominator:g}"
+    return f"{unit}/mL" if denominator == 1 else f"{unit}/{volume_text} mL"
 
 
 def normalize_identity(value: str) -> str:
@@ -93,8 +135,7 @@ def build_identity_index(
             ("generic_name", str(drug.get("generic_name", "")).strip()),
         ]
         values.extend(
-            ("alias", str(alias).strip())
-            for alias in drug.get("aliases", []) or []
+            ("alias", str(alias).strip()) for alias in drug.get("aliases", []) or []
         )
 
         for kind, value in values:
@@ -142,8 +183,7 @@ def find_identity_conflicts(
 
             if identity_pair != {"drug id", "generic name"}:
                 conflicts.append(
-                    f"{kind} '{value}' duplicates the proposed "
-                    f"{previous_kind}.",
+                    f"{kind} '{value}' duplicates the proposed {previous_kind}.",
                 )
         else:
             seen_proposed[normalized] = kind
@@ -236,13 +276,13 @@ def atomic_save_payload(
 
         errors = validate_drugs_curation(temp_path)
         if errors:
-            message = "\n".join(
-                f"{error.path}: {error.message}"
-                for error in errors
-            )
+            message = "\n".join(f"{error.path}: {error.message}" for error in errors)
             raise ValueError(
                 "Curation validation failed before save:\n" + message,
             )
+
+        if path == DRUGS_PATH.resolve() and PK_PATH.exists():
+            load_pk_curation(PK_PATH, drugs_path=temp_path)
 
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         backup_path = backup_dir / f"drugs-{timestamp}.json"
@@ -257,9 +297,9 @@ def atomic_save_payload(
 class PharmDSCurationGui:
     def __init__(self, root: Tk) -> None:
         self.root = root
-        self.root.title("PharmDS Medication & PD Curation")
-        self.root.geometry("1280x820")
-        self.root.minsize(1100, 720)
+        self.root.title("PharmDS Medication, PD & Sourced PK Curation")
+        self.root.geometry("1360x880")
+        self.root.minsize(1060, 700)
 
         self.payload = load_payload()
         self.drugs: list[dict] = self.payload["drugs"]
@@ -280,6 +320,7 @@ class PharmDSCurationGui:
         self.class_var = StringVar()
         self.ti_var = StringVar(value="moderate")
         self.aliases_var = StringVar()
+        self.brands_var = StringVar()
         self.half_life_var = StringVar(value="medium")
         self.prodrug_var = BooleanVar(value=False)
         self.active_metabolite_var = BooleanVar(value=False)
@@ -289,9 +330,13 @@ class PharmDSCurationGui:
 
         self.dosage_value_var = StringVar()
         self.dosage_unit_var = StringVar(value="mg")
+        self.dosage_volume_var = StringVar(value="5")
         self.dosage_form_var = StringVar(value="tablet")
         self.dosage_route_var = StringVar(value="oral")
         self.dosage_release_var = StringVar(value="ir")
+        self.dosage_product_var = StringVar()
+        self.dosage_composition_var = StringVar()
+        self.dosage_source_var = StringVar()
         self.selected_dosage_key: tuple | None = None
 
         self.enzyme_id_var = StringVar()
@@ -327,13 +372,13 @@ class PharmDSCurationGui:
 
         outer.add(
             left,
-            minsize=260,
-            width=340,
+            minsize=270,
+            width=395,
             stretch="always",
         )
         outer.add(
             right,
-            minsize=640,
+            minsize=630,
             stretch="always",
         )
 
@@ -347,27 +392,36 @@ class PharmDSCurationGui:
         search.pack(fill="x", pady=(8, 6))
         search.bind("<KeyRelease>", lambda _event: self._refresh_drug_list())
 
+        list_frame = ttk.Frame(left)
+        list_frame.pack(fill="both", expand=True)
         self.drug_list = ttk.Treeview(
-            left,
-            columns=("generic",),
+            list_frame,
+            columns=("generic", "brands"),
             show="tree headings",
             height=28,
         )
         self.drug_list.heading("#0", text="ID")
         self.drug_list.heading("generic", text="Generic name")
+        self.drug_list.heading("brands", text="Brand names")
         self.drug_list.column(
             "#0",
-            width=160,
-            minwidth=100,
-            stretch=True,
+            width=120,
+            minwidth=90,
+            stretch=False,
         )
         self.drug_list.column(
             "generic",
-            width=180,
-            minwidth=120,
+            width=125,
+            minwidth=110,
             stretch=True,
         )
+        self.drug_list.column("brands", width=125, minwidth=100, stretch=True)
         self.drug_list.pack(fill="both", expand=True)
+        list_scroll = ttk.Scrollbar(
+            list_frame, orient="horizontal", command=self.drug_list.xview
+        )
+        list_scroll.pack(fill="x")
+        self.drug_list.configure(xscrollcommand=list_scroll.set)
         self.drug_list.bind("<<TreeviewSelect>>", self._select_drug)
 
         ttk.Button(
@@ -404,25 +458,42 @@ class PharmDSCurationGui:
         notebook.pack(fill="both", expand=True)
 
         identity_tab = ttk.Frame(notebook, padding=12)
-        formulations_tab = ttk.Frame(notebook, padding=12)
-        dosages_tab = ttk.Frame(notebook, padding=12)
+        strengths_tab = ttk.Frame(notebook, padding=6)
         enzymes_tab = ttk.Frame(notebook, padding=12)
         transporters_tab = ttk.Frame(notebook, padding=12)
         pd_tab = ttk.Frame(notebook, padding=12)
+        sourced_pk_tab = ttk.Frame(notebook, padding=12)
 
         notebook.add(identity_tab, text="Medication")
-        notebook.add(formulations_tab, text="Formulations")
-        notebook.add(dosages_tab, text="Dosages")
+        notebook.add(strengths_tab, text="Formulations & strengths")
         notebook.add(enzymes_tab, text="Enzymes")
         notebook.add(transporters_tab, text="Transporters")
         notebook.add(pd_tab, text="PD Effects")
+        notebook.add(sourced_pk_tab, text="Sourced PK")
 
         self._build_identity_tab(identity_tab)
+        strength_sections = PanedWindow(
+            strengths_tab, orient="vertical", sashwidth=8, sashrelief="raised"
+        )
+        strength_sections.pack(fill="both", expand=True)
+        formulations_tab = ttk.LabelFrame(
+            strength_sections, text="Formulations", padding=6
+        )
+        dosages_tab = ttk.LabelFrame(
+            strength_sections, text="Strength options", padding=6
+        )
+        strength_sections.add(formulations_tab, minsize=155, height=255)
+        strength_sections.add(dosages_tab, minsize=240, stretch="always")
         self._build_formulations_tab(formulations_tab)
         self._build_dosages_tab(dosages_tab)
         self._build_enzymes_tab(enzymes_tab)
         self._build_transporters_tab(transporters_tab)
         self._build_pd_tab(pd_tab)
+        self.pk_tab = PKCurationTab(
+            sourced_pk_tab,
+            lambda: self.current_drug_id,
+            lambda: self.formulations,
+        )
 
     def _build_identity_tab(self, frame: ttk.Frame) -> None:
         frame.columnconfigure(1, weight=1)
@@ -432,6 +503,7 @@ class PharmDSCurationGui:
             ("Generic name", self.generic_var),
             ("Drug class", self.class_var),
             ("Aliases (comma separated)", self.aliases_var),
+            ("Brand names (comma separated)", self.brands_var),
         ]
 
         row = 0
@@ -524,8 +596,7 @@ class PharmDSCurationGui:
         frame.rowconfigure(row, weight=1)
 
     def _build_formulations_tab(self, frame: ttk.Frame) -> None:
-        frame.columnconfigure(0, weight=2)
-        frame.columnconfigure(1, weight=1)
+        frame.columnconfigure(0, weight=1)
         frame.rowconfigure(1, weight=1)
 
         ttk.Label(
@@ -534,28 +605,34 @@ class PharmDSCurationGui:
                 "Each route is unique. Select one or more release types, "
                 "then add/update the route."
             ),
-        ).grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 8))
+        ).grid(row=0, column=0, sticky="w", pady=(0, 8))
+
+        panes = PanedWindow(
+            frame, orient="horizontal", sashwidth=8, sashrelief="raised"
+        )
+        panes.grid(row=1, column=0, sticky="nsew")
+        table = ttk.Frame(panes)
+        controls = ttk.Frame(panes)
+        panes.add(table, minsize=175, width=330, stretch="always")
+        panes.add(controls, minsize=180, width=235, stretch="always")
 
         self.form_tree = ttk.Treeview(
-            frame,
+            table,
             columns=("release_types",),
             show="tree headings",
         )
         self.form_tree.heading("#0", text="Route")
         self.form_tree.heading("release_types", text="Release types")
-        self.form_tree.grid(
-            row=1,
-            column=0,
-            sticky="nsew",
-            padx=(0, 12),
-        )
+        self.form_tree.column("#0", width=95, minwidth=65, stretch=False)
+        self.form_tree.column("release_types", width=150, minwidth=100, stretch=True)
+        self.form_tree.pack(fill="both", expand=True)
+        self._table_scrollbar(table, self.form_tree)
         self.form_tree.bind(
             "<<TreeviewSelect>>",
             self._select_formulation,
         )
 
-        controls = ttk.Frame(frame)
-        controls.grid(row=1, column=1, sticky="nsew")
+        controls = self._scrollable_controls(controls)
 
         ttk.Label(controls, text="Route").pack(anchor="w")
         ttk.Combobox(
@@ -570,7 +647,7 @@ class PharmDSCurationGui:
             controls,
             columns=("selected",),
             show="tree headings",
-            height=10,
+            height=5,
         )
         self.release_list.heading("#0", text="Type")
         self.release_list.heading("selected", text="Use")
@@ -600,8 +677,7 @@ class PharmDSCurationGui:
         ).pack(fill="x", pady=3)
 
     def _build_dosages_tab(self, frame: ttk.Frame) -> None:
-        frame.columnconfigure(0, weight=2)
-        frame.columnconfigure(1, weight=1)
+        frame.columnconfigure(0, weight=1)
         frame.rowconfigure(1, weight=1)
         ttk.Label(
             frame,
@@ -609,9 +685,17 @@ class PharmDSCurationGui:
                 "Curated marketed/reference strengths only. These entries do not "
                 "represent prescribing recommendations."
             ),
-        ).grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 8))
+        ).grid(row=0, column=0, sticky="w", pady=(0, 8))
+        panes = PanedWindow(
+            frame, orient="horizontal", sashwidth=8, sashrelief="raised"
+        )
+        panes.grid(row=1, column=0, sticky="nsew")
+        table = ttk.Frame(panes)
+        controls_frame = ttk.Frame(panes)
+        panes.add(table, minsize=245, width=440, stretch="always")
+        panes.add(controls_frame, minsize=220, width=270, stretch="always")
         self.dosage_tree = ttk.Treeview(
-            frame,
+            table,
             columns=("unit", "form", "route", "release"),
             show="tree headings",
         )
@@ -620,18 +704,46 @@ class PharmDSCurationGui:
         self.dosage_tree.heading("form", text="Dosage form")
         self.dosage_tree.heading("route", text="Route")
         self.dosage_tree.heading("release", text="Release")
-        self.dosage_tree.grid(row=1, column=0, sticky="nsew", padx=(0, 12))
+        for column, width, minimum, anchor in (
+            ("#0", 72, 55, "center"),
+            ("unit", 95, 65, "center"),
+            ("form", 130, 90, "w"),
+            ("route", 78, 60, "center"),
+            ("release", 65, 55, "center"),
+        ):
+            self.dosage_tree.column(
+                column, width=width, minwidth=minimum, stretch=False, anchor=anchor
+            )
+        self.dosage_tree.pack(fill="both", expand=True)
+        horizontal = ttk.Scrollbar(
+            table, orient="horizontal", command=self.dosage_tree.xview
+        )
+        horizontal.pack(fill="x")
+        self.dosage_tree.configure(xscrollcommand=horizontal.set)
         self.dosage_tree.bind("<<TreeviewSelect>>", self._select_dosage)
 
-        controls = ttk.Frame(frame)
-        controls.grid(row=1, column=1, sticky="nsew")
-        for label, variable in (
-            ("Strength value", self.dosage_value_var),
-            ("Strength unit", self.dosage_unit_var),
-        ):
-            ttk.Label(controls, text=label).pack(anchor="w")
-            ttk.Entry(controls, textvariable=variable).pack(fill="x", pady=(2, 8))
-        ttk.Label(controls, text="Dosage form").pack(anchor="w")
+        controls = self._scrollable_controls(controls_frame)
+        ttk.Label(controls, text="Strength value").pack(anchor="w")
+        ttk.Entry(controls, textvariable=self.dosage_value_var).pack(
+            fill="x", pady=(2, 8)
+        )
+        ttk.Label(controls, text="Strength unit").pack(anchor="w")
+        self.dosage_unit_combo = ttk.Combobox(
+            controls, textvariable=self.dosage_unit_var, values=SOLID_UNIT_OPTIONS
+        )
+        self.dosage_unit_combo.pack(fill="x", pady=(2, 8))
+        self.dosage_unit_combo.bind(
+            "<FocusOut>", lambda _event: self._update_strength_unit_controls()
+        )
+        self.volume_container = ttk.Frame(controls)
+        ttk.Label(self.volume_container, text="Per volume (mL)").pack(anchor="w")
+        ttk.Combobox(
+            self.volume_container,
+            textvariable=self.dosage_volume_var,
+            values=VOLUME_OPTIONS,
+        ).pack(fill="x", pady=(2, 8))
+        self._dosage_form_label = ttk.Label(controls, text="Dosage form")
+        self._dosage_form_label.pack(anchor="w")
         ttk.Combobox(
             controls,
             textvariable=self.dosage_form_var,
@@ -651,6 +763,16 @@ class PharmDSCurationGui:
             values=RELEASE_TYPE_OPTIONS,
             state="readonly",
         ).pack(fill="x", pady=(2, 8))
+        for label, variable in (
+            ("Product name (optional)", self.dosage_product_var),
+            (
+                "Composition, e.g. root extract; 5% withanolides",
+                self.dosage_composition_var,
+            ),
+            ("Product or study source HTTPS URL", self.dosage_source_var),
+        ):
+            ttk.Label(controls, text=label, wraplength=240).pack(anchor="w")
+            ttk.Entry(controls, textvariable=variable).pack(fill="x", pady=(2, 8))
         ttk.Button(
             controls,
             text="Add / update dosage",
@@ -661,6 +783,60 @@ class PharmDSCurationGui:
             text="Remove selected dosage",
             command=self._remove_dosage,
         ).pack(fill="x", pady=3)
+        self.dosage_form_var.trace_add("write", self._update_strength_unit_controls)
+        self.dosage_route_var.trace_add("write", self._update_strength_unit_controls)
+        self._update_strength_unit_controls()
+
+    @staticmethod
+    def _scrollable_controls(parent: ttk.Frame) -> ttk.Frame:
+        canvas = Canvas(parent, highlightthickness=0, borderwidth=0)
+        scrollbar = Scrollbar(parent, orient="vertical", command=canvas.yview)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side="right", fill="y")
+        canvas.pack(side="left", fill="both", expand=True)
+        controls = ttk.Frame(canvas, padding=(3, 0, 8, 4))
+        window = canvas.create_window((0, 0), window=controls, anchor="nw")
+        controls.bind(
+            "<Configure>",
+            lambda _event: canvas.configure(scrollregion=canvas.bbox("all")),
+        )
+        canvas.bind(
+            "<Configure>",
+            lambda event: canvas.itemconfigure(window, width=event.width),
+        )
+        return controls
+
+    @staticmethod
+    def _editor_panes(frame: ttk.Frame) -> tuple[ttk.Frame, ttk.Frame]:
+        panes = PanedWindow(
+            frame, orient="horizontal", sashwidth=8, sashrelief="raised"
+        )
+        panes.grid(row=1, column=0, sticky="nsew")
+        table, controls = ttk.Frame(panes), ttk.Frame(panes)
+        panes.add(table, minsize=210, width=420, stretch="always")
+        panes.add(controls, minsize=220, width=270, stretch="always")
+        return table, controls
+
+    @staticmethod
+    def _table_scrollbar(parent: ttk.Frame, tree: ttk.Treeview) -> None:
+        bar = ttk.Scrollbar(parent, orient="horizontal", command=tree.xview)
+        bar.pack(fill="x")
+        tree.configure(xscrollcommand=bar.set)
+
+    def _update_strength_unit_controls(self, *_args) -> None:
+        liquid = is_oral_liquid_form(
+            self.dosage_form_var.get(), self.dosage_route_var.get()
+        )
+        if liquid:
+            parsed = split_liquid_unit(self.dosage_unit_var.get())
+            if parsed:
+                self.dosage_unit_var.set(parsed[0])
+                self.dosage_volume_var.set(parsed[1])
+            self.dosage_unit_combo.configure(values=LIQUID_UNIT_OPTIONS)
+            self.volume_container.pack(fill="x", before=self._dosage_form_label)
+        else:
+            self.volume_container.pack_forget()
+            self.dosage_unit_combo.configure(values=SOLID_UNIT_OPTIONS)
 
     def _build_enzymes_tab(self, frame: ttk.Frame) -> None:
         self._build_pk_role_tab(frame, kind="enzyme")
@@ -669,8 +845,7 @@ class PharmDSCurationGui:
         self._build_pk_role_tab(frame, kind="transporter")
 
     def _build_pk_role_tab(self, frame: ttk.Frame, *, kind: str) -> None:
-        frame.columnconfigure(0, weight=2)
-        frame.columnconfigure(1, weight=1)
+        frame.columnconfigure(0, weight=1)
         frame.rowconfigure(1, weight=1)
         is_enzyme = kind == "enzyme"
         ids = self.enzyme_ids if is_enzyme else self.transporter_ids
@@ -680,9 +855,10 @@ class PharmDSCurationGui:
                 "Add substrate, inhibitor, or inducer relationships using the "
                 "canonical PharmDS vocabulary."
             ),
-        ).grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 8))
+        ).grid(row=0, column=0, sticky="w", pady=(0, 8))
+        table, controls_frame = self._editor_panes(frame)
         tree = ttk.Treeview(
-            frame,
+            table,
             columns=("role", "strength", "fraction", "notes"),
             show="tree headings",
         )
@@ -691,7 +867,16 @@ class PharmDSCurationGui:
         tree.heading("strength", text="Strength")
         tree.heading("fraction", text="Fraction metabolized")
         tree.heading("notes", text="Notes")
-        tree.grid(row=1, column=0, sticky="nsew", padx=(0, 12))
+        for column, width in (
+            ("#0", 105),
+            ("role", 90),
+            ("strength", 90),
+            ("fraction", 110),
+            ("notes", 170),
+        ):
+            tree.column(column, width=width, minwidth=65, stretch=False)
+        tree.pack(fill="both", expand=True)
+        self._table_scrollbar(table, tree)
         if is_enzyme:
             self.enzyme_tree = tree
             tree.bind("<<TreeviewSelect>>", self._select_enzyme)
@@ -709,8 +894,7 @@ class PharmDSCurationGui:
                 self.transporter_strength_var,
             )
 
-        controls = ttk.Frame(frame)
-        controls.grid(row=1, column=1, sticky="nsew")
+        controls = self._scrollable_controls(controls_frame)
         ttk.Label(controls, text="ID").pack(anchor="w")
         ttk.Combobox(controls, textvariable=id_var, values=ids, state="readonly").pack(
             fill="x", pady=(2, 8)
@@ -752,8 +936,7 @@ class PharmDSCurationGui:
         ).pack(fill="x", pady=3)
 
     def _build_pd_tab(self, frame: ttk.Frame) -> None:
-        frame.columnconfigure(0, weight=2)
-        frame.columnconfigure(1, weight=1)
+        frame.columnconfigure(0, weight=1)
         frame.rowconfigure(1, weight=1)
 
         ttk.Label(
@@ -762,10 +945,12 @@ class PharmDSCurationGui:
                 "PD effects are selected from the canonical PharmDS effect "
                 "vocabulary. Duplicate effects on one medication are blocked."
             ),
-        ).grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 8))
+        ).grid(row=0, column=0, sticky="w", pady=(0, 8))
+
+        table, controls_frame = self._editor_panes(frame)
 
         self.pd_tree = ttk.Treeview(
-            frame,
+            table,
             columns=("direction", "magnitude", "note"),
             show="tree headings",
         )
@@ -773,20 +958,18 @@ class PharmDSCurationGui:
         self.pd_tree.heading("direction", text="Direction")
         self.pd_tree.heading("magnitude", text="Magnitude")
         self.pd_tree.heading("note", text="Mechanism note")
-        self.pd_tree.column("#0", width=185)
-        self.pd_tree.column("direction", width=85)
-        self.pd_tree.column("magnitude", width=85)
-        self.pd_tree.column("note", width=360)
-        self.pd_tree.grid(
-            row=1,
-            column=0,
-            sticky="nsew",
-            padx=(0, 12),
-        )
+        for column, width in (
+            ("#0", 160),
+            ("direction", 85),
+            ("magnitude", 85),
+            ("note", 220),
+        ):
+            self.pd_tree.column(column, width=width, minwidth=65, stretch=False)
+        self.pd_tree.pack(fill="both", expand=True)
+        self._table_scrollbar(table, self.pd_tree)
         self.pd_tree.bind("<<TreeviewSelect>>", self._select_pd_effect)
 
-        controls = ttk.Frame(frame)
-        controls.grid(row=1, column=1, sticky="nsew")
+        controls = self._scrollable_controls(controls_frame)
 
         ttk.Label(controls, text="Effect").pack(anchor="w")
         ttk.Combobox(
@@ -845,10 +1028,8 @@ class PharmDSCurationGui:
                 [
                     str(drug.get("id", "")),
                     str(drug.get("generic_name", "")),
-                    *[
-                        str(alias)
-                        for alias in drug.get("aliases", []) or []
-                    ],
+                    *[str(brand) for brand in drug.get("brand_names", []) or []],
+                    *[str(alias) for alias in drug.get("aliases", []) or []],
                 ]
             ).casefold()
 
@@ -860,7 +1041,10 @@ class PharmDSCurationGui:
                 "end",
                 iid=str(drug["id"]),
                 text=str(drug["id"]),
-                values=(str(drug.get("generic_name", "")),),
+                values=(
+                    str(drug.get("generic_name", "")),
+                    ", ".join(drug.get("brand_names", []) or []),
+                ),
             )
 
     def _select_drug(self, _event=None) -> None:
@@ -869,9 +1053,7 @@ class PharmDSCurationGui:
             return
 
         drug_id = selected[0]
-        drug = next(
-            item for item in self.drugs if item.get("id") == drug_id
-        )
+        drug = next(item for item in self.drugs if item.get("id") == drug_id)
         self._load_record(drug)
 
     def _new_medication(self) -> None:
@@ -882,6 +1064,7 @@ class PharmDSCurationGui:
         self.class_var.set("")
         self.ti_var.set("moderate")
         self.aliases_var.set("")
+        self.brands_var.set("")
         self.half_life_var.set("medium")
         self.prodrug_var.set(False)
         self.active_metabolite_var.set(False)
@@ -897,6 +1080,7 @@ class PharmDSCurationGui:
         self._refresh_enzymes()
         self._refresh_transporters()
         self._refresh_pd_effects()
+        self.pk_tab.show_drug(None)
         self.status_var.set("Creating a new medication.")
 
     def _load_record(self, drug: dict) -> None:
@@ -907,6 +1091,7 @@ class PharmDSCurationGui:
         self.class_var.set(str(drug.get("drug_class", "") or ""))
         self.ti_var.set(str(drug.get("therapeutic_index", "moderate")))
         self.aliases_var.set(", ".join(drug.get("aliases", []) or []))
+        self.brands_var.set(", ".join(drug.get("brand_names", []) or []))
 
         params = drug.get("parameters", {}) or {}
         self.half_life_var.set(
@@ -933,16 +1118,14 @@ class PharmDSCurationGui:
         self._refresh_enzymes()
         self._refresh_transporters()
         self._refresh_pd_effects()
+        self.pk_tab.show_drug(self.current_drug_id)
         self.status_var.set(f"Editing '{self.current_drug_id}'.")
 
     def _selected_release_types(self) -> list[str]:
         selected: list[str] = []
 
         for release_type in RELEASE_TYPE_OPTIONS:
-            if (
-                self.release_list.set(release_type, "selected")
-                == "Yes"
-            ):
+            if self.release_list.set(release_type, "selected") == "Yes":
                 selected.append(release_type)
 
         return selected
@@ -975,9 +1158,7 @@ class PharmDSCurationGui:
             return
 
         route = selected[0]
-        formulation = next(
-            item for item in self.formulations if item["route"] == route
-        )
+        formulation = next(item for item in self.formulations if item["route"] == route)
         self.form_route_var.set(route)
         self._set_selected_release_types(
             formulation.get("release_types", []),
@@ -999,11 +1180,7 @@ class PharmDSCurationGui:
             return
 
         existing = next(
-            (
-                item
-                for item in self.formulations
-                if item.get("route") == route
-            ),
+            (item for item in self.formulations if item.get("route") == route),
             None,
         )
 
@@ -1027,9 +1204,7 @@ class PharmDSCurationGui:
 
         route = selected[0]
         self.formulations = [
-            item
-            for item in self.formulations
-            if item.get("route") != route
+            item for item in self.formulations if item.get("route") != route
         ]
         self._refresh_formulations()
 
@@ -1069,10 +1244,23 @@ class PharmDSCurationGui:
         option = self.dosage_options[int(selected[0])]
         self.selected_dosage_key = self._dosage_key(option)
         self.dosage_value_var.set(str(option["strength_value"]))
-        self.dosage_unit_var.set(str(option["strength_unit"]))
         self.dosage_form_var.set(str(option["dosage_form"]))
         self.dosage_route_var.set(str(option["route"]))
+        unit = str(option["strength_unit"])
+        parsed = (
+            split_liquid_unit(unit)
+            if is_oral_liquid_form(
+                self.dosage_form_var.get(), self.dosage_route_var.get()
+            )
+            else None
+        )
+        self.dosage_unit_var.set(parsed[0] if parsed else unit)
+        if parsed:
+            self.dosage_volume_var.set(parsed[1])
         self.dosage_release_var.set(str(option["release_type"]))
+        self.dosage_product_var.set(str(option.get("product_name") or ""))
+        self.dosage_composition_var.set(str(option.get("composition") or ""))
+        self.dosage_source_var.set(str(option.get("source_url") or ""))
 
     def _add_dosage(self) -> None:
         try:
@@ -1086,13 +1274,32 @@ class PharmDSCurationGui:
                 "Strength value must be greater than 0.",
             )
             return
+        try:
+            strength_unit = format_strength_unit(
+                self.dosage_unit_var.get(),
+                self.dosage_volume_var.get(),
+                is_liquid=is_oral_liquid_form(
+                    self.dosage_form_var.get(), self.dosage_route_var.get()
+                ),
+            )
+        except ValueError as error:
+            messagebox.showerror("Invalid strength unit", str(error))
+            return
         option = {
             "route": self.dosage_route_var.get().strip().lower(),
             "release_type": self.dosage_release_var.get().strip().lower(),
             "dosage_form": self.dosage_form_var.get().strip(),
             "strength_value": strength_value,
-            "strength_unit": self.dosage_unit_var.get().strip(),
+            "strength_unit": strength_unit,
         }
+        for key, variable in (
+            ("product_name", self.dosage_product_var),
+            ("composition", self.dosage_composition_var),
+            ("source_url", self.dosage_source_var),
+        ):
+            value = variable.get().strip()
+            if value:
+                option[key] = value
         if not option["dosage_form"] or not option["strength_unit"]:
             messagebox.showerror(
                 "Missing dosage fields", "Dosage form and strength unit are required."
@@ -1106,7 +1313,7 @@ class PharmDSCurationGui:
         if (option["route"], option["release_type"]) not in valid_pairs:
             messagebox.showerror(
                 "Unknown formulation",
-                "Add the matching route/release type on the Formulations tab first.",
+                "Add the matching route and release type in Formulations first.",
             )
             return
         new_key = self._dosage_key(option)
@@ -1116,10 +1323,7 @@ class PharmDSCurationGui:
                 for item in self.dosage_options
                 if self._dosage_key(item) != self.selected_dosage_key
             ]
-        elif any(
-            self._dosage_key(item) == new_key
-            for item in self.dosage_options
-        ):
+        elif any(self._dosage_key(item) == new_key for item in self.dosage_options):
             messagebox.showerror(
                 "Duplicate dosage",
                 "That dosage option already exists.",
@@ -1157,6 +1361,9 @@ class PharmDSCurationGui:
             )
         self.selected_dosage_key = None
         self.dosage_value_var.set("")
+        self.dosage_product_var.set("")
+        self.dosage_composition_var.set("")
+        self.dosage_source_var.set("")
 
     def _select_enzyme(self, _event=None) -> None:
         selected = self.enzyme_tree.selection()
@@ -1241,10 +1448,15 @@ class PharmDSCurationGui:
         ):
             iid = f"{item['enzyme_id']}|{item['role']}"
             self.enzyme_tree.insert(
-                "", "end", iid=iid, text=item["enzyme_id"],
+                "",
+                "end",
+                iid=iid,
+                text=item["enzyme_id"],
                 values=(
-                    item["role"], item.get("strength", ""),
-                    item.get("fraction_metabolized", ""), item.get("notes", ""),
+                    item["role"],
+                    item.get("strength", ""),
+                    item.get("fraction_metabolized", ""),
+                    item.get("notes", ""),
                 ),
             )
         self.enzyme_id_var.set("")
@@ -1262,9 +1474,7 @@ class PharmDSCurationGui:
         item = next(
             value
             for value in self.transporters
-            if normalize_transporter_id(
-                value.get("transporter_id", "")
-            )
+            if normalize_transporter_id(value.get("transporter_id", ""))
             == transporter_id
             and value.get("role") == role
         )
@@ -1275,9 +1485,7 @@ class PharmDSCurationGui:
         self.transporter_note_text.insert("1.0", str(item.get("notes") or ""))
 
     def _add_transporter(self) -> None:
-        transporter_id = normalize_transporter_id(
-            self.transporter_id_var.get().strip()
-        )
+        transporter_id = normalize_transporter_id(self.transporter_id_var.get().strip())
         role = self.transporter_role_var.get().strip()
         if transporter_id not in self.transporter_ids:
             messagebox.showerror(
@@ -1295,9 +1503,7 @@ class PharmDSCurationGui:
             item
             for item in self.transporters
             if not (
-                normalize_transporter_id(
-                    item.get("transporter_id", "")
-                )
+                normalize_transporter_id(item.get("transporter_id", ""))
                 == transporter_id
                 and item.get("role") == role
             )
@@ -1314,9 +1520,7 @@ class PharmDSCurationGui:
             item
             for item in self.transporters
             if not (
-                normalize_transporter_id(
-                    item.get("transporter_id", "")
-                )
+                normalize_transporter_id(item.get("transporter_id", ""))
                 == transporter_id
                 and item.get("role") == role
             )
@@ -1338,7 +1542,10 @@ class PharmDSCurationGui:
             transporter_id = normalize_transporter_id(item["transporter_id"])
             iid = f"{transporter_id}|{item['role']}"
             self.transporter_tree.insert(
-                "", "end", iid=iid, text=transporter_id,
+                "",
+                "end",
+                iid=iid,
+                text=transporter_id,
                 values=(
                     item["role"],
                     item.get("strength", ""),
@@ -1359,9 +1566,7 @@ class PharmDSCurationGui:
 
         effect_id = selected[0]
         effect = next(
-            item
-            for item in self.pd_effects
-            if item["effect_id"] == effect_id
+            item for item in self.pd_effects if item["effect_id"] == effect_id
         )
 
         self.pd_effect_var.set(effect_id)
@@ -1396,8 +1601,7 @@ class PharmDSCurationGui:
             (
                 effect
                 for effect in self.pd_effects
-                if normalize_pd_effect_id(effect["effect_id"])
-                == effect_id
+                if normalize_pd_effect_id(effect["effect_id"]) == effect_id
             ),
             None,
         )
@@ -1427,9 +1631,7 @@ class PharmDSCurationGui:
 
         effect_id = selected[0]
         self.pd_effects = [
-            effect
-            for effect in self.pd_effects
-            if effect.get("effect_id") != effect_id
+            effect for effect in self.pd_effects if effect.get("effect_id") != effect_id
         ]
         self._refresh_pd_effects()
 
@@ -1463,13 +1665,22 @@ class PharmDSCurationGui:
         drug_id = self.id_var.get().strip()
         generic_name = self.generic_var.get().strip()
         aliases = split_aliases(self.aliases_var.get())
+        brands = split_aliases(self.brands_var.get())
+        known_aliases = {normalize_identity(alias) for alias in aliases}
+        for brand in brands:
+            normalized = normalize_identity(brand)
+            if normalized not in known_aliases and normalized not in {
+                normalize_identity(drug_id),
+                normalize_identity(generic_name),
+            }:
+                aliases.append(brand)
+                known_aliases.add(normalized)
 
         if not drug_id:
             raise ValueError("Drug ID is required.")
         if not DRUG_ID_RE.match(drug_id):
             raise ValueError(
-                "Drug ID must be lowercase and match "
-                "^[a-z0-9][a-z0-9_+-]*$.",
+                "Drug ID must be lowercase and match ^[a-z0-9][a-z0-9_+-]*$.",
             )
         if not generic_name:
             raise ValueError("Generic name is required.")
@@ -1494,8 +1705,7 @@ class PharmDSCurationGui:
         duplicates = duplicate_pd_effect_ids(self.pd_effects)
         if duplicates:
             raise ValueError(
-                "Duplicate PD effects: "
-                + ", ".join(sorted(duplicates)),
+                "Duplicate PD effects: " + ", ".join(sorted(duplicates)),
             )
 
         release_types = sorted(
@@ -1515,6 +1725,7 @@ class PharmDSCurationGui:
                 "drug_class": self.class_var.get().strip(),
                 "therapeutic_index": self.ti_var.get(),
                 "aliases": aliases,
+                "brand_names": brands,
                 "release_types": release_types,
                 "notes": self.notes_text.get("1.0", END).strip(),
                 "dosage_options": copy.deepcopy(self.dosage_options),
@@ -1579,6 +1790,7 @@ class PharmDSCurationGui:
             if drug.get("id") == self.current_drug_id
         )
         self._refresh_drug_list()
+        self.pk_tab.show_drug(self.current_drug_id)
 
         self.status_var.set(
             f"Saved '{self.current_drug_id}'. Backup: {backup_path}",

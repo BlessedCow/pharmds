@@ -1,0 +1,22 @@
+{
+  "id": "PK_TIZANIDINE_FLUVOXAMINE",
+  "name": "Fluvoxamine and tizanidine are contraindicated",
+  "domain": "PK",
+  "severity": "contraindicated",
+  "rule_class": "avoid",
+  "tags": ["exposure_increase", "hypotension_risk", "sedation_risk"],
+  "actions": ["Do not coadminister fluvoxamine and tizanidine; use an alternative."],
+  "logic": {
+    "drug_pair": {"a": "tizanidine", "b": "fluvoxamine"},
+    "rationale": [
+      "Fluvoxamine inhibits CYP1A2-mediated tizanidine clearance.",
+      "The labeled combination is contraindicated due to hypotension and sedation."
+    ]
+  },
+  "explanation_template": "Fluvoxamine inhibits tizanidine metabolism through CYP1A2. This combination is contraindicated because tizanidine exposure can rise markedly, causing hypotension and sedation.",
+  "references": [{
+    "source": "DailyMed, Tizanidine Hydrochloride Capsules, Contraindications",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6439a7ef-1b22-4fa1-9be3-eedd3cd24191",
+    "citation": "Concomitant tizanidine and fluvoxamine is contraindicated."
+  }]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "PK_DIAZEPAM_FLUVOXAMINE",
+  "name": "Fluvoxamine reduces diazepam clearance",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "avoid",
+  "tags": ["exposure_increase", "sedation_risk"],
+  "actions": ["Avoid coadministration of fluvoxamine and diazepam when possible."],
+  "logic": {
+    "drug_pair": {"a": "diazepam", "b": "fluvoxamine"},
+    "rationale": [
+      "Fluvoxamine inhibits oxidative clearance of diazepam and its active metabolite.",
+      "Accumulation can increase and prolong sedation."
+    ]
+  },
+  "explanation_template": "Fluvoxamine reduces diazepam clearance and can prolong sedation. The fluvoxamine label advises that these drugs should not ordinarily be coadministered.",
+  "references": [{
+    "source": "DailyMed, Fluvoxamine Maleate Tablets, Drug Interactions",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2df4f9cf-5803-d8ea-e063-6394a90ad855",
+    "citation": "Healthy-volunteer coadministration study supports avoiding fluvoxamine with diazepam."
+  }]
+}

@@ -13,12 +13,14 @@ from typing import Any
 from core.constants import normalize_pd_effect_id, normalize_transporter_id
 from core.mechanisms.registry import (
     ENZYME_ROLE_TO_MECHANISM,
+    MECHANISM_ABSORPTION_INTERFERENCE,
+    MECHANISM_ABSORPTION_SUSCEPTIBLE,
     MECHANISM_PD_EFFECT,
     TRANSPORTER_ROLE_TO_MECHANISM,
     validate_mechanism,
     validate_pd_effect,
 )
-from core.models import EnzymeRole, Facts, PDEffect, TransporterRole
+from core.models import AbsorptionRole, EnzymeRole, Facts, PDEffect, TransporterRole
 
 
 @dataclass(frozen=True)
@@ -121,11 +123,29 @@ def pd_effect_to_mechanism_effect(
     )
 
 
+def absorption_role_to_mechanism_effect(
+    drug_id: str, role: AbsorptionRole
+) -> MechanismEffect:
+    if role.mechanism not in (
+        MECHANISM_ABSORPTION_SUSCEPTIBLE,
+        MECHANISM_ABSORPTION_INTERFERENCE,
+    ):
+        raise ValueError(f"Unknown absorption role: {role.mechanism}")
+    return MechanismEffect(
+        mechanism=role.mechanism,
+        source_drug=drug_id,
+        target=role.target,
+        evidence_refs=role.evidence_refs,
+    )
+
+
 def facts_to_mechanism_effects(facts: Facts) -> list[MechanismEffect]:
     """Convert loaded Facts into normalized MechanismEffect objects."""
     effects: list[MechanismEffect] = []
 
     for drug_id in sorted(facts.drugs):
+        for role in facts.absorption_roles.get(drug_id, []):
+            effects.append(absorption_role_to_mechanism_effect(drug_id, role))
         for role in facts.enzyme_roles.get(drug_id, []) or []:
             effects.append(enzyme_role_to_mechanism_effect(drug_id, role))
 

@@ -146,6 +146,35 @@ def test_rule_hit_to_result_summary_uses_public_shape():
     )
 
 
+def test_rule_summary_renders_drug_and_mechanism_placeholders():
+    hit = RuleHit(
+        rule_id="pk_cyp2d6_inhib_substrate",
+        name="CYP2D6 inhibition",
+        domain=Domain.PK,
+        severity=Severity.caution,
+        rule_class=RuleClass.caution,
+        inputs={"A": "amitriptyline", "B": "bupropion", "enzyme_id": "CYP2D6"},
+        rationale=[
+            "{B_name} inhibits {enzyme_id}.",
+            "{A_name} is a {enzyme_id} substrate.",
+        ],
+    )
+    report = PairReport(
+        drug_1="amitriptyline",
+        drug_2="bupropion",
+        overall_severity=Severity.caution,
+        overall_rule_class="caution",
+        pk_hits=[hit],
+    )
+
+    summary = legacy_rule_hit_to_result_summary(report, hit)
+
+    assert summary.explanation == (
+        "bupropion inhibits CYP2D6. "
+        "amitriptyline is a CYP2D6 substrate."
+    )
+
+
 def test_build_public_result_summaries_combines_aggregate_and_rule_hits():
     aggregate = AggregateConcern(
         aggregate_type=AGGREGATE_SHARED_PD_EFFECT,

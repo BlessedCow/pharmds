@@ -1,0 +1,16 @@
+{
+  "roles": [
+    {
+      "drug_id": "doxycycline",
+      "mechanism": "ABSORPTION_SUSCEPTIBLE",
+      "target": "chelation_polyvalent_cation",
+      "evidence_refs": ["PK_DOXYCYCLINE_CALCIUM_CARBONATE"]
+    },
+    {
+      "drug_id": "calcium_carbonate",
+      "mechanism": "ABSORPTION_INTERFERENCE",
+      "target": "chelation_polyvalent_cation",
+      "evidence_refs": ["PK_DOXYCYCLINE_CALCIUM_CARBONATE"]
+    }
+  ]
+}

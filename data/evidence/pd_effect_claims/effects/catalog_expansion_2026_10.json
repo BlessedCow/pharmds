@@ -1,0 +1,2135 @@
+[
+  {
+    "claim_id": "claim_fluvoxamine_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "fluvoxamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_fluvoxamine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_fluvoxamine_pd_effect_serotonin_syndrome_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "fluvoxamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonin_syndrome"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_fluvoxamine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "serotonin syndrome See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_fluvoxamine_pd_effect_bleeding_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "fluvoxamine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bleeding"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_fluvoxamine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "bleeding See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_ciprofloxacin_pd_effect_QT_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ciprofloxacin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_ciprofloxacin",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "QT prolongation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_ciprofloxacin_pd_effect_seizure_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ciprofloxacin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "seizure_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_ciprofloxacin",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "seizure risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_phenytoin_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "phenytoin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_phenytoin",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_phenytoin_pd_effect_seizure_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "phenytoin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "seizure_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_phenytoin",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "Abrupt withdrawal can provoke seizures. See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_phenobarbital_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "phenobarbital"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_phenobarbital",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_phenobarbital_pd_effect_respiratory_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "phenobarbital"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "respiratory_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_phenobarbital",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "respiratory depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_phenobarbital_pd_effect_withdrawal_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "phenobarbital"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "withdrawal_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_phenobarbital",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "withdrawal risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_codeine_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "codeine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_codeine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_codeine_pd_effect_respiratory_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "codeine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "respiratory_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_codeine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "respiratory depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_codeine_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "codeine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_codeine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "sedation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_codeine_pd_effect_withdrawal_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "codeine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "withdrawal_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_codeine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "withdrawal risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_morphine_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "morphine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_morphine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_morphine_pd_effect_respiratory_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "morphine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "respiratory_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_morphine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "respiratory depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_morphine_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "morphine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_morphine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "sedation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_morphine_pd_effect_withdrawal_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "morphine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "withdrawal_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_morphine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "withdrawal risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_dextromethorphan_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "dextromethorphan"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_dextromethorphan",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_dextromethorphan_pd_effect_serotonin_syndrome_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "dextromethorphan"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonin_syndrome"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_dextromethorphan",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "serotonin syndrome See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_dextromethorphan_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "dextromethorphan"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_dextromethorphan",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_metoprolol_pd_effect_bradycardia_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "metoprolol"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bradycardia"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_metoprolol",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "bradycardia See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_metoprolol_pd_effect_orthostatic_hypotension_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "metoprolol"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "orthostatic_hypotension"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_metoprolol",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "orthostatic hypotension See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_apixaban_pd_effect_bleeding_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "apixaban"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bleeding"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_apixaban",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "bleeding See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_rivaroxaban_pd_effect_bleeding_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "rivaroxaban"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bleeding"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_rivaroxaban",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "bleeding See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_aspirin_pd_effect_bleeding_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "aspirin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bleeding"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_aspirin",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "bleeding See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_linezolid_pd_effect_serotonin_syndrome_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "linezolid"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonin_syndrome"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_linezolid",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "serotonin syndrome See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_linezolid_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "linezolid"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_linezolid",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_linezolid_pd_effect_blood_pressure_increase_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "linezolid"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "blood_pressure_increase"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_linezolid",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "blood pressure increase See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_amiodarone_pd_effect_QT_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "amiodarone"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_amiodarone",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "QT prolongation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_amiodarone_pd_effect_bradycardia_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "amiodarone"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bradycardia"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_amiodarone",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "bradycardia See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_sotalol_pd_effect_QT_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "sotalol"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_sotalol",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "QT prolongation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_sotalol_pd_effect_bradycardia_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "sotalol"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "bradycardia"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_sotalol",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "bradycardia See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_dofetilide_pd_effect_QT_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "dofetilide"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_dofetilide",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "QT prolongation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_procainamide_pd_effect_QT_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "procainamide"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_procainamide",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "QT prolongation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_procainamide_pd_effect_orthostatic_hypotension_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "procainamide"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "orthostatic_hypotension"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_procainamide",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "orthostatic hypotension See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_azithromycin_pd_effect_QT_prolongation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "azithromycin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "QT_prolongation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_azithromycin",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "QT prolongation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_theophylline_pd_effect_seizure_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "theophylline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "seizure_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_theophylline",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "seizure risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_theophylline_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "theophylline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_theophylline",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "tachycardia risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_st_johns_wort_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "st_johns_wort"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_st_johns_wort",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_melatonin_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "melatonin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_melatonin",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "sedation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_valerian_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "valerian"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_valerian",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "sedation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_kava_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "kava"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_kava",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_kava_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "kava"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_kava",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "sedation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_five_htp_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "five_htp"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_five_htp",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_five_htp_pd_effect_serotonin_syndrome_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "five_htp"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonin_syndrome"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_five_htp",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "serotonin syndrome See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_tryptophan_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "tryptophan"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_tryptophan",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_psilocybin_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "psilocybin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_psilocybin",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_psilocybin_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "psilocybin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_psilocybin",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "tachycardia risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_psilocin_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "psilocin"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_psilocin",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_ghb_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ghb"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_ghb",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_ghb_pd_effect_respiratory_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ghb"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "respiratory_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_ghb",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "respiratory depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_ghb_pd_effect_sedation_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "ghb"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sedation"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_ghb",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "sedation See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_nitrous_oxide_pd_effect_CNS_depression_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "nitrous_oxide"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "CNS_depression"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_nitrous_oxide",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "CNS depression See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_nitrous_oxide_pd_effect_neurotoxicity_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "nitrous_oxide"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "neurotoxicity_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_nitrous_oxide",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "neurotoxicity risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_pcp_pd_effect_neurotoxicity_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "pcp"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "neurotoxicity_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_pcp_case_series_2014",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Case series documented agitation, amnesia and hypertension in patients with suspected PCP intoxication; effect varies by exposure."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_pcp_pd_effect_blood_pressure_increase_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "pcp"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "blood_pressure_increase"
+    },
+    "evidence": [
+      {
+        "source_id": "source_pcp_case_series_2014",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Case series documented agitation, amnesia and hypertension in patients with suspected PCP intoxication; effect varies by exposure."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_mescaline_pd_effect_serotonergic_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "mescaline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "serotonergic"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_mescaline",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "serotonergic See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_mescaline_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "mescaline"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_mescaline",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "tachycardia risk See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_synthetic_cannabinoids_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "synthetic_cannabinoids"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_synthetic_cannabinoid_exposure_2010",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Clinical exposure series reports neurologic toxicity or tachycardia across tested products; chemical-specific effects are heterogeneous."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_synthetic_cannabinoids_pd_effect_neurotoxicity_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "synthetic_cannabinoids"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "neurotoxicity_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_synthetic_cannabinoid_case_series_2023",
+        "evidence_type": "primary_literature",
+        "supports_claim": true,
+        "confidence": "moderate",
+        "notes": "Clinical exposure series reports neurologic toxicity or tachycardia across tested products; chemical-specific effects are heterogeneous."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_oxymetazoline_hydrochloride_pd_effect_sympathomimetic_activity_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "oxymetazoline_hydrochloride"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sympathomimetic_activity"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_oxymetazoline_hydrochloride",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "sympathomimetic activity See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_oxymetazoline_hydrochloride_pd_effect_blood_pressure_increase_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "oxymetazoline_hydrochloride"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "blood_pressure_increase"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_oxymetazoline_hydrochloride",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "blood pressure increase See primary source for product or study context; effect magnitude is a curation estimate."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_propylhexedrine_pd_effect_sympathomimetic_activity_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "propylhexedrine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "sympathomimetic_activity"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_propylhexedrine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "sympathomimetic activity See primary source for product or study context; effect magnitude is a curation estimate."
+      },
+      {
+        "source_id": "source_fda_propylhexedrine_safety_2021",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "FDA reports tachycardia, hypertension and sympathomimetic harm with misuse; labeled nasal use has a different exposure context."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_propylhexedrine_pd_effect_blood_pressure_increase_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "propylhexedrine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "blood_pressure_increase"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_propylhexedrine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "blood pressure increase See primary source for product or study context; effect magnitude is a curation estimate."
+      },
+      {
+        "source_id": "source_fda_propylhexedrine_safety_2021",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "FDA reports tachycardia, hypertension and sympathomimetic harm with misuse; labeled nasal use has a different exposure context."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  },
+  {
+    "claim_id": "claim_propylhexedrine_pd_effect_tachycardia_risk_001",
+    "claim_type": "pd_effect",
+    "subject": {
+      "entity_type": "drug",
+      "id": "propylhexedrine"
+    },
+    "predicate": "has_pd_effect",
+    "object": {
+      "effect_id": "tachycardia_risk"
+    },
+    "evidence": [
+      {
+        "source_id": "source_catalog_2026_propylhexedrine",
+        "evidence_type": "drug_label",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "tachycardia risk See primary source for product or study context; effect magnitude is a curation estimate."
+      },
+      {
+        "source_id": "source_fda_propylhexedrine_safety_2021",
+        "evidence_type": "review_article",
+        "supports_claim": true,
+        "confidence": "high",
+        "notes": "FDA reports tachycardia, hypertension and sympathomimetic harm with misuse; labeled nasal use has a different exposure context."
+      }
+    ],
+    "review": {
+      "status": "approved",
+      "reviewed_by": "Codex source review",
+      "reviewed_at": "2026-10-10"
+    },
+    "claim_status": "active",
+    "contributor": {
+      "id": "catalog_expansion_2026_10",
+      "role": "curator",
+      "submitted_at": "2026-10-10"
+    }
+  }
+]

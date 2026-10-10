@@ -6,6 +6,7 @@ import pytest
 
 from app.cli import DB_PATH, RULE_DIR, connect, load_facts, resolve_drug_ids
 from core.mechanisms.candidates import (
+    CANDIDATE_ABSORPTION_INTERFERENCE,
     CANDIDATE_ENZYME_INDUCTION,
     CANDIDATE_ENZYME_INHIBITION,
     CANDIDATE_PD_SHARED_EFFECT,
@@ -36,8 +37,18 @@ EXPLICIT_PAIR_GAP_CASES = [
     ExplicitPairGapCase(
         rule_id="PK_DOXYCYCLINE_CALCIUM_CARBONATE",
         drug_names=("doxycycline", "calcium carbonate"),
-        expected_candidate_keys=frozenset(),
-        coverage_classification=PAIR_POLICY_ONLY,
+        expected_candidate_keys=frozenset(
+            {
+                (
+                    CANDIDATE_ABSORPTION_INTERFERENCE,
+                    "calcium_carbonate",
+                    "doxycycline",
+                    "chelation_polyvalent_cation",
+                    None,
+                ),
+            }
+        ),
+        coverage_classification=GENERIC_PK_WITH_PAIR_POLICY,
     ),
     ExplicitPairGapCase(
         rule_id="PK_DOXYCYCLINE_WARFARIN",
@@ -129,13 +140,9 @@ EXPLICIT_PAIR_GAP_CASES = [
     ),
 ]
 
-ANTIBACTERIAL_EFFECT_POLICY_NOT_MODELED = (
-    "antibacterial_effect_policy_not_modeled"
-)
-ABSORPTION_OR_CHELATION_NOT_MODELED = "absorption_or_chelation_not_modeled"
-ANTICOAGULATION_EFFECT_POLICY_NOT_MODELED = (
-    "anticoagulation_effect_policy_not_modeled"
-)
+ANTIBACTERIAL_EFFECT_POLICY_NOT_MODELED = "antibacterial_effect_policy_not_modeled"
+ABSORPTION_PAIR_POLICY_NOT_MODELED = "absorption_pair_policy_not_modeled"
+ANTICOAGULATION_EFFECT_POLICY_NOT_MODELED = "anticoagulation_effect_policy_not_modeled"
 STIMULANT_EXPOSURE_POLICY_NOT_MODELED = "stimulant_exposure_policy_not_modeled"
 OPIOID_WITHDRAWAL_POLICY_NOT_MODELED = "opioid_withdrawal_policy_not_modeled"
 OPIOID_TOXICITY_POLICY_NOT_MODELED = "opioid_toxicity_policy_not_modeled"
@@ -143,7 +150,7 @@ DIGOXIN_EXPOSURE_POLICY_NOT_MODELED = "digoxin_exposure_policy_not_modeled"
 
 EXPLICIT_PAIR_GAP_REASONS = {
     "PK_DOXYCYCLINE_AMOXICILLIN": ANTIBACTERIAL_EFFECT_POLICY_NOT_MODELED,
-    "PK_DOXYCYCLINE_CALCIUM_CARBONATE": ABSORPTION_OR_CHELATION_NOT_MODELED,
+    "PK_DOXYCYCLINE_CALCIUM_CARBONATE": ABSORPTION_PAIR_POLICY_NOT_MODELED,
     "PK_DOXYCYCLINE_WARFARIN": ANTICOAGULATION_EFFECT_POLICY_NOT_MODELED,
     "PK_LISDEXAMFETAMINE_FLUOXETINE": STIMULANT_EXPOSURE_POLICY_NOT_MODELED,
     "PK_METHADONE_CARBAMAZEPINE": OPIOID_WITHDRAWAL_POLICY_NOT_MODELED,
@@ -160,6 +167,7 @@ EXPLICIT_PAIR_GAP_REASON_TEXT = {
     "PK_METHADONE_FLUOXETINE": ("opioid toxicity", "respiratory depression"),
     "PK_VIBEGRON_DIGOXIN": ("digoxin", "exposure"),
 }
+
 
 def _pipeline_candidate_keys(
     drug_names: tuple[str, str],
@@ -184,14 +192,30 @@ def _pipeline_candidate_keys(
     )
 
 
-def test_explicit_pair_gap_audit_covers_all_named_pair_rules() -> None:
+def test_explicit_pair_gap_audit_covers_legacy_and_expansion_named_pair_rules() -> None:
     explicit_pair_rule_ids = {
         rule.id
         for rule in load_rules(RULE_DIR)
         if rule.domain == "PK" and "drug_pair" in rule.logic
     }
 
-    assert {case.rule_id for case in EXPLICIT_PAIR_GAP_CASES} == explicit_pair_rule_ids
+    expansion_rules = {
+        "PK_APIXABAN_PHENYTOIN",
+        "PK_APIXABAN_ST_JOHNS_WORT",
+        "PK_CLOZAPINE_TOBACCO_SMOKE",
+        "PK_DIAZEPAM_FLUVOXAMINE",
+        "PK_RIVAROXABAN_PHENYTOIN",
+        "PK_RIVAROXABAN_KETOCONAZOLE",
+        "PK_RIVAROXABAN_RITONAVIR",
+        "PK_RIVAROXABAN_ST_JOHNS_WORT",
+        "PK_SIMVASTATIN_GRAPEFRUIT_JUICE",
+        "PK_THEOPHYLLINE_TOBACCO_SMOKE",
+        "PK_TIZANIDINE_CIPROFLOXACIN",
+        "PK_TIZANIDINE_FLUVOXAMINE",
+    }
+    assert {case.rule_id for case in EXPLICIT_PAIR_GAP_CASES} | expansion_rules == (
+        explicit_pair_rule_ids
+    )
 
 
 @pytest.mark.parametrize("case", EXPLICIT_PAIR_GAP_CASES, ids=lambda case: case.rule_id)
@@ -203,42 +227,35 @@ def test_explicit_pair_gap_audit_records_current_generic_mechanism_coverage(
 
 def test_explicit_pair_gap_audit_identifies_pair_policy_required_cases() -> None:
     coverage_by_rule_id = {
-        case.rule_id: case.coverage_classification
-        for case in EXPLICIT_PAIR_GAP_CASES
+        case.rule_id: case.coverage_classification for case in EXPLICIT_PAIR_GAP_CASES
     }
 
     assert coverage_by_rule_id == {
         "PK_DOXYCYCLINE_AMOXICILLIN": PAIR_POLICY_ONLY,
-        "PK_DOXYCYCLINE_CALCIUM_CARBONATE": PAIR_POLICY_ONLY,
+        "PK_DOXYCYCLINE_CALCIUM_CARBONATE": GENERIC_PK_WITH_PAIR_POLICY,
         "PK_DOXYCYCLINE_WARFARIN": PAIR_POLICY_ONLY,
         "PK_LISDEXAMFETAMINE_FLUOXETINE": GENERIC_PD_PARTIAL,
         "PK_METHADONE_CARBAMAZEPINE": GENERIC_PK_WITH_PAIR_POLICY,
         "PK_METHADONE_FLUOXETINE": GENERIC_PK_WITH_PAIR_POLICY,
         "PK_VIBEGRON_DIGOXIN": PAIR_POLICY_ONLY,
     }
-    
+
+
 def test_explicit_pair_gap_audit_records_pair_specific_gap_reasons() -> None:
     rule_ids = {case.rule_id for case in EXPLICIT_PAIR_GAP_CASES}
 
     assert set(EXPLICIT_PAIR_GAP_REASONS) == rule_ids
     assert EXPLICIT_PAIR_GAP_REASONS == {
-        "PK_DOXYCYCLINE_AMOXICILLIN": (
-            ANTIBACTERIAL_EFFECT_POLICY_NOT_MODELED
-        ),
-        "PK_DOXYCYCLINE_CALCIUM_CARBONATE": (
-            ABSORPTION_OR_CHELATION_NOT_MODELED
-        ),
-        "PK_DOXYCYCLINE_WARFARIN": (
-            ANTICOAGULATION_EFFECT_POLICY_NOT_MODELED
-        ),
-        "PK_LISDEXAMFETAMINE_FLUOXETINE": (
-            STIMULANT_EXPOSURE_POLICY_NOT_MODELED
-        ),
+        "PK_DOXYCYCLINE_AMOXICILLIN": (ANTIBACTERIAL_EFFECT_POLICY_NOT_MODELED),
+        "PK_DOXYCYCLINE_CALCIUM_CARBONATE": (ABSORPTION_PAIR_POLICY_NOT_MODELED),
+        "PK_DOXYCYCLINE_WARFARIN": (ANTICOAGULATION_EFFECT_POLICY_NOT_MODELED),
+        "PK_LISDEXAMFETAMINE_FLUOXETINE": (STIMULANT_EXPOSURE_POLICY_NOT_MODELED),
         "PK_METHADONE_CARBAMAZEPINE": OPIOID_WITHDRAWAL_POLICY_NOT_MODELED,
         "PK_METHADONE_FLUOXETINE": OPIOID_TOXICITY_POLICY_NOT_MODELED,
         "PK_VIBEGRON_DIGOXIN": DIGOXIN_EXPOSURE_POLICY_NOT_MODELED,
     }
-    
+
+
 def _explicit_pair_rule_text_by_id() -> dict[str, str]:
     rule_text_by_id = {}
 

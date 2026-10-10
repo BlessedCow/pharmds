@@ -1,4 +1,4 @@
-# Python bytecode
+# Python caches and local environments
 __pycache__/
 *.py[cod]
 *.pyo
@@ -7,64 +7,83 @@ __pycache__/
 # Virtual environments
 venv/
 .venv/
-ENV/
 env/
-.env/
+ENV/
+.tox/
+.nox/
+.mypy_cache/
+.pyright/
+.ruff_cache/
 
-# Environment variables
+# Credentials and machine-specific configuration
 .env
-.env.local
+.env.*
+!.env.example
+!.env.*.example
+.npmrc
+*.pem
+*.p12
+*.pfx
+*.key
+.pharmds/
 
-# Packaging / distribution
+# Private local research integration (preserved locally)
+/app/knowledge_client.py
+/api/routes/knowledge.py
+/api/private_main.py
+/docs/remote_knowledge.md
+/tests/app/test_knowledge_client.py
+/tests/api/test_knowledge.py
+/web/private_rag/
+
+# Builds and package metadata
 build/
 dist/
 *.egg-info/
+*.tsbuildinfo
 
-# Logs
-*.log
-
-# Test / coverage artifacts
+# Tests and generated reports
 .pytest_cache/
+.hypothesis/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
+web/coverage/
+/evidence_gap_report.json
+/reference/expanded_*.json
+/output/
+/reports/
 
-# IDEs / Editors
-.vscode/
-.idea/
-*.swp
+# Local SQLite data, write-ahead logs, backups and exports
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+/data/curation_backups/
+/data/exports/
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Local data and databases
-app/data/*.db
-app/data/*.local.json
-
-# CLI output / reports
-output/
-reports/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Frontend dependencies and build outputs
+# Frontend dependencies and build output
 web/node_modules/
 web/dist/
 web/.vite/
 web/.turbo/
 web/.cache/
 
-# Frontend environment files
-web/.env
-web/.env.local
-web/.env.*.local
-
-# Logs
+# Editor, operating system and log files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+*.log
 web/npm-debug.log*
 web/yarn-debug.log*
 web/yarn-error.log*
 web/pnpm-debug.log*
+.ipynb_checkpoints/
 
 # To do
 TODO.txt

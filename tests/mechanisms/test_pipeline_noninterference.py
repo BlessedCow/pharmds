@@ -1,22 +1,13 @@
-from pathlib import Path
-
-from app.cli import DB_PATH, connect, load_facts, resolve_drug_ids
+from app.cli import RULE_DIR
 from core.mechanisms import run_mechanism_pipeline
 from rules.engine import evaluate_all, load_rules
-
-RULE_DIR = Path("rules/rule_defs")
+from tests.mechanisms.support import load_drug_facts
 
 
 def _load_context(names: list[str]):
-    conn = connect(DB_PATH)
-    drug_ids = resolve_drug_ids(conn, names)
-    facts = load_facts(
-        conn,
-        drug_ids,
-        patient_flags={
-            "qt_risk": False,
-            "bleeding_risk": False,
-        },
+    drug_ids, facts = load_drug_facts(
+        names,
+        patient_flags={"qt_risk": False, "bleeding_risk": False},
     )
     rules = load_rules(RULE_DIR)
     return facts, rules, drug_ids

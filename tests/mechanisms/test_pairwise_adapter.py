@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from app.cli import DB_PATH, connect, load_facts, resolve_drug_ids
 from app.service import analyze_names
 from core.mechanisms.candidates import (
     CANDIDATE_ENZYME_INHIBITION,
@@ -12,28 +11,17 @@ from core.mechanisms.pairwise_adapter import (
     PairwiseMechanismConcern,
     adapt_mechanism_pipeline_to_pairwise,
 )
-from core.mechanisms.pipeline import run_mechanism_pipeline
 from core.mechanisms.severity import (
     PRELIMINARY_SEVERITY_HIGH_CAUTION,
     PRELIMINARY_SEVERITY_INFORMATIONAL,
 )
-
-
-def _pipeline_for(drug_names: list[str]):
-    conn = connect(DB_PATH)
-    try:
-        drug_ids = resolve_drug_ids(conn, drug_names)
-        facts = load_facts(conn, drug_ids, patient_flags={})
-    finally:
-        conn.close()
-
-    return run_mechanism_pipeline(drug_ids, facts)
+from tests.mechanisms.support import pipeline_for
 
 
 def _pairwise_concerns_for(
     drug_names: list[str],
 ) -> tuple[PairwiseMechanismConcern, ...]:
-    return adapt_mechanism_pipeline_to_pairwise(_pipeline_for(drug_names))
+    return adapt_mechanism_pipeline_to_pairwise(pipeline_for(drug_names))
 
 
 def test_pairwise_adapter_shapes_pk_mechanism_concern() -> None:

@@ -13,6 +13,10 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
+from core.mechanisms.aggregate_evidence import (
+    EVIDENCE_STATUS_COMPLETE,
+    EVIDENCE_STATUS_NOT_APPLICABLE,
+)
 from core.mechanisms.aggregate_summary import AggregateConcernSummary
 from core.mechanisms.aggregation import (
     AGGREGATE_OBJECT_EXPOSURE_DECREASE,
@@ -21,11 +25,21 @@ from core.mechanisms.aggregation import (
     AGGREGATE_SHARED_PD_EFFECT,
     AGGREGATE_TOLERABILITY_CONCERN,
 )
+from core.mechanisms.candidates import (
+    CANDIDATE_ABSORPTION_INTERFERENCE,
+    CANDIDATE_PD_SHARED_EFFECT,
+)
 from core.mechanisms.effect_labels import (
     PUBLIC_EFFECT_LABELS,
     effect_display_label,
 )
+from core.mechanisms.finding_identity import PDFindingIdentity, PKFindingIdentity
 from core.mechanisms.pipeline import MechanismPipelineResult
+from core.mechanisms.registry import (
+    MECHANISM_ABSORPTION_INTERFERENCE,
+    MECHANISM_ABSORPTION_SUSCEPTIBLE,
+)
+from core.mechanisms.rule_coverage import pd_rule_identity, pk_rule_identity
 from core.models import PairReport, RuleHit
 
 RESULT_SOURCE_AGGREGATE = "aggregate_summary"
@@ -33,7 +47,6 @@ RESULT_SOURCE_RULE = "rule_hit"
 
 EVIDENCE_LABEL_NOT_AVAILABLE = "not_available"
 EVIDENCE_LABEL_LEGACY_RULE = "rule_engine"
-
 
 @dataclass(frozen=True)
 class ResultSummary:
@@ -56,6 +69,16 @@ def build_public_result_summaries(
     public_aggregate_summaries = _consolidate_public_aggregate_summaries(
         list(pipeline.aggregate_concern_summaries),
     )
+    if pair_reports:
+        public_aggregate_summaries = _reconcile_absorption_summaries(
+            public_aggregate_summaries, pipeline, pair_reports
+        )
+        public_aggregate_summaries = _reconcile_pk_summaries(
+            public_aggregate_summaries, pair_reports
+        )
+        public_aggregate_summaries = _reconcile_pd_summaries(
+            public_aggregate_summaries, pair_reports
+        )
     summaries = [
         aggregate_summary_to_result_summary(summary)
         for summary in public_aggregate_summaries
@@ -67,6 +90,144 @@ def build_public_result_summaries(
         )
 
     return dedupe_result_summaries(summaries)
+
+
+def _reconcile_pk_summaries(
+    summaries: list[AggregateConcernSummary],
+    pair_reports: list[PairReport],
+) -> list[AggregateConcernSummary]:
+    """Hide an exposure aggregate only when every member has a matching rule.
+
+    Aggregates combine targets and precipitants for the same affected drug.
+    Keeping a partly covered aggregate preserves the uncovered mechanism.
+    The original pipeline and its evidence remain available in detail.
+    """
+    covered: set[PKFindingIdentity] = set()
+    for report in pair_reports:
+        for hit in report.pk_hits:
+            identity = pk_rule_identity(report, hit)
+            if identity is not None:
+                covered.add(identity)
+
+    return [
+        summary
+        for summary in summaries
+        if not (
+            not _has_evidence_limitation(summary)
+            and summary.aggregate.aggregate_type
+            in {AGGREGATE_OBJECT_EXPOSURE_INCREASE, AGGREGATE_OBJECT_EXPOSURE_DECREASE}
+            and summary.aggregate.members
+            and all(
+                (identity := PKFindingIdentity.from_policy(member)) is not None
+                and identity in covered
+                for member in summary.aggregate.members
+            )
+        )
+    ]
+
+
+def _reconcile_pd_summaries(
+    summaries: list[AggregateConcernSummary],
+    pair_reports: list[PairReport],
+) -> list[AggregateConcernSummary]:
+    """Prefer matching curated pair rules for fully covered shared PD effects."""
+    covered: set[PDFindingIdentity] = set()
+    for report in pair_reports:
+        for hit in report.pd_hits:
+            identity = pd_rule_identity(report, hit)
+            if identity is not None:
+                covered.add(identity)
+
+    return [
+        summary
+        for summary in summaries
+        if not (
+            not _has_evidence_limitation(summary)
+            and summary.aggregate.aggregate_type == AGGREGATE_SHARED_PD_EFFECT
+            and summary.aggregate.effect_id is not None
+            and summary.aggregate.members
+            and all(
+                member.candidate_type == CANDIDATE_PD_SHARED_EFFECT
+                and (identity := PDFindingIdentity.from_policy(member)) is not None
+                and identity.effect_id == summary.aggregate.effect_id
+                and identity in covered
+                for member in summary.aggregate.members
+            )
+        )
+    ]
+
+
+def _has_evidence_limitation(summary: AggregateConcernSummary) -> bool:
+    evidence = summary.evidence_summary
+    return (
+        summary.evidence_conflict_level != "none"
+        or (
+            evidence is not None
+            and evidence.overall_evidence_status
+            not in {EVIDENCE_STATUS_COMPLETE, EVIDENCE_STATUS_NOT_APPLICABLE}
+        )
+    )
+
+
+def _reconcile_absorption_summaries(
+    summaries: list[AggregateConcernSummary],
+    pipeline: MechanismPipelineResult,
+    pair_reports: list[PairReport],
+) -> list[AggregateConcernSummary]:
+    """Prefer a curated rule when it covers the same absorption evidence.
+
+    Mixed-mechanism aggregates remain visible to avoid concealing a distinct
+    exposure concern. Mechanism pipeline results and evidence are unchanged.
+    """
+    rule_pairs = {
+        (frozenset((report.drug_1, report.drug_2)), hit.rule_id)
+        for report in pair_reports
+        for hit in _pair_report_hits(report)
+    }
+    effects: dict[tuple[str, str, str | None], set[str]] = {}
+    for effect in pipeline.effects:
+        key = (effect.source_drug, effect.mechanism, effect.target)
+        effects.setdefault(key, set()).update(effect.evidence_refs)
+    covered_pairs: set[frozenset[str]] = set()
+    for candidate in pipeline.candidates:
+        if candidate.candidate_type != CANDIDATE_ABSORPTION_INTERFERENCE:
+            continue
+        agent_refs = effects.get(
+            (
+                candidate.precipitant_drug,
+                MECHANISM_ABSORPTION_INTERFERENCE,
+                candidate.target,
+            ),
+            set(),
+        )
+        object_refs = effects.get(
+            (
+                candidate.object_drug,
+                MECHANISM_ABSORPTION_SUSCEPTIBLE,
+                candidate.target,
+            ),
+            set(),
+        )
+        pair = frozenset((candidate.precipitant_drug, candidate.object_drug))
+        if any((pair, rule_id) in rule_pairs for rule_id in agent_refs & object_refs):
+            covered_pairs.add(pair)
+
+    return [
+        summary
+        for summary in summaries
+        if not (
+            not _has_evidence_limitation(summary)
+            and summary.aggregate.aggregate_type == AGGREGATE_OBJECT_EXPOSURE_DECREASE
+            and summary.aggregate.members
+            and all(
+                member.candidate_type == CANDIDATE_ABSORPTION_INTERFERENCE
+                and frozenset(
+                    (member.precipitant_drug, member.object_drug)
+                ) in covered_pairs
+                for member in summary.aggregate.members
+            )
+        )
+    ]
 
 
 def _consolidate_public_aggregate_summaries(
@@ -183,7 +344,7 @@ def legacy_rule_hit_to_result_summary(
         concern_type=_value(hit.domain),
         severity_label=_value(hit.severity),
         evidence_label=EVIDENCE_LABEL_LEGACY_RULE,
-        explanation=_legacy_rule_explanation(hit),
+        explanation=_legacy_rule_explanation(report, hit),
     )
 
 
@@ -349,12 +510,28 @@ def _legacy_rule_drugs(
     return (report.drug_1, report.drug_2)
 
 
-def _legacy_rule_explanation(hit: RuleHit) -> str:
+def _legacy_rule_explanation(report: PairReport, hit: RuleHit) -> str:
+    inputs = hit.inputs or {}
+    mapping = {
+        "A_name": str(inputs.get("A") or report.drug_1),
+        "B_name": str(inputs.get("B") or report.drug_2),
+    }
+    mapping.update(
+        (key, str(value))
+        for key, value in inputs.items()
+        if key not in {"A", "B"}
+    )
+
+    def render(text: str) -> str:
+        for key, value in mapping.items():
+            text = text.replace("{" + key + "}", value)
+        return text
+
     if hit.rationale:
-        return " ".join(str(item) for item in hit.rationale if item)
+        return " ".join(render(str(item)) for item in hit.rationale if item)
 
     if hit.actions:
-        actions = "; ".join(str(item) for item in hit.actions if item)
+        actions = "; ".join(render(str(item)) for item in hit.actions if item)
         return f"Legacy rule action context: {actions}"
 
     return "Legacy rule summary. This summary is educational and not diagnostic."

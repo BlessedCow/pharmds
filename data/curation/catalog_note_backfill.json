@@ -1,0 +1,1565 @@
+{
+  "version": 1,
+  "source_scope": "Notes are supported by product prescribing information, original studies, or regulator publications; sources attached to dosage options support the specific product strengths separately.",
+  "entries": {
+    "acamprosate": {
+      "baseline_notes_sha256": "149beb1a7da18c10e7c163cf148ff0c5b69e3bb0a78d452450696e3c066aab60",
+      "notes": "Acamprosate is used to maintain abstinence from alcohol after detoxification, alongside psychosocial support. It is excreted largely unchanged by the kidneys, so impaired renal function can markedly increase exposure; severe renal impairment is a contraindication in labeling. Diarrhea is a common adverse effect. It does not treat acute alcohol withdrawal or intoxication.",
+      "brand_names": [
+        "Campral"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=06b63fc8-572e-4b3d-8150-73b7854a9238"
+      ]
+    },
+    "alcohol": {
+      "baseline_notes_sha256": "c8ecedee33331111c68ec5388866a4ae6780f833e0c5f01cb912a2cfaba5a298",
+      "notes": "Ethanol is a central nervous system depressant whose effects vary with dose and exposure pattern. Combining it with benzodiazepines, opioids, hypnotics, or other sedatives can compound impaired alertness and breathing risk. Chronic heavy use can cause dependence; abrupt cessation after sustained use can cause dangerous withdrawal, including seizures. Beverage alcohol has no standardized pharmaceutical strength.",
+      "brand_names": [],
+      "note_sources": [
+        "https://www.niaaa.nih.gov/health-professionals-communities/core-resource-on-alcohol/alcohol-medication-interactions-potentially-dangerous-mixes"
+      ]
+    },
+    "aloe_vera": {
+      "baseline_notes_sha256": "6df6677c45334c3aa9de6e990a7be2bed65e62ba6c24d0819d1b7390ad41be03",
+      "notes": "Aloe vera products differ substantially by plant part and processing: inner-leaf gel is distinct from latex derived near the leaf rind. Oral aloe latex has stimulant laxative effects and can cause diarrhea and electrolyte loss. Evidence for clinically predictable drug interactions is limited, so product composition and route matter more than a generic aloe label. Topical preparations should not be treated as equivalent to oral latex.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/1800188/",
+        "https://www.niehs.nih.gov/health/topics/agents/aloe"
+      ]
+    },
+    "alprazolam": {
+      "baseline_notes_sha256": "35d3c09ce46ee5191d0a06b88ca28a7a38e3656e698c843e2e388442e1413c56",
+      "notes": "Short to intermediate-acting benzodiazepine metabolized primarily by CYP3A4. Strong CYP3A4 inhibitors can raise alprazolam exposure, while inducers can reduce it. Combining alprazolam with opioids, alcohol, or other sedatives increases CNS and respiratory depression risk. Prolonged use can cause dependence and withdrawal; abrupt discontinuation can provoke seizures.",
+      "brand_names": [
+        "Xanax",
+        "Niravam"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bb5cf72e-3a41-41a8-9a38-80f974eca33f"
+      ]
+    },
+    "amitriptyline": {
+      "baseline_notes_sha256": "3a133fa86bebf75188b29c59a197ebde3130cee779b35d4f88b6984db094d983",
+      "notes": "Amitriptyline is a tricyclic antidepressant with serotonergic and noradrenergic effects and prominent anticholinergic and sedating effects. It is metabolized to active nortriptyline; CYP2D6 variation or inhibition can alter tricyclic exposure. Cardiac conduction toxicity is particularly important in overdose. Combining it with other serotonergic drugs or sedatives can add pharmacodynamic risk.",
+      "brand_names": [
+        "Elavil",
+        "Endep",
+        "Vanatrip"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=43450e62-d8c1-b39e-e063-6294a90a42ee"
+      ]
+    },
+    "amoxicillin": {
+      "baseline_notes_sha256": "d3a817781c3aa4282625efae12bab757ce2478929175be54f7bb04bad16fa274",
+      "notes": "Amoxicillin is an aminopenicillin antibiotic that blocks bacterial cell-wall synthesis. Serious hypersensitivity reactions, including anaphylaxis, are described in labeling; diarrhea and antibiotic-associated colitis also require attention. Kidney function affects elimination and dose selection. It has little conventional CYP interaction burden, while certain bacteriostatic antibiotics and anticoagulants have label-described interaction considerations.",
+      "brand_names": [
+        "Amoxil"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13bd4214-9b7f-425b-af5f-fc1ddc678230"
+      ]
+    },
+    "amphetamine_dextroamphetamine": {
+      "baseline_notes_sha256": "ca4296d87d415ca16ccd6a14ab1bdfee4a142d36ffb13f4d1d4fd8de1f143d4a",
+      "notes": "Mixed amphetamine salts are CNS stimulants used in immediate- and extended-release products. They can increase blood pressure and heart rate and may worsen certain cardiovascular or psychiatric conditions. CYP2D6 inhibitors and serotonergic medicines can increase the risk of serotonin syndrome, according to labeling. Misuse, dependence, appetite suppression, and insomnia are important safety considerations; product release type changes timing.",
+      "brand_names": [
+        "Adderall",
+        "Adderall XR"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a582d57f-d191-4ca5-b105-585b2d8a0e3e"
+      ]
+    },
+    "aripiprazole": {
+      "baseline_notes_sha256": "6269c69436262648f9dc1e08136b5e4757ebca27e59b96b02946ac31dce33b8e",
+      "notes": "Aripiprazole is an antipsychotic with dopamine and serotonin receptor activity. CYP2D6 and CYP3A4 inhibitors or inducers can change exposure, and the long elimination time means changes may persist. Akathisia, somnolence, orthostatic effects, and metabolic changes are relevant adverse effects. The dose and release form must be considered when interpreting an interaction.",
+      "brand_names": [
+        "Abilify"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=16710a27-aa76-4dd7-92e8-7d3c7efe3e42"
+      ]
+    },
+    "ashwagandha": {
+      "baseline_notes_sha256": "43bcc97b9e5913bfd967f3a2f8d489675df86892b766e5036b99db11c8f88364",
+      "notes": "Ashwagandha preparations vary by root or leaf material, extraction method, and withanolide content. Small randomized trials of specific root extracts have reported improved stress and sleep measures; these results do not establish equivalent effects for every product. A pilot trial in subclinical hypothyroidism found changes in thyroid indices. Human evidence for reliable CYP interaction magnitudes remains limited.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/41824889/",
+        "https://pubmed.ncbi.nlm.nih.gov/28829155/"
+      ]
+    },
+    "atazanavir": {
+      "baseline_notes_sha256": "f7767e7dedbe433ddb11846b94edf5a677da4150f45ff83646cfeb1811bd3d6c",
+      "notes": "Atazanavir is an antiretroviral protease inhibitor with clinically important CYP3A interaction potential. It inhibits UGT1A1 and can increase unconjugated bilirubin; this matters for drugs involving UGT1A1, including the irinotecan metabolite SN-38. Acid-reducing therapy can impair absorption, and cardiac conduction effects are described in labeling. Boosted and unboosted regimens have different interaction profiles.",
+      "brand_names": [
+        "Reyataz"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=165cff62-b284-4a27-a65d-9ec8a5bfcdd8"
+      ]
+    },
+    "atomoxetine": {
+      "baseline_notes_sha256": "c36d2e395f3a4c6908db5f23eebd19a7fccad476446a74972544f50d44a07f05",
+      "notes": "Atomoxetine is a norepinephrine reuptake inhibitor used for ADHD. CYP2D6 is important to its metabolism; poor metabolizers and strong CYP2D6 inhibitors can have substantially higher exposure. Blood pressure and heart rate can rise, so cardiovascular effects matter alongside other noradrenergic drugs. Labeling also includes psychiatric and hepatic safety warnings.",
+      "brand_names": [
+        "Strattera"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=309de576-c318-404a-bc15-660c2b1876fb"
+      ]
+    },
+    "brexpiprazole": {
+      "baseline_notes_sha256": "15dd2b1c7ccda0ee84fe43c92721927d6571acf6aae0597a6696f41141af7257",
+      "notes": "Brexpiprazole is an antipsychotic with dopamine and serotonin receptor activity. CYP2D6 and CYP3A4 inhibition or induction can change its exposure and may require label-based dose adjustments. Akathisia, weight gain, and somnolence are among relevant adverse effects. Additive sedation and orthostatic symptoms may matter when it is combined with other centrally acting medicines.",
+      "brand_names": [
+        "Rexulti"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2d301358-6291-4ec1-bd87-37b4ad9bd850"
+      ]
+    },
+    "buprenorphine": {
+      "baseline_notes_sha256": "bc998e7a052ed5045a7d1a1c0ad0ada73a772a48a93763bab1180f8304c36d69",
+      "notes": "Buprenorphine is a partial mu-opioid agonist used in several product forms for pain or opioid use disorder. CYP3A4 inhibitors or inducers can alter exposure, depending on formulation and route. Combining it with benzodiazepines, alcohol, or other depressants can cause profound sedation and respiratory depression. Physical dependence and precipitated withdrawal during initiation are important context; transdermal labeling also describes dose-related QT effects.",
+      "brand_names": [
+        "Belbuca",
+        "Brixadi",
+        "Sublocade",
+        "Subutex",
+        "Butrans"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=655e3e52-03be-496c-978a-5cffc74b2ae4"
+      ]
+    },
+    "bupropion": {
+      "baseline_notes_sha256": "cda5d670ee0936a2742867f78153b91a22838999e2bbf97fa5181fce48581ff4",
+      "notes": "Bupropion is an antidepressant and smoking-cessation medicine with active metabolites formed in part through CYP2B6. It inhibits CYP2D6 and can increase concentrations of some CYP2D6 substrates. Seizure risk is dose related, with formulation and predisposing conditions important in labeling. It can increase blood pressure and is not primarily a serotonin reuptake inhibitor.",
+      "brand_names": [
+        "Wellbutrin",
+        "Wellbutrin SR",
+        "Wellbutrin XL",
+        "Zyban"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6563b923-269f-40c3-b992-cbacdfca6e16"
+      ]
+    },
+    "buspirone": {
+      "baseline_notes_sha256": "124987db0c54474cc0dc0312860ad6b528b6159ddbf49c47d49f6588eaf83f75",
+      "notes": "Buspirone is an anxiolytic acting in part at serotonin 5-HT1A receptors. It is extensively metabolized by CYP3A4, so strong inhibitors and inducers can materially change exposure. It is not a benzodiazepine and does not substitute for acute benzodiazepine withdrawal management. Dizziness and lightheadedness are common; serotonin syndrome is a consideration with other serotonergic medicines.",
+      "brand_names": [
+        "BuSpar"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=472049d2-c4d9-5a38-e063-6294a90a5cf1"
+      ]
+    },
+    "calcium_carbonate": {
+      "baseline_notes_sha256": "6f7d98356fec84bc6f69f96217f3285f21e533ab6f2362d2f62933a6beb87285",
+      "notes": "Calcium carbonate is a calcium salt used as an antacid or supplement. Its calcium ions can bind certain medicines in the gut, reducing absorption of drugs such as tetracyclines; administration timing therefore matters. High intake can cause hypercalcemia and related complications, especially in susceptible patients. Product strength may express calcium carbonate or elemental calcium, which are not interchangeable amounts.",
+      "brand_names": [
+        "Tums",
+        "Caltrate"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bad70158-3890-7e98-e053-2995a90a9c1c"
+      ]
+    },
+    "cannabis": {
+      "baseline_notes_sha256": "276d4e1174befd99d1df87ef04c0826090ae6a0a9c5f9de685686b82ba457c04",
+      "notes": "Cannabis products contain variable amounts of THC and other cannabinoids, with route and formulation changing onset and duration. THC can impair attention and coordination and may produce tachycardia, anxiety, or sedation. Combining sedating products with other CNS depressants can increase impairment. Dependence and withdrawal can occur with frequent use; product labels seldom provide a standardized exposure equivalent.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/31678833/"
+      ]
+    },
+    "carbamazepine": {
+      "baseline_notes_sha256": "68947645064da11d597690e49c06cd2c9fed217cec56a7ef6b517d52ab507b5b",
+      "notes": "Carbamazepine is an antiseizure medicine and strong inducer of multiple drug-metabolizing pathways, including CYP3A4. Induction develops and resolves over time, potentially lowering exposure to many concomitant drugs. Serious rash, blood dyscrasias, hyponatremia, and hepatic injury are labeled risks. It also undergoes autoinduction, so concentrations can change after therapy begins.",
+      "brand_names": [
+        "Tegretol"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8d409411-aa9f-4f3a-a52c-fbcb0c3ec053"
+      ]
+    },
+    "cariprazine": {
+      "baseline_notes_sha256": "95f06ece3fd8cb85e54e5a78f31802d1c7ab4e58fd998026eb27c2815fe54d5a",
+      "notes": "Cariprazine is an antipsychotic metabolized mainly by CYP3A4 to active metabolites. Its active moiety persists for weeks, so changes in dosing or interactions may not be reflected promptly. CYP3A4 inhibitors and inducers are important in labeling. Akathisia, extrapyramidal symptoms, and metabolic changes are relevant adverse effects.",
+      "brand_names": [
+        "Vraylar"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4b5f7c65-aa2d-452a-b3db-bc85c06ff12f"
+      ]
+    },
+    "citalopram": {
+      "baseline_notes_sha256": "65fd73f4a92b8f9784e888531067de62485c482357042e160d9f96e72e7279f3",
+      "notes": "Citalopram is an SSRI antidepressant with dose-dependent QT prolongation described in labeling. Serotonin syndrome risk increases with other serotonergic agents, while bleeding risk can rise with antiplatelets or anticoagulants. CYP2C19 impairment or inhibition can increase exposure and affects labeled dose limits. Electrolyte disturbances and other QT-prolonging medicines add cardiac concern.",
+      "brand_names": [
+        "Celexa"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4259d9b1-de34-43a4-85a8-41dd214e9177"
+      ]
+    },
+    "clarithromycin": {
+      "baseline_notes_sha256": "e2a9ba9617b488b7a26663e9d0ec030aed3fa2ec599c23cff25bdc63609842c8",
+      "notes": "Clarithromycin is a macrolide antibiotic and strong CYP3A inhibitor with clinically significant interaction potential. It can also affect P-glycoprotein substrates, and concomitant drugs may require avoidance or monitoring. QT prolongation and rare serious arrhythmias are labeled risks. Product and renal function affect dosing, while its active metabolite contributes to antibacterial activity.",
+      "brand_names": [
+        "Biaxin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2e899f4a-a2e9-445c-a0ed-6ad811e997e6"
+      ]
+    },
+    "clonazepam": {
+      "baseline_notes_sha256": "d91708316b2bcad0e2e8d87be95bab5fb7f7d581c8af3118e4b8085e9852de64",
+      "notes": "Clonazepam is a benzodiazepine used for seizure disorders and panic disorder. It produces sedation and impaired coordination; concurrent opioids, alcohol, or other depressants can markedly increase respiratory depression risk. Dependence and withdrawal can occur with repeated use, and abrupt withdrawal may precipitate seizures. Its longer persistence influences accumulation and timing of overlapping effects.",
+      "brand_names": [
+        "Klonopin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cfa0d79a-843c-4b88-95a1-e9511d649ca1"
+      ]
+    },
+    "clonidine": {
+      "baseline_notes_sha256": "0aebe8a5e633f25f337d50d3b28e576a1f7cbaf5e4843fea8f83a29a5ca892be",
+      "notes": "Clonidine is a central alpha-2 agonist that lowers sympathetic outflow. Hypotension, bradycardia, dizziness, and sedation can add to effects of other blood pressure or CNS-active medicines. Abrupt discontinuation may cause rebound hypertension. Immediate- and extended-release products are not automatically dose interchangeable, so formulation and timing matter.",
+      "brand_names": [
+        "Catapres",
+        "Kapvay"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8171776a-dd14-4dcc-8860-3c27d8ea9504"
+      ]
+    },
+    "clopidogrel": {
+      "baseline_notes_sha256": "a987ae91c7bd5fbf59891c56e367a938141c47fc2d9204304d62031661461f65",
+      "notes": "Clopidogrel is an antiplatelet prodrug requiring CYP2C19-mediated activation. CYP2C19 loss of function or strong inhibition can reduce formation of its active metabolite and weaken platelet inhibition. Combining it with anticoagulants or other antiplatelets increases bleeding risk. Its irreversible platelet effect persists beyond the circulating drug's short exposure.",
+      "brand_names": [
+        "Plavix"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=de8b0b67-eb25-4684-83b5-7ad785314227"
+      ]
+    },
+    "clozapine": {
+      "baseline_notes_sha256": "174ee43c5f2b3c9393fb82edd1794a4f3cda157f34d1c89b430706c3f4de054e",
+      "notes": "Clozapine is an antipsychotic with a distinctive requirement for blood count monitoring because of severe neutropenia risk. Sedation, orthostatic hypotension, constipation or ileus, seizures, and myocarditis are additional serious concerns. CYP1A2 activity, including changes in smoking status, can alter exposure. Combining it with other sedating or anticholinergic drugs can compound adverse effects.",
+      "brand_names": [
+        "Clozaril",
+        "Fazaclo",
+        "Versacloz"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=90876802-0e3a-44c9-9ff7-1754dfbe736a"
+      ]
+    },
+    "cocaine": {
+      "baseline_notes_sha256": "3601934b8781cad47a9ccd30aaaa59f94b8831c12e714376ca966e3482b83951",
+      "notes": "Cocaine is a potent sympathomimetic with major cardiovascular and neurological toxicity, including arrhythmias, ischemia, and seizures. Its local anesthetic properties do not make nonmedical products equivalent to a controlled topical formulation. Alcohol co-use produces cocaethylene and can add toxicity. Illicit product purity and route are unpredictable, so a product strength cannot define a reliable exposure.",
+      "brand_names": [],
+      "note_sources": [
+        "https://nida.nih.gov/sites/default/files/1141-cocaine.pdf"
+      ]
+    },
+    "cordyceps": {
+      "baseline_notes_sha256": "c1ef16e8f0e145d7f282655007290a6b85410a7e29df4f5a3049444ed7a3ab63",
+      "notes": "Cordyceps supplements may contain different fungal species, cultivated mycelium, or blends. Small randomized exercise studies have produced mixed results across populations and preparations. No standardized clinical CYP or platelet interaction magnitude has been established for the category. The stated species and extract content should be recorded before comparing products or interpreting a study.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/20804368/",
+        "https://pubmed.ncbi.nlm.nih.gov/15118196/"
+      ]
+    },
+    "cyclosporine": {
+      "baseline_notes_sha256": "df9de53327a353922f0272f0222ae940b3a6c144f6400827a410788f07a67701",
+      "notes": "Cyclosporine is a calcineurin inhibitor with a narrow therapeutic window and substantial interaction potential. It is a CYP3A and P-glycoprotein substrate and can inhibit transporters relevant to statins such as rosuvastatin. Nephrotoxicity, hypertension, and infection risk are important labeled concerns. Product formulation and concentration monitoring are central to assessing exposure.",
+      "brand_names": [
+        "Neoral",
+        "Sandimmune"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=94461af3-11f1-4670-95d4-2965b9538ae3"
+      ]
+    },
+    "desvenlafaxine": {
+      "baseline_notes_sha256": "923aae4227a9221fec783d1725afe56453fdd75b4725f4bd8fa1c080654047dc",
+      "notes": "Desvenlafaxine is a serotonin-norepinephrine reuptake inhibitor. Serotonergic combinations can cause serotonin syndrome, and blood pressure may increase during treatment. Kidney function substantially affects exposure and labeled dose recommendations. Bleeding risk with anticoagulants or antiplatelets and discontinuation symptoms are additional clinical considerations.",
+      "brand_names": [
+        "Pristiq"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0f43610c-f290-46ea-d186-4f998ed99fce"
+      ]
+    },
+    "dexmethylphenidate": {
+      "baseline_notes_sha256": "deebece9f7da052d0d9543fd8a741905320f3f38db59e454a6da54be5894cf06",
+      "notes": "Dexmethylphenidate is the active d-enantiomer of methylphenidate and a CNS stimulant. It can increase blood pressure and heart rate, suppress appetite, and disturb sleep. Serious psychiatric or cardiovascular events are addressed in labeling, and misuse or dependence can occur. Immediate- and extended-release formulations produce different concentration-time profiles and should be distinguished in the catalog.",
+      "brand_names": [
+        "Focalin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2016f5c2-95d2-4655-af65-c588c2bf5e6d"
+      ]
+    },
+    "diazepam": {
+      "baseline_notes_sha256": "920bfd939d40fafa6040cf0d442aafcb00c1e789fc7a50d9f6f1fb506c1e577d",
+      "notes": "Diazepam is a long-acting benzodiazepine with active metabolites that can prolong sedative effects. CYP3A4 and CYP2C19 contribute to metabolism, so inhibitors may increase or prolong exposure. Combined use with opioids, alcohol, or other depressants can cause profound sedation and respiratory depression. Dependence and withdrawal, including seizure risk after abrupt cessation, require attention.",
+      "brand_names": [
+        "Valium"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=554baee5-b171-4452-a50a-41a0946f956c"
+      ]
+    },
+    "digoxin": {
+      "baseline_notes_sha256": "ebb329d9ff040fc13544acdea340a652a960c2bf7e3fac51966fcb0b11852d41",
+      "notes": "Digoxin is a cardiac glycoside with a narrow therapeutic window and clinically important P-glycoprotein interactions. Kidney function, age, and electrolyte disturbances affect toxicity risk and dose selection. Excess exposure can produce gastrointestinal, visual, or rhythm symptoms. Drugs that inhibit P-glycoprotein or lower potassium may increase concern, so levels and clinical response matter.",
+      "brand_names": [
+        "Lanoxin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d91e3646-4c63-4512-ab22-db39c085c4dc"
+      ]
+    },
+    "disulfiram": {
+      "baseline_notes_sha256": "67c817d01ddfffdca3f5399ab753a16efe15fc79c56a10da50d71cb983bebc01",
+      "notes": "Disulfiram inhibits aldehyde dehydrogenase, producing an aversive reaction when alcohol is consumed. Patients must avoid hidden alcohol exposures, and the reaction can persist after stopping treatment. Hepatitis and neuropathy are among labeled safety concerns. It does not treat acute intoxication or withdrawal; medication history and liver status are relevant before interpreting interactions.",
+      "brand_names": [
+        "Antabuse"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=12850de3-c97c-42c1-b8d3-55dc6fd05750"
+      ]
+    },
+    "divalproex_sodium": {
+      "baseline_notes_sha256": "c6d1bf2831949239ebb9f69ce87c940a489cbd1ccd6bc40dcdfd623f53163bb3",
+      "notes": "Divalproex provides valproate, an antiseizure and mood-stabilizing agent with substantial protein binding and multiple metabolic pathways. Hepatotoxicity, pancreatitis, thrombocytopenia, and major fetal risks are prominent label warnings. Sedation can add to other CNS depressants, and interactions with lamotrigine can markedly increase lamotrigine exposure. Product release forms differ in absorption and dosing.",
+      "brand_names": [
+        "Depakote"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=08a65cf4-7749-4ceb-6895-8f4805e2b01f"
+      ]
+    },
+    "doxepin": {
+      "baseline_notes_sha256": "676d185a4e7d52a03eef08ce29df57149382ff744c83c8aa17e2042bb07135a4",
+      "notes": "Doxepin is a tricyclic antidepressant; lower-dose products are also used for insomnia. It has strong H1 antihistamine effects and can cause sedation and anticholinergic effects, with greater tricyclic toxicity at higher exposures. CYP2D6 and CYP2C19 participate in metabolism to active nordoxepin. Overdose can cause serious cardiac conduction disturbances, and combinations with other sedatives can increase impairment.",
+      "brand_names": [
+        "Silenor",
+        "Sinequan"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=99ff6e3e-8c12-4393-96ae-206d86d26947"
+      ]
+    },
+    "doxycycline": {
+      "baseline_notes_sha256": "90008feb01ac6dda159a2f86adedf755059fe1d8ef225e9c3002666ede027787",
+      "notes": "Doxycycline is a tetracycline antibiotic whose oral absorption can be reduced by calcium, magnesium, iron, or other polyvalent cations. Photosensitivity, esophageal irritation, and antibiotic-associated diarrhea are label-described concerns. Enzyme inhibition is not its main interaction surface. Formulation and separation from binding agents matter when evaluating apparent treatment failure.",
+      "brand_names": [
+        "Acticlate"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=53ff9f7e-0db0-c841-d334-4cf31f658828"
+      ]
+    },
+    "duloxetine": {
+      "baseline_notes_sha256": "0034c44b0a3b8a862ae4405f96540cd28ce4db87c679fa11c24366a528c329e0",
+      "notes": "Duloxetine is a serotonin-norepinephrine reuptake inhibitor metabolized by CYP1A2 and CYP2D6 and also inhibits CYP2D6. Strong CYP1A2 inhibitors can substantially increase exposure. Serotonin syndrome, bleeding with antithrombotic drugs, blood pressure changes, and discontinuation symptoms are labeled concerns. Liver disease and heavy alcohol use can alter the safety assessment.",
+      "brand_names": [
+        "Cymbalta"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2f7d4d67-10c1-4bf4-a7f2-c185fbad64ba"
+      ]
+    },
+    "erenumab": {
+      "baseline_notes_sha256": "dfe61c16915a5120f95c5951f2b9efd50d20c36b19046cdd583032259b8e13e5",
+      "notes": "Erenumab is a monoclonal antibody that blocks the CGRP receptor for migraine prevention. Its clearance does not rely on classic CYP metabolism, so enzyme-based interaction rules are usually less relevant. Severe constipation and new or worsening hypertension are postmarketing warnings in labeling. Hypersensitivity can occur, and monthly injection timing differs from oral medication exposure.",
+      "brand_names": [
+        "Aimovig"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b998ed05-94b0-47fd-b28f-cddd1e128fd8"
+      ]
+    },
+    "escitalopram": {
+      "baseline_notes_sha256": "014d7b663970ff71da71acb5c98c29c59e467e3364b898181b813360fb6f8341",
+      "notes": "Escitalopram is an SSRI antidepressant with clinically important serotonergic interaction potential. Combining it with MAO inhibitors or other serotonergic agents can provoke serotonin syndrome, while antithrombotic medicines can increase bleeding risk. QT effects and hyponatremia are described in labeling. Abrupt discontinuation can cause symptoms, so timing and overlapping therapy matter.",
+      "brand_names": [
+        "Lexapro"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13bb8267-1cab-43e5-acae-55a4d957630a"
+      ]
+    },
+    "fentanyl": {
+      "baseline_notes_sha256": "7a4120cf5a6bcdeaaac439c3ef460bf2536bf36f0e0a81d21c56131cc145858a",
+      "notes": "Fentanyl is a potent opioid with serious dose-related respiratory depression risk. CYP3A4 inhibitors and inducers can alter exposure, with effects depending on route and product. Benzodiazepines, alcohol, and other CNS depressants can cause profound sedation and fatal breathing suppression. Transdermal patches have delayed onset and prolonged absorption, making them distinct from injection or transmucosal products.",
+      "brand_names": [
+        "Duragesic",
+        "Sublimaze"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c5d40297-b769-48cc-9f84-f98b7a333507"
+      ]
+    },
+    "fluconazole": {
+      "baseline_notes_sha256": "e69a112569b3a37596976dd8be12c4718ba9e6df0922db1520a9e48a81067856",
+      "notes": "Fluconazole is an azole antifungal that inhibits CYP2C9, CYP2C19, and CYP3A4 to different extents. It can increase exposure to substrates such as warfarin and some QT-prolonging drugs. Liver injury and QT effects are labeled concerns. Its relatively long half-life means inhibition can persist after the last dose, and kidney function affects elimination.",
+      "brand_names": [
+        "Diflucan"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f694c617-3383-416c-91b6-b94fda371204"
+      ]
+    },
+    "fluoxetine": {
+      "baseline_notes_sha256": "d5c165ebe5e0ff10d26c45fa1ab5990b04f02128e5e3aca11e7a1697703727c4",
+      "notes": "Fluoxetine is an SSRI and a potent CYP2D6 inhibitor with an active metabolite, norfluoxetine. Their long persistence can extend drug interaction and washout windows after stopping treatment. Serotonin syndrome with other serotonergic drugs and increased bleeding with antithrombotic agents are labeled risks. Activation, sleep effects, and discontinuation timing differ from shorter-lived SSRIs.",
+      "brand_names": [
+        "Prozac",
+        "Sarafem"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=306a045b-9671-4133-b042-3adc617efb93"
+      ]
+    },
+    "gabapentin": {
+      "baseline_notes_sha256": "fd448d90b954930e0b7889abd6a0f2802281a83bc8003f873636c04bb9d2efd1",
+      "notes": "Gabapentin is eliminated largely unchanged through the kidneys and is not extensively metabolized by CYP enzymes. Dizziness and somnolence are common, with dose adjustment needed in renal impairment. Opioids and other CNS depressants can increase sedation and respiratory depression risk. Formulations and prodrug products have distinct absorption and are not automatically interchangeable.",
+      "brand_names": [
+        "Neurontin",
+        "Gralise"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=97935fd9-1d4a-43b6-a5d9-de994591187b"
+      ]
+    },
+    "ginkgo_biloba": {
+      "baseline_notes_sha256": "2134e9a47ca390e26bd79b94c0f421ec37be5c9ac3ee7f4c2633ff0330228a1d",
+      "notes": "Ginkgo supplements typically use leaf extracts with specified flavone glycoside and terpene lactone content. Controlled studies of the standardized EGb 761 extract did not find a consistent increase in bleeding time or platelet inhibition, despite case reports involving diverse products. Clinical interaction conclusions therefore cannot be generalized to all extracts. Formulation and concomitant anticoagulants warrant careful documentation.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/15166915/",
+        "https://pubmed.ncbi.nlm.nih.gov/34946404/"
+      ]
+    },
+    "guanfacine": {
+      "baseline_notes_sha256": "86f1aaa9051cde2b26d63524866477e260b4e3445f6f035e95e7edfce3e7e498",
+      "notes": "Guanfacine is a central alpha-2A agonist used in immediate- and extended-release formulations. It can lower blood pressure and heart rate and cause somnolence or dizziness. CYP3A4 inhibitors or inducers can affect exposure, with label-based adjustments for extended-release use. Abrupt discontinuation can lead to rebound blood pressure increases; products should not be substituted milligram for milligram.",
+      "brand_names": [
+        "Intuniv",
+        "Tenex"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b972af81-3a37-40be-9fe1-3ddf59852528"
+      ]
+    },
+    "haloperidol": {
+      "baseline_notes_sha256": "ac94a92dcdf1c2c3dbce54b0fab419f5713a7eee5906e292983be68f4d24a7c8",
+      "notes": "Haloperidol is a first-generation antipsychotic with dopamine D2 receptor antagonism. Extrapyramidal symptoms, akathisia, and QT prolongation are clinically important adverse effects; parenteral context can change cardiac risk. CYP3A4 and CYP2D6 participate in its metabolism. Other QT-prolonging drugs or agents that alter its concentration can increase concern.",
+      "brand_names": [
+        "Haldol"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9763c044-7430-48f7-bf3e-da1c7c683955"
+      ]
+    },
+    "heroin": {
+      "baseline_notes_sha256": "f14a91246f8aa50e6f3986e2ff82092d65feae03c395a8b6162702b3a102b33e",
+      "notes": "Diacetylmorphine is an opioid converted rapidly to active metabolites, including morphine. Profound respiratory depression can occur, especially with benzodiazepines, alcohol, or other depressants. Repeated exposure can cause dependence and withdrawal. Unregulated product content and potency are highly variable, so apparent weight or route does not establish a consistent administered opioid dose.",
+      "brand_names": [],
+      "note_sources": [
+        "https://www.medicines.org.uk/emc/product/1464/smpc"
+      ]
+    },
+    "holy_basil": {
+      "baseline_notes_sha256": "733737ab4925ef8db7f55ce986ffdf96f7c294f164cd8d2d64416a048d580ed6",
+      "notes": "Holy basil, or Ocimum tenuiflorum, is sold as leaf or extract preparations with variable composition. A randomized trial of one standardized extract found improvements in reported stress and some sleep measures over eight weeks. That finding does not establish the same effect for every preparation. Human evidence for predictable CYP or antiplatelet interactions is insufficient to assign a clinical magnitude.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/36185698/"
+      ]
+    },
+    "hydrochlorothiazide": {
+      "baseline_notes_sha256": "a2ac175a1c33c9b5cb889b704dc1cad72f8477e68881ceb4a4f7eaac2055cf43",
+      "notes": "Hydrochlorothiazide is a thiazide diuretic that can lower blood pressure but also alter sodium and potassium balance. It can reduce lithium clearance and raise lithium concentrations and toxicity risk. Volume depletion, kidney function, and other blood pressure medicines influence the interaction. Gout and metabolic effects are additional labeled considerations.",
+      "brand_names": [
+        "Microzide"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=babb1b20-fe82-40ba-8e7a-0c56fe433b4a"
+      ]
+    },
+    "hydroxyzine": {
+      "baseline_notes_sha256": "84435854557c85d1562931f65b350f0a128f607651cb727191651ea28eb323c3",
+      "notes": "Hydroxyzine is a sedating first-generation antihistamine used for anxiety or itching. Drowsiness and anticholinergic effects can compound those of alcohol or other CNS depressants. QT prolongation and arrhythmia risk are relevant in susceptible patients and with interacting drugs. Product salt, formulation, and clinical indication should be recorded rather than inferring a reliable enzyme interaction from a placeholder.",
+      "brand_names": [
+        "Atarax",
+        "Vistaril"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=80309ec1-e5d5-4454-b8ce-67d7e6805e44"
+      ]
+    },
+    "ibuprofen": {
+      "baseline_notes_sha256": "70a35fc7de61bf4f9dd4aa6a69eab8a004aa3a495d961c7347362a9e25a785cf",
+      "notes": "Ibuprofen is a nonsteroidal anti-inflammatory drug with gastrointestinal bleeding, kidney, and cardiovascular risks in labeling. It may reduce renal lithium clearance and increase lithium toxicity risk. Anticoagulants, antiplatelets, and other NSAIDs can increase bleeding or gastrointestinal injury. Dose, duration, hydration, and kidney function materially affect the assessment.",
+      "brand_names": [
+        "Advil",
+        "Motrin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b6847040-4624-449b-bff5-c3cd0f5786c1"
+      ]
+    },
+    "irinotecan": {
+      "baseline_notes_sha256": "793813aa3875113c957d0202912c72a1978e20de6ed0f4085c92cb964f6203f5",
+      "notes": "Irinotecan is a topoisomerase I inhibitor converted to the active metabolite SN-38. UGT1A1 glucuronidates SN-38; reduced UGT1A1 activity or inhibition can increase toxicity, particularly neutropenia. Severe early and delayed diarrhea are distinct labeled risks. This is an oncology drug requiring regimen-specific context rather than a simple parent-drug UGT1A1 substrate label.",
+      "brand_names": [
+        "Camptosar"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e518dfc6-7e93-4fee-a66c-51e1ab71c056"
+      ]
+    },
+    "ketamine": {
+      "baseline_notes_sha256": "2ace577b5c42c7be2361ecbcaf5f0350697bd6757233865a60c1ab3442508722",
+      "notes": "Ketamine is a dissociative anesthetic that can raise blood pressure and heart rate while impairing consciousness and coordination. Respiratory complications may occur, especially with other sedatives or inappropriate administration. CYP enzymes contribute to formation of norketamine. Route and clinical setting are essential because supervised injectable therapy and unregulated products have different exposure and monitoring.",
+      "brand_names": [
+        "Ketalar"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=14e8f864-8b8a-4e7e-8439-e510d3107063"
+      ]
+    },
+    "kratom": {
+      "baseline_notes_sha256": "272c2c2a1c223e5f5236ac5cda4c7e6b0acb235b7440a504593d44678a6111fc",
+      "notes": "Kratom products contain variable mitragynine and 7-hydroxymitragynine content; powder, extracts, and enriched products are not equivalent. Opioid-like effects may include sedation, nausea, dependence, and withdrawal, while serious adverse events have been reported. Human interaction magnitudes are poorly established. Product testing and alkaloid content are more informative than plant weight alone.",
+      "brand_names": [],
+      "note_sources": [
+        "https://www.fda.gov/news-events/public-health-focus/fda-and-kratom",
+        "https://pubmed.ncbi.nlm.nih.gov/35335999/"
+      ]
+    },
+    "lamotrigine": {
+      "baseline_notes_sha256": "4a498e3a741467d0f9ecc34b0fd7c2e18d4e34633dfcaf121a6626a8a92e5ea5",
+      "notes": "Lamotrigine is an antiseizure and mood-stabilizing medicine eliminated largely by glucuronidation. Valproate can inhibit its clearance and substantially increase exposure, while enzyme-inducing drugs can lower concentrations. Serious rash, including Stevens-Johnson syndrome, is a key labeled risk, particularly with rapid titration or interacting therapy. Changes in regimen may require careful retitration.",
+      "brand_names": [
+        "Lamictal"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d7e3572d-56fe-4727-2bb4-013ccca22678"
+      ]
+    },
+    "lions_mane_mushroom": {
+      "baseline_notes_sha256": "409e9f26323419881781a1758cd5ec21fb87d9e9232bd06fcc6a2eb4e74a73de",
+      "notes": "Lion's mane, Hericium erinaceus, is sold as fruiting-body, mycelium, or mixed extracts. A small randomized trial in mild cognitive impairment reported improvement during treatment, but this does not establish efficacy for all products or populations. Clinically significant CYP or transporter interactions have not been established. Species, plant part, and extraction details are needed to interpret a product strength.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/18844328/"
+      ]
+    },
+    "lisdexamfetamine": {
+      "baseline_notes_sha256": "6f2b6072300ffea4d138d6db3276e3f033769b4c2ab48888ce8ddbf5a97af23a",
+      "notes": "Lisdexamfetamine is a prodrug converted in blood to active dextroamphetamine. Its stimulant effects can increase heart rate and blood pressure and cause insomnia or appetite loss. CYP2D6 inhibitors may increase exposure to the active amphetamine component, and serotonergic combinations raise serotonin syndrome concern. Misuse and dependence risks are described in labeling.",
+      "brand_names": [
+        "Vyvanse"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=704e4378-ca83-445c-8b45-3cfa51c1ecad"
+      ]
+    },
+    "lisinopril": {
+      "baseline_notes_sha256": "b2a0e940f97c4cdd6f717847b5b737efa8cc9b2d940230b87dbb32a515b1610e",
+      "notes": "Lisinopril is an ACE inhibitor that lowers blood pressure and can affect renal function and potassium balance. It can increase lithium concentrations and toxicity risk, especially with changes in volume status or kidney function. Hyperkalemia and angioedema are serious labeled concerns. Potassium supplements, diuretics, and other agents affecting the renin-angiotensin system require context.",
+      "brand_names": [
+        "Prinivil",
+        "Zestril"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=838c2d78-d2d8-4981-9ec9-e50ef9e1a5d8"
+      ]
+    },
+    "lithium": {
+      "baseline_notes_sha256": "28907015df32cedd3494a66c93040754b79e00fc9388b9b13b2ccb2c979f8e13",
+      "notes": "Lithium is a mood stabilizer with a narrow therapeutic range and renal elimination. Thiazide diuretics, ACE inhibitors, and NSAIDs can raise concentrations, often requiring closer level and renal monitoring. Dehydration or sodium changes can also increase toxicity risk. Neurologic, gastrointestinal, and cardiac findings can signal toxicity; serum level and clinical state must be interpreted together.",
+      "brand_names": [
+        "Lithobid",
+        "Eskalith"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=63b3790f-a9b5-47f4-bae1-ddf8b43c13c1"
+      ]
+    },
+    "lorazepam": {
+      "baseline_notes_sha256": "ef13b6f4ed67867d0da86135e1ffb1008cc17627cba8b275774db77141448cd7",
+      "notes": "Lorazepam is a benzodiazepine primarily cleared through glucuronidation rather than CYP oxidation. It causes sedation and impaired coordination; opioids, alcohol, and other depressants can compound respiratory and CNS depression. Dependence and withdrawal can occur with sustained use, and abrupt cessation may provoke seizures. Route and formulation affect onset and monitoring.",
+      "brand_names": [
+        "Ativan",
+        "Lorazepam Intensol"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=89057c93-8155-4040-acec-64e877bd2b4c"
+      ]
+    },
+    "lsd": {
+      "baseline_notes_sha256": "9cead35df16cda024a691db1d220e335ff857ddb2035c80aff84b9670d6c85bc",
+      "notes": "LSD is a serotonergic psychedelic that can cause marked perceptual changes, anxiety, and sympathetic activation. Human drug interaction evidence is sparse, and effects vary with setting and actual product content. It should not be modeled as a predictable CYP inhibitor or a standardized serotonergic-toxicity dose. Unregulated product identity and potency are uncertain.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/25575620/"
+      ]
+    },
+    "lurasidone": {
+      "baseline_notes_sha256": "42cd2588fdda8fef4a9bcd311a4e7fd12d43b029ee3632f7700f5f589ca10e5e",
+      "notes": "Lurasidone is an antipsychotic metabolized predominantly by CYP3A4. Strong CYP3A4 inhibitors or inducers are contraindicated in labeling, and food substantially increases absorption. Akathisia, somnolence, and extrapyramidal symptoms are relevant adverse effects. Additive orthostatic or sedating effects should be evaluated with co-medications.",
+      "brand_names": [
+        "Latuda"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=afad3051-9df2-4c54-9684-e8262a133af8"
+      ]
+    },
+    "mdma": {
+      "baseline_notes_sha256": "ca3174bbec7e0a6651e55e74b55e2727b28a83dbb7db0a19d4311ed99d4eae5b",
+      "notes": "MDMA has stimulant and serotonin-releasing effects and can cause hyperthermia, hyponatremia, cardiovascular stress, and serotonin toxicity. Combining it with serotonergic medicines may increase risk, though individual interaction magnitude is unpredictable. Illicit product content and dose vary widely, including substitution with other stimulants. Clinical interpretation should not assume a verified pharmaceutical strength.",
+      "brand_names": [],
+      "note_sources": [
+        "https://nida.nih.gov/research-topics/mdma-ecstasy-molly"
+      ]
+    },
+    "mecamylamine": {
+      "baseline_notes_sha256": "90469e80b898ebdfb94982580665b107575a3444257b9bc810b921244b8b9bb1",
+      "notes": "Mecamylamine blocks autonomic ganglionic nicotinic receptors and can lower blood pressure. Orthostatic hypotension, constipation, urinary retention, and other autonomic effects are relevant adverse reactions. Combining it with antihypertensive agents may intensify low blood pressure. Its historical approved product context differs from over-the-counter nicotine products and should be kept distinct.",
+      "brand_names": [
+        "Inversine"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1b79ef78-f4da-49a6-9f36-89b0da19d39b"
+      ]
+    },
+    "mepolizumab": {
+      "baseline_notes_sha256": "55aed736f1eed56af18d27644be76e3c5261f6f8dbc730de620db14efd27d103",
+      "notes": "Mepolizumab is an anti-IL-5 monoclonal antibody used for selected eosinophilic conditions. As a biologic, it is not expected to have conventional CYP or transporter-based interactions. Hypersensitivity and herpes zoster are labeled safety considerations. Indication and injection schedule determine the relevant product context, and an absent CYP rule should not be read as evidence of no clinical risk.",
+      "brand_names": [
+        "Nucala"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fefb887c-e4ac-431e-8893-e9d1a5a63fea"
+      ]
+    },
+    "methadone": {
+      "baseline_notes_sha256": "dbb5355be7756503f2e4b3313f531bf70168a5f1685122b498134d4f32f02ca9",
+      "notes": "Methadone is a long-acting opioid with variable clearance and accumulation during repeated dosing. CYP inhibitors and inducers can alter exposure; interactions may cause sedation, respiratory depression, or withdrawal. QT prolongation is a labeled concern, and concomitant sedatives add breathing risk. Its analgesic and opioid use disorder regimens have different dosing contexts.",
+      "brand_names": [
+        "Dolophine",
+        "Methadose"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1deb3865-48b5-4860-880f-625f912d7ed4"
+      ]
+    },
+    "methamphetamine": {
+      "baseline_notes_sha256": "854997209cbdd5e2d673e22d0a0d392c7ded9b7164d1dab7eb05e5b496883093",
+      "notes": "Methamphetamine is a potent CNS stimulant that can increase heart rate, blood pressure, and body temperature. Misuse can cause severe cardiovascular or psychiatric effects, seizures, and dependence. Prescription products and illicit material have very different quality controls, with unpredictable purity for the latter. Serotonergic combinations can increase toxicity concern according to prescription labeling.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=90c02ac6-e5e2-4c97-8c68-81e4e389a195"
+      ]
+    },
+    "methocarbamol": {
+      "baseline_notes_sha256": "ee0819738869734327596aa886f6a13b858e84d4dc04d593dabfa600b54a33fd",
+      "notes": "Methocarbamol is a centrally acting skeletal muscle relaxant. Drowsiness, dizziness, and impaired coordination are common, and alcohol or other CNS depressants can add impairment. Its clinical interaction burden is mainly pharmacodynamic rather than a well-defined CYP substrate relationship. Oral and injectable products have different use settings and should not be treated as one exposure profile.",
+      "brand_names": [
+        "Robaxin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5666ece8-9a10-4dcc-a7dc-3cd29df10e28"
+      ]
+    },
+    "methylphenidate": {
+      "baseline_notes_sha256": "deebece9f7da052d0d9543fd8a741905320f3f38db59e454a6da54be5894cf06",
+      "notes": "Methylphenidate is a CNS stimulant that can increase blood pressure and heart rate and reduce appetite. Psychiatric effects, growth effects in pediatric use, and misuse or dependence are described in labeling. Multiple immediate- and extended-release products have distinct delivery systems and timing. A shared ingredient name alone does not establish equivalent peak exposure or duration.",
+      "brand_names": [
+        "Ritalin",
+        "Concerta",
+        "Metadate",
+        "Daytrana",
+        "QuilliChew",
+        "Quillivant"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1a88218c-5b18-4220-8f56-526de1a276cd"
+      ]
+    },
+    "midazolam": {
+      "baseline_notes_sha256": "058672688bf757d983cd77301a518253a1c301ab4ccb0608ffeb5eb017934d6b",
+      "notes": "Midazolam is a short-acting benzodiazepine extensively metabolized by CYP3A enzymes. Strong inhibitors can substantially increase exposure, particularly for oral products, while inducers can reduce sedative effect. Respiratory depression and profound sedation can occur with opioids or other depressants. Injection, oral syrup, and nasal rescue formulations have different onset and monitoring requirements.",
+      "brand_names": [
+        "Versed"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fc93242b-0abf-466a-8413-8a365620ee75"
+      ]
+    },
+    "milk_thistle": {
+      "baseline_notes_sha256": "3d63886b6f0ae9d526037a7fd54ce4ae151ad9e783ca8360d50cde2bf430ffd1",
+      "notes": "Milk thistle products supply silymarin mixtures whose constituent amounts vary by extract. Clinical trials in different liver conditions have produced differing results, so a general hepatoprotective effect should not be presumed for every formulation. In vitro CYP or P-glycoprotein findings do not establish a predictable clinical interaction magnitude. Record the standardized extract and constituent content when known.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/2671116/",
+        "https://pubmed.ncbi.nlm.nih.gov/31536511/"
+      ]
+    },
+    "mirtazapine": {
+      "baseline_notes_sha256": "e0f93bca47bd5efb10f330f4a0ea6dee59cdd327c7b0c1e077e44784dc4ae42d",
+      "notes": "Mirtazapine is an antidepressant with prominent H1 antihistamine-mediated sedation and appetite effects. CYP1A2, CYP2D6, and CYP3A4 participate in its metabolism, and strong modifiers can alter exposure. Combining it with other sedatives increases impairment; serotonin syndrome is a labeled concern with serotonergic combinations. Orthostatic symptoms and weight gain are additional considerations.",
+      "brand_names": [
+        "Remeron"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=98ad1917-a094-44f5-a28f-a64a8cfcd887"
+      ]
+    },
+    "motherwort": {
+      "baseline_notes_sha256": "515e5333cb71c382ce96857453d17b59c479b9751c14ef66779ed33be387133c",
+      "notes": "Motherwort, Leonurus cardiaca, is sold as herb, tincture, or extract with variable composition. A small uncontrolled clinical study described changes in anxiety and blood pressure, but it cannot establish a reliable treatment effect or interaction magnitude. Sedative or blood pressure effects remain uncertain across products. No standardized human CYP interaction profile is established.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/20839214/"
+      ]
+    },
+    "naloxone": {
+      "baseline_notes_sha256": "d1a40f64a3cac30738f7d2257fc16132a6fcf6f21a2e424d74207034b8241867",
+      "notes": "Naloxone is an opioid receptor antagonist used to reverse suspected opioid overdose. Its effect can wear off before that of some opioids, so recurrence of respiratory depression and the need for further care are important. In opioid-dependent individuals it can precipitate acute withdrawal. Intranasal and injectable products have different strengths and delivery characteristics.",
+      "brand_names": [
+        "Narcan",
+        "Kloxxado",
+        "Zimhi"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a0ebc83d-2892-40de-bc0a-775ce90b30db"
+      ]
+    },
+    "naltrexone": {
+      "baseline_notes_sha256": "db20dfa1576094adadc1e9adca71620d257555c4da47ac4ea6cada734cc7be24",
+      "notes": "Naltrexone is an opioid receptor antagonist used for alcohol or opioid use disorder after appropriate opioid abstinence. It can block opioid analgesia and precipitate severe withdrawal if opioids remain in the body. Liver safety warnings and the timing of initiation are important. Oral and extended-release injectable products differ in duration and cannot be considered equivalent for reversal of acute overdose.",
+      "brand_names": [
+        "Depade",
+        "Revia",
+        "Vivitrol"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=06ff2d5a-e62b-4fa4-bbdb-01938535bc65"
+      ]
+    },
+    "nicotine": {
+      "baseline_notes_sha256": "167a27fc58cb6d3323f1ee5f9b919a96d99a6d6ab225f7997c2f55a5a12fe4c4",
+      "notes": "Nicotine is an addictive nicotinic receptor agonist that can raise heart rate and blood pressure. Replacement products differ in delivery and timing, including patches, gum, and lozenges. Withdrawal can include craving, irritability, and sleep disturbance. Tobacco smoke also changes CYP1A2 activity through combustion products; that effect should not be attributed to nicotine itself.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f32f9c92-cbb4-483b-9e70-0b6e4567824f"
+      ]
+    },
+    "olanzapine": {
+      "baseline_notes_sha256": "4e7f5a1f5afc32c65ad193a11f09f7eaa339819c50d272bb6ce83e46d765eba5",
+      "notes": "Olanzapine is an antipsychotic with substantial metabolic, sedating, and orthostatic adverse-effect potential. CYP1A2 contributes to clearance, and changes in smoking status or CYP1A2 inhibitors can alter exposure. Anticholinergic effects and weight gain are relevant in combinations. Oral and injectable products have different monitoring and timing requirements.",
+      "brand_names": [
+        "Zyprexa",
+        "Zyprexa Zydis"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b418946a-1ab4-4d89-a012-d94fc361a3c4"
+      ]
+    },
+    "ondansetron": {
+      "baseline_notes_sha256": "65fd73f4a92b8f9784e888531067de62485c482357042e160d9f96e72e7279f3",
+      "notes": "Ondansetron is a 5-HT3 receptor antagonist used for nausea and vomiting. Dose-dependent QT prolongation and rare serious rhythm effects are labeled concerns, especially with other QT-prolonging drugs or electrolyte abnormalities. It has multiple metabolic pathways, limiting the value of a single-enzyme assumption. Serotonin syndrome has been reported with serotonergic co-medications.",
+      "brand_names": [
+        "Zofran"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d117de5f-64e5-464c-b782-de0f07e66c8e"
+      ]
+    },
+    "oxycodone": {
+      "baseline_notes_sha256": "60672c7d5e3a37215f9808c2d3793335926752742a204c41a2c9c8021be72bc3",
+      "notes": "Oxycodone is an opioid analgesic metabolized through CYP3A4 and CYP2D6 pathways. CYP3A inhibitors can raise exposure and respiratory depression risk, while inducers can lower concentrations and precipitate withdrawal in dependent patients. Benzodiazepines, alcohol, and other depressants can cause fatal sedation or breathing suppression. Immediate- and extended-release forms have different timing and safety requirements.",
+      "brand_names": [
+        "Roxicodone",
+        "OxyContin",
+        "RoxyBond"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=01db4606-d49c-4b10-a78a-1cf41880a9fb"
+      ]
+    },
+    "paliperidone": {
+      "baseline_notes_sha256": "657cea76b5afaf4c8f01af3229a735b7058c465078efba94079abfc634a383ae",
+      "notes": "Paliperidone is an antipsychotic whose elimination depends substantially on kidney function, with relatively limited CYP metabolism. QT prolongation, extrapyramidal symptoms, and prolactin effects are clinically relevant. Oral extended-release and long-acting injection products have markedly different timing and persistence. Other QT-prolonging medicines or renal impairment can change the risk assessment.",
+      "brand_names": [
+        "Invega",
+        "Invega Sustenna",
+        "Invega Trinza",
+        "Invega Hafyera"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f75e884e-1883-45d7-ac9b-4a6c63f2185e"
+      ]
+    },
+    "paroxetine": {
+      "baseline_notes_sha256": "2553fb2b309c587ab1273b1d4bf3a3ceb147d32619704ad0d32e28176793e758",
+      "notes": "Paroxetine is an SSRI and a strong CYP2D6 inhibitor that can increase exposure to some co-medications. Serotonergic combinations can cause serotonin syndrome, and antithrombotic drugs can increase bleeding risk. Discontinuation symptoms can occur if it is stopped abruptly. Product indication and formulation matter, including low-dose preparations used for vasomotor symptoms.",
+      "brand_names": [
+        "Paxil",
+        "Brisdelle"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ef3b5cbe-f9e1-c1ac-79da-cfe14e3a7e7e"
+      ]
+    },
+    "pregabalin": {
+      "baseline_notes_sha256": "fd448d90b954930e0b7889abd6a0f2802281a83bc8003f873636c04bb9d2efd1",
+      "notes": "Pregabalin is largely excreted unchanged in urine, with little conventional CYP metabolism. Dizziness and somnolence are common, and renal impairment requires dose adjustment. Combining it with opioids or other depressants can increase respiratory and CNS depression risk. Immediate- and extended-release products have different administration and conversion instructions.",
+      "brand_names": [
+        "Lyrica",
+        "Lyrica CR"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5bdc51aa-420b-4a59-a69f-a0c19726cd87"
+      ]
+    },
+    "promethazine": {
+      "baseline_notes_sha256": "338dd28132c0f101c6d98d7f3d447f86f850bd24f0826348384b1b5915ecf0b6",
+      "notes": "Promethazine is a sedating first-generation antihistamine with antiemetic and anticholinergic properties. It can intensify sedation and respiratory depression with opioids, alcohol, or other depressants. Injection carries additional tissue-injury warnings, while certain pediatric uses carry severe breathing risk. Route, product, and patient population matter when interpreting its adverse effects.",
+      "brand_names": [
+        "Phenergan",
+        "Phenadoz",
+        "Promethegan"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6728bb41-5d50-4abb-bb73-993dcc16ee66"
+      ]
+    },
+    "propranolol": {
+      "baseline_notes_sha256": "2cffdc8e02e75fe3282e08bb85d9ea01a5fb75baa31f71adcd12f616193c374c",
+      "notes": "Propranolol is a nonselective beta blocker that reduces heart rate and blood pressure. Bradycardia and hypotension can add to other rate-slowing or antihypertensive medicines. It can mask some warning signs of hypoglycemia, and abrupt discontinuation may worsen angina in susceptible patients. Oral immediate- and extended-release products have different dosing schedules.",
+      "brand_names": [
+        "Inderal"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=14d0c95d-418f-40a8-bad3-e20c82424960"
+      ]
+    },
+    "pseudoephedrine": {
+      "baseline_notes_sha256": "2db16193c8673856350c1bc4f572ef2029b65c28878166ff64fb5ee39ec84d67",
+      "notes": "Pseudoephedrine is an oral sympathomimetic decongestant that can increase heart rate and blood pressure and cause insomnia. Concomitant MAO inhibitors are contraindicated in product labeling because of potentially serious pressor effects. Other stimulants can add cardiovascular effects. Immediate- and extended-release products differ in timing, while combination cold products may contain other active ingredients.",
+      "brand_names": [
+        "Sudafed"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=909dacfa-50d3-4bcf-b2df-5405427cfaad"
+      ]
+    },
+    "quetiapine": {
+      "baseline_notes_sha256": "a9c6b5dc89f30d8fe4d136e3ea58af99d39ca7521e32141aca32115d60fded39",
+      "notes": "Quetiapine is an antipsychotic metabolized predominantly by CYP3A4. Strong CYP3A4 inhibitors can substantially raise exposure, and inducers can lower it. Sedation, orthostatic hypotension, and metabolic changes are clinically important; QT effects warrant context in susceptible patients. Immediate- and extended-release tablets have different concentration-time profiles.",
+      "brand_names": [
+        "Seroquel"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0"
+      ]
+    },
+    "rhodiola_rosea": {
+      "baseline_notes_sha256": "9bbe7b77cf83e19bf0435dc7d461e9e0dc603cc19f58fc7abd7467994305a97e",
+      "notes": "Rhodiola rosea supplements use root extracts with varying rosavin and salidroside content. A small randomized trial of a specified extract found improvement in some stress-related fatigue measures. Those findings do not establish a consistent effect for every product or a reliable CYP interaction in humans. Extract standardization and the actual plant species are important.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/19016404/"
+      ]
+    },
+    "rifampin": {
+      "baseline_notes_sha256": "7f8c935032d1428670d14ebdef6e713ba0fdb8ba4c15c8156affb70d9084cd4e",
+      "notes": "Rifampin is a rifamycin antibiotic and a potent inducer of drug-metabolizing enzymes and transporters. It can markedly lower exposure to many concomitant medicines; induction develops and resolves over days rather than immediately. Hepatotoxicity and drug-resistant infection with improper use are important labeled concerns. Body fluids can turn orange-red, and regimen context determines the interaction window.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bfee6c19-d770-4260-9e8f-bcf62dfdcb27"
+      ]
+    },
+    "risperidone": {
+      "baseline_notes_sha256": "4c4d7a384497efc1c38ff998425f38c9bc18a3fac0eaba9d1c5b1cd02a4a6b39",
+      "notes": "Risperidone is an antipsychotic metabolized by CYP2D6 to active paliperidone. CYP2D6 inhibitors can alter parent and active-moiety exposure, while sedation, orthostatic effects, extrapyramidal symptoms, and prolactin elevation are relevant. Long-acting injection products persist far longer than oral doses. Its anticholinergic burden should not be assumed to equal that of more strongly antimuscarinic antipsychotics.",
+      "brand_names": [
+        "Risperdal",
+        "Perseris"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7e117c7e-02fc-4343-92a1-230061dfc5e0"
+      ]
+    },
+    "rosuvastatin": {
+      "baseline_notes_sha256": "3991491a6de897d23090bd73ff263e17b2c6969f9ba1f975b0c6b9945fb66d79",
+      "notes": "Rosuvastatin is an HMG-CoA reductase inhibitor transported in part by OATP1B1 and BCRP. Cyclosporine and certain other transporter inhibitors can markedly increase exposure. Muscle toxicity and rare rhabdomyolysis are important labeled risks, especially at higher exposure. Renal function and product dose affect the assessment, while classic CYP3A4 inhibition is less central than for some other statins.",
+      "brand_names": [
+        "Crestor"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=325a5d0e-9a72-4015-9fcd-1655fb504cee"
+      ]
+    },
+    "sertraline": {
+      "baseline_notes_sha256": "0198e44213defe7bea3a8b972a587eedb5988df2a84c71d39d6f8039b653f604",
+      "notes": "Sertraline is an SSRI with clinically important serotonergic effects. Combining it with MAO inhibitors or other serotonergic agents can cause serotonin syndrome, while antiplatelets or anticoagulants can increase bleeding risk. Hyponatremia and discontinuation symptoms are labeled concerns. CYP interactions are context dependent and should not be inferred solely from its antidepressant class.",
+      "brand_names": [
+        "Zoloft"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fda754f6-d0f3-4dce-a17a-927d64f912f7"
+      ]
+    },
+    "seven_hydroxymitragynine": {
+      "baseline_notes_sha256": "a70862cff626f9d4986417f57e3f64024cb11138a349d3c831da222efb438434",
+      "notes": "7-Hydroxymitragynine is an opioid-active kratom alkaloid found naturally in small amounts but sold in concentrated products. FDA reports describe risks of respiratory depression, dependence, withdrawal, seizures, and other serious effects with enhanced products. Product content is highly variable and no FDA-approved medical use or standardized therapeutic dose exists. It should not be treated as ordinary kratom leaf by weight.",
+      "brand_names": [],
+      "note_sources": [
+        "https://www.fda.gov/media/187899/download"
+      ]
+    },
+    "tacrolimus": {
+      "baseline_notes_sha256": "3467ea70ae9dcd1a26a05f7ed778ce1417d1d76e20d9c2057c275bd4af10bc02",
+      "notes": "Tacrolimus is a calcineurin inhibitor with a narrow therapeutic range. CYP3A and P-glycoprotein affect exposure, so inhibitors and inducers can cause clinically important changes. Nephrotoxicity, neurotoxicity, hyperkalemia, and infection risk require monitoring. Immediate- and extended-release products are not freely interchangeable, and blood concentrations must be interpreted for the specific formulation.",
+      "brand_names": [
+        "Prograf"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7f667de1-9dfa-4bd6-8ba0-15ee2d78873b"
+      ]
+    },
+    "tizanidine": {
+      "baseline_notes_sha256": "878bf0bfc6d5d7ef8796df7857e848d70a95bf282d8e7aac5784cd0b1c88392c",
+      "notes": "Tizanidine is a central alpha-2 agonist muscle relaxant and a sensitive CYP1A2 substrate. Strong CYP1A2 inhibitors can greatly raise exposure and cause dangerous hypotension and sedation; several combinations are contraindicated. Bradycardia and additive CNS depression are also relevant. Changes in smoking status or other CYP1A2 modifiers can alter its concentration.",
+      "brand_names": [
+        "Zanaflex"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=043d9e51-bfa2-4add-9058-5ece332f7e99"
+      ]
+    },
+    "topiramate": {
+      "baseline_notes_sha256": "cbe742c92bf0de99d8de9812347634433f5e371fc939338c3d00cd83328f8d66",
+      "notes": "Topiramate is an antiseizure medicine with cognitive, sedating, and metabolic adverse effects. Kidney function affects clearance, and carbonic anhydrase inhibition contributes to metabolic acidosis and kidney-stone risk. It can affect the exposure or efficacy of some hormonal contraceptives at particular doses. Formulation and co-therapy should be checked before assigning an interaction magnitude.",
+      "brand_names": [
+        "Topamax",
+        "Qudexy",
+        "Trokendi"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=21628112-0c47-11df-95b3-498d55d89593"
+      ]
+    },
+    "tramadol": {
+      "baseline_notes_sha256": "8a4a0308180187407040a7268ee6c0615585d2e2d506ccb881a35399195ca972",
+      "notes": "Tramadol is an analgesic with opioid and monoaminergic actions. CYP2D6 forms the active O-desmethyltramadol metabolite, so genotype and CYP2D6 inhibitors can change analgesia and toxicity. Seizures and serotonin syndrome are labeled risks, especially with serotonergic co-medications. Opioids and other depressants can add respiratory depression; extended-release products differ from immediate-release dosing.",
+      "brand_names": [
+        "Ultram",
+        "ConZip",
+        "Qdolo"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bbd6c0d4-110c-4bda-9d9f-89ab7ce4c18e"
+      ]
+    },
+    "trazodone": {
+      "baseline_notes_sha256": "851e9df76f308af15a8efd1c8439babcb841bca8c11513c112cf1860c3ccf1cb",
+      "notes": "Trazodone is a sedating antidepressant with serotonergic activity and CYP3A4 metabolism. Strong CYP3A4 inhibitors or inducers may alter exposure, while other sedatives add impairment. Serotonin syndrome and QT prolongation are labeled concerns in appropriate combinations. Orthostatic hypotension and rare priapism are additional risks that do not depend on an enzyme interaction.",
+      "brand_names": [
+        "Desyrel"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7baa8eef-3a5c-43b3-a5fe-0c449aacda2e"
+      ]
+    },
+    "turmeric": {
+      "baseline_notes_sha256": "65341fbee1d3a6f5195b83c42b909b9abdc3e4d0954910a2072342ef86495488",
+      "notes": "Turmeric products contain variable curcuminoids and may be sold as powder, extracts, or enhanced-absorption formulations. In vitro CYP or transporter inhibition cannot be assumed to predict a clinically meaningful interaction for a specific oral product. Human outcome and interaction data remain limited across formulations. Record the extract composition and co-ingredients, especially piperine, before comparing strengths.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/22725836/",
+        "https://pubmed.ncbi.nlm.nih.gov/30909366/"
+      ]
+    },
+    "varenicline": {
+      "baseline_notes_sha256": "164141264b6849c07645dc15149bfb2b3e8b31e69faab577bbaca169ad10313a",
+      "notes": "Varenicline is a partial agonist at alpha4beta2 nicotinic receptors used for smoking cessation. It is eliminated mainly by the kidneys and has little conventional CYP interaction burden. Nausea, sleep disturbance, and neuropsychiatric symptoms are relevant labeled considerations. Stopping smoking can itself alter exposure to medicines affected by tobacco-smoke CYP1A2 induction, independently of varenicline.",
+      "brand_names": [
+        "Chantix"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1053cbe5-dc3d-4d95-93de-0022a22a6ed1"
+      ]
+    },
+    "venlafaxine": {
+      "baseline_notes_sha256": "0b1ebe659a94fc0b25734d8a06499554aaf9a0099b03959fd1b48c92c935f4b6",
+      "notes": "Venlafaxine is a serotonin-norepinephrine reuptake inhibitor metabolized by CYP2D6 to active desvenlafaxine. CYP2D6 inhibition alters parent and metabolite balance, while blood pressure can increase with treatment. Serotonin syndrome, bleeding with antithrombotics, and discontinuation symptoms are labeled concerns. Immediate- and extended-release products have different administration and peak timing.",
+      "brand_names": [
+        "Effexor",
+        "Effexor XR"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c848a5d8-ba94-4c84-80e3-0bf35fb8e32e"
+      ]
+    },
+    "verapamil": {
+      "baseline_notes_sha256": "29e84a5cce5da9ba544e72fb08fa149d7861b72dd65fa9d93807160d096a7af6",
+      "notes": "Verapamil is a non-dihydropyridine calcium channel blocker that slows heart rate and atrioventricular conduction. It inhibits P-glycoprotein and CYP3A pathways and can increase exposure to susceptible drugs. Bradycardia and hypotension can add to beta blockers or other rate-slowing medicines. Oral and injectable products differ in onset and monitoring needs.",
+      "brand_names": [
+        "Calan",
+        "Verelan"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=adc77fea-db39-aac5-e053-2995a90ad458"
+      ]
+    },
+    "vibegron": {
+      "baseline_notes_sha256": "40794dbf24314f466a02205da2857800515e00070249a996b789ccdcd5206f29",
+      "notes": "Vibegron is a beta-3 adrenergic agonist used for overactive bladder. Labeling identifies it as a CYP3A4 and P-glycoprotein substrate, but the clearest labeled interaction is an increase in digoxin exposure with coadministration. Urinary retention and hypersensitivity are additional safety considerations. Do not infer that every CYP3A4 inhibitor produces a clinically important change without product-specific evidence.",
+      "brand_names": [
+        "Gemtesa"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=25f21d25-14f8-4fda-91f6-7aa8b68aa1c8"
+      ]
+    },
+    "vilazodone": {
+      "baseline_notes_sha256": "50d2570e255f9f66b877375a67e46c2823fa6ef18834fd85ee5a0dd56daf157d",
+      "notes": "Vilazodone is an antidepressant combining serotonin reuptake inhibition with 5-HT1A partial agonist activity. CYP3A4 is important to its metabolism; strong inhibitors or inducers can change exposure. Serotonin syndrome and bleeding with antithrombotic agents are labeled concerns. It should be taken with food because exposure falls substantially without it.",
+      "brand_names": [
+        "Viibryd"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4c55ccfb-c4cf-11df-851a-0800200c9a66"
+      ]
+    },
+    "vortioxetine": {
+      "baseline_notes_sha256": "b43c70a2b23e742e7eeabd58946921b49acea3810a456bfa7ac30ccfb8946bc0",
+      "notes": "Vortioxetine is a serotonergic antidepressant with serotonin transporter inhibition and receptor modulation. CYP2D6 is the principal metabolic pathway, and strong CYP2D6 inhibitors can increase exposure. Serotonin syndrome, bleeding with antithrombotics, and discontinuation effects are label-described concerns. It should not be confused with older brand names or treated as a simple dose-equivalent SSRI.",
+      "brand_names": [
+        "Trintellix",
+        "Brintellix"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cb1e9df4-dd74-4073-9d78-bb55593dd000"
+      ]
+    },
+    "warfarin": {
+      "baseline_notes_sha256": "1a8c3f15a73097dea6eee0c4bbf0843970f55f4be875bba6ed9d40d09d6924aa",
+      "notes": "Warfarin is an anticoagulant with a narrow therapeutic window and many drug and dietary interactions. CYP2C9 contributes to clearance of the more potent S-enantiomer; inhibitors, inducers, illness, and vitamin K intake can change INR. Bleeding is its principal serious risk. Interaction assessments require INR response and timing rather than a fixed exposure assumption.",
+      "brand_names": [
+        "Coumadin",
+        "Jantoven"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cdbbc317-35d3-42ba-94f0-c83891358529"
+      ]
+    },
+    "ziprasidone": {
+      "baseline_notes_sha256": "488d4a264d78c6aaa0ac965c9c8dc5f0b5c411a674b0829b6c6a037fdaa972ac",
+      "notes": "Ziprasidone is an antipsychotic with clinically important QT prolongation risk. Combining it with other QT-prolonging drugs or using it in patients with electrolyte abnormalities increases concern. Oral capsules must be taken with food for adequate absorption. Sedation, movement symptoms, and metabolic effects can occur, while product route changes the timing of exposure.",
+      "brand_names": [
+        "Geodon"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8326928a-2cb6-4f7f-9712-03a425a14c37"
+      ]
+    },
+    "zolpidem": {
+      "baseline_notes_sha256": "21a47800a6affd8f6b8bbd37c4c3f3f171c8f5c745d6232bc3c2e2db83c26d21",
+      "notes": "Zolpidem is a sedative hypnotic acting at the benzodiazepine receptor complex. Other CNS depressants and alcohol can increase impairment and respiratory risk; complex sleep behaviors are a boxed-warning concern. CYP3A4 modifiers may change exposure, but timing and product formulation also strongly affect next-day impairment. Immediate-release, extended-release, sublingual, and spray products are not interchangeable by strength alone.",
+      "brand_names": [
+        "Ambien",
+        "Edluar",
+        "Intermezzo",
+        "Zolpimist"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c36cadf4-65a4-4466-b409-c82020b42452"
+      ]
+    },
+    "fluvoxamine": {
+      "baseline_notes_sha256": "b754319701b2e710f6bcf9a5d757d41b7e4ceeaeb43f366b18217dfbac6058bb",
+      "notes": "Fluvoxamine inhibits CYP1A2 and CYP2C19 and can markedly raise exposure to sensitive substrates including theophylline. It increases serotonin signaling; other serotonergic agents and MAO inhibitors increase serotonin syndrome risk. SSRI associated bleeding risk rises with antiplatelets or anticoagulants. Interactions can remain clinically important even at ordinary prescribed doses.",
+      "brand_names": [
+        "Luvox"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0b107225-ed5a-4461-9184-f3f2bad1892f",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "omeprazole": {
+      "baseline_notes_sha256": "c484628aa4219317de0951e30cd56e06b28ff74bbc4c0fd7bee66a6a284725f8",
+      "notes": "Delayed release omeprazole suppresses gastric acid through irreversible proton pump inhibition. It is metabolized mainly by CYP2C19 and CYP3A4 and inhibits CYP2C19; reduced activation of clopidogrel is a labeled interaction. Gastric pH changes can also alter absorption of pH dependent drugs.",
+      "brand_names": [
+        "Prilosec"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0fb314cb-6291-422c-98ff-24d8449992f6",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "pantoprazole": {
+      "baseline_notes_sha256": "a4c19a296f2f3a398377ffbf9e026e0014663148264aa602250f3de2bf7590f7",
+      "notes": "Pantoprazole delayed release suppresses gastric acid and is metabolized mainly through CYP2C19, with other pathways including CYP3A4. Its CYP inhibition profile differs from omeprazole; avoid assigning the latter’s interaction strength. Acid suppression can affect drugs whose absorption depends on gastric pH.",
+      "brand_names": [
+        "Protonix"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=fa2bee95-97db-e651-e053-6294a90a72f5"
+      ]
+    },
+    "ciprofloxacin": {
+      "baseline_notes_sha256": "996438439cf2e9f08083cbf9b52515f4bae9d54194ce78d348ae74151a41ab61",
+      "notes": "Ciprofloxacin inhibits CYP1A2; coadministration with tizanidine is contraindicated and theophylline exposure can increase. It has QT and tendon, neuropathy, and CNS warnings in labeling. Oral absorption falls with polyvalent cations; these interactions are not CYP effects. The selected tablets represent labeled strengths, not all available fluoroquinolone formulations.",
+      "brand_names": [
+        "Cipro"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c47250c2-bece-46b5-8b3b-b7c97d9005d8",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "itraconazole": {
+      "baseline_notes_sha256": "f773e72f6e98f76db0bdd474aae54e4c8d9e220e3cf71aa38210bf0c53fe25e0",
+      "notes": "Itraconazole is a potent CYP3A4 inhibitor and inhibits P-gp. The capsule and oral solution have different absorption and should not be treated as interchangeable. Strong interaction potential and heart failure/hepatic warnings require product specific review. The two listed formulations retain distinct product sources and dosage forms.",
+      "brand_names": [
+        "Sporanox"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=23126370-8d6a-4027-bd8f-860e2776ba3a"
+      ]
+    },
+    "ketoconazole": {
+      "baseline_notes_sha256": "d4025b70515054ed5c71708b2c43fe0641cfb58789f0be542a34628ec22659b8",
+      "notes": "Oral ketoconazole is a strong CYP3A4 inhibitor and has substantial hepatic and adrenal toxicity warnings. This entry refers to the oral systemic tablet, not topical ketoconazole products, whose systemic exposure differs. Gastric acidity affects oral absorption. The oral formulation has restricted clinical use because of serious toxicity.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=369f31da-d3c3-49b8-956f-f70598760164",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "ritonavir": {
+      "baseline_notes_sha256": "dece376538b66ff3a4127d804ddbb0185b77eaf49b75d0a96ac0f6140cb43a10",
+      "notes": "Ritonavir strongly inhibits CYP3A4 and inhibits P-gp; its chronic enzyme induction effects depend on pathway and regimen. Its boosting use can substantially change exposure to CYP3A substrates and its own interaction profile is not interchangeable with cobicistat. Review the complete regimen and label.",
+      "brand_names": [
+        "Norvir"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4633c6ba-168d-426f-acae-7843e167743a",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "cobicistat": {
+      "baseline_notes_sha256": "7c370e0ecfefee84ce3d9ec45a6777771f5bc1b6982b772cc63790e8d3aba4f5",
+      "notes": "Cobicistat inhibits CYP3A4 to boost selected antiretrovirals; it has no standalone antiviral activity. Inhibition of transporters can alter drug exposure and serum creatinine may rise through tubular transport without corresponding loss of filtration. Interactions depend on the complete treatment regimen.",
+      "brand_names": [
+        "Tybost"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3784c35c-e87f-410c-900b-8fd6313c6010",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "phenytoin": {
+      "baseline_notes_sha256": "a034d832886885bf49018e58378785224b65a1ecc73b63b2d607d92099330df9",
+      "notes": "Phenytoin is metabolized principally by CYP2C9 with CYP2C19 contribution and induces several drug metabolizing enzymes. Saturable metabolism means small dose changes can cause disproportionate concentration changes, so a single half life is unsuitable for simple exposure modeling. Serum concentrations and clinically relevant interactions require monitoring.",
+      "brand_names": [
+        "Dilantin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=363cd347-d25e-42b9-9ce7-30642f3cb353",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "phenobarbital": {
+      "baseline_notes_sha256": "242fb8234f0cbef6cb2d5390b372a3a7305d6e530b1cb2b8210efb985458b258",
+      "notes": "Phenobarbital is a long acting barbiturate and potent enzyme inducer. It depresses the CNS and can add to opioid or other sedative respiratory depression. Abrupt discontinuation after regular use can precipitate serious withdrawal, including seizures. Its long elimination time can prolong interactions after dose changes.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8f02e85a-6dca-467d-b2bf-ab2f9fa9ef3b",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "codeine": {
+      "baseline_notes_sha256": "839561ff786c14593ad349c3a63ff1df8030dd1aa5ac12d24d6bf75a965874eb",
+      "notes": "Codeine requires CYP2D6 conversion to morphine for much of its analgesic activity; genetic variation and CYP2D6 inhibition can change effect. CYP3A4 also forms norcodeine. Opioid respiratory depression, sedation, dependence, and withdrawal are major risks; CYP2D6 ultrarapid metabolism can increase morphine exposure.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5819bdf7-300e-45b8-8f3a-447b53656293"
+      ]
+    },
+    "morphine": {
+      "baseline_notes_sha256": "8618427b15dd9d48902ba0b2c70da3b752134bd0592d13432c46e022e913dc9b",
+      "notes": "Morphine is glucuronidated primarily to morphine-3-glucuronide and active morphine-6-glucuronide; renal dysfunction can increase metabolite exposure. Opioid respiratory depression and sedation are additive with other CNS depressants. Dependence and withdrawal risk rise with repeated exposure. Metabolite accumulation and altered respiration merit particular attention in renal impairment.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=905cd842-2c86-4318-a6c4-92f49de145b3"
+      ]
+    },
+    "dextromethorphan": {
+      "baseline_notes_sha256": "c83d8fbf1e1ca06b60ff574c8b24eeeec29e7c4b3b84c75544ea2ebf75e9fa3e",
+      "notes": "Dextromethorphan is converted by CYP2D6 to active dextrorphan; CYP2D6 inhibition substantially alters parent exposure. It can contribute to serotonin toxicity with MAO inhibitors or serotonergic drugs, and abuse can cause dissociative or CNS effects. The linked polistirex suspension is extended release.",
+      "brand_names": [
+        "Delsym"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e3e1d126-76c2-4776-8ce0-449625b7e6ba"
+      ]
+    },
+    "metoprolol": {
+      "baseline_notes_sha256": "11027fde4f27f4abbc764f225456c7741b52ee1f8b70c22ddabfefb3097761f7",
+      "notes": "Metoprolol is mainly metabolized by CYP2D6; strong inhibitors can raise concentrations and enhance beta blockade. Bradycardia and hypotension may add to other rate slowing agents. This strength set refers specifically to immediate release metoprolol tartrate. Extended release succinate is a separate formulation and is not represented by these tartrate strengths.",
+      "brand_names": [
+        "Lopressor"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=dfa37282-2793-4032-a817-dcf3bf5a641f"
+      ]
+    },
+    "simvastatin": {
+      "baseline_notes_sha256": "b21980fed7c630c013ba6b33cf84a941d2c58d808a3482a124a7b3c810df40f1",
+      "notes": "Simvastatin is a lactone prodrug activated to simvastatin acid. It is sensitive to strong CYP3A4 inhibitors, and transporter effects can further increase systemic statin acid exposure. Myopathy and rhabdomyolysis risk rises with concentration; the 80 mg strength has special use restrictions.",
+      "brand_names": [
+        "Zocor"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4277e75a-7f3b-4f35-ae56-0bbe095586a5"
+      ]
+    },
+    "atorvastatin": {
+      "baseline_notes_sha256": "56721c7b17eefbe54f60d0c18e66373f3ecaeb2340608631a991c1b675544f3e",
+      "notes": "Atorvastatin is metabolized by CYP3A4 and transported by hepatic OATP1B1 and efflux transporters. Strong CYP3A and transporter inhibitors can increase systemic exposure and myopathy risk. Dose and interaction handling differ from simvastatin despite the shared class. The four listed strengths are product strengths rather than prescribed regimens.",
+      "brand_names": [
+        "Lipitor"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=51730b09-24e8-41c8-9fec-813f8a64b433"
+      ]
+    },
+    "apixaban": {
+      "baseline_notes_sha256": "cc612faa84580d090b222c9baa639237f28c365243bae2899096aadd2ef26144",
+      "notes": "Apixaban is a CYP3A4 and P-gp substrate with anticoagulant bleeding risk. Combined strong CYP3A4/P-gp inhibitors or inducers can change exposure; management depends on indication and dose. A fraction is eliminated renally, and bleeding risk adds to antiplatelets and other anticoagulants.",
+      "brand_names": [
+        "Eliquis"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7be1f4c1-bb2f-4ded-ae9a-515d2a22f93e"
+      ]
+    },
+    "rivaroxaban": {
+      "baseline_notes_sha256": "13b00da69282847dd36ec6c46e2ddf5af2881404f016fd8dbc67c927d671722d",
+      "notes": "Rivaroxaban is a CYP3A4/2J2 and P-gp/BCRP substrate with additive bleeding risk from antiplatelets and anticoagulants. Strong combined enzyme and transporter modifiers alter exposure. Oral 15 and 20 mg tablets have food dependent absorption, unlike some lower strengths. Renal function and indication are essential to interpret any interaction.",
+      "brand_names": [
+        "Xarelto"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d0e105f6-28f3-45ee-83bd-7d458835242b"
+      ]
+    },
+    "aspirin": {
+      "baseline_notes_sha256": "b35df82ca2aebf22d03f195c4ac37050d0fe4773a835645ae9b0b38745972cb9",
+      "notes": "Aspirin irreversibly inhibits platelet COX-1 and increases bleeding risk, including when combined with anticoagulants or other antiplatelets. At analgesic doses gastrointestinal toxicity and salicylate toxicity matter. The sourced strength is a delayed release 81 mg tablet; release matters for onset.",
+      "brand_names": [
+        "Bayer"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=72b16a5c-825f-4f3f-a8b3-b723e4242da7"
+      ]
+    },
+    "acetaminophen": {
+      "baseline_notes_sha256": "2bd947e3ee9638701a5a510c24bb2b676fb6b6f8244ce718bc1cc61b66ea12a7",
+      "notes": "Acetaminophen is primarily conjugated; a minor oxidative pathway forms NAPQI, normally detoxified by glutathione. Excess exposure can cause severe liver injury, and combination products can unintentionally duplicate dosing. CYP2E1 is implicated but is not yet a modeled enzyme in this catalog.",
+      "brand_names": [
+        "Tylenol"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e817bc4a-43ef-4126-b903-aabd1390cd0c"
+      ]
+    },
+    "linezolid": {
+      "baseline_notes_sha256": "0df89c43d48c234104065bf2540c983fe93ee30525436aa3813db45d4adcaf57",
+      "notes": "Linezolid is a reversible nonselective monoamine oxidase inhibitor; serotonergic drugs and sympathomimetics can create clinically important PD interactions. Serotonin syndrome, myelosuppression, and neuropathy are label warnings. It is not a clinically significant CYP inhibitor/inducer. Different dosage forms exist, and the listed tablet strength is product specific.",
+      "brand_names": [
+        "Zyvox"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6e70e63b-bfd5-478d-a8ee-8ba22c9efabd"
+      ]
+    },
+    "amiodarone": {
+      "baseline_notes_sha256": "023d62a752db91131d7b011e888c995c998bdb6facddfadaad74e068d1637b78",
+      "notes": "Amiodarone and its active metabolite have very long, variable persistence. It prolongs QT and inhibits P-gp and several CYP pathways; interactions may continue after discontinuation. Pulmonary, hepatic, thyroid, and bradycardic toxicities require specific monitoring. Its long persistence makes a simple short washout assumption unreliable.",
+      "brand_names": [
+        "Pacerone"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d42293e9-07fa-41b4-a08b-2e388f5b1e13"
+      ]
+    },
+    "sotalol": {
+      "baseline_notes_sha256": "903a056bd0719b07a184762582d3392f5e2a7a26d56e29a601c25cc009fab103",
+      "notes": "Sotalol combines nonselective beta blockade with concentration dependent QT prolongation and torsades risk. Renal elimination and baseline QT and electrolytes govern monitored initiation and dose interval. Additive bradycardia or QT effects can occur with other agents. The listed tablet strengths do not determine a safe initiation schedule.",
+      "brand_names": [
+        "Betapace"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6674d53a-7137-4822-8841-4982f702a1b8"
+      ]
+    },
+    "dofetilide": {
+      "baseline_notes_sha256": "6bf70616caf75639c8486d8725925f3cfcfc66717e2dd8277726b257e5eded63",
+      "notes": "Dofetilide has dose dependent QT prolongation and torsades risk; initiation or reinitiation requires inpatient ECG monitoring. Renal clearance determines dose and many drugs that inhibit renal cation transport are contraindicated. The present transporter vocabulary does not encode OCT2/MATE1, so the renal interaction is documented in notes.",
+      "brand_names": [
+        "Tikosyn"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0cb2ef7d-e35b-483b-9985-cfef99d7b96f"
+      ]
+    },
+    "procainamide": {
+      "baseline_notes_sha256": "58914bf3f7a3a80fa5e3b53d600146d28c01e9a74589e602b3fa96a843a5416e",
+      "notes": "Procainamide is acetylated to active N-acetylprocainamide and both species can accumulate with reduced renal function. QT prolongation, hypotension, and lupus like reactions are important risks. The linked 100 mg/mL injection is a concentration, not a bolus dose. The active metabolite has its own elimination and electrophysiologic effects.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d7cb1594-61cf-41c4-9007-1ee28aa69c50"
+      ]
+    },
+    "azithromycin": {
+      "baseline_notes_sha256": "37da52ae61610308450ff4010f0e47b0963c7cbd91bb0d85fc8a81eb3026e413",
+      "notes": "Azithromycin has a long terminal tissue distribution phase and can prolong QT. Its CYP3A4 inhibition is materially less than erythromycin/clarithromycin and is not entered as a strong inhibitor. Cardiac risk is more relevant in patients with other QT drugs or predisposition.",
+      "brand_names": [
+        "Zithromax"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d5c95c30-564f-4b67-ac6d-9179cdfaa5a8"
+      ]
+    },
+    "theophylline": {
+      "baseline_notes_sha256": "8256596f7eb5248872d769489bf6561d5aba8f000db5f742318125a266d755ac",
+      "notes": "Theophylline has a narrow concentration range and CYP1A2 dependent clearance. Tobacco smoke increases clearance while cessation can rapidly raise concentrations; nicotine replacement does not reproduce smoke induction. CYP1A2 inhibitors such as ciprofloxacin and fluvoxamine can increase toxicity risk; serum levels matter.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=699a4e05-95cb-4b28-8927-d97a4afbf463"
+      ]
+    },
+    "tobacco_smoke": {
+      "baseline_notes_sha256": "f56567fdbef8082b4bd17c6b2bd485d4b83c87b30ed39bd6cbe5cf9915202d01",
+      "notes": "Polycyclic aromatic hydrocarbons from burned tobacco induce CYP1A2 and increase clearance of theophylline and some other substrates. Stopping smoking reverses induction and can raise drug exposure. This represents combustion smoke, distinct from nicotine or nicotine replacement; no fixed medication strength is assigned.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=699a4e05-95cb-4b28-8927-d97a4afbf463",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "st_johns_wort": {
+      "baseline_notes_sha256": "4ef0ddb9d1c0fe0c7af1e8d804bf4946367c3faac5a8e94706cf3dfb9f838f97",
+      "notes": "Hyperforin containing St. John’s wort extracts can strongly induce CYP3A4 and intestinal P-gp, reducing exposure to many medicines; potency varies with extract composition. The botanical also has serotonergic interaction concerns. No universal strength is assigned because preparations and hyperforin content differ.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/11849198/",
+        "https://www.fda.gov/drugs/drug-interactions-labeling/healthcare-professionals-fdas-examples-drugs-interact-cyp-enzymes-and-transporter-systems"
+      ]
+    },
+    "l_methylfolate": {
+      "baseline_notes_sha256": "ff108a10402c73f576473bb997da06e34cd26c0f47f61895848391141ef81756",
+      "notes": "L-methylfolate is an active reduced folate used in some medical food products and studied as adjunctive therapy in SSRI resistant depression. It is not a CYP inhibitor or a substitute for an antidepressant mechanism. The two strengths below are product quantities, not a general dose recommendation.",
+      "brand_names": [
+        "Deplin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=13eb8bf0-5227-455c-9660-b02abee04676",
+        "https://pubmed.ncbi.nlm.nih.gov/23212058/"
+      ]
+    },
+    "melatonin": {
+      "baseline_notes_sha256": "77e5435a2fc34111be0239c516d6ea1bb01ac07e66c50f33089b7db919043f14",
+      "notes": "Melatonin acts at MT1 and MT2 receptors and can cause drowsiness. CYP1A2 metabolism makes the fluvoxamine interaction particularly important. Supplement formulations vary; the listed 3 and 5 mg tablets are tied to one product label. Other marketed supplements have different strengths and quality attributes.",
+      "brand_names": [],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=92b2ccdc-2eed-4307-af45-da455f557cf8"
+      ]
+    },
+    "valerian": {
+      "baseline_notes_sha256": "8ff4145f32bd270c0ebdf5c24d51bba505eb0d3fca0159a79da4254221edd4a2",
+      "notes": "Valerian root extracts differ in plant part, extraction method, and valerenic acid content. Clinical sleep studies have mixed results; sedation may add to other CNS depressants. No uniform extract strength or clinically validated CYP assignment is implied. A placebo-controlled trial in older women did not demonstrate improved insomnia outcomes.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/18482867/"
+      ]
+    },
+    "kava": {
+      "baseline_notes_sha256": "7099b9c8730f0e5f5dc97ff615690209ac003f6689be386789cb23815a43712a",
+      "notes": "Kava root preparations contain variable kavalactone concentrations. A 16-week trial of a standardized aqueous extract studied 120 mg kavalactones twice daily and did not find efficacy for generalized anxiety disorder; this trial amount is not a product strength. Sedation and hepatic safety vary with preparation.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/31813230/",
+        "https://pubmed.ncbi.nlm.nih.gov/23635869/"
+      ]
+    },
+    "five_htp": {
+      "baseline_notes_sha256": "4b1716367a6082614484af53bea488fade7ecdb3b95ce825b14fe1fb4198f65a",
+      "notes": "5-hydroxytryptophan is converted to serotonin; studies of oral challenge formulations demonstrate serotonergic effects. Combining precursors with MAO inhibitors or serotonergic medicines can increase serotonin toxicity concern. Supplement potency and product quality vary; no clinical product strength is inferred from experimental doses.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/18308795/"
+      ]
+    },
+    "tryptophan": {
+      "baseline_notes_sha256": "c5adcf4f9412b650ffeb6e75fca02e237b2ae795008d9d570cf2310e6c17705d",
+      "notes": "L-tryptophan is a precursor to 5-HTP and serotonin but also enters the kynurenine pathway. Oral administration can change circulating serotonin related biomarkers; effects depend on diet and formulation. Treat coadministration with serotonergic agents as a potential PD concern, without assigning a fixed inhibitor potency.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/7247625/"
+      ]
+    },
+    "ginseng": {
+      "baseline_notes_sha256": "87ca6af6add4cd2c15fb1be71f43441bfb93cd0047d548d8b3e1ef46655fe19f",
+      "notes": "Ginseng is not one standardized product: Panax species and ginsenoside content vary. Clinical warfarin interaction findings differ by preparation and population, so no universal CYP or bleeding rule is assigned. Specify species, root/extract, and ginsenoside content before adding a sourced strength.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/18637764/",
+        "https://pubmed.ncbi.nlm.nih.gov/19913311/"
+      ]
+    },
+    "coq10": {
+      "baseline_notes_sha256": "0738cec16911fdd6a897bfec911a2fcb6d091d60504b54e04f22314ce8150b9a",
+      "notes": "Coenzyme Q10 is an endogenous mitochondrial electron carrier available in different supplement formulations. A randomized crossover study found no significant warfarin effect for the studied preparation; do not generalize a strong interaction from case reports. No CYP or fixed product strength is assigned here.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/12083489/"
+      ]
+    },
+    "grapefruit_juice": {
+      "baseline_notes_sha256": "d76159924a10480856eb228629f264ab32f01a57ecf2d877fd95203bf9f75eea",
+      "notes": "Grapefruit juice inhibits intestinal CYP3A4 and may increase exposure to selected oral substrates; magnitude depends on cultivar, quantity, timing, and substrate. This is an intestinal first pass interaction, not a systemic CYP3A4 inhibitor strength for every route. It has no standardized medication strength.",
+      "brand_names": [],
+      "note_sources": [
+        "https://www.fda.gov/consumers/consumer-updates/grapefruit-juice-and-some-drugs-dont-mix"
+      ]
+    },
+    "n_acetylcysteine": {
+      "baseline_notes_sha256": "669863cfc3739d3e30e19d3f3f6a1b55c42c7596b1724b97b2650cf63d8c7b36",
+      "notes": "N-acetylcysteine replenishes glutathione and is used for acetaminophen poisoning; the linked 200 mg/mL product is intravenous. Oral pharmacokinetics and bioavailability vary by dose and preparation. The product concentration is not a treatment dose and does not imply oral equivalence. Clinical treatment regimens depend on indication and route.",
+      "brand_names": [
+        "Acetadote"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6588c28d-0515-4cdf-99d3-c4ad3fd0976c",
+        "https://pubmed.ncbi.nlm.nih.gov/2328298/"
+      ]
+    },
+    "psilocybin": {
+      "baseline_notes_sha256": "199bd5a26c90b2796db631cf69fb4c478a98690cb439c0d29438bad38f6b58a1",
+      "notes": "Psilocybin is converted to active psilocin. Controlled oral human studies quantified psilocin exposure after 15, 25, and 30 mg psilocybin; these are research doses rather than marketed strengths. Effects arise mainly through 5-HT2A receptor agonism; human CYP fraction assignments are not established here.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/36507738/",
+        "https://pubmed.ncbi.nlm.nih.gov/28353056/"
+      ]
+    },
+    "psilocin": {
+      "baseline_notes_sha256": "1c35034ad726f939b521e984813f66770da14cc7bb44dba57c272cbd8ec59b8b",
+      "notes": "Psilocin is the active metabolite measured after oral psilocybin in human trials. Plasma psilocin exposure depends on psilocybin administration and metabolism; parent and metabolite must remain separate analytes in PK observations. No commercial psilocin strength is implied by psilocybin trial doses.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/36507738/"
+      ]
+    },
+    "ghb": {
+      "baseline_notes_sha256": "bd1aaeb7beeb74e4681516e87085a5f284ae3a6c92d02242f85a260a50059a95",
+      "notes": "GHB is the active oxybate moiety of prescription sodium oxybate and has nonlinear pharmacokinetics. Sodium oxybate solution contains 500 mg/mL sodium oxybate, equivalent to 413 mg/mL oxybate; the salt and active moiety must not be confused. Respiratory depression is strongly additive with alcohol and other depressants.",
+      "brand_names": [
+        "Xyrem"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=926eb076-a4a8-45e4-91ef-411f0aa4f3ca",
+        "https://pubmed.ncbi.nlm.nih.gov/26659543/"
+      ]
+    },
+    "nitrous_oxide": {
+      "baseline_notes_sha256": "ba174ad24f41257dd8fa3dca8b92228cea4d79ed11e82a6c258167ce0d80e4a0",
+      "notes": "Nitrous oxide produces acute dissociative/anesthetic effects and inactivates cobalamin dependent methionine synthase. Repeated exposure can cause functional vitamin B12 deficiency and neurological injury. A fixed gas strength is not assigned because delivered concentration depends on apparatus and clinical setting. Clinical delivery should be understood separately from unsupervised exposure.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/7198880/"
+      ]
+    },
+    "pcp": {
+      "baseline_notes_sha256": "775db0b260c64458334a23d74e83891f2395a552d9216279b601597331184e1a",
+      "notes": "Phencyclidine blocks the NMDA receptor channel in primary electrophysiology experiments. This can produce dissociation, agitation, and cardiovascular effects; composition and actual exposure outside controlled studies are unpredictable. No common dose or universal CYP profile is assigned. The cited laboratory evidence establishes receptor action, not a predictable human dose response.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/2456947/",
+        "https://pubmed.ncbi.nlm.nih.gov/25502414/"
+      ]
+    },
+    "mescaline": {
+      "baseline_notes_sha256": "454e458f857fe3e070cd60f76abcc35490eae22012757b961c94446b70db3968",
+      "notes": "Mescaline is a serotonergic psychedelic. A controlled oral study examined 100, 200, 400, and 800 mg mescaline under monitored research conditions; those experimental amounts are not marketed strengths. Responses and adverse effects varied with dose, and no established clinically actionable CYP interaction is assigned.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/39349427/"
+      ]
+    },
+    "synthetic_cannabinoids": {
+      "baseline_notes_sha256": "ab2f40db3dee7452feccc5f416f133f547d791e18eff406a8eb881558489225d",
+      "notes": "Synthetic cannabinoids are chemically diverse, so a class wide CYP substrate fraction, strength, and half life would be misleading. JWH-018 and AM-2201 studies implicate CYP2C9/CYP1A2 and active hydroxylated metabolites for those compounds only. Specify the exact chemical before adding PK or product strengths.",
+      "brand_names": [],
+      "note_sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/22904561/",
+        "https://pubmed.ncbi.nlm.nih.gov/29522717/",
+        "https://pubmed.ncbi.nlm.nih.gov/22575211/",
+        "https://pubmed.ncbi.nlm.nih.gov/37572408/"
+      ]
+    },
+    "oxymetazoline_hydrochloride": {
+      "baseline_notes_sha256": "aca6536621de12f8254070a0f3f64c9d2188eeb3131a6f7853013c2b89ac5954",
+      "notes": "Oxymetazoline hydrochloride locally constricts nasal mucosal vessels. The sourced 0.05% spray corresponds to 0.5 mg/mL and prolonged use can cause rebound congestion. Systemic sympathomimetic effects are possible, but topical exposure should not be treated like oral stimulants. The percentage has been converted to mass per volume for the strength selector.",
+      "brand_names": [
+        "Afrin"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ecfa14b8-a3f3-4569-b489-c9e1a51cf09e"
+      ]
+    },
+    "one_allyltheobromine": {
+      "baseline_notes_sha256": "c8ff8bdf66be6845f070819ccc6be7d85d8da0810756f3c70616243bdbae1659",
+      "notes": "FDA substance registry confirms 1-allyltheobromine identity (UNII 4JG7O04XYX). A historical 1946 primary pharmacology study reported animal effects and a few human exposures, but modern product strength, human PK, and interaction data are insufficient for a quantitative catalog assignment. Mechanism must not be copied from caffeine or theophylline.",
+      "brand_names": [],
+      "note_sources": [
+        "https://precision.fda.gov/ginas/app/ui/substances/73d02bbf-a68a-443b-a388-d14dc3c8ada6",
+        "https://www.sciencedirect.com/science/article/abs/pii/S0022356525078152"
+      ]
+    },
+    "propylhexedrine": {
+      "baseline_notes_sha256": "c7c8941392fd8b0bd503de56f7fac10a044c1a7ba3b7cb2a474076e3080fcbeb",
+      "notes": "Propylhexedrine is an OTC nasal inhalant for temporary congestion relief. The linked Benzedrex inhaler contains 175 mg total propylhexedrine; this is container content, not a measured mg per inhalation. Misuse by nonnasal routes can cause severe cardiovascular or neurologic toxicity and cannot be extrapolated from labeled intranasal use.",
+      "brand_names": [
+        "Benzedrex"
+      ],
+      "note_sources": [
+        "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=00d8c237-3eee-1d9f-e063-6394a90aeb86",
+        "https://www.fda.gov/drugs/drug-safety-and-availability/fda-warns-abuse-and-misuse-nasal-decongestant-propylhexedrine-causes-serious-harm"
+      ]
+    }
+  }
+}

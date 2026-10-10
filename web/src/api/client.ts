@@ -4,9 +4,9 @@ import type {
   ApiErrorResponse,
   DrugCatalogEntry,
   DrugCatalogResponse,
+  PKObservationMathResponse,
+  PKObservationsResponse,
   MetadataResponse,
-  KnowledgeQueryResponse,
-  KnowledgeStatusResponse,
 } from "./types";
 
 export async function fetchMetadata(): Promise<MetadataResponse> {
@@ -47,6 +47,32 @@ export async function fetchDrug(
   return response.json() as Promise<DrugCatalogEntry>;
 }
 
+export async function fetchPKObservations(
+  drugId: string,
+): Promise<PKObservationsResponse> {
+  const response = await fetch(
+    `/api/drugs/${encodeURIComponent(drugId)}/pk-observations`,
+  );
+  if (!response.ok) {
+    throw new Error("Failed to load sourced PK observations.");
+  }
+  return response.json() as Promise<PKObservationsResponse>;
+}
+
+export async function fetchPKObservationMath(
+  drugId: string,
+  observationId: string,
+  elapsedHours: number,
+): Promise<PKObservationMathResponse> {
+  const response = await fetch(
+    `/api/drugs/${encodeURIComponent(drugId)}/pk-observations/${encodeURIComponent(observationId)}/math?elapsed_hours=${encodeURIComponent(elapsedHours)}`,
+  );
+  if (!response.ok) {
+    throw new Error("Failed to calculate sourced PK illustration.");
+  }
+  return response.json() as Promise<PKObservationMathResponse>;
+}
+
 export async function analyzeDrugs(
   request: AnalyzeRequest,
 ): Promise<AnalyzeResponse> {
@@ -67,32 +93,6 @@ export async function analyzeDrugs(
   }
 
   return response.json() as Promise<AnalyzeResponse>;
-}
-
-export async function fetchKnowledgeStatus(): Promise<KnowledgeStatusResponse> {
-  const response = await fetch("/api/knowledge/status");
-  if (!response.ok) {
-    throw new Error("Failed to load knowledge service status.");
-  }
-  return response.json() as Promise<KnowledgeStatusResponse>;
-}
-
-export async function queryKnowledge(
-  query: string,
-  topK = 5,
-): Promise<KnowledgeQueryResponse> {
-  const response = await fetch("/api/knowledge/query", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({query, top_k: topK}),
-  });
-  if (!response.ok) {
-    const errorBody = (await response.json().catch(() => null)) as
-      | ApiErrorResponse
-      | null;
-    throw new Error(formatApiError(errorBody));
-  }
-  return response.json() as Promise<KnowledgeQueryResponse>;
 }
 
 function formatApiError(errorBody: ApiErrorResponse | null): string {

@@ -1,0 +1,19 @@
+{
+  "id": "PK_RIVAROXABAN_PHENYTOIN",
+  "name": "Avoid rivaroxaban with phenytoin",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "avoid",
+  "tags": ["exposure_decrease", "thromboembolism_risk"],
+  "actions": ["Avoid concomitant rivaroxaban and phenytoin as directed in the rivaroxaban label."],
+  "logic": {
+    "drug_pair": {"a": "rivaroxaban", "b": "phenytoin"},
+    "rationale": ["The rivaroxaban label lists phenytoin among combined P-gp and strong CYP3A4 inducers that reduce rivaroxaban exposure."]
+  },
+  "explanation_template": "Phenytoin can lower rivaroxaban exposure through combined CYP3A4 and P-gp induction. The rivaroxaban label says to avoid this combination.",
+  "references": [{
+    "source": "DailyMed, Xarelto (Rivaroxaban), Drug Interactions",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=38b11f5d-f0fc-46dc-aef1-ea31872bb621",
+    "citation": "Avoid rivaroxaban with combined P-gp and strong CYP3A4 inducers, including phenytoin."
+  }]
+}

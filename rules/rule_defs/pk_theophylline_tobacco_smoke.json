@@ -1,0 +1,25 @@
+{
+  "id": "PK_THEOPHYLLINE_TOBACCO_SMOKE",
+  "name": "Tobacco smoking changes theophylline clearance",
+  "domain": "PK",
+  "severity": "major",
+  "rule_class": "adjust_monitor",
+  "tags": ["exposure_decrease", "smoking_status"],
+  "actions": [
+    "Record current tobacco smoking and any recent change in smoking status.",
+    "Measure serum theophylline concentrations and reassess dosing when smoking starts or stops; cessation can raise concentrations."
+  ],
+  "logic": {
+    "drug_pair": {"a": "theophylline", "b": "tobacco_smoke"},
+    "rationale": [
+      "Tobacco smoke induces theophylline clearance; nicotine gum does not reproduce this effect.",
+      "Stopping smoking reduces clearance and can raise theophylline concentrations."
+    ]
+  },
+  "explanation_template": "Tobacco smoke increases theophylline clearance. If smoking stops, clearance can fall and theophylline exposure can rise; smoking status and serum levels matter.",
+  "references": [{
+    "source": "DailyMed, Theophylline Solution, Smokers and Cessation of Smoking",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=32b9780f-c46f-4e0f-9641-2cab60600e6e",
+    "citation": "Smoking increases theophylline clearance; cessation reduces it and requires concentration monitoring. Nicotine gum does not affect clearance."
+  }]
+}

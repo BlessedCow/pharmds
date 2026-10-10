@@ -22,6 +22,7 @@
       "B_role": "inhibitor"
     },
     "A_name_is": "tizanidine",
+    "B_name_not_is": ["ciprofloxacin", "fluvoxamine"],
     "rationale": [
       "{B_name} inhibits CYP1A2, reducing metabolism of tizanidine.",
       "Reduced clearance may increase tizanidine exposure and adverse effects."

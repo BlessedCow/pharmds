@@ -42,6 +42,13 @@ class PDEffect:
     mechanism_note: str | None = None
 
 
+@dataclass(frozen=True)
+class AbsorptionRole:
+    mechanism: str
+    target: str
+    evidence_refs: tuple[str, ...] = ()
+
+
 @dataclass
 class Facts:
     drugs: dict[str, Drug] = field(default_factory=dict)
@@ -50,6 +57,7 @@ class Facts:
     )  # drug_id -> roles
     transporter_roles: dict[str, list[TransporterRole]] = field(default_factory=dict)
     pd_effects: dict[str, list[PDEffect]] = field(default_factory=dict)
+    absorption_roles: dict[str, list[AbsorptionRole]] = field(default_factory=dict)
     patient_flags: dict[str, bool] = field(default_factory=dict)
     regimen_doses: dict[str, RegimenDose] = field(default_factory=dict)
 
@@ -97,4 +105,3 @@ class PairReport:
     pk_hits: list[RuleHit] = field(default_factory=list)
     pd_hits: list[RuleHit] = field(default_factory=list)
     pk_summary: PKSummary | None = None
-

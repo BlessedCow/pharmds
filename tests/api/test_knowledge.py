@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from api.main import app
+from api.private_main import app
 
 
 def test_knowledge_status_is_graceful_when_disabled(monkeypatch) -> None:

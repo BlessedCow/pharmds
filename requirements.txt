@@ -1,0 +1,7 @@
+# Application, CLI, API, and evidence-validation dependencies.
+-e .
+fastapi>=0.115
+uvicorn>=0.30
+pydantic>=2
+rich>=13.0
+jsonschema>=4.18

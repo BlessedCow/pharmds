@@ -8,14 +8,6 @@ version = "0.0.0"
 description = "Educational PK/PD interaction reasoner (rule-based)"
 requires-python = ">=3.11"
 
-[project.optional-dependencies]
-dev = [
-  "pytest",
-  "ruff",
-  "mypy",
-]
-cli = ["rich>=13.0"]
-
 [tool.setuptools]
 include-package-data = true
 
@@ -43,5 +35,5 @@ ignore = []
 "reasoning/pd.py" = ["E501"]
 "reasoning/pk.py" = ["E501"]
 "reasoning/combine.py" = ["E501"]
-"tests/test_negative_scenarios.py" = ["E501"]
-"tests/test_scenarios.py" = ["E501"]
+"tests/rules/test_negative_scenarios.py" = ["E501"]
+"tests/rules/test_scenarios.py" = ["E501"]
