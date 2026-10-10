@@ -113,5 +113,3 @@ Run the Python checks after curation, rule, or service edits; build the frontend
 | See planned work | [Roadmap](ROADMAP.md) |
 | Review limitations | [Safety](docs/safety.md) · [Disclaimer](DISCLAIMER.txt) |
 | Contribute to the project | [Contributing](CONTRIBUTING.md) |
-
-Most `docs/*.md` and `docs/*.txt` files are guidance or source review history and have no direct runtime effect. **Four Markdown audits are read by tests:** `docs/audits/composite_rule_parity.md`, `pairwise_comparison_harness.md`, `explicit_pair_rule_gap_audit.md`, and `pd_threshold_suppression_parity.md`. Keep them if you run the full suite. `docs/__init__.py` is a Python package marker. Older scope and coverage documents may contain historical counts; curated JSON is the current source of truth.
