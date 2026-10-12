@@ -90,7 +90,6 @@ Both edit `data/curation/drugs.json` and provide a sourced PK editor for `data/c
 | `data/pharmds.sqlite3` | Rebuilt local database. | No |
 | `reference/expanded_*.json`, `evidence_gap_report.json` | Generated snapshots and reports. | No |
 
-`.gitignore` leaves local generated files in place while excluding them from future Git adds. Already tracked files require `git rm --cached <path>` to stop tracking them without deleting the local copy.
 
 A labeled product strength is **not** a prescribed dose. A PK observation is tied to its source, formulation, analyte, population, and conditions; it is not a universal patient concentration prediction. See [regimen timing](docs/regimen_timing.md) for the scope of educational timing calculations.
 
